@@ -1,18 +1,8 @@
 package br.com.crux.model;
 
+import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 /**
@@ -21,7 +11,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="vulnerabilidades_aluno")
-public class VulnerabilidadesAluno  {
+public class VulnerabilidadesAluno implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -49,7 +40,7 @@ public class VulnerabilidadesAluno  {
 	//bi-directional many-to-one association to Solucoe
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_solucao", nullable=false)
-	private Solucoe solucoe;
+	private Solucoes solucoe;
 
 	public VulnerabilidadesAluno() {
 	}
@@ -94,11 +85,11 @@ public class VulnerabilidadesAluno  {
 		this.situacoesVulnerabilidade = situacoesVulnerabilidade;
 	}
 
-	public Solucoe getSolucoe() {
+	public Solucoes getSolucoe() {
 		return this.solucoe;
 	}
 
-	public void setSolucoe(Solucoe solucoe) {
+	public void setSolucoe(Solucoes solucoe) {
 		this.solucoe = solucoe;
 	}
 

@@ -1,21 +1,10 @@
 package br.com.crux.model;
 
+import java.io.Serializable;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 /**
@@ -24,7 +13,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="usuarios_sistema")
-public class UsuariosSistema  {
+public class UsuariosSistema implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -86,18 +76,14 @@ public class UsuariosSistema  {
 	@OneToMany(mappedBy="usuariosSistema2")
 	private List<CadastroReservaAtividade> cadastroReservaAtividades2;
 
-	//bi-directional many-to-one association to PerfisUsuario
-	@OneToMany(mappedBy="usuariosSistema")
-	private List<PerfisUsuario> perfisUsuarios;
-
-	//bi-directional many-to-one association to UsuariosGrupo
-	@OneToMany(mappedBy="usuariosSistema")
-	private List<UsuariosGrupo> usuariosGrupos;
-
 	//bi-directional many-to-one association to PessoasFisica
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_pessoa_fisica", nullable=false)
 	private PessoasFisica pessoasFisica;
+
+	//bi-directional many-to-one association to UsuariosGrupo
+	@OneToMany(mappedBy="usuariosSistema")
+	private List<UsuariosGrupo> usuariosGrupos;
 
 	public UsuariosSistema() {
 	}
@@ -314,26 +300,12 @@ public class UsuariosSistema  {
 		return cadastroReservaAtividades2;
 	}
 
-	public List<PerfisUsuario> getPerfisUsuarios() {
-		return this.perfisUsuarios;
+	public PessoasFisica getPessoasFisica() {
+		return this.pessoasFisica;
 	}
 
-	public void setPerfisUsuarios(List<PerfisUsuario> perfisUsuarios) {
-		this.perfisUsuarios = perfisUsuarios;
-	}
-
-	public PerfisUsuario addPerfisUsuario(PerfisUsuario perfisUsuario) {
-		getPerfisUsuarios().add(perfisUsuario);
-		perfisUsuario.setUsuariosSistema(this);
-
-		return perfisUsuario;
-	}
-
-	public PerfisUsuario removePerfisUsuario(PerfisUsuario perfisUsuario) {
-		getPerfisUsuarios().remove(perfisUsuario);
-		perfisUsuario.setUsuariosSistema(null);
-
-		return perfisUsuario;
+	public void setPessoasFisica(PessoasFisica pessoasFisica) {
+		this.pessoasFisica = pessoasFisica;
 	}
 
 	public List<UsuariosGrupo> getUsuariosGrupos() {
@@ -356,14 +328,6 @@ public class UsuariosSistema  {
 		usuariosGrupo.setUsuariosSistema(null);
 
 		return usuariosGrupo;
-	}
-
-	public PessoasFisica getPessoasFisica() {
-		return this.pessoasFisica;
-	}
-
-	public void setPessoasFisica(PessoasFisica pessoasFisica) {
-		this.pessoasFisica = pessoasFisica;
 	}
 
 }

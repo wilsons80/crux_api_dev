@@ -1,14 +1,8 @@
 package br.com.crux.model;
 
+import java.io.Serializable;
+import javax.persistence.*;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 
 /**
@@ -17,12 +11,16 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="modulos")
-public class Modulo  {
+public class Modulo implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_modulo", unique=true, nullable=false, precision=10)
 	private Long idModulo;
+
+	@Column(name="cd_modulo", nullable=false, length=100)
+	private String cdModulo;
 
 	@Column(name="nm_modulo", length=200)
 	private String nmModulo;
@@ -30,10 +28,6 @@ public class Modulo  {
 	//bi-directional many-to-one association to GruposModulo
 	@OneToMany(mappedBy="modulo")
 	private List<GruposModulo> gruposModulos;
-
-	//bi-directional many-to-one association to PerfisUsuario
-	@OneToMany(mappedBy="modulo")
-	private List<PerfisUsuario> perfisUsuarios;
 
 	public Modulo() {
 	}
@@ -44,6 +38,14 @@ public class Modulo  {
 
 	public void setIdModulo(Long idModulo) {
 		this.idModulo = idModulo;
+	}
+
+	public String getCdModulo() {
+		return this.cdModulo;
+	}
+
+	public void setCdModulo(String cdModulo) {
+		this.cdModulo = cdModulo;
 	}
 
 	public String getNmModulo() {
@@ -74,28 +76,6 @@ public class Modulo  {
 		gruposModulo.setModulo(null);
 
 		return gruposModulo;
-	}
-
-	public List<PerfisUsuario> getPerfisUsuarios() {
-		return this.perfisUsuarios;
-	}
-
-	public void setPerfisUsuarios(List<PerfisUsuario> perfisUsuarios) {
-		this.perfisUsuarios = perfisUsuarios;
-	}
-
-	public PerfisUsuario addPerfisUsuario(PerfisUsuario perfisUsuario) {
-		getPerfisUsuarios().add(perfisUsuario);
-		perfisUsuario.setModulo(this);
-
-		return perfisUsuario;
-	}
-
-	public PerfisUsuario removePerfisUsuario(PerfisUsuario perfisUsuario) {
-		getPerfisUsuarios().remove(perfisUsuario);
-		perfisUsuario.setModulo(null);
-
-		return perfisUsuario;
 	}
 
 }

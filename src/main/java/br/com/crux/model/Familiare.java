@@ -1,20 +1,9 @@
 package br.com.crux.model;
 
+import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 /**
@@ -23,7 +12,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="familiares")
-public class Familiare  {
+public class Familiare implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -62,7 +52,7 @@ public class Familiare  {
 	//bi-directional many-to-one association to Responsavei
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_responsavel", nullable=false)
-	private Responsavei responsavei;
+	private Responsaveis responsavei;
 
 	//bi-directional many-to-one association to VulnerabilidadesFamiliar
 	@OneToMany(mappedBy="familiare")
@@ -157,11 +147,11 @@ public class Familiare  {
 		this.pessoasFisica = pessoasFisica;
 	}
 
-	public Responsavei getResponsavei() {
+	public Responsaveis getResponsavei() {
 		return this.responsavei;
 	}
 
-	public void setResponsavei(Responsavei responsavei) {
+	public void setResponsavei(Responsaveis responsavei) {
 		this.responsavei = responsavei;
 	}
 

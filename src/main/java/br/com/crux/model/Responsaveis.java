@@ -1,20 +1,9 @@
 package br.com.crux.model;
 
+import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 /**
@@ -23,7 +12,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="responsaveis")
-public class Responsavei  {
+public class Responsaveis implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -65,7 +55,7 @@ public class Responsavei  {
 	@OneToMany(mappedBy="responsavei")
 	private List<VulnerabilidadesResponsavel> vulnerabilidadesResponsavels;
 
-	public Responsavei() {
+	public Responsaveis() {
 	}
 
 	public Long getIdResponsavel() {
@@ -116,19 +106,6 @@ public class Responsavei  {
 		this.atendimentos = atendimentos;
 	}
 
-	public Atendimento addAtendimento(Atendimento atendimento) {
-		getAtendimentos().add(atendimento);
-		atendimento.setResponsavei(this);
-
-		return atendimento;
-	}
-
-	public Atendimento removeAtendimento(Atendimento atendimento) {
-		getAtendimentos().remove(atendimento);
-		atendimento.setResponsavei(null);
-
-		return atendimento;
-	}
 
 	public List<Familiare> getFamiliares() {
 		return this.familiares;
@@ -136,20 +113,6 @@ public class Responsavei  {
 
 	public void setFamiliares(List<Familiare> familiares) {
 		this.familiares = familiares;
-	}
-
-	public Familiare addFamiliare(Familiare familiare) {
-		getFamiliares().add(familiare);
-		familiare.setResponsavei(this);
-
-		return familiare;
-	}
-
-	public Familiare removeFamiliare(Familiare familiare) {
-		getFamiliares().remove(familiare);
-		familiare.setResponsavei(null);
-
-		return familiare;
 	}
 
 	public PessoasFisica getPessoasFisica() {
@@ -168,19 +131,6 @@ public class Responsavei  {
 		this.responsaveisAlunos = responsaveisAlunos;
 	}
 
-	public ResponsaveisAluno addResponsaveisAluno(ResponsaveisAluno responsaveisAluno) {
-		getResponsaveisAlunos().add(responsaveisAluno);
-		responsaveisAluno.setResponsavei(this);
-
-		return responsaveisAluno;
-	}
-
-	public ResponsaveisAluno removeResponsaveisAluno(ResponsaveisAluno responsaveisAluno) {
-		getResponsaveisAlunos().remove(responsaveisAluno);
-		responsaveisAluno.setResponsavei(null);
-
-		return responsaveisAluno;
-	}
 
 	public List<VulnerabilidadesResponsavel> getVulnerabilidadesResponsavels() {
 		return this.vulnerabilidadesResponsavels;
@@ -190,18 +140,6 @@ public class Responsavei  {
 		this.vulnerabilidadesResponsavels = vulnerabilidadesResponsavels;
 	}
 
-	public VulnerabilidadesResponsavel addVulnerabilidadesResponsavel(VulnerabilidadesResponsavel vulnerabilidadesResponsavel) {
-		getVulnerabilidadesResponsavels().add(vulnerabilidadesResponsavel);
-		vulnerabilidadesResponsavel.setResponsavei(this);
 
-		return vulnerabilidadesResponsavel;
-	}
-
-	public VulnerabilidadesResponsavel removeVulnerabilidadesResponsavel(VulnerabilidadesResponsavel vulnerabilidadesResponsavel) {
-		getVulnerabilidadesResponsavels().remove(vulnerabilidadesResponsavel);
-		vulnerabilidadesResponsavel.setResponsavei(null);
-
-		return vulnerabilidadesResponsavel;
-	}
 
 }

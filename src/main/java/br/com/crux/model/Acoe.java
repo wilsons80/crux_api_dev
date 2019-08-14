@@ -1,18 +1,11 @@
 package br.com.crux.model;
 
-import java.util.Date;
+import java.io.Serializable;
+import javax.persistence.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import br.com.crux.constantes.Constantes;
+
+import java.util.Date;
 
 
 /**
@@ -21,14 +14,15 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="acoes")
-public class Acoe  {
-
+public class Acoe implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_acao", nullable=false, precision=10)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_acao")
+	@SequenceGenerator(name = "sq_id_acao", sequenceName = "sq_id_acao", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
+	@Column(name="id_acao", unique=true, nullable=false, precision=10)
 	private Long idAcao;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name="dt_fim_acao")
 	private Date dtFimAcao;
@@ -54,6 +48,14 @@ public class Acoe  {
 	private Atividade atividade;
 
 	public Acoe() {
+	}
+
+	public Long getIdAcao() {
+		return this.idAcao;
+	}
+
+	public void setIdAcao(Long idAcao) {
+		this.idAcao = idAcao;
 	}
 
 	public Date getDtFimAcao() {
@@ -86,14 +88,6 @@ public class Acoe  {
 
 	public void setDtPrevInicioAcao(Date dtPrevInicioAcao) {
 		this.dtPrevInicioAcao = dtPrevInicioAcao;
-	}
-
-	public Long getIdAcao() {
-		return this.idAcao;
-	}
-
-	public void setIdAcao(Long idAcao) {
-		this.idAcao = idAcao;
 	}
 
 	public String getNmPlanoAcao() {

@@ -1,19 +1,9 @@
 package br.com.crux.model;
 
-import java.sql.Timestamp;
+import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import java.sql.Timestamp;
 
 
 /**
@@ -22,7 +12,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="responsaveis_alunos")
-public class ResponsaveisAluno  {
+public class ResponsaveisAluno implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -57,7 +48,7 @@ public class ResponsaveisAluno  {
 	//bi-directional many-to-one association to Responsavei
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_responsavel", nullable=false)
-	private Responsavei responsavei;
+	private Responsaveis responsavei;
 
 	public ResponsaveisAluno() {
 	}
@@ -126,11 +117,11 @@ public class ResponsaveisAluno  {
 		this.aluno = aluno;
 	}
 
-	public Responsavei getResponsavei() {
+	public Responsaveis getResponsavei() {
 		return this.responsavei;
 	}
 
-	public void setResponsavei(Responsavei responsavei) {
+	public void setResponsavei(Responsaveis responsavei) {
 		this.responsavei = responsavei;
 	}
 

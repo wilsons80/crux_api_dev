@@ -1,14 +1,8 @@
 package br.com.crux.model;
 
+import java.io.Serializable;
+import javax.persistence.*;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 
 /**
@@ -17,7 +11,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="solucoes")
-public class Solucoe  {
+public class Solucoes implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -43,7 +38,7 @@ public class Solucoe  {
 	@OneToMany(mappedBy="solucoe")
 	private List<VulnerabilidadesResponsavel> vulnerabilidadesResponsavels;
 
-	public Solucoe() {
+	public Solucoes() {
 	}
 
 	public Long getIdSolucao() {
@@ -70,19 +65,6 @@ public class Solucoe  {
 		this.atendimentos = atendimentos;
 	}
 
-	public Atendimento addAtendimento(Atendimento atendimento) {
-		getAtendimentos().add(atendimento);
-		atendimento.setSolucoe(this);
-
-		return atendimento;
-	}
-
-	public Atendimento removeAtendimento(Atendimento atendimento) {
-		getAtendimentos().remove(atendimento);
-		atendimento.setSolucoe(null);
-
-		return atendimento;
-	}
 
 	public List<VulnerabilidadesAluno> getVulnerabilidadesAlunos() {
 		return this.vulnerabilidadesAlunos;
@@ -90,20 +72,6 @@ public class Solucoe  {
 
 	public void setVulnerabilidadesAlunos(List<VulnerabilidadesAluno> vulnerabilidadesAlunos) {
 		this.vulnerabilidadesAlunos = vulnerabilidadesAlunos;
-	}
-
-	public VulnerabilidadesAluno addVulnerabilidadesAluno(VulnerabilidadesAluno vulnerabilidadesAluno) {
-		getVulnerabilidadesAlunos().add(vulnerabilidadesAluno);
-		vulnerabilidadesAluno.setSolucoe(this);
-
-		return vulnerabilidadesAluno;
-	}
-
-	public VulnerabilidadesAluno removeVulnerabilidadesAluno(VulnerabilidadesAluno vulnerabilidadesAluno) {
-		getVulnerabilidadesAlunos().remove(vulnerabilidadesAluno);
-		vulnerabilidadesAluno.setSolucoe(null);
-
-		return vulnerabilidadesAluno;
 	}
 
 	public List<VulnerabilidadesFamiliar> getVulnerabilidadesFamiliars() {
@@ -114,20 +82,6 @@ public class Solucoe  {
 		this.vulnerabilidadesFamiliars = vulnerabilidadesFamiliars;
 	}
 
-	public VulnerabilidadesFamiliar addVulnerabilidadesFamiliar(VulnerabilidadesFamiliar vulnerabilidadesFamiliar) {
-		getVulnerabilidadesFamiliars().add(vulnerabilidadesFamiliar);
-		vulnerabilidadesFamiliar.setSolucoe(this);
-
-		return vulnerabilidadesFamiliar;
-	}
-
-	public VulnerabilidadesFamiliar removeVulnerabilidadesFamiliar(VulnerabilidadesFamiliar vulnerabilidadesFamiliar) {
-		getVulnerabilidadesFamiliars().remove(vulnerabilidadesFamiliar);
-		vulnerabilidadesFamiliar.setSolucoe(null);
-
-		return vulnerabilidadesFamiliar;
-	}
-
 	public List<VulnerabilidadesResponsavel> getVulnerabilidadesResponsavels() {
 		return this.vulnerabilidadesResponsavels;
 	}
@@ -136,18 +90,5 @@ public class Solucoe  {
 		this.vulnerabilidadesResponsavels = vulnerabilidadesResponsavels;
 	}
 
-	public VulnerabilidadesResponsavel addVulnerabilidadesResponsavel(VulnerabilidadesResponsavel vulnerabilidadesResponsavel) {
-		getVulnerabilidadesResponsavels().add(vulnerabilidadesResponsavel);
-		vulnerabilidadesResponsavel.setSolucoe(this);
-
-		return vulnerabilidadesResponsavel;
-	}
-
-	public VulnerabilidadesResponsavel removeVulnerabilidadesResponsavel(VulnerabilidadesResponsavel vulnerabilidadesResponsavel) {
-		getVulnerabilidadesResponsavels().remove(vulnerabilidadesResponsavel);
-		vulnerabilidadesResponsavel.setSolucoe(null);
-
-		return vulnerabilidadesResponsavel;
-	}
 
 }

@@ -1,40 +1,35 @@
 package br.com.crux.model;
 
+import java.io.Serializable;
+import javax.persistence.*;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 
 /**
- * The persistent class for the perfis_acesso database table.
+ * The persistent class for the perfis_acessos database table.
  * 
  */
 @Entity
-@Table(name="perfis_acesso")
-public class PerfisAcesso  {
+@Table(name="perfis_acessos")
+public class PerfisAcesso implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_perfil_acesso", unique=true, nullable=false, precision=10)
 	private Long idPerfilAcesso;
 
-	@Column(name="cs_perfil_altera", length=1)
-	private String csPerfilAltera;
+	@Column(name="cs_altera", length=1)
+	private String csAltera;
 
-	@Column(name="cs_perfil_consulta", length=1)
-	private String csPerfilConsulta;
+	@Column(name="cs_consulta", length=1)
+	private String csConsulta;
 
-	@Column(name="cs_perfil_deleta", length=1)
-	private String csPerfilDeleta;
+	@Column(name="cs_deleta", length=1)
+	private String csDeleta;
 
-	@Column(name="cs_perfil_insere", length=1)
-	private String csPerfilInsere;
+	@Column(name="cs_insere", length=1)
+	private String csInsere;
 
 	@Column(name="nm_perfil_acesso", length=200)
 	private String nmPerfilAcesso;
@@ -42,10 +37,6 @@ public class PerfisAcesso  {
 	//bi-directional many-to-one association to GruposModulo
 	@OneToMany(mappedBy="perfisAcesso")
 	private List<GruposModulo> gruposModulos;
-
-	//bi-directional many-to-one association to PerfisUsuario
-	@OneToMany(mappedBy="perfisAcesso")
-	private List<PerfisUsuario> perfisUsuarios;
 
 	public PerfisAcesso() {
 	}
@@ -58,36 +49,36 @@ public class PerfisAcesso  {
 		this.idPerfilAcesso = idPerfilAcesso;
 	}
 
-	public String getCsPerfilAltera() {
-		return this.csPerfilAltera;
+	public String getCsAltera() {
+		return this.csAltera;
 	}
 
-	public void setCsPerfilAltera(String csPerfilAltera) {
-		this.csPerfilAltera = csPerfilAltera;
+	public void setCsAltera(String csAltera) {
+		this.csAltera = csAltera;
 	}
 
-	public String getCsPerfilConsulta() {
-		return this.csPerfilConsulta;
+	public String getCsConsulta() {
+		return this.csConsulta;
 	}
 
-	public void setCsPerfilConsulta(String csPerfilConsulta) {
-		this.csPerfilConsulta = csPerfilConsulta;
+	public void setCsConsulta(String csConsulta) {
+		this.csConsulta = csConsulta;
 	}
 
-	public String getCsPerfilDeleta() {
-		return this.csPerfilDeleta;
+	public String getCsDeleta() {
+		return this.csDeleta;
 	}
 
-	public void setCsPerfilDeleta(String csPerfilDeleta) {
-		this.csPerfilDeleta = csPerfilDeleta;
+	public void setCsDeleta(String csDeleta) {
+		this.csDeleta = csDeleta;
 	}
 
-	public String getCsPerfilInsere() {
-		return this.csPerfilInsere;
+	public String getCsInsere() {
+		return this.csInsere;
 	}
 
-	public void setCsPerfilInsere(String csPerfilInsere) {
-		this.csPerfilInsere = csPerfilInsere;
+	public void setCsInsere(String csInsere) {
+		this.csInsere = csInsere;
 	}
 
 	public String getNmPerfilAcesso() {
@@ -118,28 +109,6 @@ public class PerfisAcesso  {
 		gruposModulo.setPerfisAcesso(null);
 
 		return gruposModulo;
-	}
-
-	public List<PerfisUsuario> getPerfisUsuarios() {
-		return this.perfisUsuarios;
-	}
-
-	public void setPerfisUsuarios(List<PerfisUsuario> perfisUsuarios) {
-		this.perfisUsuarios = perfisUsuarios;
-	}
-
-	public PerfisUsuario addPerfisUsuario(PerfisUsuario perfisUsuario) {
-		getPerfisUsuarios().add(perfisUsuario);
-		perfisUsuario.setPerfisAcesso(this);
-
-		return perfisUsuario;
-	}
-
-	public PerfisUsuario removePerfisUsuario(PerfisUsuario perfisUsuario) {
-		getPerfisUsuarios().remove(perfisUsuario);
-		perfisUsuario.setPerfisAcesso(null);
-
-		return perfisUsuario;
 	}
 
 }

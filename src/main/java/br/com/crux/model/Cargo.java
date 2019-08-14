@@ -1,14 +1,8 @@
 package br.com.crux.model;
 
+import java.io.Serializable;
+import javax.persistence.*;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 
 /**
@@ -17,14 +11,15 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="cargos")
-public class Cargo  {
+public class Cargo implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_cargo", unique=true, nullable=false, precision=10)
 	private Long idCargo;
 
-	@Column(name="cd_cargo", nullable=false, length=15)
+	@Column(name="cd_cargo", nullable=false, length=50)
 	private String cdCargo;
 
 	@Column(name="nm_cargo", nullable=false, length=200)

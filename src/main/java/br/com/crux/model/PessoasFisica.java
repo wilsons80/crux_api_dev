@@ -1,21 +1,10 @@
 package br.com.crux.model;
 
+import java.io.Serializable;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 /**
@@ -24,14 +13,15 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="pessoas_fisicas")
-public class PessoasFisica  {
+public class PessoasFisica implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_pessoa_fisica", unique=true, nullable=false, precision=10)
 	private Long idPessoaFisica;
 
-	@Column(name="cd_orgao_ci", nullable=false, length=45)
+	@Column(name="cd_orgao_ci", length=45)
 	private String cdOrgaoCi;
 
 	@Column(name="cs_motivo_nao_trab", length=2)
@@ -134,7 +124,7 @@ public class PessoasFisica  {
 	@Column(name="nm_empresa_trabalho", length=200)
 	private String nmEmpresaTrabalho;
 
-	@Column(name="nm_mae", nullable=false, length=200)
+	@Column(name="nm_mae", length=200)
 	private String nmMae;
 
 	@Column(name="nm_pai", length=200)
@@ -146,7 +136,7 @@ public class PessoasFisica  {
 	@Column(name="nr_cep", precision=8)
 	private BigDecimal nrCep;
 
-	@Column(name="nr_ci", nullable=false, length=30)
+	@Column(name="nr_ci", length=30)
 	private String nrCi;
 
 	@Column(name="nr_cpf", nullable=false, precision=11)
@@ -170,7 +160,7 @@ public class PessoasFisica  {
 	@Column(name="nr_telefone_comercial", length=15)
 	private String nrTelefoneComercial;
 
-	@Column(name="nr_telefone_residencial", nullable=false, length=15)
+	@Column(name="nr_telefone_residencial", length=15)
 	private String nrTelefoneResidencial;
 
 	@Column(name="nr_titulo_eleitor", length=15)
@@ -179,7 +169,7 @@ public class PessoasFisica  {
 	@Column(name="nr_zona_titulo", length=15)
 	private String nrZonaTitulo;
 
-	@Column(name="sg_uf_ci", nullable=false, length=2)
+	@Column(name="sg_uf_ci", length=2)
 	private String sgUfCi;
 
 	@Column(name="sg_uf_endereco", length=2)
@@ -243,17 +233,17 @@ public class PessoasFisica  {
 
 	//bi-directional many-to-one association to CondicoesMoradia
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_condicao_moradia", nullable=false)
+	@JoinColumn(name="id_condicao_moradia")
 	private CondicoesMoradia condicoesMoradia;
 
 	//bi-directional many-to-one association to GrausInstrucao
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="graus_inscrucao_pf", nullable=false)
+	@JoinColumn(name="graus_inscrucao_pf")
 	private GrausInstrucao grausInstrucao;
 
 	//bi-directional many-to-one association to Responsavei
 	@OneToMany(mappedBy="pessoasFisica")
-	private List<Responsavei> responsaveis;
+	private List<Responsaveis> responsaveis;
 
 	//bi-directional many-to-one association to TalentosPf
 	@OneToMany(mappedBy="pessoasFisica")
@@ -910,22 +900,22 @@ public class PessoasFisica  {
 		this.grausInstrucao = grausInstrucao;
 	}
 
-	public List<Responsavei> getResponsaveis() {
+	public List<Responsaveis> getResponsaveis() {
 		return this.responsaveis;
 	}
 
-	public void setResponsaveis(List<Responsavei> responsaveis) {
+	public void setResponsaveis(List<Responsaveis> responsaveis) {
 		this.responsaveis = responsaveis;
 	}
 
-	public Responsavei addResponsavei(Responsavei responsavei) {
+	public Responsaveis addResponsavei(Responsaveis responsavei) {
 		getResponsaveis().add(responsavei);
 		responsavei.setPessoasFisica(this);
 
 		return responsavei;
 	}
 
-	public Responsavei removeResponsavei(Responsavei responsavei) {
+	public Responsaveis removeResponsavei(Responsaveis responsavei) {
 		getResponsaveis().remove(responsavei);
 		responsavei.setPessoasFisica(null);
 

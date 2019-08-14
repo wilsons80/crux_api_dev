@@ -1,17 +1,8 @@
 package br.com.crux.model;
 
+import java.io.Serializable;
+import javax.persistence.*;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 
 /**
@@ -20,27 +11,28 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="grupos_modulos")
-public class GruposModulo  {
+public class GruposModulo implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_grupo_modulo", unique=true, nullable=false, precision=10)
 	private Long idGrupoModulo;
 
-	@Column(name="nm_grupo_modulo", length=50)
-	private String nmGrupoModulo;
+	@Column(name="nm_grupo", nullable=false, length=100)
+	private String nmGrupo;
 
-	@Column(name="tx_grupo_modulo", length=200)
-	private String txGrupoModulo;
+	@Column(name="tx_descricao_grupo", nullable=false, length=200)
+	private String txDescricaoGrupo;
 
 	//bi-directional many-to-one association to Modulo
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_modulo")
+	@JoinColumn(name="id_modulo", nullable=false)
 	private Modulo modulo;
 
 	//bi-directional many-to-one association to PerfisAcesso
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_perfil_acesso")
+	@JoinColumn(name="id_perfil_acesso", nullable=false)
 	private PerfisAcesso perfisAcesso;
 
 	//bi-directional many-to-one association to UsuariosGrupo
@@ -58,20 +50,20 @@ public class GruposModulo  {
 		this.idGrupoModulo = idGrupoModulo;
 	}
 
-	public String getNmGrupoModulo() {
-		return this.nmGrupoModulo;
+	public String getNmGrupo() {
+		return this.nmGrupo;
 	}
 
-	public void setNmGrupoModulo(String nmGrupoModulo) {
-		this.nmGrupoModulo = nmGrupoModulo;
+	public void setNmGrupo(String nmGrupo) {
+		this.nmGrupo = nmGrupo;
 	}
 
-	public String getTxGrupoModulo() {
-		return this.txGrupoModulo;
+	public String getTxDescricaoGrupo() {
+		return this.txDescricaoGrupo;
 	}
 
-	public void setTxGrupoModulo(String txGrupoModulo) {
-		this.txGrupoModulo = txGrupoModulo;
+	public void setTxDescricaoGrupo(String txDescricaoGrupo) {
+		this.txDescricaoGrupo = txDescricaoGrupo;
 	}
 
 	public Modulo getModulo() {
