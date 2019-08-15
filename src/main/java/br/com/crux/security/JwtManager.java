@@ -16,7 +16,7 @@ public class JwtManager {
 
 	public String createToken(String email, List<String> roles) {
 		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DAY_OF_MONTH, SecurityContantes.JWT_EXP_DAYS);
+		calendar.add(Calendar.MINUTE, SecurityContantes.JWT_EXP_MINUTOS);
 		
 		String jwt = Jwts.builder()
 						 .setSubject(email)
@@ -37,4 +37,5 @@ public class JwtManager {
 		
 		return claims;
 	}
+	
 }
