@@ -1,5 +1,7 @@
 package br.com.crux.cmd;
 
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,6 +11,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.dto.UsuariosSistema;
+import br.com.crux.exception.NotFoundException;
 import br.com.crux.to.TokenTo;
 import br.com.crux.to.UsuarioLogadoTO;
 
@@ -38,6 +41,11 @@ public class AutenticadorCmd {
 	public TokenTo refreshToken() {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		if(Objects.isNull(auth)) {
+			throw new NotFoundException("Usuário não está logado.");
+		}
+		
 		User userSpring = (User) auth.getPrincipal();
 		String jwt = createTokenJwtCmd.createToken(userSpring.getUsername(), userSpring);
 		
