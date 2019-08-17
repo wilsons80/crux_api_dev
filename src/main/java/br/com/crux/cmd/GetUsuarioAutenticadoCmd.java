@@ -22,6 +22,9 @@ public class GetUsuarioAutenticadoCmd implements UserDetailsService{
 	
 	@Autowired private AutenticadorRepository autenticadorRepository;
 	
+	
+	
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<UsuariosSistema> result = autenticadorRepository.findByUsername(username);
@@ -36,6 +39,9 @@ public class GetUsuarioAutenticadoCmd implements UserDetailsService{
 		List<GrantedAuthority> authorities = roles;
 		
 		User userSpring = new User(user.getUsername(), user.getDsSenha(), authorities);
+		
+		
+		
 		
 		return userSpring;
 	}

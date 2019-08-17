@@ -10,6 +10,6 @@ import br.com.crux.entity.Unidade;
 @Repository
 public interface UnidadeRepository extends JpaRepository<Unidade, Long>{
 	
-	public Optional <Unidade>  findByCdUnidade(String cdUnidade);
+	public Optional<Unidade> findByCdUnidade(String cdUnidade);
 
 }

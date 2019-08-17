@@ -37,6 +37,12 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		String jwt = request.getHeader(HttpHeaders.AUTHORIZATION);
 		
+		/*
+		if ( request.getRequestURI().contains("/login") ) {
+			filterChain.doFilter(request, response);
+		}
+		*/
+		
 		if(jwt == null || !jwt.startsWith(SecurityContantes.JWT_PROVIDER)) {
 			ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED.value(), SecurityContantes.JWT_INVALID_MSG, new Date());
 			PrintWriter writer = response.getWriter();
