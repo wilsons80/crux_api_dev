@@ -12,15 +12,16 @@ import java.util.List;
  */
 @Entity
 @Table(name="avaliacoes")
+@NamedQuery(name="Avaliacoe.findAll", query="SELECT a FROM Avaliacoe a")
 public class Avaliacoe implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_avaliacao", unique=true, nullable=false, precision=10)
+	@Column(name="id_avaliacao")
 	private Long idAvaliacao;
 
-	@Column(name="ds_avaliacao", length=200)
+	@Column(name="ds_avaliacao")
 	private String dsAvaliacao;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -31,8 +32,13 @@ public class Avaliacoe implements Serializable {
 	@Column(name="dt_inicio_avaliacao")
 	private Date dtInicioAvaliacao;
 
-	@Column(name="nm_avaliacao", length=200)
+	@Column(name="nm_avaliacao")
 	private String nmAvaliacao;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	//bi-directional many-to-one association to AvaliacoesAluno
 	@OneToMany(mappedBy="avaliacoe")
@@ -79,6 +85,14 @@ public class Avaliacoe implements Serializable {
 
 	public void setNmAvaliacao(String nmAvaliacao) {
 		this.nmAvaliacao = nmAvaliacao;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 	public List<AvaliacoesAluno> getAvaliacoesAlunos() {

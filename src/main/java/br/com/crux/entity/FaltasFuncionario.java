@@ -11,18 +11,19 @@ import java.util.Date;
  */
 @Entity
 @Table(name="faltas_funcionarios")
+@NamedQuery(name="FaltasFuncionario.findAll", query="SELECT f FROM FaltasFuncionario f")
 public class FaltasFuncionario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_falta_funcionario", unique=true, nullable=false, precision=10)
+	@Column(name="id_falta_funcionario")
 	private Long idFaltaFuncionario;
 
-	@Column(name="ds_falta_funcionario", nullable=false, length=200)
+	@Column(name="ds_falta_funcionario")
 	private String dsFaltaFuncionario;
 
-	@Column(name="ds_jutifi_falta", length=200)
+	@Column(name="ds_jutifi_falta")
 	private String dsJutifiFalta;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -35,13 +36,18 @@ public class FaltasFuncionario implements Serializable {
 
 	//bi-directional many-to-one association to Funcionario
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_funcionario_falta", nullable=false)
+	@JoinColumn(name="id_funcionario_falta")
 	private Funcionario funcionario1;
 
 	//bi-directional many-to-one association to Funcionario
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_funcionario_cadastro", nullable=false)
+	@JoinColumn(name="id_funcionario_cadastro")
 	private Funcionario funcionario2;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public FaltasFuncionario() {
 	}
@@ -100,6 +106,14 @@ public class FaltasFuncionario implements Serializable {
 
 	public void setFuncionario2(Funcionario funcionario2) {
 		this.funcionario2 = funcionario2;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

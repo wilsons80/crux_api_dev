@@ -11,16 +11,22 @@ import java.util.List;
  */
 @Entity
 @Table(name="condicoes_moradia")
+@NamedQuery(name="CondicoesMoradia.findAll", query="SELECT c FROM CondicoesMoradia c")
 public class CondicoesMoradia implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_condicao_moradia", unique=true, nullable=false, precision=10)
+	@Column(name="id_condicao_moradia")
 	private Long idCondicaoMoradia;
 
-	@Column(name="ds_condicao_moradia", nullable=false, length=200)
+	@Column(name="ds_condicao_moradia")
 	private String dsCondicaoMoradia;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	//bi-directional many-to-one association to PessoasFisica
 	@OneToMany(mappedBy="condicoesMoradia")
@@ -43,6 +49,14 @@ public class CondicoesMoradia implements Serializable {
 
 	public void setDsCondicaoMoradia(String dsCondicaoMoradia) {
 		this.dsCondicaoMoradia = dsCondicaoMoradia;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 	public List<PessoasFisica> getPessoasFisicas() {

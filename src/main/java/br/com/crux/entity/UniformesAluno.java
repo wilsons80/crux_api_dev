@@ -12,28 +12,34 @@ import java.util.Date;
  */
 @Entity
 @Table(name="uniformes_aluno")
+@NamedQuery(name="UniformesAluno.findAll", query="SELECT u FROM UniformesAluno u")
 public class UniformesAluno implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_uniforme_aluno", unique=true, nullable=false, precision=10)
+	@Column(name="id_uniforme_aluno")
 	private Long idUniformeAluno;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_uniforme_entregue")
 	private Date dtUniformeEntregue;
 
-	@Column(name="nm_uniforme", length=45)
+	@Column(name="nm_uniforme")
 	private String nmUniforme;
 
-	@Column(name="qt_uniforme_entregue", precision=10)
+	@Column(name="qt_uniforme_entregue")
 	private BigDecimal qtUniformeEntregue;
 
 	//bi-directional many-to-one association to AtividadesAluno
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_atividade_aluno", nullable=false)
+	@JoinColumn(name="id_atividade_aluno")
 	private AtividadesAluno atividadesAluno;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public UniformesAluno() {
 	}
@@ -76,6 +82,14 @@ public class UniformesAluno implements Serializable {
 
 	public void setAtividadesAluno(AtividadesAluno atividadesAluno) {
 		this.atividadesAluno = atividadesAluno;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

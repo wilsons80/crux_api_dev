@@ -12,12 +12,13 @@ import java.util.List;
  */
 @Entity
 @Table(name="indicadores")
+@NamedQuery(name="Indicadore.findAll", query="SELECT i FROM Indicadore i")
 public class Indicadore implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_indicador", unique=true, nullable=false, precision=10)
+	@Column(name="id_indicador")
 	private Long idIndicador;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -25,10 +26,10 @@ public class Indicadore implements Serializable {
 	private Date dtFimIndicador;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_inicio_indicador", nullable=false)
+	@Column(name="dt_inicio_indicador")
 	private Date dtInicioIndicador;
 
-	@Column(name="nm_indicador", nullable=false, length=200)
+	@Column(name="nm_indicador")
 	private String nmIndicador;
 
 	//bi-directional many-to-one association to CausasEfeito
@@ -37,8 +38,13 @@ public class Indicadore implements Serializable {
 
 	//bi-directional many-to-one association to Objetivo
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="objetivos_id_objetivo", nullable=false)
+	@JoinColumn(name="objetivos_id_objetivo")
 	private Objetivo objetivo;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	//bi-directional many-to-one association to Meta
 	@OneToMany(mappedBy="indicadore")
@@ -107,6 +113,14 @@ public class Indicadore implements Serializable {
 
 	public void setObjetivo(Objetivo objetivo) {
 		this.objetivo = objetivo;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 	public List<Meta> getMetas() {

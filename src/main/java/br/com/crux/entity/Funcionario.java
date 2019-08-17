@@ -13,19 +13,20 @@ import java.util.List;
  */
 @Entity
 @Table(name="funcionarios")
+@NamedQuery(name="Funcionario.findAll", query="SELECT f FROM Funcionario f")
 public class Funcionario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_funcionario", unique=true, nullable=false, precision=10)
+	@Column(name="id_funcionario")
 	private Long idFuncionario;
 
-	@Column(name="ds_parecer_entrevistador", length=200)
+	@Column(name="ds_parecer_entrevistador")
 	private String dsParecerEntrevistador;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_admissao", nullable=false)
+	@Column(name="dt_admissao")
 	private Date dtAdmissao;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -36,19 +37,19 @@ public class Funcionario implements Serializable {
 	@Column(name="dt_hr_entrevista")
 	private Date dtHrEntrevista;
 
-	@Column(name="nr_matricula", nullable=false, length=15)
+	@Column(name="nr_matricula")
 	private String nrMatricula;
 
-	@Column(name="st_conclusao_parecer", length=1)
+	@Column(name="st_conclusao_parecer")
 	private String stConclusaoParecer;
 
-	@Column(name="st_parecer_entrevistador", length=1)
+	@Column(name="st_parecer_entrevistador")
 	private String stParecerEntrevistador;
 
-	@Column(name="st_tipo_funcionario", length=1)
+	@Column(name="st_tipo_funcionario")
 	private String stTipoFuncionario;
 
-	@Column(name="vl_salario_pretendido", precision=10, scale=2)
+	@Column(name="vl_salario_pretendido")
 	private BigDecimal vlSalarioPretendido;
 
 	//bi-directional many-to-one association to Atendimento
@@ -81,12 +82,12 @@ public class Funcionario implements Serializable {
 
 	//bi-directional many-to-one association to Cargo
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_cargo", nullable=false)
+	@JoinColumn(name="id_cargo")
 	private Cargo cargo;
 
 	//bi-directional many-to-one association to Empresa
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_empresa_func", nullable=false)
+	@JoinColumn(name="id_empresa_func")
 	private Empresa empresa;
 
 	//bi-directional many-to-one association to Funcionario
@@ -100,13 +101,18 @@ public class Funcionario implements Serializable {
 
 	//bi-directional many-to-one association to PessoasFisica
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_pessoa_fisica", nullable=false)
+	@JoinColumn(name="id_pessoa_fisica")
 	private PessoasFisica pessoasFisica;
 
 	//bi-directional many-to-one association to Unidade
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_unidade", nullable=false)
+	@JoinColumn(name="id_unidade")
 	private Unidade unidade;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	//bi-directional many-to-one association to MovimentacoesConta
 	@OneToMany(mappedBy="funcionario")
@@ -421,6 +427,14 @@ public class Funcionario implements Serializable {
 
 	public void setUnidade(Unidade unidade) {
 		this.unidade = unidade;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 	public List<MovimentacoesConta> getMovimentacoesContas() {

@@ -12,15 +12,16 @@ import java.util.List;
  */
 @Entity
 @Table(name="projetos")
+@NamedQuery(name="Projeto.findAll", query="SELECT p FROM Projeto p")
 public class Projeto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_projeto", unique=true, nullable=false, precision=10)
+	@Column(name="id_projeto")
 	private Long idProjeto;
 
-	@Column(name="ds_projeto", length=200)
+	@Column(name="ds_projeto")
 	private String dsProjeto;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -32,14 +33,14 @@ public class Projeto implements Serializable {
 	private Date dtInicioProjeto;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_prev_projeto", nullable=false)
+	@Column(name="dt_prev_projeto")
 	private Date dtPrevProjeto;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_prev_termino")
 	private Date dtPrevTermino;
 
-	@Column(name="nm_projeto", nullable=false, length=200)
+	@Column(name="nm_projeto")
 	private String nmProjeto;
 
 	//bi-directional many-to-one association to Atividade
@@ -59,6 +60,11 @@ public class Projeto implements Serializable {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="programas_id_programa")
 	private Programa programa;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public Projeto() {
 	}
@@ -177,6 +183,14 @@ public class Projeto implements Serializable {
 
 	public void setPrograma(Programa programa) {
 		this.programa = programa;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

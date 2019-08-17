@@ -11,31 +11,32 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name="itens_faturas")
+@NamedQuery(name="ItensFatura.findAll", query="SELECT i FROM ItensFatura i")
 public class ItensFatura implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_item_fatura", unique=true, nullable=false, precision=10)
+	@Column(name="id_item_fatura")
 	private Long idItemFatura;
 
-	@Column(name="ds_item_fatura", length=200)
+	@Column(name="ds_item_fatura")
 	private String dsItemFatura;
 
-	@Column(name="qt_item_fatura", precision=131089)
+	@Column(name="qt_item_fatura")
 	private BigDecimal qtItemFatura;
 
-	@Column(name="vl_item_fatura", precision=10, scale=2)
+	@Column(name="vl_item_fatura")
 	private BigDecimal vlItemFatura;
 
 	//bi-directional many-to-one association to CentrosCusto
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_centro_custo", nullable=false)
+	@JoinColumn(name="id_centro_custo")
 	private CentrosCusto centrosCusto;
 
 	//bi-directional many-to-one association to Fatura
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_fatura", nullable=false)
+	@JoinColumn(name="id_fatura")
 	private Fatura fatura;
 
 	//bi-directional many-to-one association to Pedido
@@ -52,6 +53,11 @@ public class ItensFatura implements Serializable {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_servico")
 	private Servico servico;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public ItensFatura() {
 	}
@@ -126,6 +132,14 @@ public class ItensFatura implements Serializable {
 
 	public void setServico(Servico servico) {
 		this.servico = servico;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

@@ -10,21 +10,27 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="causas_efeitos")
+@NamedQuery(name="CausasEfeito.findAll", query="SELECT c FROM CausasEfeito c")
 public class CausasEfeito implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_causa_efeito", unique=true, nullable=false, precision=10)
+	@Column(name="id_causa_efeito")
 	private Long idCausaEfeito;
 
-	@Column(name="ds_causa_efeito", nullable=false, length=200)
+	@Column(name="ds_causa_efeito")
 	private String dsCausaEfeito;
 
 	//bi-directional many-to-one association to Indicadore
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_indicador", nullable=false)
+	@JoinColumn(name="id_indicador")
 	private Indicadore indicadore;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public CausasEfeito() {
 	}
@@ -51,6 +57,14 @@ public class CausasEfeito implements Serializable {
 
 	public void setIndicadore(Indicadore indicadore) {
 		this.indicadore = indicadore;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

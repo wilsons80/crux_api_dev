@@ -12,33 +12,39 @@ import java.util.List;
  */
 @Entity
 @Table(name="perspectivas")
+@NamedQuery(name="Perspectiva.findAll", query="SELECT p FROM Perspectiva p")
 public class Perspectiva implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_perspectiva", unique=true, nullable=false, precision=10)
+	@Column(name="id_perspectiva")
 	private Long idPerspectiva;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_implantacao", nullable=false)
+	@Column(name="dt_implantacao")
 	private Date dtImplantacao;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_termino")
 	private Date dtTermino;
 
-	@Column(name="nm_perspectiva", nullable=false, length=200)
+	@Column(name="nm_perspectiva")
 	private String nmPerspectiva;
 
 	//bi-directional many-to-one association to Objetivo
 	@OneToMany(mappedBy="perspectiva")
 	private List<Objetivo> objetivos;
 
-	//bi-directional many-to-one association to Entidade
+	//bi-directional many-to-one association to Unidade
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="entidades_id_entidade", nullable=false)
-	private Entidade entidade;
+	@JoinColumn(name="id_unidade")
+	private Unidade unidade;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public Perspectiva() {
 	}
@@ -97,12 +103,20 @@ public class Perspectiva implements Serializable {
 		return objetivo;
 	}
 
-	public Entidade getEntidade() {
-		return this.entidade;
+	public Unidade getUnidade() {
+		return this.unidade;
 	}
 
-	public void setEntidade(Entidade entidade) {
-		this.entidade = entidade;
+	public void setUnidade(Unidade unidade) {
+		this.unidade = unidade;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

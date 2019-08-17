@@ -11,29 +11,35 @@ import java.util.List;
  */
 @Entity
 @Table(name="objetos_modulos")
+@NamedQuery(name="ObjetosModulo.findAll", query="SELECT o FROM ObjetosModulo o")
 public class ObjetosModulo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_objeto_modulo", unique=true, nullable=false, precision=10)
+	@Column(name="id_objeto_modulo")
 	private Long idObjetoModulo;
 
-	@Column(name="nm_modulo", length=200)
+	@Column(name="nm_modulo")
 	private String nmModulo;
 
-	@Column(name="nm_sistema", length=200)
+	@Column(name="nm_sistema")
 	private String nmSistema;
 
-	@Column(name="tx_chamada", length=200)
+	@Column(name="tx_chamada")
 	private String txChamada;
 
-	@Column(name="tx_observacao", length=200)
+	@Column(name="tx_observacao")
 	private String txObservacao;
 
 	//bi-directional many-to-one association to ItensObjetosModulo
 	@OneToMany(mappedBy="objetosModulo")
 	private List<ItensObjetosModulo> itensObjetosModulos;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public ObjetosModulo() {
 	}
@@ -98,6 +104,14 @@ public class ObjetosModulo implements Serializable {
 		itensObjetosModulo.setObjetosModulo(null);
 
 		return itensObjetosModulo;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

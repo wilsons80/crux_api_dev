@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,6 +29,8 @@ import br.com.crux.resouce.exception.ApiError;
 import io.jsonwebtoken.Claims;
 
 public class AuthorizationFilter extends OncePerRequestFilter {
+	
+	private Authentication authentication;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -63,7 +66,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 				grantedAuthorities.add(new SimpleGrantedAuthority(role));
 			});
 			
-			Authentication authentication = new UsernamePasswordAuthenticationToken(email, null, grantedAuthorities);
+			authentication = new UsernamePasswordAuthenticationToken(email, null, grantedAuthorities);
 			
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			
@@ -85,5 +88,12 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 		filterChain.doFilter(request, response);
 		
 	}
+	
+	// Expose the UserDetailsService as a Bean
+	@Bean(name = "authenticationBean" )
+	public Authentication authenticationBean() throws Exception {
+		return authentication;
+	}
+	
 
 }

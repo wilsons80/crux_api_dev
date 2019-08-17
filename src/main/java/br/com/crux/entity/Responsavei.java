@@ -12,22 +12,23 @@ import java.util.List;
  */
 @Entity
 @Table(name="responsaveis")
-public class Responsaveis implements Serializable {
+@NamedQuery(name="Responsavei.findAll", query="SELECT r FROM Responsavei r")
+public class Responsavei implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_responsavel", unique=true, nullable=false, precision=10)
+	@Column(name="id_responsavel")
 	private Long idResponsavel;
 
-	@Column(name="ds_desligamento", length=200)
+	@Column(name="ds_desligamento")
 	private String dsDesligamento;
 
-	@Column(name="ds_outras_informacoes", length=200)
+	@Column(name="ds_outras_informacoes")
 	private String dsOutrasInformacoes;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_cadastro", nullable=false)
+	@Column(name="dt_cadastro")
 	private Date dtCadastro;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -44,8 +45,13 @@ public class Responsaveis implements Serializable {
 
 	//bi-directional many-to-one association to PessoasFisica
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_pessoa_fisica", nullable=false)
+	@JoinColumn(name="id_pessoa_fisica")
 	private PessoasFisica pessoasFisica;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	//bi-directional many-to-one association to ResponsaveisAluno
 	@OneToMany(mappedBy="responsavei")
@@ -55,7 +61,7 @@ public class Responsaveis implements Serializable {
 	@OneToMany(mappedBy="responsavei")
 	private List<VulnerabilidadesResponsavel> vulnerabilidadesResponsavels;
 
-	public Responsaveis() {
+	public Responsavei() {
 	}
 
 	public Long getIdResponsavel() {
@@ -106,6 +112,19 @@ public class Responsaveis implements Serializable {
 		this.atendimentos = atendimentos;
 	}
 
+	public Atendimento addAtendimento(Atendimento atendimento) {
+		getAtendimentos().add(atendimento);
+		atendimento.setResponsavei(this);
+
+		return atendimento;
+	}
+
+	public Atendimento removeAtendimento(Atendimento atendimento) {
+		getAtendimentos().remove(atendimento);
+		atendimento.setResponsavei(null);
+
+		return atendimento;
+	}
 
 	public List<Familiare> getFamiliares() {
 		return this.familiares;
@@ -113,6 +132,20 @@ public class Responsaveis implements Serializable {
 
 	public void setFamiliares(List<Familiare> familiares) {
 		this.familiares = familiares;
+	}
+
+	public Familiare addFamiliare(Familiare familiare) {
+		getFamiliares().add(familiare);
+		familiare.setResponsavei(this);
+
+		return familiare;
+	}
+
+	public Familiare removeFamiliare(Familiare familiare) {
+		getFamiliares().remove(familiare);
+		familiare.setResponsavei(null);
+
+		return familiare;
 	}
 
 	public PessoasFisica getPessoasFisica() {
@@ -123,6 +156,14 @@ public class Responsaveis implements Serializable {
 		this.pessoasFisica = pessoasFisica;
 	}
 
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
+	}
+
 	public List<ResponsaveisAluno> getResponsaveisAlunos() {
 		return this.responsaveisAlunos;
 	}
@@ -131,6 +172,19 @@ public class Responsaveis implements Serializable {
 		this.responsaveisAlunos = responsaveisAlunos;
 	}
 
+	public ResponsaveisAluno addResponsaveisAluno(ResponsaveisAluno responsaveisAluno) {
+		getResponsaveisAlunos().add(responsaveisAluno);
+		responsaveisAluno.setResponsavei(this);
+
+		return responsaveisAluno;
+	}
+
+	public ResponsaveisAluno removeResponsaveisAluno(ResponsaveisAluno responsaveisAluno) {
+		getResponsaveisAlunos().remove(responsaveisAluno);
+		responsaveisAluno.setResponsavei(null);
+
+		return responsaveisAluno;
+	}
 
 	public List<VulnerabilidadesResponsavel> getVulnerabilidadesResponsavels() {
 		return this.vulnerabilidadesResponsavels;
@@ -140,6 +194,18 @@ public class Responsaveis implements Serializable {
 		this.vulnerabilidadesResponsavels = vulnerabilidadesResponsavels;
 	}
 
+	public VulnerabilidadesResponsavel addVulnerabilidadesResponsavel(VulnerabilidadesResponsavel vulnerabilidadesResponsavel) {
+		getVulnerabilidadesResponsavels().add(vulnerabilidadesResponsavel);
+		vulnerabilidadesResponsavel.setResponsavei(this);
 
+		return vulnerabilidadesResponsavel;
+	}
+
+	public VulnerabilidadesResponsavel removeVulnerabilidadesResponsavel(VulnerabilidadesResponsavel vulnerabilidadesResponsavel) {
+		getVulnerabilidadesResponsavels().remove(vulnerabilidadesResponsavel);
+		vulnerabilidadesResponsavel.setResponsavei(null);
+
+		return vulnerabilidadesResponsavel;
+	}
 
 }

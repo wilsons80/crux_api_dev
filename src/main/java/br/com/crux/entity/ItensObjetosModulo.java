@@ -11,12 +11,13 @@ import java.util.Date;
  */
 @Entity
 @Table(name="itens_objetos_modulos")
+@NamedQuery(name="ItensObjetosModulo.findAll", query="SELECT i FROM ItensObjetosModulo i")
 public class ItensObjetosModulo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_item_objeto_modulo", unique=true, nullable=false, precision=10)
+	@Column(name="id_item_objeto_modulo")
 	private Long idItemObjetoModulo;
 
 	@Column(name="ds_codigo")
@@ -26,16 +27,21 @@ public class ItensObjetosModulo implements Serializable {
 	@Column(name="dt_alteracao")
 	private Date dtAlteracao;
 
-	@Column(name="nm_item", nullable=false, length=200)
+	@Column(name="nm_item")
 	private String nmItem;
 
-	@Column(name="tx_observacao", length=4000)
+	@Column(name="tx_observacao")
 	private String txObservacao;
 
 	//bi-directional many-to-one association to ObjetosModulo
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_objeto_modulo", nullable=false)
+	@JoinColumn(name="id_objeto_modulo")
 	private ObjetosModulo objetosModulo;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public ItensObjetosModulo() {
 	}
@@ -86,6 +92,14 @@ public class ItensObjetosModulo implements Serializable {
 
 	public void setObjetosModulo(ObjetosModulo objetosModulo) {
 		this.objetosModulo = objetosModulo;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

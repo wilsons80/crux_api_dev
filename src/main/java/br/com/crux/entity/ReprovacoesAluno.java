@@ -12,31 +12,37 @@ import java.util.Date;
  */
 @Entity
 @Table(name="reprovacoes_aluno")
+@NamedQuery(name="ReprovacoesAluno.findAll", query="SELECT r FROM ReprovacoesAluno r")
 public class ReprovacoesAluno implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_reprovacao_aluno", unique=true, nullable=false, precision=10)
+	@Column(name="id_reprovacao_aluno")
 	private Long idReprovacaoAluno;
 
-	@Column(name="ds_reprovacao_aluno", length=200)
+	@Column(name="ds_reprovacao_aluno")
 	private String dsReprovacaoAluno;
 
-	@Column(name="ds_serie_reprovacao", length=20)
+	@Column(name="ds_serie_reprovacao")
 	private String dsSerieReprovacao;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_reprovacao_aluno", length=45)
+	@Column(name="dt_reprovacao_aluno")
 	private Date dtReprovacaoAluno;
 
-	@Column(name="qtd_reprovacao", precision=10)
+	@Column(name="qtd_reprovacao")
 	private BigDecimal qtdReprovacao;
 
 	//bi-directional many-to-one association to Aluno
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_aluno", nullable=false)
+	@JoinColumn(name="id_aluno")
 	private Aluno aluno;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public ReprovacoesAluno() {
 	}
@@ -87,6 +93,14 @@ public class ReprovacoesAluno implements Serializable {
 
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

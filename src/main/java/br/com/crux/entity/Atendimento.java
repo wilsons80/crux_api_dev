@@ -11,32 +11,32 @@ import java.util.Date;
  */
 @Entity
 @Table(name="atendimentos")
+@NamedQuery(name="Atendimento.findAll", query="SELECT a FROM Atendimento a")
 public class Atendimento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_atendimento", unique=true, nullable=false, precision=10)
+	@Column(name="id_atendimento")
 	private Long idAtendimento;
 
-	@Column(name="ds_diagnostico", length=1000)
+	@Column(name="ds_diagnostico")
 	private String dsDiagnostico;
 
-	@Column(name="ds_solucao", length=500)
+	@Column(name="ds_solucao")
 	private String dsSolucao;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_atendimento", nullable=false)
+	@Column(name="dt_atendimento")
 	private Date dtAtendimento;
 
 	//bi-directional many-to-one association to Aluno
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="aluno_id_aluno", nullable=false)
 	private Aluno aluno;
 
 	//bi-directional many-to-one association to Diagnostico
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="diagnosticos_id_diagnostico", nullable=false)
+	@JoinColumn(name="diagnosticos_id_diagnostico")
 	private Diagnostico diagnostico;
 
 	//bi-directional many-to-one association to Familiare
@@ -46,18 +46,23 @@ public class Atendimento implements Serializable {
 
 	//bi-directional many-to-one association to Funcionario
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="funcionarios_id_funcionario", nullable=false)
+	@JoinColumn(name="funcionarios_id_funcionario")
 	private Funcionario funcionario;
 
 	//bi-directional many-to-one association to Responsavei
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="responsaveis_id_responsavel")
-	private Responsaveis responsavei;
+	private Responsavei responsavei;
 
 	//bi-directional many-to-one association to Solucoe
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="solucoes_id_solucao", nullable=false)
-	private Solucoes solucoe;
+	@JoinColumn(name="solucoes_id_solucao")
+	private Solucoe solucoe;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public Atendimento() {
 	}
@@ -126,20 +131,28 @@ public class Atendimento implements Serializable {
 		this.funcionario = funcionario;
 	}
 
-	public Responsaveis getResponsavei() {
+	public Responsavei getResponsavei() {
 		return this.responsavei;
 	}
 
-	public void setResponsavei(Responsaveis responsavei) {
+	public void setResponsavei(Responsavei responsavei) {
 		this.responsavei = responsavei;
 	}
 
-	public Solucoes getSolucoe() {
+	public Solucoe getSolucoe() {
 		return this.solucoe;
 	}
 
-	public void setSolucoe(Solucoes solucoe) {
+	public void setSolucoe(Solucoe solucoe) {
 		this.solucoe = solucoe;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

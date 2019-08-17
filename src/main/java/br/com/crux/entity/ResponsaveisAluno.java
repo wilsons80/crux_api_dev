@@ -12,18 +12,19 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name="responsaveis_alunos")
+@NamedQuery(name="ResponsaveisAluno.findAll", query="SELECT r FROM ResponsaveisAluno r")
 public class ResponsaveisAluno implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_responsavel_aluno", unique=true, nullable=false, precision=10)
+	@Column(name="id_responsavel_aluno")
 	private Long idResponsavelAluno;
 
 	@Column(name="ds_desligamento")
 	private Timestamp dsDesligamento;
 
-	@Column(name="ds_grau_parentesco", length=45)
+	@Column(name="ds_grau_parentesco")
 	private String dsGrauParentesco;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -34,21 +35,26 @@ public class ResponsaveisAluno implements Serializable {
 	@Column(name="dt_vinculacao")
 	private Date dtVinculacao;
 
-	@Column(name="st_mesmo_ender_resp", length=1)
+	@Column(name="st_mesmo_ender_resp")
 	private String stMesmoEnderResp;
 
-	@Column(name="st_tipo_responsavel", length=1)
+	@Column(name="st_tipo_responsavel")
 	private String stTipoResponsavel;
 
 	//bi-directional many-to-one association to Aluno
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_aluno", nullable=false)
+	@JoinColumn(name="id_aluno")
 	private Aluno aluno;
 
 	//bi-directional many-to-one association to Responsavei
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_responsavel", nullable=false)
-	private Responsaveis responsavei;
+	@JoinColumn(name="id_responsavel")
+	private Responsavei responsavei;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public ResponsaveisAluno() {
 	}
@@ -117,12 +123,20 @@ public class ResponsaveisAluno implements Serializable {
 		this.aluno = aluno;
 	}
 
-	public Responsaveis getResponsavei() {
+	public Responsavei getResponsavei() {
 		return this.responsavei;
 	}
 
-	public void setResponsavei(Responsaveis responsavei) {
+	public void setResponsavei(Responsavei responsavei) {
 		this.responsavei = responsavei;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

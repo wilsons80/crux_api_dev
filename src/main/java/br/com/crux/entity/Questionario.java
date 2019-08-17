@@ -12,18 +12,19 @@ import java.util.List;
  */
 @Entity
 @Table(name="questionarios")
+@NamedQuery(name="Questionario.findAll", query="SELECT q FROM Questionario q")
 public class Questionario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_quetionario", unique=true, nullable=false, precision=10)
+	@Column(name="id_quetionario")
 	private Long idQuetionario;
 
-	@Column(name="ds_questionario", nullable=false, length=200)
+	@Column(name="ds_questionario")
 	private String dsQuestionario;
 
-	@Column(name="ds_tipo_questionario", length=1)
+	@Column(name="ds_tipo_questionario")
 	private String dsTipoQuestionario;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -33,6 +34,11 @@ public class Questionario implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_inicio_questionario")
 	private Date dtInicioQuestionario;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	//bi-directional many-to-one association to TalentosPf
 	@OneToMany(mappedBy="questionario")
@@ -79,6 +85,14 @@ public class Questionario implements Serializable {
 
 	public void setDtInicioQuestionario(Date dtInicioQuestionario) {
 		this.dtInicioQuestionario = dtInicioQuestionario;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 	public List<TalentosPf> getTalentosPfs() {

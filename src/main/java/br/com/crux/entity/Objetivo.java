@@ -12,23 +12,24 @@ import java.util.List;
  */
 @Entity
 @Table(name="objetivos")
+@NamedQuery(name="Objetivo.findAll", query="SELECT o FROM Objetivo o")
 public class Objetivo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_objetivo", unique=true, nullable=false, precision=10)
+	@Column(name="id_objetivo")
 	private Long idObjetivo;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_implantacao", nullable=false)
+	@Column(name="dt_implantacao")
 	private Date dtImplantacao;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_termino")
 	private Date dtTermino;
 
-	@Column(name="nm_objetivo", nullable=false, length=200)
+	@Column(name="nm_objetivo")
 	private String nmObjetivo;
 
 	//bi-directional many-to-one association to Indicadore
@@ -37,8 +38,13 @@ public class Objetivo implements Serializable {
 
 	//bi-directional many-to-one association to Perspectiva
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_perspectiva", nullable=false)
+	@JoinColumn(name="id_perspectiva")
 	private Perspectiva perspectiva;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public Objetivo() {
 	}
@@ -103,6 +109,14 @@ public class Objetivo implements Serializable {
 
 	public void setPerspectiva(Perspectiva perspectiva) {
 		this.perspectiva = perspectiva;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

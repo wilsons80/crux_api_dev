@@ -12,30 +12,31 @@ import java.util.List;
  */
 @Entity
 @Table(name="alunos")
+@NamedQuery(name="Aluno.findAll", query="SELECT a FROM Aluno a")
 public class Aluno implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_aluno", unique=true, nullable=false, precision=10)
+	@Column(name="id_aluno")
 	private Long idAluno;
 
-	@Column(name="ds_busca_escola", length=200)
+	@Column(name="ds_busca_escola")
 	private String dsBuscaEscola;
 
-	@Column(name="ds_desligamento", length=200)
+	@Column(name="ds_desligamento")
 	private String dsDesligamento;
 
-	@Column(name="ds_forma_ingresso_entidade", length=100)
+	@Column(name="ds_forma_ingresso_entidade")
 	private String dsFormaIngressoEntidade;
 
-	@Column(name="ds_medicamentos_controlados", length=200)
+	@Column(name="ds_medicamentos_controlados")
 	private String dsMedicamentosControlados;
 
-	@Column(name="ds_outras_informacoes", length=200)
+	@Column(name="ds_outras_informacoes")
 	private String dsOutrasInformacoes;
 
-	@Column(name="ds_problema_saude", length=200)
+	@Column(name="ds_problema_saude")
 	private String dsProblemaSaude;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -43,7 +44,7 @@ public class Aluno implements Serializable {
 	private Date dtAlteracaoCadastro;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_cadastro", nullable=false)
+	@Column(name="dt_cadastro")
 	private Date dtCadastro;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -54,43 +55,48 @@ public class Aluno implements Serializable {
 	@Column(name="dt_entrada")
 	private Date dtEntrada;
 
-	@Column(name="st_atendido_orgao_rede", length=1)
+	@Column(name="st_atendido_orgao_rede")
 	private String stAtendidoOrgaoRede;
 
-	@Column(name="st_matriculado_esc_pub", length=1)
+	@Column(name="st_matriculado_esc_pub")
 	private String stMatriculadoEscPub;
 
-	@Column(name="st_mora_pais", length=1)
+	@Column(name="st_mora_pais")
 	private String stMoraPais;
 
-	@Column(name="st_pais_casados", length=1)
+	@Column(name="st_pais_casados")
 	private String stPaisCasados;
 
-	@Column(name="st_publico_prioritario", length=1)
+	@Column(name="st_publico_prioritario")
 	private String stPublicoPrioritario;
 
-	@Column(name="tx_observacoes", length=2500)
+	@Column(name="tx_observacoes")
 	private String txObservacoes;
 
 	//bi-directional many-to-one association to PessoasFisica
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_pessoa_fisica", nullable=false)
+	@JoinColumn(name="id_pessoa_fisica")
 	private PessoasFisica pessoasFisica;
 
 	//bi-directional many-to-one association to Unidade
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_unidade", nullable=false)
+	@JoinColumn(name="id_unidade")
 	private Unidade unidade;
 
 	//bi-directional many-to-one association to UsuariosSistema
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_alteracao", nullable=false)
+	@JoinColumn(name="id_usuario_alteracao")
 	private UsuariosSistema usuariosSistema1;
 
 	//bi-directional many-to-one association to UsuariosSistema
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_cadastro", nullable=false)
+	@JoinColumn(name="id_usuario_cadastro")
 	private UsuariosSistema usuariosSistema2;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario")
+	private UsuariosSistema usuariosSistema3;
 
 	//bi-directional many-to-one association to Atendimento
 	@OneToMany(mappedBy="aluno")
@@ -285,6 +291,14 @@ public class Aluno implements Serializable {
 
 	public void setUsuariosSistema2(UsuariosSistema usuariosSistema2) {
 		this.usuariosSistema2 = usuariosSistema2;
+	}
+
+	public UsuariosSistema getUsuariosSistema3() {
+		return this.usuariosSistema3;
+	}
+
+	public void setUsuariosSistema3(UsuariosSistema usuariosSistema3) {
+		this.usuariosSistema3 = usuariosSistema3;
 	}
 
 	public List<Atendimento> getAtendimentos() {

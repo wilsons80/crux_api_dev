@@ -11,24 +11,25 @@ import java.util.List;
  */
 @Entity
 @Table(name="produtos")
+@NamedQuery(name="Produto.findAll", query="SELECT p FROM Produto p")
 public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_produto", unique=true, nullable=false, precision=10)
+	@Column(name="id_produto")
 	private Long idProduto;
 
-	@Column(name="cd_unidade_medida", length=20)
+	@Column(name="cd_unidade_medida")
 	private String cdUnidadeMedida;
 
-	@Column(name="ds_unidade_medida", length=200)
+	@Column(name="ds_unidade_medida")
 	private String dsUnidadeMedida;
 
-	@Column(name="nm_produto", length=200)
+	@Column(name="nm_produto")
 	private String nmProduto;
 
-	@Column(name="nm_produto_nf", length=200)
+	@Column(name="nm_produto_nf")
 	private String nmProdutoNf;
 
 	//bi-directional many-to-one association to Estoque
@@ -42,6 +43,11 @@ public class Produto implements Serializable {
 	//bi-directional many-to-one association to Pedido
 	@OneToMany(mappedBy="produto")
 	private List<Pedido> pedidos;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	//bi-directional many-to-one association to ProdutosAtividade
 	@OneToMany(mappedBy="produto")
@@ -154,6 +160,14 @@ public class Produto implements Serializable {
 		pedido.setProduto(null);
 
 		return pedido;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 	public List<ProdutosAtividade> getProdutosAtividades() {

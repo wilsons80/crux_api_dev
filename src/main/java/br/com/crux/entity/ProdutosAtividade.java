@@ -12,21 +12,22 @@ import java.util.Date;
  */
 @Entity
 @Table(name="produtos_atividades")
+@NamedQuery(name="ProdutosAtividade.findAll", query="SELECT p FROM ProdutosAtividade p")
 public class ProdutosAtividade implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_produto_atividade", unique=true, nullable=false, precision=10)
+	@Column(name="id_produto_atividade")
 	private Long idProdutoAtividade;
 
-	@Column(name="ds_forma_pagamento", length=1)
+	@Column(name="ds_forma_pagamento")
 	private String dsFormaPagamento;
 
-	@Column(name="ds_origem_produto", length=200)
+	@Column(name="ds_origem_produto")
 	private String dsOrigemProduto;
 
-	@Column(name="ds_produto_atividade", nullable=false, length=200)
+	@Column(name="ds_produto_atividade")
 	private String dsProdutoAtividade;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -37,27 +38,32 @@ public class ProdutosAtividade implements Serializable {
 	@Column(name="dt_venda_produto")
 	private Date dtVendaProduto;
 
-	@Column(name="qtd_produto", precision=10, scale=2)
+	@Column(name="qtd_produto")
 	private BigDecimal qtdProduto;
 
-	@Column(name="qtd_produto_vendida", precision=131089)
+	@Column(name="qtd_produto_vendida")
 	private BigDecimal qtdProdutoVendida;
 
-	@Column(name="tx_produto_atividade", length=200)
+	@Column(name="tx_produto_atividade")
 	private String txProdutoAtividade;
 
-	@Column(name="vl_produto", precision=10, scale=2)
+	@Column(name="vl_produto")
 	private BigDecimal vlProduto;
 
 	//bi-directional many-to-one association to Atividade
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_atividade", nullable=false)
+	@JoinColumn(name="id_atividade")
 	private Atividade atividade;
 
 	//bi-directional many-to-one association to Produto
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_produto", nullable=false)
+	@JoinColumn(name="id_produto")
 	private Produto produto;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public ProdutosAtividade() {
 	}
@@ -156,6 +162,14 @@ public class ProdutosAtividade implements Serializable {
 
 	public void setProduto(Produto produto) {
 		this.produto = produto;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

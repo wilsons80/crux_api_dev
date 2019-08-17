@@ -23,7 +23,7 @@ public class GetAutenticadorCmd implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<UsuariosSistema> result = autenticadorRepository.findByUserName(username);
+		Optional<UsuariosSistema> result = autenticadorRepository.findByUsername(username);
 		
 		if(!result.isPresent()) throw new UsernameNotFoundException("Não existe usuário com username = " + username);
 		
@@ -34,13 +34,13 @@ public class GetAutenticadorCmd implements UserDetailsService{
 		
 		List<GrantedAuthority> authorities = roles;
 		
-		User userSpring = new User(user.getUserName(), user.getDsSenha(), authorities);
+		User userSpring = new User(user.getUsername(), user.getDsSenha(), authorities);
 		
 		return userSpring;
 	}
 	
 	public UsuariosSistema loadUserByUsername1(String username) throws UsernameNotFoundException {
-		Optional<UsuariosSistema> result = autenticadorRepository.findByUserName(username);
+		Optional<UsuariosSistema> result = autenticadorRepository.findByUsername(username);
 		
 		if(!result.isPresent()) throw new UsernameNotFoundException("Não existe usuário com username = " + username);
 		

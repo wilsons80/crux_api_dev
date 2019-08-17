@@ -21,7 +21,8 @@ public class AutenticadorCmd {
 	@Autowired private AuthenticationManager authManager;
 	
 	@Autowired private TokenJwtCmd createTokenJwtCmd;
-
+	
+	
 	public UsuarioLogadoTO autenticar(UsuariosSistema user) {
 
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUserName(),user.getSenha());
@@ -53,6 +54,6 @@ public class AutenticadorCmd {
 		tokenTo.setToken(jwt);
 
 		return tokenTo;
-	}	
+	}
 
 }

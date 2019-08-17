@@ -11,22 +11,28 @@ import java.util.List;
  */
 @Entity
 @Table(name="cargos")
+@NamedQuery(name="Cargo.findAll", query="SELECT c FROM Cargo c")
 public class Cargo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_cargo", unique=true, nullable=false, precision=10)
+	@Column(name="id_cargo")
 	private Long idCargo;
 
-	@Column(name="cd_cargo", nullable=false, length=50)
+	@Column(name="cd_cargo")
 	private String cdCargo;
 
-	@Column(name="nm_cargo", nullable=false, length=200)
+	@Column(name="nm_cargo")
 	private String nmCargo;
 
-	@Column(name="st_tipo_cargo", nullable=false, length=1)
+	@Column(name="st_tipo_cargo")
 	private String stTipoCargo;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	//bi-directional many-to-one association to ColaboradoresAtividade
 	@OneToMany(mappedBy="cargo")
@@ -81,6 +87,14 @@ public class Cargo implements Serializable {
 
 	public void setStTipoCargo(String stTipoCargo) {
 		this.stTipoCargo = stTipoCargo;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 	public List<ColaboradoresAtividade> getColaboradoresAtividades() {

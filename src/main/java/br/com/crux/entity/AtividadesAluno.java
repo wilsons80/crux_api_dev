@@ -13,12 +13,13 @@ import java.util.List;
  */
 @Entity
 @Table(name="atividades_aluno")
+@NamedQuery(name="AtividadesAluno.findAll", query="SELECT a FROM AtividadesAluno a")
 public class AtividadesAluno implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_atividade_aluno", unique=true, nullable=false, precision=10)
+	@Column(name="id_atividade_aluno")
 	private Long idAtividadeAluno;
 
 	@Column(name="ds_desligamento")
@@ -46,23 +47,27 @@ public class AtividadesAluno implements Serializable {
 
 	//bi-directional many-to-one association to Aluno
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="aluno_id_aluno", nullable=false)
 	private Aluno aluno;
 
 	//bi-directional many-to-one association to Atividade
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="atividades_id_atividade", nullable=false)
+	@JoinColumn(name="atividades_id_atividade")
 	private Atividade atividade;
 
 	//bi-directional many-to-one association to UsuariosSistema
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="us_alteraca_id_usuario", nullable=false)
-	private UsuariosSistema usuariosAlteracao;
+	@JoinColumn(name="us_alteraca_id_usuario")
+	private UsuariosSistema usuariosSistema1;
 
 	//bi-directional many-to-one association to UsuariosSistema
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="us_cadastro_id_usuario", nullable=false)
-	private UsuariosSistema usuariosCadastro;
+	@JoinColumn(name="us_cadastro_id_usuario")
+	private UsuariosSistema usuariosSistema2;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema3;
 
 	//bi-directional many-to-one association to AvaliacoesAluno
 	@OneToMany(mappedBy="atividadesAluno")
@@ -165,20 +170,28 @@ public class AtividadesAluno implements Serializable {
 		this.atividade = atividade;
 	}
 
-	public UsuariosSistema getUsuariosAlteracao() {
-		return this.usuariosAlteracao;
+	public UsuariosSistema getUsuariosSistema1() {
+		return this.usuariosSistema1;
 	}
 
-	public void setUsuariosAlteracao(UsuariosSistema usuariosSistema1) {
-		this.usuariosAlteracao = usuariosSistema1;
+	public void setUsuariosSistema1(UsuariosSistema usuariosSistema1) {
+		this.usuariosSistema1 = usuariosSistema1;
 	}
 
-	public UsuariosSistema getUsuariosCadastro() {
-		return this.usuariosCadastro;
+	public UsuariosSistema getUsuariosSistema2() {
+		return this.usuariosSistema2;
 	}
 
-	public void setUsuariosCadastro(UsuariosSistema usuariosSistema2) {
-		this.usuariosCadastro = usuariosSistema2;
+	public void setUsuariosSistema2(UsuariosSistema usuariosSistema2) {
+		this.usuariosSistema2 = usuariosSistema2;
+	}
+
+	public UsuariosSistema getUsuariosSistema3() {
+		return this.usuariosSistema3;
+	}
+
+	public void setUsuariosSistema3(UsuariosSistema usuariosSistema3) {
+		this.usuariosSistema3 = usuariosSistema3;
 	}
 
 	public List<AvaliacoesAluno> getAvaliacoesAlunos() {

@@ -12,18 +12,19 @@ import java.util.Date;
  */
 @Entity
 @Table(name="estoques")
+@NamedQuery(name="Estoque.findAll", query="SELECT e FROM Estoque e")
 public class Estoque implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_estoque", unique=true, nullable=false, precision=10)
+	@Column(name="id_estoque")
 	private Long idEstoque;
 
-	@Column(name="cs_tipo_mov_estoque", length=1)
+	@Column(name="cs_tipo_mov_estoque")
 	private String csTipoMovEstoque;
 
-	@Column(name="ds_mov_estoque", length=200)
+	@Column(name="ds_mov_estoque")
 	private String dsMovEstoque;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -34,26 +35,31 @@ public class Estoque implements Serializable {
 	@Column(name="dt_mov_estoque")
 	private Date dtMovEstoque;
 
-	@Column(name="qt_estoque", precision=10, scale=2)
+	@Column(name="qt_estoque")
 	private BigDecimal qtEstoque;
 
-	@Column(name="qt_mov_estoque", precision=10, scale=2)
+	@Column(name="qt_mov_estoque")
 	private BigDecimal qtMovEstoque;
 
 	//bi-directional many-to-one association to Funcionario
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_funcionario", nullable=false)
+	@JoinColumn(name="id_funcionario")
 	private Funcionario funcionario;
 
 	//bi-directional many-to-one association to Produto
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_produto", nullable=false)
+	@JoinColumn(name="id_produto")
 	private Produto produto;
 
 	//bi-directional many-to-one association to Unidade
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_unidade", nullable=false)
+	@JoinColumn(name="id_unidade")
 	private Unidade unidade;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public Estoque() {
 	}
@@ -136,6 +142,14 @@ public class Estoque implements Serializable {
 
 	public void setUnidade(Unidade unidade) {
 		this.unidade = unidade;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

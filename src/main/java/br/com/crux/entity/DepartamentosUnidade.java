@@ -11,24 +11,25 @@ import java.util.List;
  */
 @Entity
 @Table(name="departamentos_unidades")
+@NamedQuery(name="DepartamentosUnidade.findAll", query="SELECT d FROM DepartamentosUnidade d")
 public class DepartamentosUnidade implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_departamento", unique=true, nullable=false, precision=10)
+	@Column(name="id_departamento")
 	private Long idDepartamento;
 
-	@Column(name="cd_unidade_departamento", nullable=false, length=6)
+	@Column(name="cd_unidade_departamento")
 	private String cdUnidadeDepartamento;
 
-	@Column(name="ds_endereco_departamento", length=200)
+	@Column(name="ds_endereco_departamento")
 	private String dsEnderecoDepartamento;
 
-	@Column(name="nm_departamento", nullable=false, length=100)
+	@Column(name="nm_departamento")
 	private String nmDepartamento;
 
-	@Column(name="nr_telefone_departamento", length=15)
+	@Column(name="nr_telefone_departamento")
 	private String nrTelefoneDepartamento;
 
 	//bi-directional many-to-one association to DepartamentosUnidade
@@ -42,8 +43,13 @@ public class DepartamentosUnidade implements Serializable {
 
 	//bi-directional many-to-one association to Unidade
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_unidade", nullable=false)
+	@JoinColumn(name="id_unidade")
 	private Unidade unidade;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public DepartamentosUnidade() {
 	}
@@ -124,6 +130,14 @@ public class DepartamentosUnidade implements Serializable {
 
 	public void setUnidade(Unidade unidade) {
 		this.unidade = unidade;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

@@ -2,6 +2,7 @@ package br.com.crux.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -11,34 +12,59 @@ import java.util.List;
  */
 @Entity
 @Table(name="unidades")
+@NamedQuery(name="Unidade.findAll", query="SELECT u FROM Unidade u")
 public class Unidade implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_unidade", unique=true, nullable=false, precision=10)
+	@Column(name="id_unidade")
 	private Long idUnidade;
 
-	@Column(name="cd_unidade", nullable=false, length=6)
+	@Column(name="cd_unidade")
 	private String cdUnidade;
 
-	@Column(name="cs_situacao_imovel", nullable=false, length=1)
+	@Column(name="cs_situacao_imovel")
 	private String csSituacaoImovel;
 
-	@Column(name="ds_endereco", nullable=false, length=200)
+	@Column(name="cs_tipo_unidade")
+	private String csTipoUnidade;
+
+	@Column(name="ds_bairro")
+	private String dsBairro;
+
+	@Column(name="ds_email")
+	private String dsEmail;
+
+	@Column(name="ds_endereco")
 	private String dsEndereco;
 
-	@Column(name="ds_estrutura_fisica_imovel", length=200)
+	@Column(name="ds_estrutura_fisica_imovel")
 	private String dsEstruturaFisicaImovel;
 
-	@Column(name="ds_situacao_imovel", length=200)
+	@Column(name="ds_missao")
+	private String dsMissao;
+
+	@Column(name="ds_situacao_imovel")
 	private String dsSituacaoImovel;
 
-	@Column(name="nm_unidade", nullable=false, length=100)
+	@Column(name="ds_visao")
+	private String dsVisao;
+
+	@Column(name="nm_unidade")
 	private String nmUnidade;
 
-	@Column(name="nr_telefone", nullable=false, length=15)
+	@Column(name="nr_cep")
+	private BigDecimal nrCep;
+
+	@Column(name="nr_fone_celular")
+	private String nrFoneCelular;
+
+	@Column(name="nr_telefone")
 	private String nrTelefone;
+
+	@Column(name="sg_uf_endereco")
+	private String sgUfEndereco;
 
 	//bi-directional many-to-one association to Aluno
 	@OneToMany(mappedBy="unidade")
@@ -72,15 +98,23 @@ public class Unidade implements Serializable {
 	@OneToMany(mappedBy="unidade")
 	private List<Pedido> pedidos;
 
+	//bi-directional many-to-one association to Perspectiva
+	@OneToMany(mappedBy="unidade")
+	private List<Perspectiva> perspectivas;
+
 	//bi-directional many-to-one association to Arquivo
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_arquivo")
+	@JoinColumn(name="id_arquivo_logomarca")
 	private Arquivo arquivo;
 
-	//bi-directional many-to-one association to Entidade
+	//bi-directional many-to-one association to UsuariosSistema
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_entidade", nullable=false)
-	private Entidade entidade;
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
+
+	//bi-directional many-to-one association to UsuariosUnidade
+	@OneToMany(mappedBy="unidade")
+	private List<UsuariosUnidade> usuariosUnidades;
 
 	public Unidade() {
 	}
@@ -109,6 +143,30 @@ public class Unidade implements Serializable {
 		this.csSituacaoImovel = csSituacaoImovel;
 	}
 
+	public String getCsTipoUnidade() {
+		return this.csTipoUnidade;
+	}
+
+	public void setCsTipoUnidade(String csTipoUnidade) {
+		this.csTipoUnidade = csTipoUnidade;
+	}
+
+	public String getDsBairro() {
+		return this.dsBairro;
+	}
+
+	public void setDsBairro(String dsBairro) {
+		this.dsBairro = dsBairro;
+	}
+
+	public String getDsEmail() {
+		return this.dsEmail;
+	}
+
+	public void setDsEmail(String dsEmail) {
+		this.dsEmail = dsEmail;
+	}
+
 	public String getDsEndereco() {
 		return this.dsEndereco;
 	}
@@ -125,12 +183,28 @@ public class Unidade implements Serializable {
 		this.dsEstruturaFisicaImovel = dsEstruturaFisicaImovel;
 	}
 
+	public String getDsMissao() {
+		return this.dsMissao;
+	}
+
+	public void setDsMissao(String dsMissao) {
+		this.dsMissao = dsMissao;
+	}
+
 	public String getDsSituacaoImovel() {
 		return this.dsSituacaoImovel;
 	}
 
 	public void setDsSituacaoImovel(String dsSituacaoImovel) {
 		this.dsSituacaoImovel = dsSituacaoImovel;
+	}
+
+	public String getDsVisao() {
+		return this.dsVisao;
+	}
+
+	public void setDsVisao(String dsVisao) {
+		this.dsVisao = dsVisao;
 	}
 
 	public String getNmUnidade() {
@@ -141,12 +215,36 @@ public class Unidade implements Serializable {
 		this.nmUnidade = nmUnidade;
 	}
 
+	public BigDecimal getNrCep() {
+		return this.nrCep;
+	}
+
+	public void setNrCep(BigDecimal nrCep) {
+		this.nrCep = nrCep;
+	}
+
+	public String getNrFoneCelular() {
+		return this.nrFoneCelular;
+	}
+
+	public void setNrFoneCelular(String nrFoneCelular) {
+		this.nrFoneCelular = nrFoneCelular;
+	}
+
 	public String getNrTelefone() {
 		return this.nrTelefone;
 	}
 
 	public void setNrTelefone(String nrTelefone) {
 		this.nrTelefone = nrTelefone;
+	}
+
+	public String getSgUfEndereco() {
+		return this.sgUfEndereco;
+	}
+
+	public void setSgUfEndereco(String sgUfEndereco) {
+		this.sgUfEndereco = sgUfEndereco;
 	}
 
 	public List<Aluno> getAlunos() {
@@ -325,6 +423,28 @@ public class Unidade implements Serializable {
 		return pedido;
 	}
 
+	public List<Perspectiva> getPerspectivas() {
+		return this.perspectivas;
+	}
+
+	public void setPerspectivas(List<Perspectiva> perspectivas) {
+		this.perspectivas = perspectivas;
+	}
+
+	public Perspectiva addPerspectiva(Perspectiva perspectiva) {
+		getPerspectivas().add(perspectiva);
+		perspectiva.setUnidade(this);
+
+		return perspectiva;
+	}
+
+	public Perspectiva removePerspectiva(Perspectiva perspectiva) {
+		getPerspectivas().remove(perspectiva);
+		perspectiva.setUnidade(null);
+
+		return perspectiva;
+	}
+
 	public Arquivo getArquivo() {
 		return this.arquivo;
 	}
@@ -333,12 +453,34 @@ public class Unidade implements Serializable {
 		this.arquivo = arquivo;
 	}
 
-	public Entidade getEntidade() {
-		return this.entidade;
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
 	}
 
-	public void setEntidade(Entidade entidade) {
-		this.entidade = entidade;
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
+	}
+
+	public List<UsuariosUnidade> getUsuariosUnidades() {
+		return this.usuariosUnidades;
+	}
+
+	public void setUsuariosUnidades(List<UsuariosUnidade> usuariosUnidades) {
+		this.usuariosUnidades = usuariosUnidades;
+	}
+
+	public UsuariosUnidade addUsuariosUnidade(UsuariosUnidade usuariosUnidade) {
+		getUsuariosUnidades().add(usuariosUnidade);
+		usuariosUnidade.setUnidade(this);
+
+		return usuariosUnidade;
+	}
+
+	public UsuariosUnidade removeUsuariosUnidade(UsuariosUnidade usuariosUnidade) {
+		getUsuariosUnidades().remove(usuariosUnidade);
+		usuariosUnidade.setUnidade(null);
+
+		return usuariosUnidade;
 	}
 
 }

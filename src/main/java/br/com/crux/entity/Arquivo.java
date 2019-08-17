@@ -13,35 +13,36 @@ import java.util.List;
  */
 @Entity
 @Table(name="arquivos")
+@NamedQuery(name="Arquivo.findAll", query="SELECT a FROM Arquivo a")
 public class Arquivo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_arquivo", unique=true, nullable=false, precision=10)
+	@Column(name="id_arquivo")
 	private Long idArquivo;
 
 	private byte[] blob;
 
-	@Column(name="ds_tipo_arquivo", length=200)
+	@Column(name="ds_tipo_arquivo")
 	private String dsTipoArquivo;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_criacao")
 	private Date dtCriacao;
 
-	@Column(length=200)
 	private String hash;
 
-	@Column(name="nm_arquivo", nullable=false, length=200)
+	@Column(name="nm_arquivo")
 	private String nmArquivo;
 
-	@Column(name="nr_tamanho_arquivo", precision=10, scale=2)
+	@Column(name="nr_tamanho_arquivo")
 	private BigDecimal nrTamanhoArquivo;
 
-	//bi-directional many-to-one association to Entidade
-	@OneToMany(mappedBy="arquivo")
-	private List<Entidade> entidades;
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	//bi-directional many-to-one association to PessoasFisica
 	@OneToMany(mappedBy="arquivo")
@@ -110,26 +111,12 @@ public class Arquivo implements Serializable {
 		this.nrTamanhoArquivo = nrTamanhoArquivo;
 	}
 
-	public List<Entidade> getEntidades() {
-		return this.entidades;
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
 	}
 
-	public void setEntidades(List<Entidade> entidades) {
-		this.entidades = entidades;
-	}
-
-	public Entidade addEntidade(Entidade entidade) {
-		getEntidades().add(entidade);
-		entidade.setArquivo(this);
-
-		return entidade;
-	}
-
-	public Entidade removeEntidade(Entidade entidade) {
-		getEntidades().remove(entidade);
-		entidade.setArquivo(null);
-
-		return entidade;
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 	public List<PessoasFisica> getPessoasFisicas() {

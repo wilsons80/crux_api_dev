@@ -13,38 +13,39 @@ import java.util.List;
  */
 @Entity
 @Table(name="programas")
+@NamedQuery(name="Programa.findAll", query="SELECT p FROM Programa p")
 public class Programa implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_programa", unique=true, nullable=false, precision=10)
+	@Column(name="id_programa")
 	private Long idPrograma;
 
-	@Column(name="ds_programa", length=200)
+	@Column(name="ds_programa")
 	private String dsPrograma;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_implantacao", nullable=false)
+	@Column(name="dt_implantacao")
 	private Date dtImplantacao;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_termino")
 	private Date dtTermino;
 
-	@Column(name="id_coordenador", precision=10)
+	@Column(name="id_coordenador")
 	private BigDecimal idCoordenador;
 
-	@Column(name="id_objetivo", nullable=false, precision=10)
+	@Column(name="id_objetivo")
 	private BigDecimal idObjetivo;
 
-	@Column(name="nm_programa", nullable=false, length=200)
+	@Column(name="nm_programa")
 	private String nmPrograma;
 
-	@Column(name="nr_faixa_etaria_fim", precision=2)
+	@Column(name="nr_faixa_etaria_fim")
 	private BigDecimal nrFaixaEtariaFim;
 
-	@Column(name="nr_faixa_etaria_ini", precision=2)
+	@Column(name="nr_faixa_etaria_ini")
 	private BigDecimal nrFaixaEtariaIni;
 
 	//bi-directional many-to-one association to ColaboradoresPrograma
@@ -53,8 +54,13 @@ public class Programa implements Serializable {
 
 	//bi-directional many-to-one association to Iniciativa
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="iniciativas_id_iniciativa", nullable=false)
+	@JoinColumn(name="iniciativas_id_iniciativa")
 	private Iniciativa iniciativa;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	//bi-directional many-to-one association to Projeto
 	@OneToMany(mappedBy="programa")
@@ -163,6 +169,14 @@ public class Programa implements Serializable {
 
 	public void setIniciativa(Iniciativa iniciativa) {
 		this.iniciativa = iniciativa;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 	public List<Projeto> getProjetos() {

@@ -11,15 +11,16 @@ import java.util.Date;
  */
 @Entity
 @Table(name="contatos_empresa")
+@NamedQuery(name="ContatosEmpresa.findAll", query="SELECT c FROM ContatosEmpresa c")
 public class ContatosEmpresa implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_contato_empresa", unique=true, nullable=false, precision=10)
+	@Column(name="id_contato_empresa")
 	private Long idContatoEmpresa;
 
-	@Column(name="ds_fim_contato", length=200)
+	@Column(name="ds_fim_contato")
 	private String dsFimContato;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -32,18 +33,23 @@ public class ContatosEmpresa implements Serializable {
 
 	//bi-directional many-to-one association to Cargo
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_cargo", nullable=false)
+	@JoinColumn(name="id_cargo")
 	private Cargo cargo;
 
 	//bi-directional many-to-one association to Empresa
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_empresa", nullable=false)
+	@JoinColumn(name="id_empresa")
 	private Empresa empresa;
 
 	//bi-directional many-to-one association to PessoasFisica
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_pessoa_fisica", nullable=false)
+	@JoinColumn(name="id_pessoa_fisica")
 	private PessoasFisica pessoasFisica;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public ContatosEmpresa() {
 	}
@@ -102,6 +108,14 @@ public class ContatosEmpresa implements Serializable {
 
 	public void setPessoasFisica(PessoasFisica pessoasFisica) {
 		this.pessoasFisica = pessoasFisica;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

@@ -11,19 +11,25 @@ import java.util.List;
  */
 @Entity
 @Table(name="centros_custo")
+@NamedQuery(name="CentrosCusto.findAll", query="SELECT c FROM CentrosCusto c")
 public class CentrosCusto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_centro_custo", unique=true, nullable=false, precision=10)
+	@Column(name="id_centro_custo")
 	private Long idCentroCusto;
 
-	@Column(name="nm_centro_custo", length=200)
+	@Column(name="nm_centro_custo")
 	private String nmCentroCusto;
 
-	@Column(name="nr_centro_custo", length=20)
+	@Column(name="nr_centro_custo")
 	private String nrCentroCusto;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	//bi-directional many-to-one association to ItensFatura
 	@OneToMany(mappedBy="centrosCusto")
@@ -58,6 +64,14 @@ public class CentrosCusto implements Serializable {
 
 	public void setNrCentroCusto(String nrCentroCusto) {
 		this.nrCentroCusto = nrCentroCusto;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 	public List<ItensFatura> getItensFaturas() {

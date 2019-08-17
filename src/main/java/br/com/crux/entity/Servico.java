@@ -11,15 +11,16 @@ import java.util.List;
  */
 @Entity
 @Table(name="servicos")
+@NamedQuery(name="Servico.findAll", query="SELECT s FROM Servico s")
 public class Servico implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_servico", unique=true, nullable=false, precision=10)
+	@Column(name="id_servico")
 	private Long idServico;
 
-	@Column(name="nm_servico", length=200)
+	@Column(name="nm_servico")
 	private String nmServico;
 
 	//bi-directional many-to-one association to ItensFatura
@@ -29,6 +30,11 @@ public class Servico implements Serializable {
 	//bi-directional many-to-one association to Pedido
 	@OneToMany(mappedBy="servico")
 	private List<Pedido> pedidos;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public Servico() {
 	}
@@ -91,6 +97,14 @@ public class Servico implements Serializable {
 		pedido.setServico(null);
 
 		return pedido;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

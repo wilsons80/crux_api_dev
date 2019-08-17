@@ -13,24 +13,25 @@ import java.util.List;
  */
 @Entity
 @Table(name="contas_bancarias")
+@NamedQuery(name="ContasBancaria.findAll", query="SELECT c FROM ContasBancaria c")
 public class ContasBancaria implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_conta_bancaria", unique=true, nullable=false, precision=10)
+	@Column(name="id_conta_bancaria")
 	private Long idContaBancaria;
 
-	@Column(name="cs_tipo_conta_bancaria", length=200)
+	@Column(name="cs_tipo_conta_bancaria")
 	private String csTipoContaBancaria;
 
-	@Column(name="nm_banco", length=200)
+	@Column(name="nm_banco")
 	private String nmBanco;
 
-	@Column(name="nr_agencia", length=20)
+	@Column(name="nr_agencia")
 	private String nrAgencia;
 
-	@Column(name="nr_banco", precision=10, scale=2)
+	@Column(name="nr_banco")
 	private BigDecimal nrBanco;
 
 	@Column(name="nr_conta_bancaria")
@@ -38,8 +39,13 @@ public class ContasBancaria implements Serializable {
 
 	//bi-directional many-to-one association to Unidade
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_unidade", nullable=false)
+	@JoinColumn(name="id_unidade")
 	private Unidade unidade;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	//bi-directional many-to-one association to MovimentacoesConta
 	@OneToMany(mappedBy="contasBancaria")
@@ -106,6 +112,14 @@ public class ContasBancaria implements Serializable {
 
 	public void setUnidade(Unidade unidade) {
 		this.unidade = unidade;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 	public List<MovimentacoesConta> getMovimentacoesContas() {

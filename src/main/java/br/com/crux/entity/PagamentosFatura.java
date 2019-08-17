@@ -13,18 +13,19 @@ import java.util.List;
  */
 @Entity
 @Table(name="pagamentos_faturas")
+@NamedQuery(name="PagamentosFatura.findAll", query="SELECT p FROM PagamentosFatura p")
 public class PagamentosFatura implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_pagamento_fatura", unique=true, nullable=false, precision=10)
+	@Column(name="id_pagamento_fatura")
 	private Long idPagamentoFatura;
 
-	@Column(name="cs_tipo_pagamento", length=1)
+	@Column(name="cs_tipo_pagamento")
 	private String csTipoPagamento;
 
-	@Column(name="ds_item_fatura", length=200)
+	@Column(name="ds_item_fatura")
 	private String dsItemFatura;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -39,16 +40,16 @@ public class PagamentosFatura implements Serializable {
 	@Column(name="dt_vencimento_fatura")
 	private Date dtVencimentoFatura;
 
-	@Column(name="nr_doc_pagamento_fatura", length=20)
+	@Column(name="nr_doc_pagamento_fatura")
 	private String nrDocPagamentoFatura;
 
-	@Column(name="nr_parcela_fatura", precision=10)
+	@Column(name="nr_parcela_fatura")
 	private BigDecimal nrParcelaFatura;
 
-	@Column(name="vl_fatura", precision=10, scale=2)
+	@Column(name="vl_fatura")
 	private BigDecimal vlFatura;
 
-	@Column(name="vl_pagamento_fatura", precision=10, scale=2)
+	@Column(name="vl_pagamento_fatura")
 	private BigDecimal vlPagamentoFatura;
 
 	//bi-directional many-to-one association to MovimentacoesConta
@@ -57,13 +58,18 @@ public class PagamentosFatura implements Serializable {
 
 	//bi-directional many-to-one association to ContasBancaria
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_conta_bancaria", nullable=false)
+	@JoinColumn(name="id_conta_bancaria")
 	private ContasBancaria contasBancaria;
 
 	//bi-directional many-to-one association to Fatura
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_fatura", nullable=false)
+	@JoinColumn(name="id_fatura")
 	private Fatura fatura;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public PagamentosFatura() {
 	}
@@ -184,6 +190,14 @@ public class PagamentosFatura implements Serializable {
 
 	public void setFatura(Fatura fatura) {
 		this.fatura = fatura;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

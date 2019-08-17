@@ -12,18 +12,19 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name="cadastro_reserva_atividades")
+@NamedQuery(name="CadastroReservaAtividade.findAll", query="SELECT c FROM CadastroReservaAtividade c")
 public class CadastroReservaAtividade implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_cadastro_reserva", unique=true, nullable=false, precision=10)
+	@Column(name="id_cadastro_reserva")
 	private Long idCadastroReserva;
 
 	@Column(name="ds_cadastro_reserva")
 	private Timestamp dsCadastroReserva;
 
-	@Column(name="ds_cancelamento_cadastro", length=200)
+	@Column(name="ds_cancelamento_cadastro")
 	private String dsCancelamentoCadastro;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -44,23 +45,28 @@ public class CadastroReservaAtividade implements Serializable {
 
 	//bi-directional many-to-one association to Atividade
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_atividade", nullable=false)
+	@JoinColumn(name="id_atividade")
 	private Atividade atividade;
 
 	//bi-directional many-to-one association to PessoasFisica
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="pf_id_pessoa_fisica", nullable=false)
+	@JoinColumn(name="pf_id_pessoa_fisica")
 	private PessoasFisica pessoasFisica;
 
 	//bi-directional many-to-one association to UsuariosSistema
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="us_alteraca_id_usuario", nullable=false)
-	private UsuariosSistema usuarioAlteracao;
+	@JoinColumn(name="us_alteraca_id_usuario")
+	private UsuariosSistema usuariosSistema1;
 
 	//bi-directional many-to-one association to UsuariosSistema
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="us_cadastro_id_usuario", nullable=false)
-	private UsuariosSistema usuariosCadastro;
+	@JoinColumn(name="us_cadastro_id_usuario")
+	private UsuariosSistema usuariosSistema2;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema3;
 
 	public CadastroReservaAtividade() {
 	}
@@ -137,20 +143,28 @@ public class CadastroReservaAtividade implements Serializable {
 		this.pessoasFisica = pessoasFisica;
 	}
 
-	public UsuariosSistema getUsuarioAlteracao() {
-		return this.usuarioAlteracao;
+	public UsuariosSistema getUsuariosSistema1() {
+		return this.usuariosSistema1;
 	}
 
-	public void setUsuarioAlteracao(UsuariosSistema usuariosSistema1) {
-		this.usuarioAlteracao = usuariosSistema1;
+	public void setUsuariosSistema1(UsuariosSistema usuariosSistema1) {
+		this.usuariosSistema1 = usuariosSistema1;
 	}
 
-	public UsuariosSistema getUsuariosCadastro() {
-		return this.usuariosCadastro;
+	public UsuariosSistema getUsuariosSistema2() {
+		return this.usuariosSistema2;
 	}
 
-	public void setUsuariosCadastro(UsuariosSistema usuariosSistema2) {
-		this.usuariosCadastro = usuariosSistema2;
+	public void setUsuariosSistema2(UsuariosSistema usuariosSistema2) {
+		this.usuariosSistema2 = usuariosSistema2;
+	}
+
+	public UsuariosSistema getUsuariosSistema3() {
+		return this.usuariosSistema3;
+	}
+
+	public void setUsuariosSistema3(UsuariosSistema usuariosSistema3) {
+		this.usuariosSistema3 = usuariosSistema3;
 	}
 
 }

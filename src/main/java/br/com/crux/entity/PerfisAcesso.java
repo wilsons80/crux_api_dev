@@ -11,32 +11,38 @@ import java.util.List;
  */
 @Entity
 @Table(name="perfis_acessos")
+@NamedQuery(name="PerfisAcesso.findAll", query="SELECT p FROM PerfisAcesso p")
 public class PerfisAcesso implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_perfil_acesso", unique=true, nullable=false, precision=10)
+	@Column(name="id_perfil_acesso")
 	private Long idPerfilAcesso;
 
-	@Column(name="cs_altera", length=1)
+	@Column(name="cs_altera")
 	private String csAltera;
 
-	@Column(name="cs_consulta", length=1)
+	@Column(name="cs_consulta")
 	private String csConsulta;
 
-	@Column(name="cs_deleta", length=1)
+	@Column(name="cs_deleta")
 	private String csDeleta;
 
-	@Column(name="cs_insere", length=1)
+	@Column(name="cs_insere")
 	private String csInsere;
 
-	@Column(name="nm_perfil_acesso", length=200)
+	@Column(name="nm_perfil_acesso")
 	private String nmPerfilAcesso;
 
 	//bi-directional many-to-one association to GruposModulo
 	@OneToMany(mappedBy="perfisAcesso")
 	private List<GruposModulo> gruposModulos;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public PerfisAcesso() {
 	}
@@ -109,6 +115,14 @@ public class PerfisAcesso implements Serializable {
 		gruposModulo.setPerfisAcesso(null);
 
 		return gruposModulo;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

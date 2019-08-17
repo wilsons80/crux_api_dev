@@ -12,15 +12,16 @@ import java.util.List;
  */
 @Entity
 @Table(name="metas")
+@NamedQuery(name="Meta.findAll", query="SELECT m FROM Meta m")
 public class Meta implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_meta", unique=true, nullable=false, precision=10)
+	@Column(name="id_meta")
 	private Long idMeta;
 
-	@Column(name="ds_meta", nullable=false, length=200)
+	@Column(name="ds_meta")
 	private String dsMeta;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -37,8 +38,13 @@ public class Meta implements Serializable {
 
 	//bi-directional many-to-one association to Indicadore
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="indicadores_id_indicador", nullable=false)
+	@JoinColumn(name="indicadores_id_indicador")
 	private Indicadore indicadore;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public Meta() {
 	}
@@ -103,6 +109,14 @@ public class Meta implements Serializable {
 
 	public void setIndicadore(Indicadore indicadore) {
 		this.indicadore = indicadore;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

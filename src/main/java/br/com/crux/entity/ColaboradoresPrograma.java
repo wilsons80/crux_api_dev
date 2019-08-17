@@ -11,16 +11,17 @@ import java.util.Date;
  */
 @Entity
 @Table(name="colaboradores_programas")
+@NamedQuery(name="ColaboradoresPrograma.findAll", query="SELECT c FROM ColaboradoresPrograma c")
 public class ColaboradoresPrograma implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_colaborador_prgrama", unique=true, nullable=false, precision=10)
+	@Column(name="id_colaborador_prgrama")
 	private Long idColaboradorPrgrama;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_entrada_programa", nullable=false)
+	@Column(name="dt_entrada_programa")
 	private Date dtEntradaPrograma;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -29,18 +30,23 @@ public class ColaboradoresPrograma implements Serializable {
 
 	//bi-directional many-to-one association to Cargo
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_cargo", nullable=false)
+	@JoinColumn(name="id_cargo")
 	private Cargo cargo;
 
 	//bi-directional many-to-one association to Funcionario
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_funcionario", nullable=false)
+	@JoinColumn(name="id_funcionario")
 	private Funcionario funcionario;
 
 	//bi-directional many-to-one association to Programa
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_programa", nullable=false)
+	@JoinColumn(name="id_programa")
 	private Programa programa;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public ColaboradoresPrograma() {
 	}
@@ -91,6 +97,14 @@ public class ColaboradoresPrograma implements Serializable {
 
 	public void setPrograma(Programa programa) {
 		this.programa = programa;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

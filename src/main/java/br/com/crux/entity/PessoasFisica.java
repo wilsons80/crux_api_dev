@@ -13,193 +13,194 @@ import java.util.List;
  */
 @Entity
 @Table(name="pessoas_fisicas")
+@NamedQuery(name="PessoasFisica.findAll", query="SELECT p FROM PessoasFisica p")
 public class PessoasFisica implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_pessoa_fisica", unique=true, nullable=false, precision=10)
+	@Column(name="id_pessoa_fisica")
 	private Long idPessoaFisica;
 
-	@Column(name="cd_orgao_ci", length=45)
+	@Column(name="cd_orgao_ci")
 	private String cdOrgaoCi;
 
-	@Column(name="cs_motivo_nao_trab", length=2)
+	@Column(name="cs_motivo_nao_trab")
 	private String csMotivoNaoTrab;
 
-	@Column(name="ds_atendido_orgao_rede", length=200)
+	@Column(name="ds_atendido_orgao_rede")
 	private String dsAtendidoOrgaoRede;
 
-	@Column(name="ds_atendido_orgao_rede_1", length=200)
+	@Column(name="ds_atendido_orgao_rede_1")
 	private String dsAtendidoOrgaoRede1;
 
-	@Column(name="ds_bairro", length=200)
+	@Column(name="ds_bairro")
 	private String dsBairro;
 
-	@Column(name="ds_cidade_naturalidade", length=200)
+	@Column(name="ds_cidade_naturalidade")
 	private String dsCidadeNaturalidade;
 
-	@Column(name="ds_condicao_moradia", length=200)
+	@Column(name="ds_condicao_moradia")
 	private String dsCondicaoMoradia;
 
-	@Column(name="ds_cor", length=45)
+	@Column(name="ds_cor")
 	private String dsCor;
 
-	@Column(name="ds_curso_escola", length=200)
+	@Column(name="ds_curso_escola")
 	private String dsCursoEscola;
 
-	@Column(name="ds_email", length=100)
+	@Column(name="ds_email")
 	private String dsEmail;
 
-	@Column(name="ds_endereco", nullable=false, length=200)
+	@Column(name="ds_endereco")
 	private String dsEndereco;
 
-	@Column(name="ds_escola", length=200)
+	@Column(name="ds_escola")
 	private String dsEscola;
 
-	@Column(name="ds_escolaridade", length=200)
+	@Column(name="ds_escolaridade")
 	private String dsEscolaridade;
 
-	@Column(name="ds_estado_civil", length=45)
+	@Column(name="ds_estado_civil")
 	private String dsEstadoCivil;
 
-	@Column(name="ds_forma_ingresso_entidade", length=200)
+	@Column(name="ds_forma_ingresso_entidade")
 	private String dsFormaIngressoEntidade;
 
-	@Column(name="ds_medicamentos_controlados", length=200)
+	@Column(name="ds_medicamentos_controlados")
 	private String dsMedicamentosControlados;
 
-	@Column(name="ds_motivo_nao_trab", length=200)
+	@Column(name="ds_motivo_nao_trab")
 	private String dsMotivoNaoTrab;
 
-	@Column(name="ds_nivel_escolaridade", length=200)
+	@Column(name="ds_nivel_escolaridade")
 	private String dsNivelEscolaridade;
 
-	@Column(name="ds_outros_ben_soc", length=200)
+	@Column(name="ds_outros_ben_soc")
 	private String dsOutrosBenSoc;
 
-	@Column(name="ds_periodo_escola", length=200)
+	@Column(name="ds_periodo_escola")
 	private String dsPeriodoEscola;
 
-	@Column(name="ds_ponto_referencia", length=200)
+	@Column(name="ds_ponto_referencia")
 	private String dsPontoReferencia;
 
-	@Column(name="ds_problema_saude", length=200)
+	@Column(name="ds_problema_saude")
 	private String dsProblemaSaude;
 
-	@Column(name="ds_profissao", length=100)
+	@Column(name="ds_profissao")
 	private String dsProfissao;
 
-	@Column(name="ds_rede_ap_soc_relev", length=200)
+	@Column(name="ds_rede_ap_soc_relev")
 	private String dsRedeApSocRelev;
 
-	@Column(name="ds_rede_apoio_social", length=200)
+	@Column(name="ds_rede_apoio_social")
 	private String dsRedeApoioSocial;
 
-	@Column(name="ds_rede_apoio_social_1", length=1)
+	@Column(name="ds_rede_apoio_social_1")
 	private String dsRedeApoioSocial1;
 
-	@Column(name="ds_regiao_escola", length=200)
+	@Column(name="ds_regiao_escola")
 	private String dsRegiaoEscola;
 
-	@Column(name="ds_serie_escola", length=200)
+	@Column(name="ds_serie_escola")
 	private String dsSerieEscola;
 
-	@Column(name="ds_sexo", length=1)
+	@Column(name="ds_sexo")
 	private String dsSexo;
 
-	@Column(name="ds_situacao_trabalho", length=200)
+	@Column(name="ds_situacao_trabalho")
 	private String dsSituacaoTrabalho;
 
-	@Column(name="ds_tipo_escola", length=200)
+	@Column(name="ds_tipo_escola")
 	private String dsTipoEscola;
 
-	@Column(name="ds_turno", length=200)
+	@Column(name="ds_turno")
 	private String dsTurno;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_nascimento")
 	private Date dtNascimento;
 
-	@Column(name="nm_empresa_trabalho", length=200)
+	@Column(name="nm_empresa_trabalho")
 	private String nmEmpresaTrabalho;
 
-	@Column(name="nm_mae", length=200)
+	@Column(name="nm_mae")
 	private String nmMae;
 
-	@Column(name="nm_pai", length=200)
+	@Column(name="nm_pai")
 	private String nmPai;
 
-	@Column(name="nm_pessoa_fisica", nullable=false, length=255)
+	@Column(name="nm_pessoa_fisica")
 	private String nmPessoaFisica;
 
-	@Column(name="nr_cep", precision=8)
+	@Column(name="nr_cep")
 	private BigDecimal nrCep;
 
-	@Column(name="nr_ci", length=30)
+	@Column(name="nr_ci")
 	private String nrCi;
 
-	@Column(name="nr_cpf", nullable=false, precision=11)
+	@Column(name="nr_cpf")
 	private BigDecimal nrCpf;
 
-	@Column(name="nr_cts", length=20)
+	@Column(name="nr_cts")
 	private String nrCts;
 
-	@Column(name="nr_fone_celular", nullable=false, length=15)
+	@Column(name="nr_fone_celular")
 	private String nrFoneCelular;
 
-	@Column(name="nr_nis", length=200)
+	@Column(name="nr_nis")
 	private String nrNis;
 
-	@Column(name="nr_serie_ctps", length=15)
+	@Column(name="nr_serie_ctps")
 	private String nrSerieCtps;
 
-	@Column(name="nr_sessao_titulo", length=15)
+	@Column(name="nr_sessao_titulo")
 	private String nrSessaoTitulo;
 
-	@Column(name="nr_telefone_comercial", length=15)
+	@Column(name="nr_telefone_comercial")
 	private String nrTelefoneComercial;
 
-	@Column(name="nr_telefone_residencial", length=15)
+	@Column(name="nr_telefone_residencial")
 	private String nrTelefoneResidencial;
 
-	@Column(name="nr_titulo_eleitor", length=15)
+	@Column(name="nr_titulo_eleitor")
 	private String nrTituloEleitor;
 
-	@Column(name="nr_zona_titulo", length=15)
+	@Column(name="nr_zona_titulo")
 	private String nrZonaTitulo;
 
-	@Column(name="sg_uf_ci", length=2)
+	@Column(name="sg_uf_ci")
 	private String sgUfCi;
 
-	@Column(name="sg_uf_endereco", length=2)
+	@Column(name="sg_uf_endereco")
 	private String sgUfEndereco;
 
-	@Column(name="sg_uf_nascimento", length=2)
+	@Column(name="sg_uf_nascimento")
 	private String sgUfNascimento;
 
-	@Column(name="st_atendido_orgao_rede", length=1)
+	@Column(name="st_atendido_orgao_rede")
 	private String stAtendidoOrgaoRede;
 
-	@Column(name="st_autoriza_email", length=1)
+	@Column(name="st_autoriza_email")
 	private String stAutorizaEmail;
 
-	@Column(name="st_ben_bolsa_familia", length=1)
+	@Column(name="st_ben_bolsa_familia")
 	private String stBenBolsaFamilia;
 
-	@Column(name="tx_observacoes", length=200)
+	@Column(name="tx_observacoes")
 	private String txObservacoes;
 
-	@Column(name="vl_aluguel", precision=10, scale=2)
+	@Column(name="vl_aluguel")
 	private BigDecimal vlAluguel;
 
-	@Column(name="vl_bolsa_familia", precision=10, scale=2)
+	@Column(name="vl_bolsa_familia")
 	private BigDecimal vlBolsaFamilia;
 
-	@Column(name="vl_outros_benerficios_soc", length=1500)
+	@Column(name="vl_outros_benerficios_soc")
 	private String vlOutrosBenerficiosSoc;
 
-	@Column(name="vl_renda", precision=10, scale=2)
+	@Column(name="vl_renda")
 	private BigDecimal vlRenda;
 
 	//bi-directional many-to-one association to Aluno
@@ -241,17 +242,19 @@ public class PessoasFisica implements Serializable {
 	@JoinColumn(name="graus_inscrucao_pf")
 	private GrausInstrucao grausInstrucao;
 
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
+
 	//bi-directional many-to-one association to Responsavei
 	@OneToMany(mappedBy="pessoasFisica")
-	private List<Responsaveis> responsaveis;
+	private List<Responsavei> responsaveis;
 
 	//bi-directional many-to-one association to TalentosPf
 	@OneToMany(mappedBy="pessoasFisica")
 	private List<TalentosPf> talentosPfs;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@OneToMany(mappedBy="pessoasFisica")
-	private List<UsuariosSistema> usuariosSistemas;
 
 	public PessoasFisica() {
 	}
@@ -900,22 +903,30 @@ public class PessoasFisica implements Serializable {
 		this.grausInstrucao = grausInstrucao;
 	}
 
-	public List<Responsaveis> getResponsaveis() {
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
+	}
+
+	public List<Responsavei> getResponsaveis() {
 		return this.responsaveis;
 	}
 
-	public void setResponsaveis(List<Responsaveis> responsaveis) {
+	public void setResponsaveis(List<Responsavei> responsaveis) {
 		this.responsaveis = responsaveis;
 	}
 
-	public Responsaveis addResponsavei(Responsaveis responsavei) {
+	public Responsavei addResponsavei(Responsavei responsavei) {
 		getResponsaveis().add(responsavei);
 		responsavei.setPessoasFisica(this);
 
 		return responsavei;
 	}
 
-	public Responsaveis removeResponsavei(Responsaveis responsavei) {
+	public Responsavei removeResponsavei(Responsavei responsavei) {
 		getResponsaveis().remove(responsavei);
 		responsavei.setPessoasFisica(null);
 
@@ -944,26 +955,5 @@ public class PessoasFisica implements Serializable {
 		return talentosPf;
 	}
 
-	public List<UsuariosSistema> getUsuariosSistemas() {
-		return this.usuariosSistemas;
-	}
-
-	public void setUsuariosSistemas(List<UsuariosSistema> usuariosSistemas) {
-		this.usuariosSistemas = usuariosSistemas;
-	}
-
-	public UsuariosSistema addUsuariosSistema(UsuariosSistema usuariosSistema) {
-		getUsuariosSistemas().add(usuariosSistema);
-		usuariosSistema.setPessoasFisica(this);
-
-		return usuariosSistema;
-	}
-
-	public UsuariosSistema removeUsuariosSistema(UsuariosSistema usuariosSistema) {
-		getUsuariosSistemas().remove(usuariosSistema);
-		usuariosSistema.setPessoasFisica(null);
-
-		return usuariosSistema;
-	}
 
 }

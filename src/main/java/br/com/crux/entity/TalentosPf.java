@@ -13,15 +13,16 @@ import java.util.List;
  */
 @Entity
 @Table(name="talentos_pf")
+@NamedQuery(name="TalentosPf.findAll", query="SELECT t FROM TalentosPf t")
 public class TalentosPf implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_talento_pf", unique=true, nullable=false, precision=10)
+	@Column(name="id_talento_pf")
 	private Long idTalentoPf;
 
-	@Column(name="ds_resposta_talento", nullable=false, length=200)
+	@Column(name="ds_resposta_talento")
 	private String dsRespostaTalento;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -31,7 +32,7 @@ public class TalentosPf implements Serializable {
 	@Column(name="nr_nota_competencia")
 	private Timestamp nrNotaCompetencia;
 
-	@Column(name="tx_observacao", length=1000)
+	@Column(name="tx_observacao")
 	private String txObservacao;
 
 	//bi-directional many-to-one association to AcoesCompetencia
@@ -40,18 +41,23 @@ public class TalentosPf implements Serializable {
 
 	//bi-directional many-to-one association to Funcionario
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_funcionario", nullable=false)
+	@JoinColumn(name="id_funcionario")
 	private Funcionario funcionario;
 
 	//bi-directional many-to-one association to PessoasFisica
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_pessoa_fisica", nullable=false)
+	@JoinColumn(name="id_pessoa_fisica")
 	private PessoasFisica pessoasFisica;
 
 	//bi-directional many-to-one association to Questionario
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="questionarios_id_quetionario", nullable=false)
+	@JoinColumn(name="questionarios_id_quetionario")
 	private Questionario questionario;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public TalentosPf() {
 	}
@@ -140,6 +146,14 @@ public class TalentosPf implements Serializable {
 
 	public void setQuestionario(Questionario questionario) {
 		this.questionario = questionario;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

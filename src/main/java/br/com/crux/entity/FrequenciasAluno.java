@@ -11,15 +11,16 @@ import java.util.Date;
  */
 @Entity
 @Table(name="frequencias_alunos")
+@NamedQuery(name="FrequenciasAluno.findAll", query="SELECT f FROM FrequenciasAluno f")
 public class FrequenciasAluno implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_frequencia_aluno", unique=true, nullable=false, precision=10)
+	@Column(name="id_frequencia_aluno")
 	private Long idFrequenciaAluno;
 
-	@Column(name="ds_justificativa", length=45)
+	@Column(name="ds_justificativa")
 	private String dsJustificativa;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -28,8 +29,13 @@ public class FrequenciasAluno implements Serializable {
 
 	//bi-directional many-to-one association to AtividadesAluno
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_atividade_aluno", nullable=false)
+	@JoinColumn(name="id_atividade_aluno")
 	private AtividadesAluno atividadesAluno;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public FrequenciasAluno() {
 	}
@@ -64,6 +70,14 @@ public class FrequenciasAluno implements Serializable {
 
 	public void setAtividadesAluno(AtividadesAluno atividadesAluno) {
 		this.atividadesAluno = atividadesAluno;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

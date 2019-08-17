@@ -11,16 +11,17 @@ import java.util.Date;
  */
 @Entity
 @Table(name="vulnerabilidades_familiar")
+@NamedQuery(name="VulnerabilidadesFamiliar.findAll", query="SELECT v FROM VulnerabilidadesFamiliar v")
 public class VulnerabilidadesFamiliar implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_vulnerabilidade_fam", unique=true, nullable=false, precision=10)
+	@Column(name="id_vulnerabilidade_fam")
 	private Long idVulnerabilidadeFam;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_ident_vulnerabilidade", nullable=false)
+	@Column(name="dt_ident_vulnerabilidade")
 	private Date dtIdentVulnerabilidade;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -29,18 +30,23 @@ public class VulnerabilidadesFamiliar implements Serializable {
 
 	//bi-directional many-to-one association to Familiare
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_familiar", nullable=false)
+	@JoinColumn(name="id_familiar")
 	private Familiare familiare;
 
 	//bi-directional many-to-one association to SituacoesVulnerabilidade
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_vulnerabilidade", nullable=false)
+	@JoinColumn(name="id_vulnerabilidade")
 	private SituacoesVulnerabilidade situacoesVulnerabilidade;
 
 	//bi-directional many-to-one association to Solucoe
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_solucao", nullable=false)
-	private Solucoes solucoe;
+	@JoinColumn(name="id_solucao")
+	private Solucoe solucoe;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public VulnerabilidadesFamiliar() {
 	}
@@ -85,12 +91,20 @@ public class VulnerabilidadesFamiliar implements Serializable {
 		this.situacoesVulnerabilidade = situacoesVulnerabilidade;
 	}
 
-	public Solucoes getSolucoe() {
+	public Solucoe getSolucoe() {
 		return this.solucoe;
 	}
 
-	public void setSolucoe(Solucoes solucoe) {
+	public void setSolucoe(Solucoe solucoe) {
 		this.solucoe = solucoe;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

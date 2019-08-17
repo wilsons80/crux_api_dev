@@ -11,16 +11,17 @@ import java.util.Date;
  */
 @Entity
 @Table(name="colaboradores_atividades")
+@NamedQuery(name="ColaboradoresAtividade.findAll", query="SELECT c FROM ColaboradoresAtividade c")
 public class ColaboradoresAtividade implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_colaborador_atividade", unique=true, nullable=false, precision=10)
+	@Column(name="id_colaborador_atividade")
 	private Long idColaboradorAtividade;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_entrada_atividade", nullable=false)
+	@Column(name="dt_entrada_atividade")
 	private Date dtEntradaAtividade;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -29,18 +30,23 @@ public class ColaboradoresAtividade implements Serializable {
 
 	//bi-directional many-to-one association to Atividade
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_atividade", nullable=false)
+	@JoinColumn(name="id_atividade")
 	private Atividade atividade;
 
 	//bi-directional many-to-one association to Cargo
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_cargo", nullable=false)
+	@JoinColumn(name="id_cargo")
 	private Cargo cargo;
 
 	//bi-directional many-to-one association to Funcionario
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_funcionario", nullable=false)
+	@JoinColumn(name="id_funcionario")
 	private Funcionario funcionario;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public ColaboradoresAtividade() {
 	}
@@ -91,6 +97,14 @@ public class ColaboradoresAtividade implements Serializable {
 
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

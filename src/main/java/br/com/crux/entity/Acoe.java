@@ -2,9 +2,6 @@ package br.com.crux.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import br.com.crux.constantes.Constantes;
-
 import java.util.Date;
 
 
@@ -14,13 +11,13 @@ import java.util.Date;
  */
 @Entity
 @Table(name="acoes")
+@NamedQuery(name="Acoe.findAll", query="SELECT a FROM Acoe a")
 public class Acoe implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_acao")
-	@SequenceGenerator(name = "sq_id_acao", sequenceName = "sq_id_acao", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
-	@Column(name="id_acao", unique=true, nullable=false, precision=10)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_acao")
 	private Long idAcao;
 
 	@Temporal(TemporalType.DATE)
@@ -28,7 +25,7 @@ public class Acoe implements Serializable {
 	private Date dtFimAcao;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="dt_inicio_acao", nullable=false)
+	@Column(name="dt_inicio_acao")
 	private Date dtInicioAcao;
 
 	@Temporal(TemporalType.DATE)
@@ -39,13 +36,18 @@ public class Acoe implements Serializable {
 	@Column(name="dt_prev_inicio_acao")
 	private Date dtPrevInicioAcao;
 
-	@Column(name="nm_plano_acao", nullable=false, length=200)
+	@Column(name="nm_plano_acao")
 	private String nmPlanoAcao;
 
 	//bi-directional many-to-one association to Atividade
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="atividades_id_atividade", nullable=false)
+	@JoinColumn(name="atividades_id_atividade")
 	private Atividade atividade;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario")
+	private UsuariosSistema usuariosSistema;
 
 	public Acoe() {
 	}
@@ -104,6 +106,14 @@ public class Acoe implements Serializable {
 
 	public void setAtividade(Atividade atividade) {
 		this.atividade = atividade;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

@@ -11,16 +11,17 @@ import java.util.Date;
  */
 @Entity
 @Table(name="vulnerabilidades_responsavel")
+@NamedQuery(name="VulnerabilidadesResponsavel.findAll", query="SELECT v FROM VulnerabilidadesResponsavel v")
 public class VulnerabilidadesResponsavel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_vulnerabilidade_resp", unique=true, nullable=false, precision=10)
+	@Column(name="id_vulnerabilidade_resp")
 	private Long idVulnerabilidadeResp;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_ident_vulnerabilidade", nullable=false)
+	@Column(name="dt_ident_vulnerabilidade")
 	private Date dtIdentVulnerabilidade;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -29,18 +30,23 @@ public class VulnerabilidadesResponsavel implements Serializable {
 
 	//bi-directional many-to-one association to Responsavei
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_responsavel", nullable=false)
-	private Responsaveis responsavei;
+	@JoinColumn(name="id_responsavel")
+	private Responsavei responsavei;
 
 	//bi-directional many-to-one association to SituacoesVulnerabilidade
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_vulnerabilidade", nullable=false)
+	@JoinColumn(name="id_vulnerabilidade")
 	private SituacoesVulnerabilidade situacoesVulnerabilidade;
 
 	//bi-directional many-to-one association to Solucoe
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_solucao", nullable=false)
-	private Solucoes solucoe;
+	@JoinColumn(name="id_solucao")
+	private Solucoe solucoe;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public VulnerabilidadesResponsavel() {
 	}
@@ -69,11 +75,11 @@ public class VulnerabilidadesResponsavel implements Serializable {
 		this.dtSolucaoVulnerabilidade = dtSolucaoVulnerabilidade;
 	}
 
-	public Responsaveis getResponsavei() {
+	public Responsavei getResponsavei() {
 		return this.responsavei;
 	}
 
-	public void setResponsavei(Responsaveis responsavei) {
+	public void setResponsavei(Responsavei responsavei) {
 		this.responsavei = responsavei;
 	}
 
@@ -85,12 +91,20 @@ public class VulnerabilidadesResponsavel implements Serializable {
 		this.situacoesVulnerabilidade = situacoesVulnerabilidade;
 	}
 
-	public Solucoes getSolucoe() {
+	public Solucoe getSolucoe() {
 		return this.solucoe;
 	}
 
-	public void setSolucoe(Solucoes solucoe) {
+	public void setSolucoe(Solucoe solucoe) {
 		this.solucoe = solucoe;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

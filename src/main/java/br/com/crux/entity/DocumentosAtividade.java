@@ -10,24 +10,30 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="documentos_atividades")
+@NamedQuery(name="DocumentosAtividade.findAll", query="SELECT d FROM DocumentosAtividade d")
 public class DocumentosAtividade implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="ds_documento_atividade", nullable=false, length=200)
+	@Column(name="ds_documento_atividade")
 	private String dsDocumentoAtividade;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_documento_atividade", nullable=false, precision=10)
+	@Column(name="id_documento_atividade")
 	private Long idDocumentoAtividade;
 
-	@Column(name="tx_documento_atividade", length=200)
+	@Column(name="tx_documento_atividade")
 	private String txDocumentoAtividade;
 
 	//bi-directional many-to-one association to Atividade
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_atividade", nullable=false)
+	@JoinColumn(name="id_atividade")
 	private Atividade atividade;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public DocumentosAtividade() {
 	}
@@ -62,6 +68,14 @@ public class DocumentosAtividade implements Serializable {
 
 	public void setAtividade(Atividade atividade) {
 		this.atividade = atividade;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

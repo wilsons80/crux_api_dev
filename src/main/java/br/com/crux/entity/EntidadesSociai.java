@@ -12,12 +12,13 @@ import java.util.List;
  */
 @Entity
 @Table(name="entidades_sociais")
+@NamedQuery(name="EntidadesSociai.findAll", query="SELECT e FROM EntidadesSociai e")
 public class EntidadesSociai implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_entidade_social", unique=true, nullable=false, precision=10)
+	@Column(name="id_entidade_social")
 	private Long idEntidadeSocial;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -34,8 +35,13 @@ public class EntidadesSociai implements Serializable {
 
 	//bi-directional many-to-one association to Empresa
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_empresa", nullable=false)
+	@JoinColumn(name="id_empresa")
 	private Empresa empresa;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public EntidadesSociai() {
 	}
@@ -92,6 +98,14 @@ public class EntidadesSociai implements Serializable {
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

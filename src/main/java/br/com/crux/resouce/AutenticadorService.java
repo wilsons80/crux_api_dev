@@ -32,7 +32,7 @@ public class AutenticadorService {
 	}
 	
 	
-	@PostMapping(path = "/refresh-token", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/refresh-token", produces = MediaType.APPLICATION_JSON_VALUE)
 	public TokenTo refreshToken() {
 		return autenticadorLoginCmd.refreshToken();
 	}

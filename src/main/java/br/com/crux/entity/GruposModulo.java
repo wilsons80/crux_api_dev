@@ -11,29 +11,35 @@ import java.util.List;
  */
 @Entity
 @Table(name="grupos_modulos")
+@NamedQuery(name="GruposModulo.findAll", query="SELECT g FROM GruposModulo g")
 public class GruposModulo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_grupo_modulo", unique=true, nullable=false, precision=10)
+	@Column(name="id_grupo_modulo")
 	private Long idGrupoModulo;
 
-	@Column(name="nm_grupo", nullable=false, length=100)
+	@Column(name="nm_grupo")
 	private String nmGrupo;
 
-	@Column(name="tx_descricao_grupo", nullable=false, length=200)
+	@Column(name="tx_descricao_grupo")
 	private String txDescricaoGrupo;
 
 	//bi-directional many-to-one association to Modulo
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_modulo", nullable=false)
+	@JoinColumn(name="id_modulo")
 	private Modulo modulo;
 
 	//bi-directional many-to-one association to PerfisAcesso
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_perfil_acesso", nullable=false)
+	@JoinColumn(name="id_perfil_acesso")
 	private PerfisAcesso perfisAcesso;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	//bi-directional many-to-one association to UsuariosGrupo
 	@OneToMany(mappedBy="gruposModulo")
@@ -80,6 +86,14 @@ public class GruposModulo implements Serializable {
 
 	public void setPerfisAcesso(PerfisAcesso perfisAcesso) {
 		this.perfisAcesso = perfisAcesso;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 	public List<UsuariosGrupo> getUsuariosGrupos() {

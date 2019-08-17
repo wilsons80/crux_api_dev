@@ -12,80 +12,86 @@ import java.util.List;
  */
 @Entity
 @Table(name="empresas")
+@NamedQuery(name="Empresa.findAll", query="SELECT e FROM Empresa e")
 public class Empresa implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_empresa", unique=true, nullable=false, precision=10)
+	@Column(name="id_empresa")
 	private Long idEmpresa;
 
-	@Column(name="cd_empresa", nullable=false, length=6)
+	@Column(name="cd_empresa")
 	private String cdEmpresa;
 
-	@Column(name="cs_categoria_empresa", length=1)
+	@Column(name="cs_categoria_empresa")
 	private String csCategoriaEmpresa;
 
-	@Column(name="cs_tipo_empresa", nullable=false, length=1)
+	@Column(name="cs_tipo_empresa")
 	private String csTipoEmpresa;
 
-	@Column(name="ds_bairro", length=200)
+	@Column(name="ds_bairro")
 	private String dsBairro;
 
-	@Column(name="ds_categoria_empresa", length=200)
+	@Column(name="ds_categoria_empresa")
 	private String dsCategoriaEmpresa;
 
-	@Column(name="ds_email", length=200)
+	@Column(name="ds_email")
 	private String dsEmail;
 
-	@Column(name="ds_endereco", nullable=false, length=200)
+	@Column(name="ds_endereco")
 	private String dsEndereco;
 
-	@Column(name="ds_home_page", length=200)
+	@Column(name="ds_home_page")
 	private String dsHomePage;
 
-	@Column(name="ds_tipo_empresa", length=200)
+	@Column(name="ds_tipo_empresa")
 	private String dsTipoEmpresa;
 
-	@Column(name="nm_cidade", length=200)
+	@Column(name="nm_cidade")
 	private String nmCidade;
 
-	@Column(name="nm_fantasia", length=200)
+	@Column(name="nm_fantasia")
 	private String nmFantasia;
 
-	@Column(name="nm_razao_social", nullable=false, length=100)
+	@Column(name="nm_razao_social")
 	private String nmRazaoSocial;
 
-	@Column(name="nr_cep", precision=8)
+	@Column(name="nr_cep")
 	private BigDecimal nrCep;
 
-	@Column(name="nr_cnpj", length=13)
+	@Column(name="nr_cnpj")
 	private String nrCnpj;
 
-	@Column(name="nr_inscricao_estadual", length=20)
+	@Column(name="nr_inscricao_estadual")
 	private String nrInscricaoEstadual;
 
-	@Column(name="nr_inscricao_municipal", length=20)
+	@Column(name="nr_inscricao_municipal")
 	private String nrInscricaoMunicipal;
 
-	@Column(name="nr_telefone", nullable=false, length=15)
+	@Column(name="nr_telefone")
 	private String nrTelefone;
 
-	@Column(name="st_ativa", length=1)
+	@Column(name="st_ativa")
 	private String stAtiva;
 
-	@Column(name="st_autoriza_email", length=1)
+	@Column(name="st_autoriza_email")
 	private String stAutorizaEmail;
 
-	@Column(name="uf_empresa", length=2)
+	@Column(name="uf_empresa")
 	private String ufEmpresa;
 
-	@Column(name="vl_icms", precision=10, scale=2)
+	@Column(name="vl_icms")
 	private BigDecimal vlIcms;
 
 	//bi-directional many-to-one association to ContatosEmpresa
 	@OneToMany(mappedBy="empresa")
 	private List<ContatosEmpresa> contatosEmpresas;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	//bi-directional many-to-one association to EntidadesSociai
 	@OneToMany(mappedBy="empresa")
@@ -298,6 +304,14 @@ public class Empresa implements Serializable {
 		contatosEmpresa.setEmpresa(null);
 
 		return contatosEmpresa;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 	public List<EntidadesSociai> getEntidadesSociais() {

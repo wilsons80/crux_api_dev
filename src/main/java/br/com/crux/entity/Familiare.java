@@ -12,32 +12,33 @@ import java.util.List;
  */
 @Entity
 @Table(name="familiares")
+@NamedQuery(name="Familiare.findAll", query="SELECT f FROM Familiare f")
 public class Familiare implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_familiar", unique=true, nullable=false, precision=10)
+	@Column(name="id_familiar")
 	private Long idFamiliar;
 
-	@Column(name="ds_desligamento", length=200)
+	@Column(name="ds_desligamento")
 	private String dsDesligamento;
 
-	@Column(name="ds_grau_parentesco", length=45)
+	@Column(name="ds_grau_parentesco")
 	private String dsGrauParentesco;
 
-	@Column(name="ds_outras_informacoes", length=200)
+	@Column(name="ds_outras_informacoes")
 	private String dsOutrasInformacoes;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_cadastro", nullable=false)
+	@Column(name="dt_cadastro")
 	private Date dtCadastro;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_desligamento")
 	private Date dtDesligamento;
 
-	@Column(name="st_situacao_parentesco", length=1)
+	@Column(name="st_situacao_parentesco")
 	private String stSituacaoParentesco;
 
 	//bi-directional many-to-one association to Atendimento
@@ -46,13 +47,18 @@ public class Familiare implements Serializable {
 
 	//bi-directional many-to-one association to PessoasFisica
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_pessoa_fisica", nullable=false)
+	@JoinColumn(name="id_pessoa_fisica")
 	private PessoasFisica pessoasFisica;
 
 	//bi-directional many-to-one association to Responsavei
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_responsavel", nullable=false)
-	private Responsaveis responsavei;
+	@JoinColumn(name="id_responsavel")
+	private Responsavei responsavei;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	//bi-directional many-to-one association to VulnerabilidadesFamiliar
 	@OneToMany(mappedBy="familiare")
@@ -147,12 +153,20 @@ public class Familiare implements Serializable {
 		this.pessoasFisica = pessoasFisica;
 	}
 
-	public Responsaveis getResponsavei() {
+	public Responsavei getResponsavei() {
 		return this.responsavei;
 	}
 
-	public void setResponsavei(Responsaveis responsavei) {
+	public void setResponsavei(Responsavei responsavei) {
 		this.responsavei = responsavei;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 	public List<VulnerabilidadesFamiliar> getVulnerabilidadesFamiliars() {

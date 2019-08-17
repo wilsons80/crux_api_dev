@@ -11,6 +11,6 @@ import br.com.crux.entity.UsuariosSistema;
 @Repository
 public interface AutenticadorRepository extends JpaRepository<UsuariosSistema, Long>{
 	
-	public Optional<UsuariosSistema> findByUserName(String userName);
+	public Optional<UsuariosSistema> findByUsername(String userName);
 
 }

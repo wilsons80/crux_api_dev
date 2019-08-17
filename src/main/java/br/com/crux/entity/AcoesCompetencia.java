@@ -11,21 +11,22 @@ import java.util.Date;
  */
 @Entity
 @Table(name="acoes_competencias")
+@NamedQuery(name="AcoesCompetencia.findAll", query="SELECT a FROM AcoesCompetencia a")
 public class AcoesCompetencia implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_acao_competencia", unique=true, nullable=false, precision=10)
+	@Column(name="id_acao_competencia")
 	private Long idAcaoCompetencia;
 
-	@Column(name="ds_questionario", nullable=false, length=200)
+	@Column(name="ds_questionario")
 	private String dsQuestionario;
 
-	@Column(name="ds_resultado_acao", length=200)
+	@Column(name="ds_resultado_acao")
 	private String dsResultadoAcao;
 
-	@Column(name="ds_resultado_prev_acao", length=1)
+	@Column(name="ds_resultado_prev_acao")
 	private String dsResultadoPrevAcao;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -38,8 +39,13 @@ public class AcoesCompetencia implements Serializable {
 
 	//bi-directional many-to-one association to TalentosPf
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="talentos_pf_id_talento_pf", nullable=false)
+	@JoinColumn(name="talentos_pf_id_talento_pf")
 	private TalentosPf talentosPf;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario")
+	private UsuariosSistema usuariosSistema;
 
 	public AcoesCompetencia() {
 	}
@@ -98,6 +104,14 @@ public class AcoesCompetencia implements Serializable {
 
 	public void setTalentosPf(TalentosPf talentosPf) {
 		this.talentosPf = talentosPf;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

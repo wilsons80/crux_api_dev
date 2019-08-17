@@ -18,14 +18,17 @@ public class UsuariosSistema implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_usuario", unique=true, nullable=false, precision=10)
+	@Column(name="id_usuario")
 	private Long idUsuario;
 
+	@Column(name="nm_username")
+	private String username;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="ds_fim_vigencia_usuario")
 	private Date dsFimVigenciaUsuario;
 
-	@Column(name="ds_senha", nullable=false, length=100)
+	@Column(name="ds_senha")
 	private String dsSenha;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -40,27 +43,28 @@ public class UsuariosSistema implements Serializable {
 	@Column(name="dt_ultimo_acesso")
 	private Date dtUltimoAcesso;
 
-	@Column(name="nm_username", length=45)
-	private String userName;
 
-	@Column(name="qtd_acesso_negado", precision=10)
+
+	@Column(name="qtd_acesso_negado")
 	private BigDecimal qtdAcessoNegado;
 
-	@Column(name="st_ativo", length=1)
+	@Column(name="st_ativo")
 	private String stAtivo;
 
-	@Column(name="st_troca_senha", length=1)
+	@Column(name="st_troca_senha")
 	private String stTrocaSenha;
 
-	//bi-directional many-to-one association to PessoasFisica
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_pessoa_fisica", nullable=false)
-	private PessoasFisica pessoasFisica;
 
 	//bi-directional many-to-one association to UsuariosGrupo
 	@OneToMany(mappedBy="usuariosSistema")
 	private List<UsuariosGrupo> usuariosGrupos;
 
+
+	//bi-directional many-to-one association to UsuariosUnidade
+	@OneToMany(mappedBy="usuariosSistema")
+	private List<UsuariosUnidade> usuariosUnidades;
+	
+	
 	public UsuariosSistema() {
 	}
 
@@ -112,12 +116,12 @@ public class UsuariosSistema implements Serializable {
 		this.dtUltimoAcesso = dtUltimoAcesso;
 	}
 
-	public String getUserName() {
-		return this.userName;
+	public String getUsername() {
+		return this.username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String nmUsername) {
+		this.username = nmUsername;
 	}
 
 	public BigDecimal getQtdAcessoNegado() {
@@ -144,34 +148,22 @@ public class UsuariosSistema implements Serializable {
 		this.stTrocaSenha = stTrocaSenha;
 	}
 
-	public PessoasFisica getPessoasFisica() {
-		return this.pessoasFisica;
-	}
-
-	public void setPessoasFisica(PessoasFisica pessoasFisica) {
-		this.pessoasFisica = pessoasFisica;
-	}
-
 	public List<UsuariosGrupo> getUsuariosGrupos() {
-		return this.usuariosGrupos;
+		return usuariosGrupos;
 	}
 
 	public void setUsuariosGrupos(List<UsuariosGrupo> usuariosGrupos) {
 		this.usuariosGrupos = usuariosGrupos;
 	}
 
-	public UsuariosGrupo addUsuariosGrupo(UsuariosGrupo usuariosGrupo) {
-		getUsuariosGrupos().add(usuariosGrupo);
-		usuariosGrupo.setUsuariosSistema(this);
-
-		return usuariosGrupo;
+	public List<UsuariosUnidade> getUsuariosUnidades() {
+		return usuariosUnidades;
 	}
 
-	public UsuariosGrupo removeUsuariosGrupo(UsuariosGrupo usuariosGrupo) {
-		getUsuariosGrupos().remove(usuariosGrupo);
-		usuariosGrupo.setUsuariosSistema(null);
-
-		return usuariosGrupo;
+	public void setUsuariosUnidades(List<UsuariosUnidade> usuariosUnidades) {
+		this.usuariosUnidades = usuariosUnidades;
 	}
+
+	
 
 }

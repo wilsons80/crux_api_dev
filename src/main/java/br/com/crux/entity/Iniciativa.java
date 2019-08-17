@@ -12,15 +12,16 @@ import java.util.List;
  */
 @Entity
 @Table(name="iniciativas")
+@NamedQuery(name="Iniciativa.findAll", query="SELECT i FROM Iniciativa i")
 public class Iniciativa implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_iniciativa", unique=true, nullable=false, precision=10)
+	@Column(name="id_iniciativa")
 	private Long idIniciativa;
 
-	@Column(name="ds_iniciativa", nullable=false, length=200)
+	@Column(name="ds_iniciativa")
 	private String dsIniciativa;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -28,13 +29,18 @@ public class Iniciativa implements Serializable {
 	private Date dtFimIniciativa;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_inicio_iniciativa", nullable=false)
+	@Column(name="dt_inicio_iniciativa")
 	private Date dtInicioIniciativa;
 
 	//bi-directional many-to-one association to Meta
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="metas_id_meta", nullable=false)
+	@JoinColumn(name="metas_id_meta")
 	private Meta meta;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	//bi-directional many-to-one association to PlanosAcao
 	@OneToMany(mappedBy="iniciativa")
@@ -89,6 +95,14 @@ public class Iniciativa implements Serializable {
 
 	public void setMeta(Meta meta) {
 		this.meta = meta;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 	public List<PlanosAcao> getPlanosAcaos() {

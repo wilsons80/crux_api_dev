@@ -10,23 +10,25 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="usuarios_grupos")
+@NamedQuery(name="UsuariosGrupo.findAll", query="SELECT u FROM UsuariosGrupo u")
 public class UsuariosGrupo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_usuario_grupo", unique=true, nullable=false, precision=10)
+	@Column(name="id_usuario_grupo")
 	private Long idUsuarioGrupo;
 
 	//bi-directional many-to-one association to GruposModulo
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_grupo_modulo", nullable=false)
+	@JoinColumn(name="id_grupo_modulo")
 	private GruposModulo gruposModulo;
 
 	//bi-directional many-to-one association to UsuariosSistema
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario", nullable=false)
+	@JoinColumn(name="id_usuario")
 	private UsuariosSistema usuariosSistema;
+
 
 	public UsuariosGrupo() {
 	}
@@ -54,5 +56,6 @@ public class UsuariosGrupo implements Serializable {
 	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
 		this.usuariosSistema = usuariosSistema;
 	}
+
 
 }

@@ -11,12 +11,13 @@ import java.util.Date;
  */
 @Entity
 @Table(name="cursos_formacao_pf")
+@NamedQuery(name="CursosFormacaoPf.findAll", query="SELECT c FROM CursosFormacaoPf c")
 public class CursosFormacaoPf implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_curso", unique=true, nullable=false, precision=10)
+	@Column(name="id_curso")
 	private Long idCurso;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -27,16 +28,21 @@ public class CursosFormacaoPf implements Serializable {
 	@Column(name="dt_inicio_curso")
 	private Date dtInicioCurso;
 
-	@Column(name="nm_curso", nullable=false, length=200)
+	@Column(name="nm_curso")
 	private String nmCurso;
 
-	@Column(name="nm_instuicao", length=200)
+	@Column(name="nm_instuicao")
 	private String nmInstuicao;
 
 	//bi-directional many-to-one association to PessoasFisica
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_pessoa_fisica", nullable=false)
+	@JoinColumn(name="id_pessoa_fisica")
 	private PessoasFisica pessoasFisica;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public CursosFormacaoPf() {
 	}
@@ -87,6 +93,14 @@ public class CursosFormacaoPf implements Serializable {
 
 	public void setPessoasFisica(PessoasFisica pessoasFisica) {
 		this.pessoasFisica = pessoasFisica;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

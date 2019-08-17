@@ -19,7 +19,7 @@ public class AccessManager {
 	
 	public boolean isOwner(Long id) {
 		String userName = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Optional<UsuariosSistema> result = autenticadorRepository.findByUserName(userName);
+		Optional<UsuariosSistema> result = autenticadorRepository.findByUsername(userName);
 		
 		if(!result.isPresent()) throw new NotFoundException("Não existe usuário com userName = " + userName);
 		

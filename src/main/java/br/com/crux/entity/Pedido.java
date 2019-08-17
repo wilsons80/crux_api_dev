@@ -13,15 +13,16 @@ import java.util.List;
  */
 @Entity
 @Table(name="pedidos")
+@NamedQuery(name="Pedido.findAll", query="SELECT p FROM Pedido p")
 public class Pedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_pedido", unique=true, nullable=false, precision=10)
+	@Column(name="id_pedido")
 	private Long idPedido;
 
-	@Column(name="ds_pedido", length=200)
+	@Column(name="ds_pedido")
 	private String dsPedido;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -36,10 +37,10 @@ public class Pedido implements Serializable {
 	@Column(name="dt_pedido")
 	private Date dtPedido;
 
-	@Column(name="qtd_pedido", precision=10, scale=2)
+	@Column(name="qtd_pedido")
 	private BigDecimal qtdPedido;
 
-	@Column(name="vl_pedido", precision=10, scale=2)
+	@Column(name="vl_pedido")
 	private BigDecimal vlPedido;
 
 	//bi-directional many-to-one association to ItensFatura
@@ -48,17 +49,17 @@ public class Pedido implements Serializable {
 
 	//bi-directional many-to-one association to CentrosCusto
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_centro_custo", nullable=false)
+	@JoinColumn(name="id_centro_custo")
 	private CentrosCusto centrosCusto;
 
 	//bi-directional many-to-one association to Funcionario
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_funcionario_rec_ped", nullable=false)
+	@JoinColumn(name="id_funcionario_rec_ped")
 	private Funcionario funcionario1;
 
 	//bi-directional many-to-one association to Funcionario
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_funcionario_pedido", nullable=false)
+	@JoinColumn(name="id_funcionario_pedido")
 	private Funcionario funcionario2;
 
 	//bi-directional many-to-one association to Produto
@@ -73,8 +74,13 @@ public class Pedido implements Serializable {
 
 	//bi-directional many-to-one association to Unidade
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_unidade", nullable=false)
+	@JoinColumn(name="id_unidade")
 	private Unidade unidade;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public Pedido() {
 	}
@@ -203,6 +209,14 @@ public class Pedido implements Serializable {
 
 	public void setUnidade(Unidade unidade) {
 		this.unidade = unidade;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

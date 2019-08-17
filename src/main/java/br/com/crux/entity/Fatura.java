@@ -13,18 +13,19 @@ import java.util.List;
  */
 @Entity
 @Table(name="faturas")
+@NamedQuery(name="Fatura.findAll", query="SELECT f FROM Fatura f")
 public class Fatura implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_fatura", unique=true, nullable=false, precision=10)
+	@Column(name="id_fatura")
 	private Long idFatura;
 
-	@Column(name="cs_tipo_fatura", length=200)
+	@Column(name="cs_tipo_fatura")
 	private String csTipoFatura;
 
-	@Column(name="ds_fatura", length=200)
+	@Column(name="ds_fatura")
 	private String dsFatura;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -35,13 +36,13 @@ public class Fatura implements Serializable {
 	@Column(name="dt_fatura")
 	private Date dtFatura;
 
-	@Column(name="nr_doc_fatura", length=20)
+	@Column(name="nr_doc_fatura")
 	private String nrDocFatura;
 
-	@Column(name="qt_parcelas", precision=131089)
+	@Column(name="qt_parcelas")
 	private BigDecimal qtParcelas;
 
-	@Column(name="vl_fatura", precision=10, scale=2)
+	@Column(name="vl_fatura")
 	private BigDecimal vlFatura;
 
 	//bi-directional many-to-one association to Empresa
@@ -51,8 +52,13 @@ public class Fatura implements Serializable {
 
 	//bi-directional many-to-one association to Unidade
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="unidades_id_unidade", nullable=false)
+	@JoinColumn(name="unidades_id_unidade")
 	private Unidade unidade;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	//bi-directional many-to-one association to ItensFatura
 	@OneToMany(mappedBy="fatura")
@@ -143,6 +149,14 @@ public class Fatura implements Serializable {
 
 	public void setUnidade(Unidade unidade) {
 		this.unidade = unidade;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 	public List<ItensFatura> getItensFaturas() {

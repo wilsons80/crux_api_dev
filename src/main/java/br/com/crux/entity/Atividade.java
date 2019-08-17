@@ -13,18 +13,19 @@ import java.util.List;
  */
 @Entity
 @Table(name="atividades")
+@NamedQuery(name="Atividade.findAll", query="SELECT a FROM Atividade a")
 public class Atividade implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_atividade", unique=true, nullable=false, precision=10)
+	@Column(name="id_atividade")
 	private Long idAtividade;
 
-	@Column(name="ds_atividade", nullable=false, length=200)
+	@Column(name="ds_atividade")
 	private String dsAtividade;
 
-	@Column(name="ds_local_execucao", length=200)
+	@Column(name="ds_local_execucao")
 	private String dsLocalExecucao;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -36,62 +37,62 @@ public class Atividade implements Serializable {
 	private Date dtInicioAtividade;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_prev_inicio", nullable=false)
+	@Column(name="dt_prev_inicio")
 	private Date dtPrevInicio;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_prev_termino")
 	private Date dtPrevTermino;
 
-	@Column(name="hr_fim", precision=4)
+	@Column(name="hr_fim")
 	private BigDecimal hrFim;
 
-	@Column(name="hr_inicio", precision=4)
+	@Column(name="hr_inicio")
 	private BigDecimal hrInicio;
 
-	@Column(name="nr_aulas", precision=10)
+	@Column(name="nr_aulas")
 	private BigDecimal nrAulas;
 
-	@Column(name="nr_carga_horaria", precision=131089)
+	@Column(name="nr_carga_horaria")
 	private BigDecimal nrCargaHoraria;
 
-	@Column(name="nr_maximo_participantes", precision=131089)
+	@Column(name="nr_maximo_participantes")
 	private BigDecimal nrMaximoParticipantes;
 
-	@Column(name="periodo_atividade", precision=131089)
+	@Column(name="periodo_atividade")
 	private BigDecimal periodoAtividade;
 
-	@Column(name="st_domingo", length=1)
+	@Column(name="st_domingo")
 	private String stDomingo;
 
-	@Column(name="st_horario_fixo", length=1)
+	@Column(name="st_horario_fixo")
 	private String stHorarioFixo;
 
-	@Column(name="st_local_execucao", length=1)
+	@Column(name="st_local_execucao")
 	private String stLocalExecucao;
 
-	@Column(name="st_quarta", length=1)
+	@Column(name="st_quarta")
 	private String stQuarta;
 
-	@Column(name="st_quinta", length=1)
+	@Column(name="st_quinta")
 	private String stQuinta;
 
-	@Column(name="st_sabado", length=1)
+	@Column(name="st_sabado")
 	private String stSabado;
 
-	@Column(name="st_segunda", length=1)
+	@Column(name="st_segunda")
 	private String stSegunda;
 
-	@Column(name="st_sexta", length=1)
+	@Column(name="st_sexta")
 	private String stSexta;
 
-	@Column(name="st_terca", length=1)
+	@Column(name="st_terca")
 	private String stTerca;
 
-	@Column(name="tx_observacoes", length=200)
+	@Column(name="tx_observacoes")
 	private String txObservacoes;
 
-	@Column(name="vl_custo_atividade", precision=10, scale=2)
+	@Column(name="vl_custo_atividade")
 	private BigDecimal vlCustoAtividade;
 
 	//bi-directional many-to-one association to Acoe
@@ -110,8 +111,13 @@ public class Atividade implements Serializable {
 
 	//bi-directional many-to-one association to Unidade
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="unidades_id_unidade", nullable=false)
+	@JoinColumn(name="unidades_id_unidade")
 	private Unidade unidade;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	//bi-directional many-to-one association to AtividadesAluno
 	@OneToMany(mappedBy="atividade")
@@ -372,6 +378,14 @@ public class Atividade implements Serializable {
 
 	public void setUnidade(Unidade unidade) {
 		this.unidade = unidade;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 	public List<AtividadesAluno> getAtividadesAlunos() {

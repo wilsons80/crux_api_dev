@@ -12,18 +12,19 @@ import java.util.Date;
  */
 @Entity
 @Table(name="movimentacoes_conta")
+@NamedQuery(name="MovimentacoesConta.findAll", query="SELECT m FROM MovimentacoesConta m")
 public class MovimentacoesConta implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_mov_conta", unique=true, nullable=false, precision=10)
+	@Column(name="id_mov_conta")
 	private Long idMovConta;
 
-	@Column(name="cs_tipo_mov_conta", length=1)
+	@Column(name="cs_tipo_mov_conta")
 	private String csTipoMovConta;
 
-	@Column(name="ds_mov_conta", length=200)
+	@Column(name="ds_mov_conta")
 	private String dsMovConta;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -38,26 +39,31 @@ public class MovimentacoesConta implements Serializable {
 	@Column(name="dt_saldo_mov_conta")
 	private Date dtSaldoMovConta;
 
-	@Column(name="vl_mov_conta", precision=10, scale=2)
+	@Column(name="vl_mov_conta")
 	private BigDecimal vlMovConta;
 
-	@Column(name="vl_saldo_mov_conta", precision=10, scale=2)
+	@Column(name="vl_saldo_mov_conta")
 	private BigDecimal vlSaldoMovConta;
 
 	//bi-directional many-to-one association to ContasBancaria
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_conta_bancaria", nullable=false)
+	@JoinColumn(name="id_conta_bancaria")
 	private ContasBancaria contasBancaria;
 
 	//bi-directional many-to-one association to Funcionario
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_funcionario", nullable=false)
+	@JoinColumn(name="id_funcionario")
 	private Funcionario funcionario;
 
 	//bi-directional many-to-one association to PagamentosFatura
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_pagamento_fatura", nullable=false)
+	@JoinColumn(name="id_pagamento_fatura")
 	private PagamentosFatura pagamentosFatura;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public MovimentacoesConta() {
 	}
@@ -148,6 +154,14 @@ public class MovimentacoesConta implements Serializable {
 
 	public void setPagamentosFatura(PagamentosFatura pagamentosFatura) {
 		this.pagamentosFatura = pagamentosFatura;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }

@@ -11,25 +11,31 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name="parametros")
+@NamedQuery(name="Parametro.findAll", query="SELECT p FROM Parametro p")
 public class Parametro implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_parametro", unique=true, nullable=false, precision=10)
+	@Column(name="id_parametro")
 	private Long idParametro;
 
-	@Column(name="cd_parametro", length=100)
+	@Column(name="cd_parametro")
 	private String cdParametro;
 
-	@Column(name="ds_parametro", length=200)
+	@Column(name="ds_parametro")
 	private String dsParametro;
 
-	@Column(name="nr_paramentro", precision=24, scale=4)
+	@Column(name="nr_paramentro")
 	private BigDecimal nrParamentro;
 
-	@Column(name="tx_parametro", length=2000)
+	@Column(name="tx_parametro")
 	private String txParametro;
+
+	//bi-directional many-to-one association to UsuariosSistema
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_usuario_apl")
+	private UsuariosSistema usuariosSistema;
 
 	public Parametro() {
 	}
@@ -72,6 +78,14 @@ public class Parametro implements Serializable {
 
 	public void setTxParametro(String txParametro) {
 		this.txParametro = txParametro;
+	}
+
+	public UsuariosSistema getUsuariosSistema() {
+		return this.usuariosSistema;
+	}
+
+	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+		this.usuariosSistema = usuariosSistema;
 	}
 
 }
