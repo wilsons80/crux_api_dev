@@ -18,7 +18,8 @@ import br.com.crux.repository.AutenticadorRepository;
 
 
 @Component
-public class GetAutenticadorCmd implements UserDetailsService{
+public class GetUsuarioAutenticadoCmd implements UserDetailsService{
+	
 	@Autowired private AutenticadorRepository autenticadorRepository;
 	
 	@Override
@@ -30,7 +31,7 @@ public class GetAutenticadorCmd implements UserDetailsService{
 		UsuariosSistema user = result.get();
 		
 		List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
-		user.getUsuariosGrupos().forEach(ug -> roles.add(new SimpleGrantedAuthority("ROLE_" +ug.getGruposModulo().getModulo().getNmModulo())));
+		user.getUsuariosUnidades().forEach(unidades -> roles.add(new SimpleGrantedAuthority("ROLE_" + unidades.getUnidade().getCdUnidade().replaceAll(" ", "_").toUpperCase())));
 		
 		List<GrantedAuthority> authorities = roles;
 		

@@ -2,16 +2,12 @@ package br.com.crux.to;
 
 import java.util.List;
 
-import br.com.crux.dto.PessoasFisicas;
-import br.com.crux.dto.UsuariosGrupo;
-
 public class UsuarioLogadoTO {
 	
 	private String token;
-	private String userName;
+	private String username;
 
-	private PessoasFisicas pessoasFisica;
-	private List<UsuariosGrupo> usuariosGrupos;
+	private List<UnidadeTO> unidades;
 	
 	public String getToken() {
 		return token;
@@ -21,29 +17,23 @@ public class UsuarioLogadoTO {
 		this.token = token;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String userName) {
+		this.username = userName;
 	}
 
-	public PessoasFisicas getPessoasFisica() {
-		return pessoasFisica;
+	public List<UnidadeTO> getUnidades() {
+		return unidades;
 	}
 
-	public void setPessoasFisica(PessoasFisicas pessoasFisica) {
-		this.pessoasFisica = pessoasFisica;
+	public void setUnidades(List<UnidadeTO> unidades) {
+		this.unidades = unidades;
 	}
 
-	public List<UsuariosGrupo> getUsuariosGrupos() {
-		return usuariosGrupos;
-	}
-
-	public void setUsuariosGrupos(List<UsuariosGrupo> usuariosGrupos) {
-		this.usuariosGrupos = usuariosGrupos;
-	}
+	
 
 	
 }
