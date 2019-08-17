@@ -2,6 +2,9 @@ package br.com.crux.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import br.com.crux.constantes.Constantes;
+
 import java.util.List;
 
 
@@ -11,12 +14,12 @@ import java.util.List;
  */
 @Entity
 @Table(name="perfis_acessos")
-@NamedQuery(name="PerfisAcesso.findAll", query="SELECT p FROM PerfisAcesso p")
 public class PerfisAcesso implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_perfil_acesso")
+	@SequenceGenerator(name = "sq_id_perfil_acesso", sequenceName = "sq_id_perfil_acesso", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_perfil_acesso")
 	private Long idPerfilAcesso;
 
@@ -101,20 +104,6 @@ public class PerfisAcesso implements Serializable {
 
 	public void setGruposModulos(List<GruposModulo> gruposModulos) {
 		this.gruposModulos = gruposModulos;
-	}
-
-	public GruposModulo addGruposModulo(GruposModulo gruposModulo) {
-		getGruposModulos().add(gruposModulo);
-		gruposModulo.setPerfisAcesso(this);
-
-		return gruposModulo;
-	}
-
-	public GruposModulo removeGruposModulo(GruposModulo gruposModulo) {
-		getGruposModulos().remove(gruposModulo);
-		gruposModulo.setPerfisAcesso(null);
-
-		return gruposModulo;
 	}
 
 	public UsuariosSistema getUsuariosSistema() {

@@ -2,6 +2,9 @@ package br.com.crux.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import br.com.crux.constantes.Constantes;
+
 import java.util.Date;
 import java.util.List;
 
@@ -12,13 +15,14 @@ import java.util.List;
  */
 @Entity
 @Table(name="alunos")
-@NamedQuery(name="Aluno.findAll", query="SELECT a FROM Aluno a")
 public class Aluno implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_aluno")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_aluno")
+	@SequenceGenerator(name = "sq_id_aluno", sequenceName = "sq_id_aluno", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
+	@Column(name="id_aluno", unique=true, nullable=false, precision=10)
 	private Long idAluno;
 
 	@Column(name="ds_busca_escola")
@@ -86,17 +90,17 @@ public class Aluno implements Serializable {
 	//bi-directional many-to-one association to UsuariosSistema
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_usuario_alteracao")
-	private UsuariosSistema usuariosSistema1;
+	private UsuariosSistema usuarioAlteracao;
 
 	//bi-directional many-to-one association to UsuariosSistema
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_usuario_cadastro")
-	private UsuariosSistema usuariosSistema2;
+	private UsuariosSistema usuarioCadastro;
 
 	//bi-directional many-to-one association to UsuariosSistema
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_usuario")
-	private UsuariosSistema usuariosSistema3;
+	private UsuariosSistema usuario;
 
 	//bi-directional many-to-one association to Atendimento
 	@OneToMany(mappedBy="aluno")
@@ -277,28 +281,28 @@ public class Aluno implements Serializable {
 		this.unidade = unidade;
 	}
 
-	public UsuariosSistema getUsuariosSistema1() {
-		return this.usuariosSistema1;
+	public UsuariosSistema getUsuarioAlteracao() {
+		return this.usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema1(UsuariosSistema usuariosSistema1) {
-		this.usuariosSistema1 = usuariosSistema1;
+	public void setUsuarioAlteracao(UsuariosSistema usuariosSistema1) {
+		this.usuarioAlteracao = usuariosSistema1;
 	}
 
-	public UsuariosSistema getUsuariosSistema2() {
-		return this.usuariosSistema2;
+	public UsuariosSistema getUsuarioCadastro() {
+		return this.usuarioCadastro;
 	}
 
-	public void setUsuariosSistema2(UsuariosSistema usuariosSistema2) {
-		this.usuariosSistema2 = usuariosSistema2;
+	public void setUsuarioCadastro(UsuariosSistema usuariosSistema2) {
+		this.usuarioCadastro = usuariosSistema2;
 	}
 
-	public UsuariosSistema getUsuariosSistema3() {
-		return this.usuariosSistema3;
+	public UsuariosSistema getUsuario() {
+		return this.usuario;
 	}
 
-	public void setUsuariosSistema3(UsuariosSistema usuariosSistema3) {
-		this.usuariosSistema3 = usuariosSistema3;
+	public void setUsuario(UsuariosSistema usuariosSistema3) {
+		this.usuario = usuariosSistema3;
 	}
 
 	public List<Atendimento> getAtendimentos() {

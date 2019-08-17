@@ -2,6 +2,9 @@ package br.com.crux.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import br.com.crux.constantes.Constantes;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -12,12 +15,12 @@ import java.util.List;
  */
 @Entity
 @Table(name="unidades")
-@NamedQuery(name="Unidade.findAll", query="SELECT u FROM Unidade u")
 public class Unidade implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_unidade")
+	@SequenceGenerator(name = "sq_id_unidade", sequenceName = "sq_id_unidade", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_unidade")
 	private Long idUnidade;
 

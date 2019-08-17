@@ -1,8 +1,19 @@
 package br.com.crux.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import br.com.crux.constantes.Constantes;
 
 
 /**
@@ -11,12 +22,12 @@ import java.util.List;
  */
 @Entity
 @Table(name="grupos_modulos")
-@NamedQuery(name="GruposModulo.findAll", query="SELECT g FROM GruposModulo g")
 public class GruposModulo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_grupo_modulo")
+	@SequenceGenerator(name = "sq_id_grupo_modulo", sequenceName = "sq_id_grupo_modulo", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_grupo_modulo")
 	private Long idGrupoModulo;
 
@@ -36,14 +47,9 @@ public class GruposModulo implements Serializable {
 	@JoinColumn(name="id_perfil_acesso")
 	private PerfisAcesso perfisAcesso;
 
-	//bi-directional many-to-one association to UsuariosSistema
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
-
-	//bi-directional many-to-one association to UsuariosGrupo
-	@OneToMany(mappedBy="gruposModulo")
-	private List<UsuariosGrupo> usuariosGrupos;
+	@JoinColumn(name="id_unidade")
+	private Unidade unidade;
 
 	public GruposModulo() {
 	}
@@ -88,34 +94,14 @@ public class GruposModulo implements Serializable {
 		this.perfisAcesso = perfisAcesso;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+	public Unidade getUnidade() {
+		return unidade;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
+	public void setUnidade(Unidade unidade) {
+		this.unidade = unidade;
 	}
 
-	public List<UsuariosGrupo> getUsuariosGrupos() {
-		return this.usuariosGrupos;
-	}
-
-	public void setUsuariosGrupos(List<UsuariosGrupo> usuariosGrupos) {
-		this.usuariosGrupos = usuariosGrupos;
-	}
-
-	public UsuariosGrupo addUsuariosGrupo(UsuariosGrupo usuariosGrupo) {
-		getUsuariosGrupos().add(usuariosGrupo);
-		usuariosGrupo.setGruposModulo(this);
-
-		return usuariosGrupo;
-	}
-
-	public UsuariosGrupo removeUsuariosGrupo(UsuariosGrupo usuariosGrupo) {
-		getUsuariosGrupos().remove(usuariosGrupo);
-		usuariosGrupo.setGruposModulo(null);
-
-		return usuariosGrupo;
-	}
+	
 
 }

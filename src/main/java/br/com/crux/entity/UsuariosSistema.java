@@ -2,6 +2,9 @@ package br.com.crux.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import br.com.crux.constantes.Constantes;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +20,8 @@ public class UsuariosSistema implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_usuario")
+	@SequenceGenerator(name = "sq_id_usuario", sequenceName = "sq_id_usuario", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_usuario")
 	private Long idUsuario;
 

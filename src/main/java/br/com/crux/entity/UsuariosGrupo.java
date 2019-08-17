@@ -3,6 +3,8 @@ package br.com.crux.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import br.com.crux.constantes.Constantes;
+
 
 /**
  * The persistent class for the usuarios_grupos database table.
@@ -10,12 +12,12 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="usuarios_grupos")
-@NamedQuery(name="UsuariosGrupo.findAll", query="SELECT u FROM UsuariosGrupo u")
 public class UsuariosGrupo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_usuario_grupo")
+	@SequenceGenerator(name = "sq_id_usuario_grupo", sequenceName = "sq_id_usuario_grupo", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_usuario_grupo")
 	private Long idUsuarioGrupo;
 

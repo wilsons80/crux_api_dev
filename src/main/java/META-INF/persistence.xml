@@ -61,7 +61,7 @@
 		<class>br.com.crux.entity.Projeto</class>
 		<class>br.com.crux.entity.Questionario</class>
 		<class>br.com.crux.entity.ReprovacoesAluno</class>
-		<class>br.com.crux.entity.Responsavei</class>
+		<class>br.com.crux.entity.Responsaveis</class>
 		<class>br.com.crux.entity.ResponsaveisAluno</class>
 		<class>br.com.crux.entity.Servico</class>
 		<class>br.com.crux.entity.SituacoesVulnerabilidade</class>

@@ -2,22 +2,21 @@ package br.com.crux.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import br.com.crux.constantes.Constantes;
+
 import java.util.Date;
 
 
-/**
- * The persistent class for the atendimentos database table.
- * 
- */
 @Entity
 @Table(name="atendimentos")
-@NamedQuery(name="Atendimento.findAll", query="SELECT a FROM Atendimento a")
 public class Atendimento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_atendimento")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_atendimento")
+	@SequenceGenerator(name = "sq_id_atendimento", sequenceName = "sq_id_atendimento", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
+	@Column(name="id_atendimento", unique=true, nullable=false, precision=10)
 	private Long idAtendimento;
 
 	@Column(name="ds_diagnostico")
@@ -52,7 +51,7 @@ public class Atendimento implements Serializable {
 	//bi-directional many-to-one association to Responsavei
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="responsaveis_id_responsavel")
-	private Responsavei responsavei;
+	private Responsaveis responsaveis;
 
 	//bi-directional many-to-one association to Solucoe
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -131,12 +130,12 @@ public class Atendimento implements Serializable {
 		this.funcionario = funcionario;
 	}
 
-	public Responsavei getResponsavei() {
-		return this.responsavei;
+	public Responsaveis getResponsaveis() {
+		return this.responsaveis;
 	}
 
-	public void setResponsavei(Responsavei responsavei) {
-		this.responsavei = responsavei;
+	public void setResponsaveis(Responsaveis responsavei) {
+		this.responsaveis = responsavei;
 	}
 
 	public Solucoe getSolucoe() {

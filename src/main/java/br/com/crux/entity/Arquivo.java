@@ -1,10 +1,21 @@
 package br.com.crux.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import br.com.crux.constantes.Constantes;
 
 
 /**
@@ -18,8 +29,9 @@ public class Arquivo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_arquivo")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_arquivo")
+	@SequenceGenerator(name = "sq_id_arquivo", sequenceName = "sq_id_arquivo", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
+	@Column(name="id_arquivo", unique=true, nullable=false, precision=10)
 	private Long idArquivo;
 
 	private byte[] blob;
@@ -38,19 +50,6 @@ public class Arquivo implements Serializable {
 
 	@Column(name="nr_tamanho_arquivo")
 	private BigDecimal nrTamanhoArquivo;
-
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
-
-	//bi-directional many-to-one association to PessoasFisica
-	@OneToMany(mappedBy="arquivo")
-	private List<PessoasFisica> pessoasFisicas;
-
-	//bi-directional many-to-one association to Unidade
-	@OneToMany(mappedBy="arquivo")
-	private List<Unidade> unidades;
 
 	public Arquivo() {
 	}
@@ -111,56 +110,5 @@ public class Arquivo implements Serializable {
 		this.nrTamanhoArquivo = nrTamanhoArquivo;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
-	}
-
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
-	}
-
-	public List<PessoasFisica> getPessoasFisicas() {
-		return this.pessoasFisicas;
-	}
-
-	public void setPessoasFisicas(List<PessoasFisica> pessoasFisicas) {
-		this.pessoasFisicas = pessoasFisicas;
-	}
-
-	public PessoasFisica addPessoasFisica(PessoasFisica pessoasFisica) {
-		getPessoasFisicas().add(pessoasFisica);
-		pessoasFisica.setArquivo(this);
-
-		return pessoasFisica;
-	}
-
-	public PessoasFisica removePessoasFisica(PessoasFisica pessoasFisica) {
-		getPessoasFisicas().remove(pessoasFisica);
-		pessoasFisica.setArquivo(null);
-
-		return pessoasFisica;
-	}
-
-	public List<Unidade> getUnidades() {
-		return this.unidades;
-	}
-
-	public void setUnidades(List<Unidade> unidades) {
-		this.unidades = unidades;
-	}
-
-	public Unidade addUnidade(Unidade unidade) {
-		getUnidades().add(unidade);
-		unidade.setArquivo(this);
-
-		return unidade;
-	}
-
-	public Unidade removeUnidade(Unidade unidade) {
-		getUnidades().remove(unidade);
-		unidade.setArquivo(null);
-
-		return unidade;
-	}
 
 }

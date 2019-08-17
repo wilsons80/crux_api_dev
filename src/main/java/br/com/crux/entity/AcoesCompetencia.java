@@ -2,6 +2,9 @@ package br.com.crux.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import br.com.crux.constantes.Constantes;
+
 import java.util.Date;
 
 
@@ -11,13 +14,13 @@ import java.util.Date;
  */
 @Entity
 @Table(name="acoes_competencias")
-@NamedQuery(name="AcoesCompetencia.findAll", query="SELECT a FROM AcoesCompetencia a")
 public class AcoesCompetencia implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_acao_competencia")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_acao_competencia")
+	@SequenceGenerator(name = "sq_id_acao_competencia", sequenceName = "sq_id_acao_competencia", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
+	@Column(name="id_acao_competencia", unique=true, nullable=false, precision=10)	
 	private Long idAcaoCompetencia;
 
 	@Column(name="ds_questionario")

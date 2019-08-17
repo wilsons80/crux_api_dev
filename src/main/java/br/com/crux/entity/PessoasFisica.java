@@ -2,6 +2,9 @@ package br.com.crux.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import br.com.crux.constantes.Constantes;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -13,12 +16,12 @@ import java.util.List;
  */
 @Entity
 @Table(name="pessoas_fisicas")
-@NamedQuery(name="PessoasFisica.findAll", query="SELECT p FROM PessoasFisica p")
 public class PessoasFisica implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_pessoa_fisica")
+	@SequenceGenerator(name = "sq_id_pessoa_fisica", sequenceName = "sq_id_pessoa_fisica", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_pessoa_fisica")
 	private Long idPessoaFisica;
 
@@ -249,7 +252,7 @@ public class PessoasFisica implements Serializable {
 
 	//bi-directional many-to-one association to Responsavei
 	@OneToMany(mappedBy="pessoasFisica")
-	private List<Responsavei> responsaveis;
+	private List<Responsaveis> responsaveis;
 
 	//bi-directional many-to-one association to TalentosPf
 	@OneToMany(mappedBy="pessoasFisica")
@@ -777,40 +780,12 @@ public class PessoasFisica implements Serializable {
 		this.cadastroReservaAtividades = cadastroReservaAtividades;
 	}
 
-	public CadastroReservaAtividade addCadastroReservaAtividade(CadastroReservaAtividade cadastroReservaAtividade) {
-		getCadastroReservaAtividades().add(cadastroReservaAtividade);
-		cadastroReservaAtividade.setPessoasFisica(this);
-
-		return cadastroReservaAtividade;
-	}
-
-	public CadastroReservaAtividade removeCadastroReservaAtividade(CadastroReservaAtividade cadastroReservaAtividade) {
-		getCadastroReservaAtividades().remove(cadastroReservaAtividade);
-		cadastroReservaAtividade.setPessoasFisica(null);
-
-		return cadastroReservaAtividade;
-	}
-
 	public List<ContatosEmpresa> getContatosEmpresas() {
 		return this.contatosEmpresas;
 	}
 
 	public void setContatosEmpresas(List<ContatosEmpresa> contatosEmpresas) {
 		this.contatosEmpresas = contatosEmpresas;
-	}
-
-	public ContatosEmpresa addContatosEmpresa(ContatosEmpresa contatosEmpresa) {
-		getContatosEmpresas().add(contatosEmpresa);
-		contatosEmpresa.setPessoasFisica(this);
-
-		return contatosEmpresa;
-	}
-
-	public ContatosEmpresa removeContatosEmpresa(ContatosEmpresa contatosEmpresa) {
-		getContatosEmpresas().remove(contatosEmpresa);
-		contatosEmpresa.setPessoasFisica(null);
-
-		return contatosEmpresa;
 	}
 
 	public List<CursosFormacaoPf> getCursosFormacaoPfs() {
@@ -821,20 +796,6 @@ public class PessoasFisica implements Serializable {
 		this.cursosFormacaoPfs = cursosFormacaoPfs;
 	}
 
-	public CursosFormacaoPf addCursosFormacaoPf(CursosFormacaoPf cursosFormacaoPf) {
-		getCursosFormacaoPfs().add(cursosFormacaoPf);
-		cursosFormacaoPf.setPessoasFisica(this);
-
-		return cursosFormacaoPf;
-	}
-
-	public CursosFormacaoPf removeCursosFormacaoPf(CursosFormacaoPf cursosFormacaoPf) {
-		getCursosFormacaoPfs().remove(cursosFormacaoPf);
-		cursosFormacaoPf.setPessoasFisica(null);
-
-		return cursosFormacaoPf;
-	}
-
 	public List<Familiare> getFamiliares() {
 		return this.familiares;
 	}
@@ -843,40 +804,12 @@ public class PessoasFisica implements Serializable {
 		this.familiares = familiares;
 	}
 
-	public Familiare addFamiliare(Familiare familiare) {
-		getFamiliares().add(familiare);
-		familiare.setPessoasFisica(this);
-
-		return familiare;
-	}
-
-	public Familiare removeFamiliare(Familiare familiare) {
-		getFamiliares().remove(familiare);
-		familiare.setPessoasFisica(null);
-
-		return familiare;
-	}
-
 	public List<Funcionario> getFuncionarios() {
 		return this.funcionarios;
 	}
 
 	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
-	}
-
-	public Funcionario addFuncionario(Funcionario funcionario) {
-		getFuncionarios().add(funcionario);
-		funcionario.setPessoasFisica(this);
-
-		return funcionario;
-	}
-
-	public Funcionario removeFuncionario(Funcionario funcionario) {
-		getFuncionarios().remove(funcionario);
-		funcionario.setPessoasFisica(null);
-
-		return funcionario;
 	}
 
 	public Arquivo getArquivo() {
@@ -911,26 +844,12 @@ public class PessoasFisica implements Serializable {
 		this.usuariosSistema = usuariosSistema;
 	}
 
-	public List<Responsavei> getResponsaveis() {
+	public List<Responsaveis> getResponsaveis() {
 		return this.responsaveis;
 	}
 
-	public void setResponsaveis(List<Responsavei> responsaveis) {
+	public void setResponsaveis(List<Responsaveis> responsaveis) {
 		this.responsaveis = responsaveis;
-	}
-
-	public Responsavei addResponsavei(Responsavei responsavei) {
-		getResponsaveis().add(responsavei);
-		responsavei.setPessoasFisica(this);
-
-		return responsavei;
-	}
-
-	public Responsavei removeResponsavei(Responsavei responsavei) {
-		getResponsaveis().remove(responsavei);
-		responsavei.setPessoasFisica(null);
-
-		return responsavei;
 	}
 
 	public List<TalentosPf> getTalentosPfs() {
@@ -940,20 +859,5 @@ public class PessoasFisica implements Serializable {
 	public void setTalentosPfs(List<TalentosPf> talentosPfs) {
 		this.talentosPfs = talentosPfs;
 	}
-
-	public TalentosPf addTalentosPf(TalentosPf talentosPf) {
-		getTalentosPfs().add(talentosPf);
-		talentosPf.setPessoasFisica(this);
-
-		return talentosPf;
-	}
-
-	public TalentosPf removeTalentosPf(TalentosPf talentosPf) {
-		getTalentosPfs().remove(talentosPf);
-		talentosPf.setPessoasFisica(null);
-
-		return talentosPf;
-	}
-
 
 }

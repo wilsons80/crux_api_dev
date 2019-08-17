@@ -31,7 +31,7 @@ public class VulnerabilidadesResponsavel implements Serializable {
 	//bi-directional many-to-one association to Responsavei
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_responsavel")
-	private Responsavei responsavei;
+	private Responsaveis responsavei;
 
 	//bi-directional many-to-one association to SituacoesVulnerabilidade
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -75,11 +75,11 @@ public class VulnerabilidadesResponsavel implements Serializable {
 		this.dtSolucaoVulnerabilidade = dtSolucaoVulnerabilidade;
 	}
 
-	public Responsavei getResponsavei() {
+	public Responsaveis getResponsavei() {
 		return this.responsavei;
 	}
 
-	public void setResponsavei(Responsavei responsavei) {
+	public void setResponsavei(Responsaveis responsavei) {
 		this.responsavei = responsavei;
 	}
 

@@ -12,8 +12,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="responsaveis")
-@NamedQuery(name="Responsavei.findAll", query="SELECT r FROM Responsavei r")
-public class Responsavei implements Serializable {
+public class Responsaveis implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -36,7 +35,7 @@ public class Responsavei implements Serializable {
 	private Date dtDesligamento;
 
 	//bi-directional many-to-one association to Atendimento
-	@OneToMany(mappedBy="responsavei")
+	@OneToMany(mappedBy="responsaveis")
 	private List<Atendimento> atendimentos;
 
 	//bi-directional many-to-one association to Familiare
@@ -61,7 +60,7 @@ public class Responsavei implements Serializable {
 	@OneToMany(mappedBy="responsavei")
 	private List<VulnerabilidadesResponsavel> vulnerabilidadesResponsavels;
 
-	public Responsavei() {
+	public Responsaveis() {
 	}
 
 	public Long getIdResponsavel() {
@@ -114,14 +113,14 @@ public class Responsavei implements Serializable {
 
 	public Atendimento addAtendimento(Atendimento atendimento) {
 		getAtendimentos().add(atendimento);
-		atendimento.setResponsavei(this);
+		atendimento.setResponsaveis(this);
 
 		return atendimento;
 	}
 
 	public Atendimento removeAtendimento(Atendimento atendimento) {
 		getAtendimentos().remove(atendimento);
-		atendimento.setResponsavei(null);
+		atendimento.setResponsaveis(null);
 
 		return atendimento;
 	}
