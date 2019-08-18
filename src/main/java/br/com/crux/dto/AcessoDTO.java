@@ -6,8 +6,8 @@ public class AcessoDTO {
 	
 	private Long   idUsuario;
 	private String username;
-	private String codigoUnidade;
-	private String nomeUnidade;
+	private String unidade;
+	private String modulo;
 	private String altera;
 	private String consulta;
 	private String deleta;
@@ -19,8 +19,8 @@ public class AcessoDTO {
 	public AcessoDTO(Object[] colunas) {
 		this.idUsuario     = (colunas[0] != null)? ((BigDecimal)colunas[0]).longValue() : null;
 		this.username      = (String) colunas[1];
-		this.codigoUnidade = (String) colunas[2];
-		this.nomeUnidade   = (String) colunas[3];
+		this.unidade = (String) colunas[2];
+		this.modulo   = (String) colunas[3];
 		this.altera        = (String) colunas[4];
 		this.consulta      = (String) colunas[5];
 		this.deleta        = (String) colunas[6];
@@ -41,17 +41,17 @@ public class AcessoDTO {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getCodigoUnidade() {
-		return codigoUnidade;
+	public String getUnidade() {
+		return unidade;
 	}
-	public void setCodigoUnidade(String codigoUnidade) {
-		this.codigoUnidade = codigoUnidade;
+	public void setUnidade(String codigoUnidade) {
+		this.unidade = codigoUnidade;
 	}
-	public String getNomeUnidade() {
-		return nomeUnidade;
+	public String getModulo() {
+		return modulo;
 	}
-	public void setNomeUnidade(String nomeUnidade) {
-		this.nomeUnidade = nomeUnidade;
+	public void setModulo(String nomeUnidade) {
+		this.modulo = nomeUnidade;
 	}
 	public String getAltera() {
 		return altera;

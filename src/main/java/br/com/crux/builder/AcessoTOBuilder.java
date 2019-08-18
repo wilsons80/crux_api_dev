@@ -17,8 +17,8 @@ public class AcessoTOBuilder {
 		AcessoTO to = new AcessoTO();
 		to.setIdUsuario(dto.getIdUsuario());
 		to.setUsername(dto.getUsername());
-		to.setNomeUnidade(dto.getNomeUnidade());
-		to.setCodigoUnidade(dto.getCodigoUnidade());
+		to.setModulo(dto.getModulo());
+		to.setUnidade(dto.getUnidade());
 		to.setAltera(dto.getAltera());
 		to.setInsere(dto.getInsere());
 		to.setDeleta(dto.getDeleta());

@@ -29,7 +29,7 @@ public class AutenticadorCmd {
 	@Autowired private TokenJwtCmd createTokenJwtCmd;
 	@Autowired private UnidadeRepository unidadeRepository;
 	@Autowired private UnidadeTOBuilder unidadeTOBuilder;
-	
+	@Autowired private TrocarSenhaCmd trocarSenhaCmd;
 	
 	public UsuarioLogadoTO autenticar(UsuarioTO user) {
 
@@ -63,7 +63,7 @@ public class AutenticadorCmd {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
 		if(Objects.isNull(auth)) {
-			throw new NotFoundException("Usuário não está logado.");
+			throw new NotFoundException("Problema ao recuperar o usuário logado.");
 		}
 		
 		User userSpring = (User) auth.getPrincipal();
@@ -73,6 +73,11 @@ public class AutenticadorCmd {
 		tokenTo.setToken(jwt);
 
 		return tokenTo;
+	}
+	
+	
+	public Boolean trocarSenha(UsuarioTO usuario) {
+		return trocarSenhaCmd.trocarSenha(usuario.getUserName(), usuario.getSenha());
 	}
 
 }

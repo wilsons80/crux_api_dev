@@ -4,8 +4,8 @@ public class AcessoTO {
 	
 	private Long   idUsuario;
 	private String username;
-	private String codigoUnidade;
-	private String nomeUnidade;
+	private String unidade;
+	private String modulo;
 	private String altera;
 	private String consulta;
 	private String deleta;
@@ -23,17 +23,17 @@ public class AcessoTO {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getCodigoUnidade() {
-		return codigoUnidade;
+	public String getUnidade() {
+		return unidade;
 	}
-	public void setCodigoUnidade(String codigoUnidade) {
-		this.codigoUnidade = codigoUnidade;
+	public void setUnidade(String codigoUnidade) {
+		this.unidade = codigoUnidade;
 	}
-	public String getNomeUnidade() {
-		return nomeUnidade;
+	public String getModulo() {
+		return modulo;
 	}
-	public void setNomeUnidade(String nomeUnidade) {
-		this.nomeUnidade = nomeUnidade;
+	public void setModulo(String nomeUnidade) {
+		this.modulo = nomeUnidade;
 	}
 	public String getAltera() {
 		return altera;
