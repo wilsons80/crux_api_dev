@@ -1,7 +1,6 @@
 package br.com.crux.cmd;
 
 import java.util.List;
-import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

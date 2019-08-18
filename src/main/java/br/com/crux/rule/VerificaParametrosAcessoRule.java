@@ -2,8 +2,11 @@ package br.com.crux.rule;
 
 import java.util.Objects;
 
+import org.springframework.stereotype.Component;
+
 import br.com.crux.exception.ParametroNaoInformado;
 
+@Component
 public class VerificaParametrosAcessoRule {
 
 	public void verificar(Long idUsarname, Long idUnidade) {
