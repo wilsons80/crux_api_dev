@@ -1,6 +1,8 @@
 package br.com.crux.exception;
 
-public class NotFoundException extends RuntimeException{
+import br.com.crux.infra.NegocioException;
+
+public class NotFoundException extends NegocioException{
 	
 	/**
 	 * 

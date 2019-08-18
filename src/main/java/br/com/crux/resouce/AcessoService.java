@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.crux.builder.AcessoTOBuilder;
+import br.com.crux.cmd.GetAcessoUsuarioCmd;
 import br.com.crux.cmd.GetAllAcessoUsuarioPorUnidadeCmd;
 import br.com.crux.dto.AcessoDTO;
 import br.com.crux.to.AcessoTO;
@@ -18,21 +19,14 @@ import br.com.crux.to.AcessoTO;
 @RestController
 @RequestMapping(value = "acesso")
 public class AcessoService {
-
-	@Autowired
-	private GetAllAcessoUsuarioPorUnidadeCmd getAllAcessoUsuarioPorUnidadeCmd;
 	
 	@Autowired
-	private AcessoTOBuilder acessoTOBuilder;
-
+	private GetAcessoUsuarioCmd getAcessoUsuarioCmd;
 	
 	@GetMapping(path = "/usuario/{idUsuario}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<AcessoTO> getAllAcessos(@PathVariable ("idUsuario") Long idUsarname,
-			                            @RequestParam("idUnidade") Long idUnidade) {
-
+	public List<AcessoTO> getAllAcessos(@PathVariable ("idUsuario") Long idUsarname,  @RequestParam("idUnidade") Long idUnidade) {
+		return getAcessoUsuarioCmd.getAllAcessoUsuarioPorUnidadeCmd(idUsarname, idUnidade);
 		
-		List<AcessoDTO> dto = getAllAcessoUsuarioPorUnidadeCmd.getAcesso(idUsarname, idUnidade);
-		return acessoTOBuilder.buildAll(dto);
 	}
 
 }
