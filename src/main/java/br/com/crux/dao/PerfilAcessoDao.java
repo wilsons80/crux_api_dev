@@ -3,24 +3,32 @@ package br.com.crux.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.dao.base.BaseDao;
 import br.com.crux.dto.AcessoDTO;
 
 @Component
-public class PerfilAcessoDao extends BaseDao {
+public class PerfilAcessoDao  {
+	
+	@Autowired 
+	protected EntityManager em;
 	
 	@SuppressWarnings("unchecked")
 	public List<AcessoDTO> getAcesso(Long idUsarname, Long idUnidade) {
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append("	select us.id_usuario, us.nm_username,                           ");
-		sql.append("       u.cd_unidade,                                                ");
-		sql.append("       m.nm_modulo,                                                 ");
-		sql.append("       pa.cs_altera, pa.cs_consulta, pa.cs_deleta, pa.cs_insere     ");
+		sql.append("	select us.id_usuario as idUsuario,                              ");
+		sql.append("	   us.nm_username as userName,                                  ");
+		sql.append("       u.cd_unidade as cdUnidade,                                   ");
+		sql.append("       m.nm_modulo as nomeModulo,                                   ");
+		sql.append("       pa.cs_altera as altera,                                      ");
+		sql.append("       pa.cs_consulta as consulta,                                  ");
+		sql.append("       pa.cs_deleta as deleta,                                      ");
+		sql.append("       pa.cs_insere as insere                                       ");
 		sql.append("  from usuarios_grupos ug,                                          ");
 		sql.append("       usuarios_sistema us,                                         ");
 		sql.append("       modulos m,                                                   ");

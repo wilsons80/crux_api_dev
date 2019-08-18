@@ -1,6 +1,7 @@
 package br.com.crux.cmd;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,14 @@ public class GetAllAcessoUsuarioPorUnidadeCmd {
 	private PerfilAcessoDao perfilAcessoDao;
 	
 	public List<AcessoDTO> getAcesso(Long idUsarname, Long idUnidade) {
+		
+		if(Objects.isNull(idUsarname)) {
+			throw new IllegalArgumentException("Parâmetro username não informado");
+		}
+		if(Objects.isNull(idUnidade)) {
+			throw new IllegalArgumentException("Parâmetro unidade não informado");
+		}
+		
 		return perfilAcessoDao.getAcesso(idUsarname, idUnidade);
 	}
 

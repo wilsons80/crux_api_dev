@@ -21,12 +21,12 @@ public class AutenticadorService {
 	@Autowired
 	private AutenticadorCmd autenticadorLoginCmd;
 
-	@GetMapping("/teste")
+	@GetMapping("/public/teste")
 	public ResponseEntity<String> teste() {
 		return ResponseEntity.ok("jwt");
 	}
 
-	@PostMapping(path = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(path = "/public/login", produces = MediaType.APPLICATION_JSON_VALUE)
 	public UsuarioLogadoTO login(@RequestBody UsuarioTO user) {
 		return autenticadorLoginCmd.autenticar(user);
 	}
