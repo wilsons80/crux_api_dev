@@ -9,27 +9,27 @@ import org.springframework.stereotype.Component;
 import br.com.crux.builder.AcessoTOBuilder;
 import br.com.crux.dao.PerfilAcessoDao;
 import br.com.crux.dto.AcessoDTO;
+import br.com.crux.rule.VerificaParametrosAcessoRule;
+import br.com.crux.rule.VerificaPermissaoAcessoUnidadeRule;
 import br.com.crux.to.AcessoTO;
 
 @Component
 public class GetAllAcessoUsuarioPorUnidadeCmd {
 	
-	@Autowired
-	private PerfilAcessoDao perfilAcessoDao;
+	@Autowired private PerfilAcessoDao perfilAcessoDao;
 	
-	@Autowired
-	private AcessoTOBuilder acessoTOBuilder;
+	@Autowired private AcessoTOBuilder acessoTOBuilder;
+	
+	@Autowired private VerificaParametrosAcessoRule verificaParametrosAcessoRule;
+
+	@Autowired private VerificaPermissaoAcessoUnidadeRule verificaPermissaoAcessoUnidadeRule;
 	
 	public List<AcessoTO> getAcesso(Long idUsarname, Long idUnidade) {
-		
-		if(Objects.isNull(idUsarname)) {
-			throw new IllegalArgumentException("Parâmetro username não informado");
-		}
-		if(Objects.isNull(idUnidade)) {
-			throw new IllegalArgumentException("Parâmetro unidade não informado");
-		}
-		
+		verificaParametrosAcessoRule.verificar(idUsarname, idUnidade);
 		List<AcessoDTO> acesso = perfilAcessoDao.getAcesso(idUsarname, idUnidade);
+		
+		verificaPermissaoAcessoUnidadeRule.verificar(acesso);
+		
 		
 		return acessoTOBuilder.buildAll(acesso);
 	}
