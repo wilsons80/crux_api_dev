@@ -23,8 +23,6 @@ public class GetUsuarioAutenticadoCmd implements UserDetailsService{
 	@Autowired private AutenticadorRepository autenticadorRepository;
 	
 	
-	
-	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<UsuariosSistema> result = autenticadorRepository.findByUsername(username);
@@ -56,4 +54,15 @@ public class GetUsuarioAutenticadoCmd implements UserDetailsService{
 		return user;
 	}
 
+	public UsuariosSistema loadUserById(Long id) throws UsernameNotFoundException {
+		Optional<UsuariosSistema> result = autenticadorRepository.findById(id);
+		
+		if(!result.isPresent()) throw new UsernameNotFoundException("Não existe usuário com o id = " + id);
+		
+		UsuariosSistema user = result.get();
+		
+		return user;
+	}
+
+	
 }
