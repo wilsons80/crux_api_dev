@@ -44,15 +44,6 @@ public class GetUsuarioAutenticadoCmd implements UserDetailsService{
 		return userSpring;
 	}
 	
-	public UsuariosSistema loadUserByUsername1(String username) throws UsernameNotFoundException {
-		Optional<UsuariosSistema> result = autenticadorRepository.findByUsername(username);
-		
-		if(!result.isPresent()) throw new UsernameNotFoundException("Não existe usuário com username = " + username);
-		
-		UsuariosSistema user = result.get();
-		
-		return user;
-	}
 
 	public UsuariosSistema loadUserById(Long id) throws UsernameNotFoundException {
 		Optional<UsuariosSistema> result = autenticadorRepository.findById(id);
