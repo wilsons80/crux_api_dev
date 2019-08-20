@@ -14,7 +14,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.builder.UnidadeTOBuilder;
+import br.com.crux.dao.GetUsuarioSistemaDao;
 import br.com.crux.entity.Unidade;
+import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.repository.UnidadeRepository;
 import br.com.crux.to.TokenTo;
@@ -30,6 +32,8 @@ public class AutenticadorCmd {
 	@Autowired private UnidadeRepository unidadeRepository;
 	@Autowired private UnidadeTOBuilder unidadeTOBuilder;
 	@Autowired private TrocarSenhaCmd trocarSenhaCmd;
+	@Autowired private GetUsuarioSistemaDao usuarioSistemaDao;
+	
 	
 	public UsuarioLogadoTO autenticar(UsuarioTO user) {
 
@@ -58,15 +62,16 @@ public class AutenticadorCmd {
 		return usuarioLogadoTO;
 	}
 	
-	public TokenTo refreshToken() {
+	public TokenTo refreshToken(Authentication authentication) {
 		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		
-		if(Objects.isNull(auth)) {
+		if(Objects.isNull(authentication)) {
 			throw new NotFoundException("Problema ao recuperar o usuário logado.");
 		}
 		
-		User userSpring = (User) auth.getPrincipal();
+		String username = (String) authentication.getPrincipal();
+		UsuariosSistema usuarioByUsername = usuarioSistemaDao.getUsuarioByUsername(username);
+		
+		User userSpring = new User(username, usuarioByUsername.getDsSenha(), authentication.getAuthorities());
 		String jwt = createTokenJwtCmd.createToken(userSpring.getUsername(), userSpring);
 		
 		TokenTo tokenTo = new TokenTo();

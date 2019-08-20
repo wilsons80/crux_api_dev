@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/autenticador/login","/css/**","/fonts/**","/images/**");
+		web.ignoring().antMatchers("/autenticador/login","/autenticador/refresh-token", "/css/**","/fonts/**","/images/**");
 	}
 
 	@Override

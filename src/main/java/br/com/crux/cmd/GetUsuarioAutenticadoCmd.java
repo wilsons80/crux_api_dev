@@ -14,18 +14,18 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.entity.UsuariosSistema;
-import br.com.crux.repository.AutenticadorRepository;
+import br.com.crux.repository.UsuarioSistemaRepository;
 
 
 @Component
 public class GetUsuarioAutenticadoCmd implements UserDetailsService{
 	
-	@Autowired private AutenticadorRepository autenticadorRepository;
+	@Autowired private UsuarioSistemaRepository usuarioSistemaRepository;
 	
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<UsuariosSistema> result = autenticadorRepository.findByUsername(username);
+		Optional<UsuariosSistema> result = usuarioSistemaRepository.findByUsername(username);
 		
 		if(!result.isPresent()) throw new UsernameNotFoundException("Não existe usuário com username = " + username);
 		
@@ -46,7 +46,7 @@ public class GetUsuarioAutenticadoCmd implements UserDetailsService{
 	
 
 	public UsuariosSistema loadUserById(Long id) throws UsernameNotFoundException {
-		Optional<UsuariosSistema> result = autenticadorRepository.findById(id);
+		Optional<UsuariosSistema> result = usuarioSistemaRepository.findById(id);
 		
 		if(!result.isPresent()) throw new UsernameNotFoundException("Não existe usuário com o id = " + id);
 		

@@ -7,10 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import br.com.crux.entity.UsuariosSistema;
 
-
 @Repository
-public interface AutenticadorRepository extends JpaRepository<UsuariosSistema, Long>{
+public interface UsuarioSistemaRepository extends JpaRepository<UsuariosSistema, Long>{
 	
-	public Optional<UsuariosSistema> findByUsername(String userName);
+	
+	public Optional<UsuariosSistema> findByUsername(String username);
 
 }
