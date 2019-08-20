@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import br.com.crux.constantes.Constantes;
+import br.com.crux.infra.constantes.Constantes;
 
 
 /**

@@ -1,4 +1,4 @@
-package br.com.crux.resouce.exception;
+package br.com.crux.service.exception;
 
 import java.util.Date;
 import java.util.List;

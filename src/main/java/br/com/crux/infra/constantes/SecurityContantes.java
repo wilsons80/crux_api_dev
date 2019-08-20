@@ -1,4 +1,4 @@
-package br.com.crux.constantes;
+package br.com.crux.infra.constantes;
 
 public class SecurityContantes {
 	public static final int JWT_EXP_MINUTOS = 3;

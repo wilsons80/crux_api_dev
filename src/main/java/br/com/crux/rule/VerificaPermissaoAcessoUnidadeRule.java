@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import org.springframework.stereotype.Component;
 
-import br.com.crux.dto.AcessoDTO;
+import br.com.crux.dao.dto.AcessoDTO;
 import br.com.crux.exception.UsuarioSemAcessoUnidadeException;
 
 @Component

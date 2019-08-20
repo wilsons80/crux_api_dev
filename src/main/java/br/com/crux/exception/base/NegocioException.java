@@ -1,4 +1,4 @@
-package br.com.crux.infra;
+package br.com.crux.exception.base;
 
 
 public class NegocioException extends RuntimeException {

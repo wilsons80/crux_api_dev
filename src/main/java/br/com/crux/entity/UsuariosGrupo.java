@@ -3,7 +3,7 @@ package br.com.crux.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import br.com.crux.constantes.Constantes;
+import br.com.crux.infra.constantes.Constantes;
 
 
 /**

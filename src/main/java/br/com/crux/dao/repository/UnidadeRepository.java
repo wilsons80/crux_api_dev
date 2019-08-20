@@ -1,4 +1,4 @@
-package br.com.crux.repository;
+package br.com.crux.dao.repository;
 
 import java.util.Optional;
 

@@ -9,7 +9,7 @@ import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.dto.AcessoDTO;
+import br.com.crux.dao.dto.AcessoDTO;
 
 @Component
 public class PerfilAcessoDao  {

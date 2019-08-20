@@ -1,4 +1,4 @@
-package br.com.crux.resouce.exception;
+package br.com.crux.service.exception;
 
 import java.io.Serializable;
 import java.util.Date;

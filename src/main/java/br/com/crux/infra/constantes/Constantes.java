@@ -1,4 +1,4 @@
-package br.com.crux.constantes;
+package br.com.crux.infra.constantes;
 
 public class Constantes {
 

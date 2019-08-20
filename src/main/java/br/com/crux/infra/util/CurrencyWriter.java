@@ -1,5 +1,5 @@
 
-package br.com.crux.util;
+package br.com.crux.infra.util;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

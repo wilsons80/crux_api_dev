@@ -1,4 +1,4 @@
-package br.com.crux.resouce;
+package br.com.crux.service;
 
 import java.util.List;
 

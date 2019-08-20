@@ -3,7 +3,7 @@ package br.com.crux.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.repository.TrocarSenhaRepository;
+import br.com.crux.dao.repository.TrocarSenhaRepository;
 
 @Component
 public class AcessoDao {

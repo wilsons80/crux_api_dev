@@ -13,8 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.dao.repository.UsuarioSistemaRepository;
 import br.com.crux.entity.UsuariosSistema;
-import br.com.crux.repository.UsuarioSistemaRepository;
 
 
 @Component

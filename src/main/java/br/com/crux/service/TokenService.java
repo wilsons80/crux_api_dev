@@ -1,4 +1,4 @@
-package br.com.crux.resouce;
+package br.com.crux.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

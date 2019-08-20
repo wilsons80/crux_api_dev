@@ -12,10 +12,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.builder.UnidadeTOBuilder;
+import br.com.crux.dao.repository.UsuarioSistemaRepository;
 import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.entity.UsuariosUnidade;
 import br.com.crux.exception.NotFoundException;
-import br.com.crux.repository.UsuarioSistemaRepository;
 import br.com.crux.to.UnidadeTO;
 
 @Component

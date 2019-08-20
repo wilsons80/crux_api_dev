@@ -1,4 +1,4 @@
-package br.com.crux.util;
+package br.com.crux.infra.util;
 
 import org.apache.commons.codec.digest.DigestUtils;
 

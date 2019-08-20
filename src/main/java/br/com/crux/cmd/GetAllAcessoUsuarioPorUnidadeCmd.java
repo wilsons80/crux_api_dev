@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.builder.AcessoTOBuilder;
 import br.com.crux.dao.PerfilAcessoDao;
-import br.com.crux.dto.AcessoDTO;
+import br.com.crux.dao.dto.AcessoDTO;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.VerificaParametrosAcessoRule;
 import br.com.crux.rule.VerificaPermissaoAcessoUnidadeRule;

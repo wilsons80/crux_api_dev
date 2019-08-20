@@ -1,6 +1,6 @@
 package br.com.crux.exception;
 
-import br.com.crux.infra.NegocioException;
+import br.com.crux.exception.base.NegocioException;
 
 public class ParametroNaoInformado extends NegocioException{
 	

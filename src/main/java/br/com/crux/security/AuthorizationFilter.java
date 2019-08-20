@@ -23,8 +23,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.crux.constantes.SecurityContantes;
-import br.com.crux.resouce.exception.ApiError;
+import br.com.crux.infra.constantes.SecurityContantes;
+import br.com.crux.service.exception.ApiError;
 import io.jsonwebtoken.Claims;
 
 public class AuthorizationFilter extends OncePerRequestFilter {

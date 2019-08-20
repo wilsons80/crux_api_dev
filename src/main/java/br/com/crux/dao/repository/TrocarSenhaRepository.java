@@ -1,4 +1,4 @@
-package br.com.crux.repository;
+package br.com.crux.dao.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

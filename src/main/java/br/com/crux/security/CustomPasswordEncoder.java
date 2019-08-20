@@ -3,7 +3,7 @@ package br.com.crux.security;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.util.HashUtil;
+import br.com.crux.infra.util.HashUtil;
 
 @Component
 public class CustomPasswordEncoder implements PasswordEncoder {

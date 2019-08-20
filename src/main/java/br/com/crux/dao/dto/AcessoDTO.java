@@ -1,4 +1,4 @@
-package br.com.crux.dto;
+package br.com.crux.dao.dto;
 
 import java.math.BigDecimal;
 
