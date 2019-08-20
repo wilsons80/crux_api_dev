@@ -50,7 +50,6 @@ public class AutenticadorCmd {
 	public UsuarioLogadoTO refreshToken() {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		
 		if(Objects.isNull(authentication)) {
 			throw new NotFoundException("Problema ao recuperar o usuário logado.");
 		}
@@ -65,8 +64,8 @@ public class AutenticadorCmd {
 	}
 	
 	
-	public void trocarSenha(String username, String senha) {
-		trocarSenhaCmd.trocarSenha(username, senha);
+	public void trocarSenha(String senha) {
+		trocarSenhaCmd.trocarSenha(senha);
 	}
 	
 	

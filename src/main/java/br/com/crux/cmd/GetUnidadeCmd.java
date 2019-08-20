@@ -1,16 +1,20 @@
 package br.com.crux.cmd;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.builder.UnidadeTOBuilder;
 import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.entity.UsuariosUnidade;
+import br.com.crux.exception.NotFoundException;
 import br.com.crux.repository.UsuarioSistemaRepository;
 import br.com.crux.to.UnidadeTO;
 
@@ -22,7 +26,13 @@ public class GetUnidadeCmd {
 
 	@Autowired private UnidadeTOBuilder unidadeTOBuilder;
 
-	public List<UnidadeTO> getUnidadePorUsuario(String username) throws UsernameNotFoundException {
+	public List<UnidadeTO> getUnidadePorUsuario() throws UsernameNotFoundException {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if(Objects.isNull(authentication)) {
+			throw new NotFoundException("Problema ao recuperar o usuário logado.");
+		}
+
+		String username = authentication.getName();
 		Optional<UsuariosSistema> usuario = usuarioSistemaRepository.findByUsername(username);
 		if(!usuario.isPresent()) throw new UsernameNotFoundException("Não existe usuário com username = " + username);
 		

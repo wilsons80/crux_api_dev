@@ -20,15 +20,4 @@ public class TokenService {
 		return autenticadorLoginCmd.refreshToken();
 	}
 
-	
-	/*
-	@RequestMapping(value = "/username", method = RequestMethod.GET)
-	@ResponseBody
-	public String currentUserName(Principal principal) {
-		return principal.getName();
-	}
-    */
-	
-	
-
 }
