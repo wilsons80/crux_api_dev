@@ -47,7 +47,9 @@ public class AutenticadorCmd {
 	}
 
 	
-	public UsuarioLogadoTO refreshToken(Authentication authentication) {
+	public UsuarioLogadoTO refreshToken() {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
 		if(Objects.isNull(authentication)) {
 			throw new NotFoundException("Problema ao recuperar o usuário logado.");
