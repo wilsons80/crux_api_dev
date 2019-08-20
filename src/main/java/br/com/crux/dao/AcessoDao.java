@@ -11,9 +11,8 @@ public class AcessoDao {
 	@Autowired 
 	protected TrocarSenhaRepository trocarSenhaRepository;
 	
-	public Boolean trocarSenha(String username, String senha) {
-		int updateSenha = trocarSenhaRepository.updateSenha(username, senha);
-		return updateSenha == 1;
+	public void trocarSenha(String username, String senha) {
+		trocarSenhaRepository.updateSenha(username, senha);
 	}
 
 }

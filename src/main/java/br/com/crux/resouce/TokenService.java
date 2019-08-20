@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.crux.cmd.AutenticadorCmd;
-import br.com.crux.to.TokenTo;
+import br.com.crux.to.UsuarioLogadoTO;
 
 
 @RequestMapping(value = "token")
@@ -20,7 +20,7 @@ public class TokenService {
 	
 	@RequestMapping(value = "/refresh-token", method = RequestMethod.GET)
 	@ResponseBody
-	public TokenTo getUsuarioLogado(Authentication authentication) {
+	public UsuarioLogadoTO getUsuarioLogado(Authentication authentication) {
 		return autenticadorLoginCmd.refreshToken(authentication);
 	}
 

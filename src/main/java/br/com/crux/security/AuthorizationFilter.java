@@ -11,7 +11,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -88,12 +87,5 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 		filterChain.doFilter(request, response);
 		
 	}
-	
-	// Expose the UserDetailsService as a Bean
-	@Bean(name = "authenticationBean" )
-	public Authentication authenticationBean() throws Exception {
-		return authentication;
-	}
-	
 
 }

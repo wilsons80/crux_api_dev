@@ -19,7 +19,6 @@ import br.com.crux.entity.Unidade;
 import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.repository.UnidadeRepository;
-import br.com.crux.to.TokenTo;
 import br.com.crux.to.UnidadeTO;
 import br.com.crux.to.UsuarioLogadoTO;
 import br.com.crux.to.UsuarioTO;
@@ -42,6 +41,35 @@ public class AutenticadorCmd {
 
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		User userSpring = (User) auth.getPrincipal();
+		UsuarioLogadoTO usuarioLogadoTO = getUsuarioLogado(userSpring);
+
+		return usuarioLogadoTO;
+	}
+
+	
+	public UsuarioLogadoTO refreshToken(Authentication authentication) {
+		
+		if(Objects.isNull(authentication)) {
+			throw new NotFoundException("Problema ao recuperar o usuário logado.");
+		}
+		
+		String username = (String) authentication.getPrincipal();
+		UsuariosSistema usuarioByUsername = usuarioSistemaDao.getUsuarioByUsername(username);
+		
+		User userSpring = new User(username, usuarioByUsername.getDsSenha(), authentication.getAuthorities());
+		UsuarioLogadoTO usuarioLogadoTO = getUsuarioLogado(userSpring);
+
+		return usuarioLogadoTO;
+	}
+	
+	
+	public void trocarSenha(String username, String senha) {
+		trocarSenhaCmd.trocarSenha(username, senha);
+	}
+	
+	
+
+	private UsuarioLogadoTO getUsuarioLogado(User userSpring) {
 		String jwt = createTokenJwtCmd.createToken(userSpring.getUsername(), userSpring);
 		
 		UsuarioLogadoTO usuarioLogadoTO = new UsuarioLogadoTO();
@@ -58,31 +86,7 @@ public class AutenticadorCmd {
 		});
 		
 		usuarioLogadoTO.setUnidades(unidades);
-
 		return usuarioLogadoTO;
-	}
-	
-	public TokenTo refreshToken(Authentication authentication) {
-		
-		if(Objects.isNull(authentication)) {
-			throw new NotFoundException("Problema ao recuperar o usuário logado.");
-		}
-		
-		String username = (String) authentication.getPrincipal();
-		UsuariosSistema usuarioByUsername = usuarioSistemaDao.getUsuarioByUsername(username);
-		
-		User userSpring = new User(username, usuarioByUsername.getDsSenha(), authentication.getAuthorities());
-		String jwt = createTokenJwtCmd.createToken(userSpring.getUsername(), userSpring);
-		
-		TokenTo tokenTo = new TokenTo();
-		tokenTo.setToken(jwt);
-
-		return tokenTo;
-	}
-	
-	
-	public Boolean trocarSenha(UsuarioTO usuario) {
-		return trocarSenhaCmd.trocarSenha(usuario.getUserName(), usuario.getSenha());
 	}
 
 }

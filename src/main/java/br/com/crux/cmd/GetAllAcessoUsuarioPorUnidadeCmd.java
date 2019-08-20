@@ -23,9 +23,10 @@ public class GetAllAcessoUsuarioPorUnidadeCmd {
 
 	@Autowired private VerificaPermissaoAcessoUnidadeRule verificaPermissaoAcessoUnidadeRule;
 	
-	public List<AcessoTO> getAcesso(Long idUsarname, Long idUnidade) {
-		verificaParametrosAcessoRule.verificar(idUsarname, idUnidade);
-		List<AcessoDTO> acesso = perfilAcessoDao.getAcesso(idUsarname, idUnidade);
+	public List<AcessoTO> getAcesso(String username, Long idUnidade) {
+		
+		verificaParametrosAcessoRule.verificar(username, idUnidade);
+		List<AcessoDTO> acesso = perfilAcessoDao.getAcesso(username, idUnidade);
 		
 		verificaPermissaoAcessoUnidadeRule.verificar(acesso);
 		

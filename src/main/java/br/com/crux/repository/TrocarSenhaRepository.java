@@ -14,7 +14,7 @@ public interface TrocarSenhaRepository extends JpaRepository<UsuariosSistema, Lo
 
 	@Transactional(readOnly = false)
 	@Modifying
-	@Query("UPDATE UsuariosSistema SET dsSenha = ?2 WHERE username = ?1")
+	@Query("UPDATE UsuariosSistema SET dsSenha = ?2 WHERE username = ?1" )
 	public int updateSenha(String username, String senha);
 	
 }

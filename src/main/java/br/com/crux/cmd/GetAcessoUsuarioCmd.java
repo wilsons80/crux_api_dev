@@ -13,8 +13,8 @@ public class GetAcessoUsuarioCmd {
 	@Autowired
 	private GetAllAcessoUsuarioPorUnidadeCmd getAllAcessoUsuarioPorUnidadeCmd;
 
-	public List<AcessoTO> getAllAcessoUsuarioPorUnidadeCmd(Long idUsarname, Long idUnidade) {
-		return getAllAcessoUsuarioPorUnidadeCmd.getAcesso(idUsarname, idUnidade);
+	public List<AcessoTO> getAllAcessoUsuarioPorUnidadeCmd(String username, Long idUnidade) {
+		return getAllAcessoUsuarioPorUnidadeCmd.getAcesso(username, idUnidade);
 
 	}
 

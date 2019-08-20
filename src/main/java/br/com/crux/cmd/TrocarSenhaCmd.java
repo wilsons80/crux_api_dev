@@ -14,7 +14,7 @@ public class TrocarSenhaCmd {
 	@Autowired private CustomPasswordEncoder customPasswordEncoder;
 	@Autowired private AcessoDao acessoDao;
 	
-	public Boolean trocarSenha(String username, String senha) {
+	public void trocarSenha(String username, String senha) {
 		if(StringUtils.isEmpty(senha)) {
 			throw new NotFoundException("A nova senha não foi informada.");
 		}
@@ -24,7 +24,7 @@ public class TrocarSenhaCmd {
 		
 		String senhaEncode = customPasswordEncoder.encode(senha);
 		
-		return acessoDao.trocarSenha(username, senhaEncode);
+		acessoDao.trocarSenha(username, senhaEncode);
 	}
 
 }

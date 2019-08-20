@@ -1,10 +1,13 @@
 package br.com.crux.resouce;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.crux.cmd.AutenticadorCmd;
@@ -23,9 +26,11 @@ public class AutenticadorService {
 		return autenticadorLoginCmd.autenticar(user);
 	}
 	
-	@PostMapping(path = "/trocar-senha", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Boolean trocarSenha(@RequestBody UsuarioTO usuario) {
-		return autenticadorLoginCmd.trocarSenha(usuario);
+	
+	@ResponseBody
+	@PostMapping(path = "/trocar-senha")
+	public void trocarSenha(Principal principal, @RequestBody String senha) {
+		autenticadorLoginCmd.trocarSenha(principal.getName(), senha);
 	}
 
 }

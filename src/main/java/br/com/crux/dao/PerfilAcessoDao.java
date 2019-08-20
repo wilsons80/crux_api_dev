@@ -18,7 +18,7 @@ public class PerfilAcessoDao  {
 	protected EntityManager em;
 	
 	@SuppressWarnings("unchecked")
-	public List<AcessoDTO> getAcesso(Long idUsarname, Long idUnidade) {
+	public List<AcessoDTO> getAcesso(String username, Long idUnidade) {
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append("	select us.id_usuario as idUsuario,                              ");
@@ -44,12 +44,12 @@ public class PerfilAcessoDao  {
 		sql.append("   and gm.id_unidade       = u.id_unidade                           ");
 		sql.append("   and pa.id_perfil_acesso = gm.id_perfil_acesso                    ");
 		sql.append("   and u.id_unidade        = :idUnidade                             ");
-		sql.append("   and us.id_usuario       = :idUsarname                            ");
+		sql.append("   and us.nm_username      = :username                              ");
 		
 		
 		
 		Query query = em.createNativeQuery(sql.toString());
-		query.setParameter("idUsarname", idUsarname);
+		query.setParameter("username", username);
 		query.setParameter("idUnidade", idUnidade);
 		
 		List<Object[]> values = query.getResultList();

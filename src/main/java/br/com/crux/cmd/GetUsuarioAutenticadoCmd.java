@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,14 +31,10 @@ public class GetUsuarioAutenticadoCmd implements UserDetailsService{
 		UsuariosSistema user = result.get();
 		
 		List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
-		user.getUsuariosUnidades().forEach(unidades -> roles.add(new SimpleGrantedAuthority("ROLE_" + unidades.getUnidade().getCdUnidade().replaceAll(" ", "_").toUpperCase())));
-		
+		//user.getUsuariosUnidades().forEach(unidades -> roles.add(new SimpleGrantedAuthority("ROLE_" + unidades.getUnidade().getCdUnidade().replaceAll(" ", "_").toUpperCase())));
 		List<GrantedAuthority> authorities = roles;
 		
 		User userSpring = new User(user.getUsername(), user.getDsSenha(), authorities);
-		
-		
-		
 		
 		return userSpring;
 	}
