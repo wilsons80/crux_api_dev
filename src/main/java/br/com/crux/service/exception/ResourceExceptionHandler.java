@@ -29,7 +29,7 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler{
 	
 	@ExceptionHandler(BadCredentialsException.class)
 	public ResponseEntity<ApiError> handleBadCredentialsException(BadCredentialsException ex) {
-		ApiError error = new ApiError(HttpStatus.UNAUTHORIZED.value(), ex.getMessage(), new Date());
+		ApiError error = new ApiError(HttpStatus.UNAUTHORIZED.value(), "Usuário/Senha inválido.", new Date());
 		
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
 	}
