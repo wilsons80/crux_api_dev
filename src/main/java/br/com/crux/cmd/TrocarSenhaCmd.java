@@ -34,6 +34,8 @@ public class TrocarSenhaCmd {
 		
 		String senhaEncode = customPasswordEncoder.encode(trocaSenhaTO.getSenhaNova());
 		acessoDao.trocarSenha(authentication.getName(), senhaEncode);
+		
+		SecurityContextHolder.getContext().setAuthentication(null);
 	}
 
 }
