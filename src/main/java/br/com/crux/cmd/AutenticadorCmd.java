@@ -14,11 +14,11 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.builder.UnidadeTOBuilder;
-import br.com.crux.dao.GetUsuarioSistemaDao;
 import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.Unidade;
 import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
+import br.com.crux.to.TrocaSenhaTO;
 import br.com.crux.to.UnidadeTO;
 import br.com.crux.to.UsuarioLogadoTO;
 import br.com.crux.to.UsuarioTO;
@@ -31,7 +31,7 @@ public class AutenticadorCmd {
 	@Autowired private UnidadeRepository unidadeRepository;
 	@Autowired private UnidadeTOBuilder unidadeTOBuilder;
 	@Autowired private TrocarSenhaCmd trocarSenhaCmd;
-	@Autowired private GetUsuarioSistemaDao usuarioSistemaDao;
+	@Autowired private GetUsuarioSistemaCmd usuarioSistemaCmd;
 	
 	
 	public UsuarioLogadoTO autenticar(UsuarioTO user) {
@@ -55,7 +55,7 @@ public class AutenticadorCmd {
 		}
 		
 		String username = (String) authentication.getPrincipal();
-		UsuariosSistema usuarioByUsername = usuarioSistemaDao.getUsuarioByUsername(username);
+		UsuariosSistema usuarioByUsername = usuarioSistemaCmd.get(username);
 		
 		User userSpring = new User(username, usuarioByUsername.getDsSenha(), authentication.getAuthorities());
 		UsuarioLogadoTO usuarioLogadoTO = getUsuarioLogado(userSpring);
@@ -64,8 +64,8 @@ public class AutenticadorCmd {
 	}
 	
 	
-	public void trocarSenha(String senha) {
-		trocarSenhaCmd.trocarSenha(senha);
+	public void trocarSenha(TrocaSenhaTO trocaSenhaTO) {
+		trocarSenhaCmd.trocarSenha(trocaSenhaTO);
 	}
 	
 	

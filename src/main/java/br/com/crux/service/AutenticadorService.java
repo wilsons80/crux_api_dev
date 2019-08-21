@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.crux.cmd.AutenticadorCmd;
+import br.com.crux.to.TrocaSenhaTO;
 import br.com.crux.to.UsuarioLogadoTO;
 import br.com.crux.to.UsuarioTO;
 
@@ -23,9 +24,9 @@ public class AutenticadorService {
 		return autenticadorLoginCmd.autenticar(user);
 	}
 	
-	@PostMapping(path = "/trocar-senha")
-	public void trocarSenha(@RequestBody String senha) {
-		autenticadorLoginCmd.trocarSenha(senha);
+	@PostMapping(path = "/trocar-senha", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void trocarSenha(@RequestBody TrocaSenhaTO trocaSenhaTO) {
+		autenticadorLoginCmd.trocarSenha(trocaSenhaTO);
 	}
 
 }
