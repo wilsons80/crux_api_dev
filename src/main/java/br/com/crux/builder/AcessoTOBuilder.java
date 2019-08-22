@@ -23,6 +23,7 @@ public class AcessoTOBuilder {
 		to.setInsere(dto.getInsere());
 		to.setDeleta(dto.getDeleta());
 		to.setConsulta(dto.getConsulta());
+		to.setIdUsuarioGrupo(dto.getIdUsuarioGrupo());
 		
 		return to;
 	}

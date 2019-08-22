@@ -4,6 +4,7 @@ public class AcessoTO {
 	
 	private Long   idUsuario;
 	private String username;
+    private Long   idUsuarioGrupo;
 	private String unidade;
 	private String modulo;
 	private String altera;
@@ -11,6 +12,13 @@ public class AcessoTO {
 	private String deleta;
 	private String insere;
 	
+	
+	public Long getIdUsuarioGrupo() {
+		return idUsuarioGrupo;
+	}
+	public void setIdUsuarioGrupo(Long idUsuarioGrupo) {
+		this.idUsuarioGrupo = idUsuarioGrupo;
+	}
 	public Long getIdUsuario() {
 		return idUsuario;
 	}

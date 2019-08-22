@@ -9,4 +9,5 @@ public abstract class BaseDao {
 	@Autowired 
 	protected EntityManager em;
 	
+	
 }

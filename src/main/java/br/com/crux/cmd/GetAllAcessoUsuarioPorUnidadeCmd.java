@@ -9,7 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.builder.AcessoTOBuilder;
-import br.com.crux.dao.PerfilAcessoDao;
+import br.com.crux.dao.AcessoDao;
 import br.com.crux.dao.dto.AcessoDTO;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.VerificaParametrosAcessoRule;
@@ -19,7 +19,7 @@ import br.com.crux.to.AcessoTO;
 @Component
 public class GetAllAcessoUsuarioPorUnidadeCmd {
 	
-	@Autowired private PerfilAcessoDao perfilAcessoDao;
+	@Autowired private AcessoDao acessoDao;
 	
 	@Autowired private AcessoTOBuilder acessoTOBuilder;
 	
@@ -35,7 +35,7 @@ public class GetAllAcessoUsuarioPorUnidadeCmd {
 
 		String username = authentication.getName();
 		verificaParametrosAcessoRule.verificar(username, idUnidade);
-		List<AcessoDTO> acesso = perfilAcessoDao.getAcesso(username, idUnidade);
+		List<AcessoDTO> acesso = acessoDao.getAcesso(username, idUnidade);
 		
 		verificaPermissaoAcessoUnidadeRule.verificar(acesso);
 		
