@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.crux.cmd.AutenticadorCmd;
 import br.com.crux.to.TrocaSenhaTO;
 import br.com.crux.to.UsuarioLogadoTO;
-import br.com.crux.to.UsuarioTO;
+import br.com.crux.to.LoginTO;
 
 @RestController
 @RequestMapping(value = "autenticador")
@@ -20,7 +20,7 @@ public class AutenticadorService {
 	private AutenticadorCmd autenticadorLoginCmd;
 
 	@PostMapping(path = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
-	public UsuarioLogadoTO login(@RequestBody UsuarioTO user) {
+	public UsuarioLogadoTO login(@RequestBody LoginTO user) {
 		return autenticadorLoginCmd.autenticar(user);
 	}
 	

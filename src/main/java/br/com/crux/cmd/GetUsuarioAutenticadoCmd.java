@@ -51,5 +51,4 @@ public class GetUsuarioAutenticadoCmd implements UserDetailsService{
 		return user;
 	}
 
-	
 }

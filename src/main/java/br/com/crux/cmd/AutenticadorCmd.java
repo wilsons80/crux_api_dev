@@ -21,7 +21,7 @@ import br.com.crux.exception.NotFoundException;
 import br.com.crux.to.TrocaSenhaTO;
 import br.com.crux.to.UnidadeTO;
 import br.com.crux.to.UsuarioLogadoTO;
-import br.com.crux.to.UsuarioTO;
+import br.com.crux.to.LoginTO;
 
 @Component
 public class AutenticadorCmd {
@@ -34,7 +34,7 @@ public class AutenticadorCmd {
 	@Autowired private GetUsuarioSistemaCmd usuarioSistemaCmd;
 	
 	
-	public UsuarioLogadoTO autenticar(UsuarioTO user) {
+	public UsuarioLogadoTO autenticar(LoginTO user) {
 
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUserName(),user.getSenha());
 		Authentication auth = authManager.authenticate(token);

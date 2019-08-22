@@ -47,8 +47,6 @@ public class UsuariosSistema implements Serializable {
 	@Column(name="dt_ultimo_acesso")
 	private Date dtUltimoAcesso;
 
-
-
 	@Column(name="qtd_acesso_negado")
 	private BigDecimal qtdAcessoNegado;
 

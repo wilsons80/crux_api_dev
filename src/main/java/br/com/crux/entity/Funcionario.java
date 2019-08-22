@@ -2,23 +2,21 @@ package br.com.crux.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import br.com.crux.infra.constantes.Constantes;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-
-/**
- * The persistent class for the funcionarios database table.
- * 
- */
 @Entity
 @Table(name="funcionarios")
-@NamedQuery(name="Funcionario.findAll", query="SELECT f FROM Funcionario f")
 public class Funcionario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_funcionario")
+	@SequenceGenerator(name = "sq_id_funcionario", sequenceName = "sq_id_funcionario", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_funcionario")
 	private Long idFuncionario;
 
@@ -95,10 +93,6 @@ public class Funcionario implements Serializable {
 	@JoinColumn(name="id_funcionario_entrevistador")
 	private Funcionario funcionario;
 
-	//bi-directional many-to-one association to Funcionario
-	@OneToMany(mappedBy="funcionario")
-	private List<Funcionario> funcionarios;
-
 	//bi-directional many-to-one association to PessoasFisica
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_pessoa_fisica")
@@ -120,16 +114,15 @@ public class Funcionario implements Serializable {
 
 	//bi-directional many-to-one association to Pedido
 	@OneToMany(mappedBy="funcionario1")
-	private List<Pedido> pedidos1;
+	private List<Pedido> pedidos;
 
-	//bi-directional many-to-one association to Pedido
-	@OneToMany(mappedBy="funcionario2")
-	private List<Pedido> pedidos2;
 
 	//bi-directional many-to-one association to TalentosPf
 	@OneToMany(mappedBy="funcionario")
 	private List<TalentosPf> talentosPfs;
 
+	
+	
 	public Funcionario() {
 	}
 
@@ -391,28 +384,6 @@ public class Funcionario implements Serializable {
 		this.funcionario = funcionario;
 	}
 
-	public List<Funcionario> getFuncionarios() {
-		return this.funcionarios;
-	}
-
-	public void setFuncionarios(List<Funcionario> funcionarios) {
-		this.funcionarios = funcionarios;
-	}
-
-	public Funcionario addFuncionario(Funcionario funcionario) {
-		getFuncionarios().add(funcionario);
-		funcionario.setFuncionario(this);
-
-		return funcionario;
-	}
-
-	public Funcionario removeFuncionario(Funcionario funcionario) {
-		getFuncionarios().remove(funcionario);
-		funcionario.setFuncionario(null);
-
-		return funcionario;
-	}
-
 	public PessoasFisica getPessoasFisica() {
 		return this.pessoasFisica;
 	}
@@ -459,48 +430,26 @@ public class Funcionario implements Serializable {
 		return movimentacoesConta;
 	}
 
-	public List<Pedido> getPedidos1() {
-		return this.pedidos1;
+	public List<Pedido> getPedidos() {
+		return this.pedidos;
 	}
 
-	public void setPedidos1(List<Pedido> pedidos1) {
-		this.pedidos1 = pedidos1;
+	public void setPedidos(List<Pedido> pedidos1) {
+		this.pedidos = pedidos1;
 	}
 
 	public Pedido addPedidos1(Pedido pedidos1) {
-		getPedidos1().add(pedidos1);
+		getPedidos().add(pedidos1);
 		pedidos1.setFuncionario1(this);
 
 		return pedidos1;
 	}
 
 	public Pedido removePedidos1(Pedido pedidos1) {
-		getPedidos1().remove(pedidos1);
+		getPedidos().remove(pedidos1);
 		pedidos1.setFuncionario1(null);
 
 		return pedidos1;
-	}
-
-	public List<Pedido> getPedidos2() {
-		return this.pedidos2;
-	}
-
-	public void setPedidos2(List<Pedido> pedidos2) {
-		this.pedidos2 = pedidos2;
-	}
-
-	public Pedido addPedidos2(Pedido pedidos2) {
-		getPedidos2().add(pedidos2);
-		pedidos2.setFuncionario2(this);
-
-		return pedidos2;
-	}
-
-	public Pedido removePedidos2(Pedido pedidos2) {
-		getPedidos2().remove(pedidos2);
-		pedidos2.setFuncionario2(null);
-
-		return pedidos2;
 	}
 
 	public List<TalentosPf> getTalentosPfs() {

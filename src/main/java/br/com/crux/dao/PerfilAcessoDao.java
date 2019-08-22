@@ -3,19 +3,15 @@ package br.com.crux.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.dao.base.BaseDao;
 import br.com.crux.dao.dto.AcessoDTO;
 
 @Component
-public class PerfilAcessoDao  {
-	
-	@Autowired 
-	protected EntityManager em;
+public class PerfilAcessoDao extends BaseDao {
 	
 	@SuppressWarnings("unchecked")
 	public List<AcessoDTO> getAcesso(String username, Long idUnidade) {

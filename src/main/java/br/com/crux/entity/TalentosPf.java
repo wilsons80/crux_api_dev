@@ -7,13 +7,8 @@ import java.sql.Timestamp;
 import java.util.List;
 
 
-/**
- * The persistent class for the talentos_pf database table.
- * 
- */
 @Entity
 @Table(name="talentos_pf")
-@NamedQuery(name="TalentosPf.findAll", query="SELECT t FROM TalentosPf t")
 public class TalentosPf implements Serializable {
 	private static final long serialVersionUID = 1L;
 
