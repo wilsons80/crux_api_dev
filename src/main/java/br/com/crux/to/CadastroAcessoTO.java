@@ -1,11 +1,10 @@
 package br.com.crux.to;
 
-public class AcessoTO {
+public class CadastroAcessoTO {
 	
 	private Long   idUsuario;
-	private String username;
-	private String unidade;
-	private String modulo;
+	private Long   idUnidae;
+	private Long   idModulo;
 	private String altera;
 	private String consulta;
 	private String deleta;
@@ -18,23 +17,17 @@ public class AcessoTO {
 	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
 	}
-	public String getUsername() {
-		return username;
+	public Long getIdUnidade() {
+		return idUnidae;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setIdUnidade(Long codigoUnidade) {
+		this.idUnidae = codigoUnidade;
 	}
-	public String getUnidade() {
-		return unidade;
+	public Long getIdModulo() {
+		return idModulo;
 	}
-	public void setUnidade(String codigoUnidade) {
-		this.unidade = codigoUnidade;
-	}
-	public String getModulo() {
-		return modulo;
-	}
-	public void setModulo(String nomeUnidade) {
-		this.modulo = nomeUnidade;
+	public void setIdModulo(Long nomeUnidade) {
+		this.idModulo = nomeUnidade;
 	}
 	public String getAltera() {
 		return altera;

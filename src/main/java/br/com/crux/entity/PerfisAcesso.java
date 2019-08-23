@@ -3,6 +3,8 @@ package br.com.crux.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.apache.commons.lang3.StringUtils;
+
 import br.com.crux.infra.constantes.Constantes;
 
 import java.util.List;
@@ -59,7 +61,7 @@ public class PerfisAcesso implements Serializable {
 	}
 
 	public String getCsAltera() {
-		return this.csAltera;
+		return StringUtils.isEmpty(this.csAltera) ? "N" : this.csAltera;
 	}
 
 	public void setCsAltera(String csAltera) {
@@ -67,7 +69,7 @@ public class PerfisAcesso implements Serializable {
 	}
 
 	public String getCsConsulta() {
-		return this.csConsulta;
+		return StringUtils.isEmpty(this.csConsulta) ? "N" : this.csConsulta;
 	}
 
 	public void setCsConsulta(String csConsulta) {
@@ -75,7 +77,7 @@ public class PerfisAcesso implements Serializable {
 	}
 
 	public String getCsDeleta() {
-		return this.csDeleta;
+		return StringUtils.isEmpty(this.csDeleta) ? "N" : this.csDeleta;
 	}
 
 	public void setCsDeleta(String csDeleta) {
@@ -83,7 +85,7 @@ public class PerfisAcesso implements Serializable {
 	}
 
 	public String getCsInsere() {
-		return this.csInsere;
+		return StringUtils.isEmpty(this.csInsere) ? "N" : this.csInsere;
 	}
 
 	public void setCsInsere(String csInsere) {

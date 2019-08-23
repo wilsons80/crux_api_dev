@@ -14,7 +14,6 @@ public class AcessoDTO {
 	private String consulta;
 	private String deleta;
 	private String insere;
-	private Long   idUsuarioGrupo;
 	
 	public AcessoDTO() {
 	}
@@ -28,17 +27,8 @@ public class AcessoDTO {
 		this.consulta       = StringUtils.isEmpty((String) colunas[5]) ? "N" : "S";
 		this.deleta         = StringUtils.isEmpty((String) colunas[6]) ? "N" : "S";
 		this.insere         = StringUtils.isEmpty((String) colunas[7]) ? "N" : "S";
-		this.idUsuarioGrupo = (colunas[8] != null)? ((BigDecimal)colunas[8]).longValue() : null;
-	}
-	
-	
-	public Long getIdUsuarioGrupo() {
-		return idUsuarioGrupo;
 	}
 
-	public void setIdUsuarioGrupo(Long idUsuarioGrupo) {
-		this.idUsuarioGrupo = idUsuarioGrupo;
-	}
 
 	public Long getIdUsuario() {
 		return idUsuario;

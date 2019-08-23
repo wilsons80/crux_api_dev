@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import br.com.crux.entity.UsuariosGrupo;
 
 @Repository
-public interface ExcluirAcessoRepository extends JpaRepository<UsuariosGrupo, Long> {
+public interface UsuariosGrupoRepository extends JpaRepository<UsuariosGrupo, Long> {
 
 	//@Modifying
 	//@Query("DELETE FROM UsuariosGrupo WHERE id = ?1")

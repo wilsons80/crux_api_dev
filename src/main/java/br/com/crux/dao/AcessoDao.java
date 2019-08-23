@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.dao.base.BaseDao;
 import br.com.crux.dao.dto.AcessoDTO;
-import br.com.crux.dao.repository.ExcluirAcessoRepository;
+import br.com.crux.dao.repository.UsuariosGrupoRepository;
 import br.com.crux.dao.repository.TrocarSenhaRepository;
 
 @Component
@@ -19,7 +19,7 @@ public class AcessoDao extends BaseDao{
 	@Autowired 
 	private TrocarSenhaRepository trocarSenhaRepository;
 	@Autowired
-	private ExcluirAcessoRepository excluirAcessoRepository;
+	private UsuariosGrupoRepository excluirAcessoRepository;
 	
 	public void trocarSenha(String username, String senha) {
 		trocarSenhaRepository.updateSenha(username, senha);
@@ -37,8 +37,7 @@ public class AcessoDao extends BaseDao{
 		sql.append("       pa.cs_altera as altera,                                      ");
 		sql.append("       pa.cs_consulta as consulta,                                  ");
 		sql.append("       pa.cs_deleta as deleta,                                      ");
-		sql.append("       pa.cs_insere as insere,                                      ");
-		sql.append("       ug.id_usuario_grupo as usuarioGrupo                          ");
+		sql.append("       pa.cs_insere as insere                                       ");
 		sql.append("  from usuarios_grupos ug,                                          ");
 		sql.append("       usuarios_sistema us,                                         ");
 		sql.append("       modulos m,                                                   ");

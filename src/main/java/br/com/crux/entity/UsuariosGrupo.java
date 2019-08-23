@@ -30,6 +30,9 @@ public class UsuariosGrupo implements Serializable {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_usuario")
 	private UsuariosSistema usuariosSistema;
+	
+	@Column(name = "id_usuario_apl")
+	private Long idUsuarioApl;
 
 
 	public UsuariosGrupo() {
@@ -59,5 +62,14 @@ public class UsuariosGrupo implements Serializable {
 		this.usuariosSistema = usuariosSistema;
 	}
 
+	public Long getIdUsuarioApl() {
+		return idUsuarioApl;
+	}
+
+	public void setIdUsuarioApl(Long idUsuarioApl) {
+		this.idUsuarioApl = idUsuarioApl;
+	}
+
+	
 
 }

@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.crux.cmd.CadastrarAcessoUsuarioCmd;
 import br.com.crux.cmd.ExcluirAcessoUsuarioCmd;
 import br.com.crux.cmd.GetAcessoUsuarioCmd;
 import br.com.crux.to.AcessoTO;
+import br.com.crux.to.CadastroAcessoTO;
 
 @RestController
 @RequestMapping(value = "acesso")
@@ -26,21 +27,23 @@ public class AcessoService {
 	private GetAcessoUsuarioCmd getAcessoUsuarioCmd;
 	@Autowired
 	private ExcluirAcessoUsuarioCmd excluirAcessoUsuarioCmd;
+	@Autowired
+	private CadastrarAcessoUsuarioCmd cadastrarAcessoUsuarioCmd;
 	
 	
 	
-	@GetMapping(path = "/usuario", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<AcessoTO> getAllAcessos(@RequestParam("idUnidade") Long idUnidade) {
-		return getAcessoUsuarioCmd.getAllAcessoUsuarioPorUnidadeCmd(idUnidade);
+	@GetMapping(path = "/usuario/unidade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<AcessoTO> getAllAcessos(@PathVariable(name = "id") Long idUnidade) {
+		return getAcessoUsuarioCmd.getAllAcessoUsuarioPorUnidade(idUnidade);
 	}
 	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void cadastrar(@RequestBody AcessoTO acesso) {
-		
+	public void cadastrar(@RequestBody CadastroAcessoTO acesso) {
+		cadastrarAcessoUsuarioCmd.cadastrar(acesso);
 	}
 	
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void alterar(@RequestBody AcessoTO acesso) {
+	public void alterar(@RequestBody CadastroAcessoTO acesso) {
 		
 	}
 	
