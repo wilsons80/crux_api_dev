@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.crux.cmd.AlterarAcessoUsuarioCmd;
 import br.com.crux.cmd.CadastrarAcessoUsuarioCmd;
 import br.com.crux.cmd.ExcluirAcessoUsuarioCmd;
 import br.com.crux.cmd.GetAcessoUsuarioCmd;
@@ -29,7 +30,8 @@ public class AcessoService {
 	private ExcluirAcessoUsuarioCmd excluirAcessoUsuarioCmd;
 	@Autowired
 	private CadastrarAcessoUsuarioCmd cadastrarAcessoUsuarioCmd;
-	
+	@Autowired
+	private AlterarAcessoUsuarioCmd alterarAcessoUsuarioCmd;
 	
 	
 	@GetMapping(path = "/usuario/unidade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -44,7 +46,7 @@ public class AcessoService {
 	
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void alterar(@RequestBody CadastroAcessoTO acesso) {
-		
+		alterarAcessoUsuarioCmd.alterar(acesso);
 	}
 	
 	@DeleteMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)

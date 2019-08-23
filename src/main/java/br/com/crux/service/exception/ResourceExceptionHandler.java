@@ -16,7 +16,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import br.com.crux.exception.NotFoundException;
-import br.com.crux.exception.ParametroNaoInformado;
 import br.com.crux.exception.base.NegocioException;
 
 @ControllerAdvice

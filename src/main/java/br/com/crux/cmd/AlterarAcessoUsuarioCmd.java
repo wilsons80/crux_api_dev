@@ -20,7 +20,7 @@ import br.com.crux.exception.PerfilAcessoCadastradoException;
 import br.com.crux.to.CadastroAcessoTO;
 
 @Component
-public class CadastrarAcessoUsuarioCmd {
+public class AlterarAcessoUsuarioCmd {
 
 	@Autowired private UnidadeRepository unidadeRepository;
 	@Autowired private ModuloRepository moduloRepository;
@@ -29,7 +29,7 @@ public class CadastrarAcessoUsuarioCmd {
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	@Autowired private GrupoModuloRepository grupoModuloRepository;
 	
-	public void cadastrar(CadastroAcessoTO acessoTO) {
+	public void alterar(CadastroAcessoTO acessoTO) {
 		
 		Optional<Unidade> unidade = unidadeRepository.findById(acessoTO.getIdUnidade());
 		if(!unidade.isPresent()) {
@@ -61,11 +61,9 @@ public class CadastrarAcessoUsuarioCmd {
 			throw new PerfilAcessoCadastradoException("Usuário já possui esse perfil cadastrado.");
 		}
 		
-		UsuariosGrupo usuariosGrupo = new UsuariosGrupo();
-		usuariosGrupo.setGruposModulo(gruposModulo.get());
-		usuariosGrupo.setUsuariosSistema(usuario.get());
-		usuariosGrupo.setIdUsuarioApl(usuarioLogado.get().getIdUsuario());
-		usuariosGrupoRepository.save(usuariosGrupo);
+		usuarioGrupo.get().setGruposModulo(gruposModulo.get());
+		usuarioGrupo.get().setIdUsuarioApl(usuarioLogado.get().getIdUsuario());
+		usuariosGrupoRepository.save(usuarioGrupo.get());
 		
 	}
 }
