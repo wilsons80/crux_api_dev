@@ -6,25 +6,27 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.builder.GrupoModuloTOBuilder;
 import br.com.crux.dao.repository.GrupoModuloRepository;
 import br.com.crux.entity.GruposModulo;
-import br.com.crux.exception.GruposModuloDuplicadoException;
+import br.com.crux.exception.ParametroNaoInformado;
+import br.com.crux.to.GrupoModuloTO;
 
 @Component
 public class GetGruposModulosCmd {
 
 	@Autowired private GrupoModuloRepository grupoModuloRepository;
+	@Autowired private GrupoModuloTOBuilder grupoModuloTOBuilder;
 	
-	
-	public GruposModulo getGrupoModulo(Long idUnidade, Long idModulo, Long idPerfilAcesso) {
-		List<GruposModulo> grupo = grupoModuloRepository.findByUnidadeAndModuloAndPerfilAcesso(
-				                                                    idUnidade, 
-				                                                    idModulo, 
-				                                                    idPerfilAcesso);
-		if(Objects.nonNull(grupo) && grupo.size() > 1) {
-			throw new GruposModuloDuplicadoException("Há grupo modulo duplicado para essa unidade/modulo.");
+	public List<GrupoModuloTO> getGrupoModulo(Long idUnidade, Long idModulo) {
+		if(Objects.isNull(idUnidade)) {
+			throw new ParametroNaoInformado("A unidade não foi informada.");
 		}
-
-		return grupo.size() == 1 ? grupo.get(0) : null;
+		if(Objects.isNull(idModulo)) {
+			throw new ParametroNaoInformado("O módulo não foi informado.");
+		}
+		
+		List<GruposModulo> grupos = grupoModuloRepository.findByUnidadeAndModulo(idUnidade, idModulo);
+		return grupoModuloTOBuilder.buildAll(grupos);
 	}
 }

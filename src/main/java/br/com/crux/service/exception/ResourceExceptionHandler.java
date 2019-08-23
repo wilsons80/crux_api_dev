@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.exception.ParametroNaoInformado;
+import br.com.crux.exception.base.NegocioException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler extends ResponseEntityExceptionHandler{
@@ -42,14 +43,11 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler{
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
 	}
 	
-	@ExceptionHandler(ParametroNaoInformado.class)
-	public ResponseEntity<ApiError> parametroNaoInformado(ParametroNaoInformado ex) {
-		ApiError error = new ApiError(HttpStatus.FORBIDDEN.value(), "Impossível recuperar parâmetro na requisição.", new Date());
-		
+	@ExceptionHandler(NegocioException.class)
+	public ResponseEntity<ApiError> parametroNaoInformado(NegocioException ex) {
+		ApiError error = new ApiError(HttpStatus.FORBIDDEN.value(), ex.getMessage(), new Date());
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
 	}
-	
-	
 	
 	
 	@Override
