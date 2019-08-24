@@ -15,7 +15,7 @@ public class UsuarioUnidadeDTO {
 	
 	public UsuarioUnidadeDTO(Object[] colunas) {
 		this.idPessoaFisica     = (colunas[0] != null)? ((BigDecimal)colunas[0]).longValue() : null;
-		this.idUsuario          = (colunas[1] != null)? ((BigDecimal)colunas[0]).longValue() : null;
+		this.idUsuario          = (colunas[1] != null)? ((BigDecimal)colunas[1]).longValue() : null;
 		this.nomeCompleto       = (String) colunas[2];
 		this.email              = (String) colunas[3];
 	}
