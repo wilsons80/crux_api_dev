@@ -12,7 +12,6 @@ import br.com.crux.to.PerfilAcessoUsuarioTO;
 @Component
 public class PerfilAcessoUsuarioTOBuilder {
 	
-	
 	public PerfilAcessoUsuarioTO buildTO(PerfilAcessoUsuarioDTO dto) {
 		PerfilAcessoUsuarioTO to = new PerfilAcessoUsuarioTO();
 		to.setIdUsuario(dto.getIdUsuario());

@@ -22,6 +22,7 @@ import br.com.crux.cmd.GetPerfilAcessoCmd;
 import br.com.crux.to.AcessoTO;
 import br.com.crux.to.CadastroAcessoTO;
 import br.com.crux.to.PerfilAcessoUsuarioTO;
+import br.com.crux.to.UnidadeModuloAcessoTO;
 
 @RestController
 @RequestMapping(value = "acesso")
@@ -63,6 +64,12 @@ public class AcessoService {
 			                                           @RequestParam(name = "usuario", required = false) Long idUsuario, 
 			                                           @RequestParam(name = "modulo", required = false) Long idModulo) {
 		return getPerfilAcessoCmd.getPerfilAcesso(idUnidade, idUsuario, idModulo);
+	}
+	
+	
+	@GetMapping(path = "/cadastro/unidade", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<UnidadeModuloAcessoTO> getUnidadesComPermissaoModuloAcesso() {
+		return getPerfilAcessoCmd.getUnidadesComPermissaoModuloAcesso();
 	}
 
 }

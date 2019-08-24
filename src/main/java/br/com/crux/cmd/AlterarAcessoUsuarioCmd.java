@@ -51,18 +51,15 @@ public class AlterarAcessoUsuarioCmd {
 			throw new NotFoundException("Não existe o tipo de perfil cadastrado para essa unidade.");
 		}
 
-		Optional<UsuariosSistema> usuarioLogado = usuarioSistemaRepository.findByUsername(getUsuarioLogadoCmd.get().getName());
-		if(!usuarioLogado.isPresent()) {
-			throw new NotFoundException("Erro ao recuperar o usuário logado.");
-		}
 		
-		Optional<UsuariosGrupo> usuarioGrupo = usuariosGrupoRepository.findByGruposModuloAndUsuariosSistema(gruposModulo.get(), usuarioLogado.get());
+		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
+		Optional<UsuariosGrupo> usuarioGrupo = usuariosGrupoRepository.findByGruposModuloAndUsuariosSistema(gruposModulo.get(), usuarioLogado);
 		if(usuarioGrupo.isPresent()) {
 			throw new PerfilAcessoCadastradoException("Usuário já possui esse perfil cadastrado.");
 		}
 		
 		usuarioGrupo.get().setGruposModulo(gruposModulo.get());
-		usuarioGrupo.get().setIdUsuarioApl(usuarioLogado.get().getIdUsuario());
+		usuarioGrupo.get().setIdUsuarioApl(usuarioLogado.getIdUsuario());
 		usuariosGrupoRepository.save(usuarioGrupo.get());
 		
 	}

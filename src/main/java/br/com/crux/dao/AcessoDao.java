@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import br.com.crux.dao.base.BaseDao;
 import br.com.crux.dao.dto.AcessoDTO;
 import br.com.crux.dao.dto.PerfilAcessoUsuarioDTO;
+import br.com.crux.dao.dto.UnidadeModuloAcessoDTO;
 import br.com.crux.dao.repository.TrocarSenhaRepository;
 import br.com.crux.dao.repository.UsuariosGrupoRepository;
 
@@ -69,7 +70,43 @@ public class AcessoDao extends BaseDao{
 		
 		return retorno;
 	}
+	
+	
+	public List<UnidadeModuloAcessoDTO> getUnidadesComPermissaoModuloAcesso(Long idUsuarioLogado) {
+		StringBuilder sql = new StringBuilder();
 
+		sql.append(" select u.id_unidade, u.nm_unidade                 ");
+		sql.append("   from usuarios_sistema us,                       ");
+		sql.append("        usuarios_unidades un,                      ");
+		sql.append("        usuarios_grupos ug,                        ");
+		sql.append("        grupos_modulos gm,                         ");
+		sql.append("        modulos m,                                 ");
+		sql.append("        unidades u,                                ");
+		sql.append("        perfis_acessos pa                          ");
+		sql.append(" where us.id_usuario       = un.id_usuario         ");
+		sql.append("   and ug.id_usuario       = us.id_usuario         ");
+		sql.append("   and ug.id_grupo_modulo  = gm.id_grupo_modulo    ");
+		sql.append("   and gm.id_unidade       = un.id_unidade         ");
+		sql.append("   and gm.id_modulo        = m.id_modulo           ");
+		sql.append("   and u.id_unidade        = un.id_unidade         ");
+		sql.append("   and pa.id_perfil_acesso = gm.id_perfil_acesso   ");
+		sql.append("   and m.nm_modulo         = 'ACESSO'              ");
+		sql.append("   and pa.cs_insere        = 'S'                   ");
+		sql.append("   and us.id_usuario       = :idUsuarioLogado      ");
+
+		
+		Query query = em.createNativeQuery(sql.toString());
+		query.setParameter("idUsuarioLogado", idUsuarioLogado);
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> values = query.getResultList();
+		
+		List<UnidadeModuloAcessoDTO> retorno = new ArrayList<UnidadeModuloAcessoDTO>();
+		values.stream().forEach( colunas -> retorno.add(new UnidadeModuloAcessoDTO(colunas)));
+		
+		return retorno;
+	}
+	
 	public List<PerfilAcessoUsuarioDTO> getPerfilAcesso(Long idUnidade,Long idUsuario,Long idModulo) {
 		StringBuilder sql = new StringBuilder();
 		
@@ -102,8 +139,6 @@ public class AcessoDao extends BaseDao{
 		if(Objects.nonNull(idUsuario)) {
 			sql.append("   and us.id_usuario       = :idUsuario                       ");
 		}
-		
-		
 		
 		Query query = em.createNativeQuery(sql.toString());
 		query.setParameter("idUnidade", idUnidade);

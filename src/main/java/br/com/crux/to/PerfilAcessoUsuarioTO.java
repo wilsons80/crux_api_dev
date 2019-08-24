@@ -2,13 +2,13 @@ package br.com.crux.to;
 
 public class PerfilAcessoUsuarioTO {
 
-	private Long idUsuario;
+	private Long   idUsuario;
 	private String nomeUsuario;
-	private Long idUnidade;
+	private Long   idUnidade;
 	private String nomeUnidade;
-	private Long idModulo;
+	private Long   idModulo;
 	private String nomeModulo;
-	private Long idGrupoModulo;
+	private Long   idGrupoModulo;
 	private String nomeGrupoModulo;
 	private String descricaoGrupoModulo;
 
