@@ -1,7 +1,6 @@
 package br.com.crux.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -24,7 +22,6 @@ import br.com.crux.infra.constantes.Constantes;
  */
 @Entity
 @Table(name="arquivos")
-@NamedQuery(name="Arquivo.findAll", query="SELECT a FROM Arquivo a")
 public class Arquivo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -49,7 +46,7 @@ public class Arquivo implements Serializable {
 	private String nmArquivo;
 
 	@Column(name="nr_tamanho_arquivo")
-	private BigDecimal nrTamanhoArquivo;
+	private Long nrTamanhoArquivo;
 
 	public Arquivo() {
 	}
@@ -102,11 +99,11 @@ public class Arquivo implements Serializable {
 		this.nmArquivo = nmArquivo;
 	}
 
-	public BigDecimal getNrTamanhoArquivo() {
+	public Long getNrTamanhoArquivo() {
 		return this.nrTamanhoArquivo;
 	}
 
-	public void setNrTamanhoArquivo(BigDecimal nrTamanhoArquivo) {
+	public void setNrTamanhoArquivo(Long nrTamanhoArquivo) {
 		this.nrTamanhoArquivo = nrTamanhoArquivo;
 	}
 
