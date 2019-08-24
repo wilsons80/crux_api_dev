@@ -15,7 +15,7 @@ public class PerfilAcessoUsuarioTOBuilder {
 	
 	public PerfilAcessoUsuarioTO buildTO(PerfilAcessoUsuarioDTO dto) {
 		PerfilAcessoUsuarioTO to = new PerfilAcessoUsuarioTO();
-		to.setIdUsuario(dto.getIdUnidade());
+		to.setIdUsuario(dto.getIdUsuario());
 		to.setNomeUsuario(dto.getNomeUsuario());
 		to.setIdUnidade(dto.getIdUnidade());
 		to.setNomeUnidade(dto.getNomeUnidade());
