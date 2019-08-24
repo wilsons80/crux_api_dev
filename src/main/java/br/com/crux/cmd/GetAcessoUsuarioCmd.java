@@ -15,7 +15,6 @@ public class GetAcessoUsuarioCmd {
 
 	public List<AcessoTO> getAllAcessoUsuarioPorUnidade(Long idUnidade) {
 		return getAllAcessoUsuarioPorUnidadeCmd.getAcesso(idUnidade);
-
 	}
 
 }

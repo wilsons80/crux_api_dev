@@ -11,14 +11,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.crux.cmd.AlterarAcessoUsuarioCmd;
 import br.com.crux.cmd.CadastrarAcessoUsuarioCmd;
 import br.com.crux.cmd.ExcluirAcessoUsuarioCmd;
 import br.com.crux.cmd.GetAcessoUsuarioCmd;
+import br.com.crux.cmd.GetPerfilAcessoCmd;
 import br.com.crux.to.AcessoTO;
 import br.com.crux.to.CadastroAcessoTO;
+import br.com.crux.to.PerfilAcessoUsuarioTO;
 
 @RestController
 @RequestMapping(value = "acesso")
@@ -32,7 +35,8 @@ public class AcessoService {
 	private CadastrarAcessoUsuarioCmd cadastrarAcessoUsuarioCmd;
 	@Autowired
 	private AlterarAcessoUsuarioCmd alterarAcessoUsuarioCmd;
-	
+	@Autowired
+	private GetPerfilAcessoCmd getPerfilAcessoCmd;
 	
 	@GetMapping(path = "/usuario/unidade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<AcessoTO> getAllAcessos(@PathVariable(name = "id") Long idUnidade) {
@@ -54,6 +58,11 @@ public class AcessoService {
 		excluirAcessoUsuarioCmd.excluir(idUsuarioGrupo);
 	}
 	
-	
+	@GetMapping(path = "/perfil/unidade/{idUnidade}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<PerfilAcessoUsuarioTO> getPerfilAcesso(@PathVariable(name = "idUnidade") Long idUnidade, 
+			                                           @RequestParam(name = "usuario", required = false) Long idUsuario, 
+			                                           @RequestParam(name = "modulo", required = false) Long idModulo) {
+		return getPerfilAcessoCmd.getPerfilAcesso(idUnidade, idUsuario, idModulo);
+	}
 
 }

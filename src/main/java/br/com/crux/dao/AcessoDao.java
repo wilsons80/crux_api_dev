@@ -2,6 +2,7 @@ package br.com.crux.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Query;
 
@@ -10,8 +11,9 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.dao.base.BaseDao;
 import br.com.crux.dao.dto.AcessoDTO;
-import br.com.crux.dao.repository.UsuariosGrupoRepository;
+import br.com.crux.dao.dto.PerfilAcessoUsuarioDTO;
 import br.com.crux.dao.repository.TrocarSenhaRepository;
+import br.com.crux.dao.repository.UsuariosGrupoRepository;
 
 @Component
 public class AcessoDao extends BaseDao{
@@ -68,6 +70,59 @@ public class AcessoDao extends BaseDao{
 		return retorno;
 	}
 
+	public List<PerfilAcessoUsuarioDTO> getPerfilAcesso(Long idUnidade,Long idUsuario,Long idModulo) {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append("	select us.id_usuario,                                         ");
+		sql.append("       us.nm_username,                                            ");
+		sql.append("       u.id_unidade,                                              ");
+		sql.append("       u.nm_unidade,                                              ");
+		sql.append("       m.id_modulo,                                               ");
+		sql.append("       m.nm_modulo,                                               ");
+		sql.append("       gm.id_grupo_modulo,                                        ");
+		sql.append("       gm.nm_grupo,                                               ");
+		sql.append("       gm.tx_descricao_grupo                                      ");
+		sql.append("  from usuarios_grupos ug,                                        ");
+		sql.append("       usuarios_sistema us,                                       ");
+		sql.append("       modulos m,                                                 ");
+		sql.append("       grupos_modulos gm,                                         ");
+		sql.append("       unidades u,                                                ");
+		sql.append("       usuarios_unidades uu                                       ");
+		sql.append(" where ug.id_grupo_modulo  = gm.id_grupo_modulo                   ");
+		sql.append("   and gm.id_modulo        = m.id_modulo                          ");
+		sql.append("   and ug.id_usuario       = us.id_usuario                        ");
+		sql.append("   and us.id_usuario       = uu.id_usuario                        ");
+		sql.append("   and uu.id_unidade       = u.id_unidade                         ");
+		sql.append("   and gm.id_unidade       = u.id_unidade                         ");
+		sql.append("   and u.id_unidade        = :idUnidade                           ");
+		
+		if(Objects.nonNull(idModulo)) {
+			sql.append("   and m.id_modulo         = :idModulo                        ");
+		}
+		if(Objects.nonNull(idUsuario)) {
+			sql.append("   and us.id_usuario       = :idUsuario                       ");
+		}
+		
+		
+		
+		Query query = em.createNativeQuery(sql.toString());
+		query.setParameter("idUnidade", idUnidade);
+		if(Objects.nonNull(idModulo)) {
+			query.setParameter("idModulo",  idModulo);
+		}
+		if(Objects.nonNull(idUsuario)) {
+			query.setParameter("idUsuario", idUsuario);
+		}
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> values = query.getResultList();
+		
+		List<PerfilAcessoUsuarioDTO> retorno = new ArrayList<PerfilAcessoUsuarioDTO>();
+		values.stream().forEach( colunas -> retorno.add(new PerfilAcessoUsuarioDTO(colunas)));
+		
+		return retorno;
+		
+	}
 
 	public void excluir(Long idUsuarioGrupo) {
 		excluirAcessoRepository.deleteById(idUsuarioGrupo);		
