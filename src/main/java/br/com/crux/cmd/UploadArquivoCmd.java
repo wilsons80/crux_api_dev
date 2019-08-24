@@ -21,6 +21,9 @@ public class UploadArquivoCmd {
 	@Autowired
 	private ArquivoRepository arquivoRepository;
 	
+	@Autowired
+	private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
+	
 	public void atualizarArquivo(Long idArquivo, MultipartFile file) {
 		gravar(idArquivo, file);
 	}
@@ -45,6 +48,9 @@ public class UploadArquivoCmd {
 			arquivo.setNmArquivo(file.getOriginalFilename());
 			arquivo.setNrTamanhoArquivo(file.getSize());
 			arquivo.setDsTipoArquivo(file.getContentType());
+			
+			Long idUsuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario();
+			arquivo.setUsuarioAlteracao(idUsuarioLogado);
 	
 			arquivoRepository.save(arquivo);
 			

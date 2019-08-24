@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -48,6 +49,11 @@ public class Arquivo implements Serializable {
 	@Column(name="nr_tamanho_arquivo")
 	private Long nrTamanhoArquivo;
 
+	@JoinColumn(name="id_usuario_apl")
+	@Column(name="id_usuario_apl")
+	private Long usuarioAlteracao;
+
+	
 	public Arquivo() {
 	}
 
@@ -107,5 +113,14 @@ public class Arquivo implements Serializable {
 		this.nrTamanhoArquivo = nrTamanhoArquivo;
 	}
 
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
+	}
+
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
+	}
+
+	
 
 }
