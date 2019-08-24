@@ -21,15 +21,15 @@ public class UploadArquivoCmd {
 	@Autowired
 	private ArquivoRepository arquivoRepository;
 	
-	public void atualizarArquivo(Long idUnidade,Long idArquivo, MultipartFile file) {
-		gravar(idUnidade, idArquivo, file);
+	public void atualizarArquivo(Long idArquivo, MultipartFile file) {
+		gravar(idArquivo, file);
 	}
-	public void gravarArquivo(Long idUnidade, MultipartFile file) {
-		gravar(idUnidade, null, file);
+	public void gravarArquivo(MultipartFile file) {
+		gravar(null, file);
 	}
 	
 	
-	private void gravar(Long idUnidade,Long idArquivo, MultipartFile file) {
+	private void gravar(Long idArquivo, MultipartFile file) {
 		try {
 			String hashArquivo = MD5Util.getHashArquivo(file.getBytes());
 			
