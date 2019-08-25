@@ -3,13 +3,13 @@ package br.com.crux.builder;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.entity.Unidade;
-import br.com.crux.to.UnidadeTO;
+import br.com.crux.to.AcessoUnidadeTO;
 
 @Component
 public class UnidadeTOBuilder {
 	
-	public UnidadeTO build(Unidade unidade) {
-		UnidadeTO to = new UnidadeTO();
+	public AcessoUnidadeTO build(Unidade unidade) {
+		AcessoUnidadeTO to = new AcessoUnidadeTO();
 		to.setId(unidade.getIdUnidade());
 		to.setIdentificador(unidade.getCodigoUnidade());
 		to.setNome(unidade.getNomeUnidade());

@@ -7,7 +7,7 @@ public class UsuarioLogadoTO {
 	private String token;
 	private String username;
 
-	private List<UnidadeTO> unidades;
+	private List<AcessoUnidadeTO> unidades;
 	
 	public String getToken() {
 		return token;
@@ -25,11 +25,11 @@ public class UsuarioLogadoTO {
 		this.username = userName;
 	}
 
-	public List<UnidadeTO> getUnidades() {
+	public List<AcessoUnidadeTO> getUnidades() {
 		return unidades;
 	}
 
-	public void setUnidades(List<UnidadeTO> unidades) {
+	public void setUnidades(List<AcessoUnidadeTO> unidades) {
 		this.unidades = unidades;
 	}
 

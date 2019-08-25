@@ -19,7 +19,7 @@ import br.com.crux.entity.Unidade;
 import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.to.TrocaSenhaTO;
-import br.com.crux.to.UnidadeTO;
+import br.com.crux.to.AcessoUnidadeTO;
 import br.com.crux.to.UsuarioLogadoTO;
 import br.com.crux.to.LoginTO;
 
@@ -77,7 +77,7 @@ public class AutenticadorCmd {
 		usuarioLogadoTO.setToken(jwt);
 		usuarioLogadoTO.setUsername(userSpring.getUsername());
 		
-		List<UnidadeTO> unidades = new ArrayList<>();
+		List<AcessoUnidadeTO> unidades = new ArrayList<>();
 		userSpring.getAuthorities().stream().forEach( autho -> {
 			Optional<Unidade> unidade = unidadeRepository.findByCdUnidade(autho.getAuthority().replace("ROLE_", ""));
 			

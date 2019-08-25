@@ -16,7 +16,7 @@ import br.com.crux.dao.repository.UsuarioSistemaRepository;
 import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.entity.UsuariosUnidade;
 import br.com.crux.exception.NotFoundException;
-import br.com.crux.to.UnidadeTO;
+import br.com.crux.to.AcessoUnidadeTO;
 
 @Component
 public class GetUnidadeCmd {
@@ -26,7 +26,7 @@ public class GetUnidadeCmd {
 
 	@Autowired private UnidadeTOBuilder unidadeTOBuilder;
 
-	public List<UnidadeTO> getUnidadePorUsuario() throws UsernameNotFoundException {
+	public List<AcessoUnidadeTO> getUnidadePorUsuario() throws UsernameNotFoundException {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if(Objects.isNull(authentication)) {
 			throw new NotFoundException("Problema ao recuperar o usuário logado.");
