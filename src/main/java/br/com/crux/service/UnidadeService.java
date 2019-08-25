@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.crux.cmd.AlterarUnidadeCmd;
 import br.com.crux.cmd.CadastrarUnidadeCmd;
+import br.com.crux.cmd.ExcluirUnidadeCmd;
 import br.com.crux.cmd.GetUnidadeCmd;
 import br.com.crux.enums.ClassificadorSituacaoImovel;
 import br.com.crux.enums.TipoUnidade;
@@ -28,20 +30,20 @@ public class UnidadeService {
 	private GetUnidadeCmd getUnidadeCmd;
 	@Autowired
 	private CadastrarUnidadeCmd cadastrarUnidadeCmd;
-	
+	@Autowired
+	private ExcluirUnidadeCmd excluirUnidadeCmd;
+	@Autowired
+	private AlterarUnidadeCmd alterarUnidadeCmd;
 	
 	@GetMapping(path = "/tiposunidade", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<TipoUnidade> getAllTiposUnidade() {
 		return getUnidadeCmd.getAllTiposUnidade();
 	}
 	
-	
 	@GetMapping(path = "/classificadorimovel", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<ClassificadorSituacaoImovel> getAllClassificadorSituacaoImovel() {
 		return getUnidadeCmd.getAllClassificadorSituacaoImovel();
 	}
-
-	
 
 	@GetMapping(path = "/usuario", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<AcessoUnidadeTO> getUnidadesComAcesso() {
@@ -55,22 +57,22 @@ public class UnidadeService {
 	
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void alterar(@RequestBody UnidadeTO unidade) {
-		
+		alterarUnidadeCmd.alterar(unidade);
 	}
 	
-	@DeleteMapping(path = "")
-	public void alterar(@PathVariable(name = "unidade") Long unidade) {
-		
+	@DeleteMapping(path = "/{unidade}")
+	public void excluir(@PathVariable(name = "unidade") Long idUnidade) {
+		excluirUnidadeCmd.excluir(idUnidade);
 	}
 	
 	@GetMapping(path = "/{idUnidade}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public UnidadeTO getUnidade(@PathVariable(name = "idUnidade") Long unidade) {
-		return null;
+	public UnidadeTO getUnidade(@PathVariable(name = "idUnidade") Long idUnidade) {
+		return getUnidadeCmd.getUnidadeUsuarioLogadoComAcesso(idUnidade).get();
 	}
 
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<UnidadeTO> getAllUnidade() {
-		return getUnidadeCmd.getUnidadesDoUsuarioLogado();
+		return getUnidadeCmd.getAllUnidadesUsuarioLogadoTemAcesso();
 	}
 	
 }

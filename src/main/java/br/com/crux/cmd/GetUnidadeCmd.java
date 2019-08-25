@@ -36,8 +36,18 @@ public class GetUnidadeCmd {
 		}).collect(Collectors.toList());
 	}
 
+	public Optional<UnidadeTO> getUnidadeUsuarioLogadoComAcesso(Long idUnidade) {
+		UsuariosSistema user = getUsuarioLogadoCmd.getUsuarioLogado();
+		
+		Optional<Unidade> unidadeOptional = unidadeRepository.findUnidadeDoUsuarioLogado(user.getIdUsuario(), idUnidade);
+		if(!unidadeOptional.isPresent()) {
+			return Optional.empty();
+		}
+		
+		return Optional.ofNullable(unidadeBuilder.buildTO(unidadeOptional.get()));
+	}
 	
-	public List<UnidadeTO> getUnidadesDoUsuarioLogado() {
+	public List<UnidadeTO> getAllUnidadesUsuarioLogadoTemAcesso() {
 		UsuariosSistema user = getUsuarioLogadoCmd.getUsuarioLogado();
 		
 		Optional<List<Unidade>> unidadesOptional = unidadeRepository.findAllUnidadesDoUsuarioLogado(user.getIdUsuario());
