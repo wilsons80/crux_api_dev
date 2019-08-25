@@ -11,8 +11,8 @@ public class UnidadeTOBuilder {
 	public UnidadeTO build(Unidade unidade) {
 		UnidadeTO to = new UnidadeTO();
 		to.setId(unidade.getIdUnidade());
-		to.setIdentificador(unidade.getCdUnidade());
-		to.setNome(unidade.getNmUnidade());
+		to.setIdentificador(unidade.getCodigoUnidade());
+		to.setNome(unidade.getNomeUnidade());
 		
 		return to;
 	}
