@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.crux.cmd.CadastrarUnidadeCmd;
 import br.com.crux.cmd.GetUnidadeCmd;
+import br.com.crux.enums.ClassificadorSituacaoImovel;
+import br.com.crux.enums.TipoUnidade;
 import br.com.crux.to.AcessoUnidadeTO;
 import br.com.crux.to.UnidadeTO;
 
@@ -27,6 +29,18 @@ public class UnidadeService {
 	@Autowired
 	private CadastrarUnidadeCmd cadastrarUnidadeCmd;
 	
+	
+	@GetMapping(path = "/tiposunidade", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<TipoUnidade> getAllTiposUnidade() {
+		return getUnidadeCmd.getAllTiposUnidade();
+	}
+	
+	
+	@GetMapping(path = "/classificadorimovel", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<ClassificadorSituacaoImovel> getAllClassificadorSituacaoImovel() {
+		return getUnidadeCmd.getAllClassificadorSituacaoImovel();
+	}
+
 	
 
 	@GetMapping(path = "/usuario", produces = MediaType.APPLICATION_JSON_VALUE)

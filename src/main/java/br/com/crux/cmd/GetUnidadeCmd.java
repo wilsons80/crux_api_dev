@@ -1,5 +1,6 @@
 package br.com.crux.cmd;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -14,6 +15,8 @@ import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.Unidade;
 import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.entity.UsuariosUnidade;
+import br.com.crux.enums.ClassificadorSituacaoImovel;
+import br.com.crux.enums.TipoUnidade;
 import br.com.crux.to.AcessoUnidadeTO;
 import br.com.crux.to.UnidadeTO;
 
@@ -44,4 +47,13 @@ public class GetUnidadeCmd {
 		
 		return unidadeBuilder.buildAllTO(unidadesOptional.get());
 	}
+	
+	public List<TipoUnidade> getAllTiposUnidade() {
+		return Arrays.asList(TipoUnidade.values());
+	}
+	
+	public List<ClassificadorSituacaoImovel> getAllClassificadorSituacaoImovel() {
+		return Arrays.asList(ClassificadorSituacaoImovel.values());
+	}
+
 }
