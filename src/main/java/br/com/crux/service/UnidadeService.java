@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.crux.cmd.CadastrarUnidadeCmd;
 import br.com.crux.cmd.GetUnidadeCmd;
 import br.com.crux.to.AcessoUnidadeTO;
-import br.com.crux.to.AlteraUnidadeTO;
 import br.com.crux.to.UnidadeTO;
 
 @RestController
@@ -41,7 +40,7 @@ public class UnidadeService {
 	}
 	
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void alterar(@RequestBody AlteraUnidadeTO unidade) {
+	public void alterar(@RequestBody UnidadeTO unidade) {
 		
 	}
 	
