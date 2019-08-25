@@ -1,12 +1,15 @@
 package br.com.crux.to;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import br.com.crux.enums.ClassificadorSituacaoImovel;
 import br.com.crux.enums.TipoUnidade;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UnidadeTO {
 
-	private Long idUnidade;
-	private String codigoUnidade;
+	private Long   idUnidade;
+	private String siglaUnidade;
 	private String nomeUnidade;
 	private String endereco;
 	private String telefone;
@@ -27,20 +30,23 @@ public class UnidadeTO {
 	public UnidadeTO() {
 	}
 
+	
 	public Long getIdUnidade() {
 		return idUnidade;
 	}
+
 
 	public void setIdUnidade(Long idUnidade) {
 		this.idUnidade = idUnidade;
 	}
 
-	public String getCodigoUnidade() {
-		return codigoUnidade;
+
+	public String getSiglaUnidade() {
+		return siglaUnidade;
 	}
 
-	public void setCodigoUnidade(String codigoUnidade) {
-		this.codigoUnidade = codigoUnidade;
+	public void setSiglaUnidade(String codigoUnidade) {
+		this.siglaUnidade = codigoUnidade;
 	}
 
 	public String getNomeUnidade() {

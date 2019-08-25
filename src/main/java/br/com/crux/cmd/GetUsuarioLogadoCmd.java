@@ -19,7 +19,7 @@ public class GetUsuarioLogadoCmd {
 	private UsuarioSistemaRepository usuarioSistemaRepository;
 	
 	
-	public Authentication get() {
+	private Authentication get() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if(Objects.isNull(authentication)) {
 			throw new NotFoundException("Problema ao recuperar o usuário logado.");

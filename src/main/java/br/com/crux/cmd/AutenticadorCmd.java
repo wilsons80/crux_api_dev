@@ -13,7 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.builder.UnidadeTOBuilder;
+import br.com.crux.builder.AcessoUnidadeTOBuilder;
 import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.Unidade;
 import br.com.crux.entity.UsuariosSistema;
@@ -29,7 +29,7 @@ public class AutenticadorCmd {
 	@Autowired private AuthenticationManager authManager;
 	@Autowired private TokenJwtCmd createTokenJwtCmd;
 	@Autowired private UnidadeRepository unidadeRepository;
-	@Autowired private UnidadeTOBuilder unidadeTOBuilder;
+	@Autowired private AcessoUnidadeTOBuilder unidadeTOBuilder;
 	@Autowired private TrocarSenhaCmd trocarSenhaCmd;
 	@Autowired private GetUsuarioSistemaCmd usuarioSistemaCmd;
 	

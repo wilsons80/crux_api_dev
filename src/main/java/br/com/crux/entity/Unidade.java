@@ -1,7 +1,6 @@
 package br.com.crux.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,7 +33,7 @@ public class Unidade implements Serializable {
 	private Long idUnidade;
 
 	@Column(name = "cd_unidade", nullable = false, length = 50)
-	private String codigoUnidade;
+	private String siglaUnidade;
 
 	@Column(name = "nm_unidade", nullable = false, length = 100)
 	private String nomeUnidade;
@@ -75,7 +74,7 @@ public class Unidade implements Serializable {
 	private String email;
 
 	@Column(name = "nr_cep")
-	private BigDecimal cep;
+	private Long cep;
 
 	@Column(name = "ds_bairro")
 	private String bairro;
@@ -104,12 +103,12 @@ public class Unidade implements Serializable {
 		this.idUnidade = idUnidade;
 	}
 
-	public String getCodigoUnidade() {
-		return codigoUnidade;
+	public String getSiglaUnidade() {
+		return siglaUnidade;
 	}
 
-	public void setCodigoUnidade(String cdUnidade) {
-		this.codigoUnidade = cdUnidade;
+	public void setSiglaUnidade(String cdUnidade) {
+		this.siglaUnidade = cdUnidade;
 	}
 
 	public String getNomeUnidade() {
@@ -200,11 +199,11 @@ public class Unidade implements Serializable {
 		this.email = dsEmail;
 	}
 
-	public BigDecimal getCep() {
+	public Long getCep() {
 		return cep;
 	}
 
-	public void setCep(BigDecimal nrCep) {
+	public void setCep(Long nrCep) {
 		this.cep = nrCep;
 	}
 

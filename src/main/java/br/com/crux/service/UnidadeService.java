@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.crux.cmd.CadastrarUnidadeCmd;
 import br.com.crux.cmd.GetUnidadeCmd;
 import br.com.crux.to.AcessoUnidadeTO;
+import br.com.crux.to.AlteraUnidadeTO;
 import br.com.crux.to.UnidadeTO;
 
 @RestController
@@ -23,19 +25,23 @@ public class UnidadeService {
 
 	@Autowired
 	private GetUnidadeCmd getUnidadeCmd;
+	@Autowired
+	private CadastrarUnidadeCmd cadastrarUnidadeCmd;
+	
+	
 
 	@GetMapping(path = "/usuario", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<AcessoUnidadeTO> getAllAcessos() {
-		return getUnidadeCmd.getUnidadePorUsuario();
+	public List<AcessoUnidadeTO> getUnidadesComAcesso() {
+		return getUnidadeCmd.getUnidadesComAcesso();
 	}
 	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void cadastrar(@RequestBody UnidadeTO unidade) {
-		
+		cadastrarUnidadeCmd.cadastrar(unidade);
 	}
 	
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void alterar(@RequestBody UnidadeTO unidade) {
+	public void alterar(@RequestBody AlteraUnidadeTO unidade) {
 		
 	}
 	
