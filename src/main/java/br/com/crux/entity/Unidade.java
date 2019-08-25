@@ -12,13 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
 
-import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Type;
-
-import br.com.crux.enums.ClassificadorSituacaoImovel;
-import br.com.crux.enums.TipoUnidade;
 import br.com.crux.infra.constantes.Constantes;
 
 @Entity
@@ -32,23 +26,18 @@ public class Unidade implements Serializable {
 	@Column(name = "id_unidade")
 	private Long idUnidade;
 
-	@Column(name = "cd_unidade", nullable = false, length = 50)
+	@Column(name = "cd_unidade")
 	private String siglaUnidade;
 
-	@Column(name = "nm_unidade", nullable = false, length = 100)
+	@Column(name = "nm_unidade")
 	private String nomeUnidade;
 
 	@Column(name = "ds_endereco")
 	private String endereco;
 
-	@Column(name = "nr_telefone", length = 15)
+	@Column(name = "nr_telefone")
 	private String telefone;
 
-	//Classificação da situação do imóvel da unidade (P = PRÓPRIO; C = CONCESSÃO; L = LICENÇA PARA FUNCIONAMENTO; O = OUTRO)
-	@Column(name = "cs_situacao_imovel") 
-	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", parameters = {
-			@Parameter(name = "enumClass", value = "br.com.crux.enums.ClassificadorSituacaoImovel") }) 
-	private ClassificadorSituacaoImovel classificacaoSituacaoImovel;
 
 	@Column(name = "ds_situacao_imovel")
 	private String descricaoSituacaoImovel;
@@ -69,7 +58,6 @@ public class Unidade implements Serializable {
 	@Column(name = "ds_missao")
 	private String missao;
 
-	@Email(message = "Email está inválido.")
 	@Column(name = "ds_email")
 	private String email;
 
@@ -87,10 +75,11 @@ public class Unidade implements Serializable {
 
 	//Classificador da Unidade (M = MATRIZ ou F = FILIAL)
 	@Column(name = "cs_tipo_unidade") 
-	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", parameters = {
-			@Parameter(name = "enumClass", value = "br.com.crux.enums.TipoUnidade") }) 
-	private TipoUnidade tipoUnidade;
+	private String tipoUnidade;
 
+	//Classificação da situação do imóvel da unidade (P = PRÓPRIO; C = CONCESSÃO; L = LICENÇA PARA FUNCIONAMENTO; O = OUTRO)
+	@Column(name = "cs_situacao_imovel") 
+	private String classificacaoSituacaoImovel;
 	
 	public Unidade() {
 	}
@@ -135,11 +124,11 @@ public class Unidade implements Serializable {
 		this.telefone = nrTelefone;
 	}
 
-	public ClassificadorSituacaoImovel getClassificacaoSituacaoImovel() {
+	public String getClassificacaoSituacaoImovel() {
 		return classificacaoSituacaoImovel;
 	}
 
-	public void setClassificacaoSituacaoImovel(ClassificadorSituacaoImovel csSituacaoImovel) {
+	public void setClassificacaoSituacaoImovel(String csSituacaoImovel) {
 		this.classificacaoSituacaoImovel = csSituacaoImovel;
 	}
 
@@ -231,11 +220,11 @@ public class Unidade implements Serializable {
 		this.celular = nrFoneCelular;
 	}
 
-	public TipoUnidade getTipoUnidade() {
+	public String getTipoUnidade() {
 		return tipoUnidade;
 	}
 
-	public void setTipoUnidade(TipoUnidade tipoUnidade) {
+	public void setTipoUnidade(String tipoUnidade) {
 		this.tipoUnidade = tipoUnidade;
 	}
 

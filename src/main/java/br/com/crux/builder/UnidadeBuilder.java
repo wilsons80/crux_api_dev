@@ -3,6 +3,8 @@ package br.com.crux.builder;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.entity.Unidade;
+import br.com.crux.enums.ClassificadorSituacaoImovel;
+import br.com.crux.enums.TipoUnidade;
 import br.com.crux.to.UnidadeTO;
 
 
@@ -27,8 +29,8 @@ public class UnidadeBuilder {
 		unidade.setBairro(to.getBairro());
 		unidade.setUf(to.getUf());
 		unidade.setCelular(to.getCelular());
-		unidade.setTipoUnidade(to.getTipoUnidade());
-		unidade.setClassificacaoSituacaoImovel(to.getClassificacaoSituacaoImovel());
+		unidade.setTipoUnidade(to.getTipoUnidade().getTipo());
+		unidade.setClassificacaoSituacaoImovel(to.getClassificacaoSituacaoImovel().getTipo());
 		
 		//unidade.setArquivo(to.getArquivo());
 
@@ -53,8 +55,8 @@ public class UnidadeBuilder {
 		unidade.setBairro(to.getBairro());
 		unidade.setUf(to.getUf());
 		unidade.setCelular(to.getCelular());
-		unidade.setTipoUnidade(to.getTipoUnidade());
-		unidade.setClassificacaoSituacaoImovel(to.getClassificacaoSituacaoImovel());
+		unidade.setTipoUnidade(TipoUnidade.getPorTipo(to.getTipoUnidade()));
+		unidade.setClassificacaoSituacaoImovel(ClassificadorSituacaoImovel.getPorTipo(to.getClassificacaoSituacaoImovel()));
 		
 		//unidade.setArquivo(to.getArquivo());
 

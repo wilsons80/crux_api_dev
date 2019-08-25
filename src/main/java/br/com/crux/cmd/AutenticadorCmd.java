@@ -79,7 +79,7 @@ public class AutenticadorCmd {
 		
 		List<AcessoUnidadeTO> unidades = new ArrayList<>();
 		userSpring.getAuthorities().stream().forEach( autho -> {
-			Optional<Unidade> unidade = unidadeRepository.findByCdUnidade(autho.getAuthority().replace("ROLE_", ""));
+			Optional<Unidade> unidade = unidadeRepository.findBySiglaUnidade(autho.getAuthority().replace("ROLE_", ""));
 			
 			if(unidade.isPresent()) {
 				unidades.add(unidadeTOBuilder.build(unidade.get()));
