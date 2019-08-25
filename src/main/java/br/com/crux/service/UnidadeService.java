@@ -56,7 +56,7 @@ public class UnidadeService {
 
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<UnidadeTO> getAllUnidade() {
-		return null;
+		return getUnidadeCmd.getUnidadesDoUsuarioLogado();
 	}
 	
 }

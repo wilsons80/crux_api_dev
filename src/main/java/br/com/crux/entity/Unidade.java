@@ -13,6 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
+
+import br.com.crux.enums.ClassificadorSituacaoImovel;
 import br.com.crux.infra.constantes.Constantes;
 
 @Entity
@@ -78,8 +82,11 @@ public class Unidade implements Serializable {
 	private String tipoUnidade;
 
 	//Classificação da situação do imóvel da unidade (P = PRÓPRIO; C = CONCESSÃO; L = LICENÇA PARA FUNCIONAMENTO; O = OUTRO)
+	//@Column(name = "cs_situacao_imovel") 
 	@Column(name = "cs_situacao_imovel") 
-	private String classificacaoSituacaoImovel;
+	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", parameters = {
+			@Parameter(name = "enumClass", value = "br.com.crux.enums.ClassificadorSituacaoImovel") }) 
+	private ClassificadorSituacaoImovel classificacaoSituacaoImovel;
 	
 	public Unidade() {
 	}
@@ -124,11 +131,11 @@ public class Unidade implements Serializable {
 		this.telefone = nrTelefone;
 	}
 
-	public String getClassificacaoSituacaoImovel() {
+	public ClassificadorSituacaoImovel getClassificacaoSituacaoImovel() {
 		return classificacaoSituacaoImovel;
 	}
 
-	public void setClassificacaoSituacaoImovel(String csSituacaoImovel) {
+	public void setClassificacaoSituacaoImovel(ClassificadorSituacaoImovel csSituacaoImovel) {
 		this.classificacaoSituacaoImovel = csSituacaoImovel;
 	}
 
