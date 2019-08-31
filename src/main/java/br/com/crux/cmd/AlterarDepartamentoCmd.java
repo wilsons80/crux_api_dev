@@ -43,7 +43,7 @@ public class AlterarDepartamentoCmd {
 		departamentos.setNrTelefoneDepartamento(to.getNrTelefoneDepartamento());
 		departamentos.setUnidade(unidadeBuilder.build(to.getUnidade()));
 		
-		if(Objects.nonNull(to.getDepartamentoSuperior().getIdDepartamento())) {
+		if(Objects.nonNull(to.getDepartamentoSuperior())) {
 			Optional<Departamentos> departamentoSuperior = departamentoRepository.findById(to.getDepartamentoSuperior().getIdDepartamento());
 			if(!departamentoSuperior.isPresent()) {
 				throw new NotFoundException("Departamento Superior não encontrado.");
