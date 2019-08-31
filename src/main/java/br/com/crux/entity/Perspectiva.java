@@ -42,7 +42,7 @@ public class Perspectiva implements Serializable {
 	private Unidade unidade;
 
 	@Column(name="id_usuario_apl")
-	private Long usuariosAlteracao;
+	private Long usuarioAlteracao;
 
 	public Perspectiva() {
 	}
@@ -87,12 +87,12 @@ public class Perspectiva implements Serializable {
 		this.unidade = unidade;
 	}
 
-	public Long getUsuariosAlteracao() {
-		return this.usuariosAlteracao;
+	public Long getUsuarioAlteracao() {
+		return this.usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema(Long usuariosAlteracao) {
-		this.usuariosAlteracao = usuariosAlteracao;
+	public void setUsuarioAlteracao(Long usuariosAlteracao) {
+		this.usuarioAlteracao = usuariosAlteracao;
 	}
 
 }

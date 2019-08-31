@@ -13,11 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.crux.cmd.AlterarDepartamentoCmd;
-import br.com.crux.cmd.CadastrarDepartamentoCmd;
+import br.com.crux.cmd.AlterarPerspectivaCmd;
+import br.com.crux.cmd.CadastrarPerspectivaCmd;
 import br.com.crux.cmd.ExcluirPerspectivaCmd;
 import br.com.crux.cmd.GetPerspectivasCmd;
-import br.com.crux.to.DepartamentoTO;
 import br.com.crux.to.PerspectivaTO;
 
 @RestController
@@ -29,9 +28,9 @@ public class PerspectivasService {
 	@Autowired
 	private ExcluirPerspectivaCmd  excluirPerspectivaCmd;
 	@Autowired
-	private AlterarDepartamentoCmd alterarDepartamentoCmd;
+	private AlterarPerspectivaCmd alterarPerspectivaCmd;
 	@Autowired
-	private CadastrarDepartamentoCmd cadastrarDepartamentoCmd;
+	private CadastrarPerspectivaCmd cadastrarPerspectivaCmd;
 	
 	
 	@GetMapping(path = "/unidade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -44,26 +43,20 @@ public class PerspectivasService {
 		return getPerspectivasCmd.getById(idDepartamento);
 	}
 	
-	/*
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void cadastrar(@RequestBody DepartamentoTO departamento) {
-		cadastrarDepartamentoCmd.cadastrar(departamento);
+	public void cadastrar(@RequestBody PerspectivaTO to) {
+		cadastrarPerspectivaCmd.cadastrar(to);
 	}
 	
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void alterar(@RequestBody DepartamentoTO departamento) {
-		alterarDepartamentoCmd.alterar(departamento);
+	public void alterar(@RequestBody PerspectivaTO to) {
+		alterarPerspectivaCmd.alterar(to);
 	}
-	*/
 	
 	@DeleteMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void excluir(@PathVariable(name = "id") Long id) {
 		excluirPerspectivaCmd.excluir(id);
 	}
-	
-	
-	
-	
 	
 
 }
