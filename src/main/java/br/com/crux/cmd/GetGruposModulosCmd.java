@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import br.com.crux.builder.GrupoModuloTOBuilder;
 import br.com.crux.dao.repository.GrupoModuloRepository;
 import br.com.crux.entity.GruposModulo;
-import br.com.crux.exception.ParametroNaoInformado;
+import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.to.GrupoModuloTO;
 
 @Component
@@ -20,10 +20,10 @@ public class GetGruposModulosCmd {
 	
 	public List<GrupoModuloTO> getGrupoModulo(Long idUnidade, Long idModulo) {
 		if(Objects.isNull(idUnidade)) {
-			throw new ParametroNaoInformado("A unidade não foi informada.");
+			throw new ParametroNaoInformadoException("A unidade não foi informada.");
 		}
 		if(Objects.isNull(idModulo)) {
-			throw new ParametroNaoInformado("O módulo não foi informado.");
+			throw new ParametroNaoInformadoException("O módulo não foi informado.");
 		}
 		
 		List<GruposModulo> grupos = grupoModuloRepository.findByUnidadeAndModulo(idUnidade, idModulo);

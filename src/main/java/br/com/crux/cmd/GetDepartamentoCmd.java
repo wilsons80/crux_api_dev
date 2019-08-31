@@ -8,8 +8,11 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.builder.DepartamentoTOBuilder;
 import br.com.crux.dao.repository.DepartamentoRepository;
+import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.Departamentos;
+import br.com.crux.entity.Unidade;
 import br.com.crux.exception.NotFoundException;
+import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.to.DepartamentoTO;
 
 @Component
@@ -19,11 +22,16 @@ public class GetDepartamentoCmd {
 	private DepartamentoRepository departamentoRepository;
 	@Autowired
 	private DepartamentoTOBuilder departamentoTOBuilder;
-	
+	@Autowired
+	private UnidadeRepository unidadeRepository;
 	
 	
 	public List<DepartamentoTO> getAll(Long idUnidade) {
-		return departamentoTOBuilder.buildAll(departamentoRepository.findByIdUnidade(idUnidade));
+		Optional<Unidade> unidade = unidadeRepository.findById(idUnidade);
+		if(!unidade.isPresent()) {
+			throw new ParametroNaoInformadoException("Unidade não informada.");
+		}
+		return departamentoTOBuilder.buildAll(departamentoRepository.findByUnidade(unidade.get()));
 	}
 	
 	public DepartamentoTO getDepartamentoById(Long idDepartamento) {

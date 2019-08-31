@@ -11,7 +11,7 @@ import br.com.crux.builder.UnidadeModuloAcessoTOBuilder;
 import br.com.crux.dao.AcessoDao;
 import br.com.crux.dao.repository.PerfilAcessoRepository;
 import br.com.crux.entity.PerfisAcesso;
-import br.com.crux.exception.ParametroNaoInformado;
+import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.to.PerfilAcessoUsuarioTO;
 import br.com.crux.to.UnidadeModuloAcessoTO;
 
@@ -36,7 +36,7 @@ public class GetPerfilAcessoCmd {
 
 	public List<PerfilAcessoUsuarioTO> getPerfilAcesso(Long idUnidade,Long idUsuario,Long idModulo) {
 		if(Objects.isNull(idUnidade)) {
-			throw new ParametroNaoInformado("Erro ao recuperar os perfils do usuário, unidade não informada.");
+			throw new ParametroNaoInformadoException("Erro ao recuperar os perfils do usuário, unidade não informada.");
 		}
 		return perfilAcessoUsuarioTOBuilder.buildAll(acessoDao.getPerfilAcesso(idUnidade, idUsuario, idModulo));
 	}

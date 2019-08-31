@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.builder.ModuloTOBuilder;
 import br.com.crux.dao.ModuloDao;
-import br.com.crux.exception.ParametroNaoInformado;
+import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.to.ModuloTO;
 
 @Component
@@ -19,7 +19,7 @@ public class GetModulosPorUnidadeCmd {
 	
 	public List<ModuloTO> getModulosPorUnidade(Long idUnidade) {
 		if(Objects.isNull(idUnidade)) {
-			throw new ParametroNaoInformado("Erro ao recuperar os módulos. Parâmetro 'unidade' ausente.");
+			throw new ParametroNaoInformadoException("Erro ao recuperar os módulos. Parâmetro 'unidade' ausente.");
 		}
 		return moduloTOBuilder.buildAll(moduloDao.getModuloPorUnidade(idUnidade));
 	}

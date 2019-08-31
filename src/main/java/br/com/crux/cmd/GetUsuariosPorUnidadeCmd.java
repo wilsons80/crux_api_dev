@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.builder.UsuarioUnidadeTOBuilder;
 import br.com.crux.dao.GetUsuarioSistemaDao;
-import br.com.crux.exception.ParametroNaoInformado;
+import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.to.UsuarioUnidadeTO;
 
 @Component
@@ -20,7 +20,7 @@ public class GetUsuariosPorUnidadeCmd {
 	
 	public List<UsuarioUnidadeTO> getUsuariosPorUnidade(Long idUnidade) {
 		if(Objects.isNull(idUnidade)) {
-			throw new ParametroNaoInformado("A unidade não foi informada para buscar os usuários.");
+			throw new ParametroNaoInformadoException("A unidade não foi informada para buscar os usuários.");
 		}
 		return usuarioUnidadeTOBuilder.buildAll(getUsuarioSistemaDao.getUsuariosPorUnidade(idUnidade));
 	}

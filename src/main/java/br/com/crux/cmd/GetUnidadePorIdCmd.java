@@ -10,7 +10,7 @@ import br.com.crux.builder.UnidadeBuilder;
 import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.Unidade;
 import br.com.crux.exception.NotFoundException;
-import br.com.crux.exception.ParametroNaoInformado;
+import br.com.crux.exception.ParametroNaoInformadoException;
 
 @Component
 public class GetUnidadePorIdCmd {
@@ -21,7 +21,7 @@ public class GetUnidadePorIdCmd {
 	
 	public Unidade getUnidade(Long idUnidade) {
 		if(Objects.isNull(idUnidade)) {
-			throw new ParametroNaoInformado("A unidade não foi informada.");
+			throw new ParametroNaoInformadoException("A unidade não foi informada.");
 		}
 		
 		Optional<Unidade> unidadeOptional = unidadeRepository.findById(idUnidade);

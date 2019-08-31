@@ -14,6 +14,7 @@ import br.com.crux.entity.Departamentos;
 import br.com.crux.entity.Unidade;
 import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
+import br.com.crux.rule.CamposObrigatoriosDepartamentoRule;
 import br.com.crux.to.DepartamentoTO;
 
 @Component
@@ -24,14 +25,18 @@ public class CadastrarDepartamentoCmd {
 	@Autowired private DepartamentoTOBuilder departamentoTOBuilder;
 	@Autowired private UnidadeBuilder unidadeBuilder;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
+	@Autowired private CamposObrigatoriosDepartamentoRule camposObrigatoriosDepartamentoRule;
 	
 	public void cadastrar(DepartamentoTO to) {
+		
 		
 		Optional<Unidade> unidade = unidadeRepository.findById(to.getUnidade().getIdUnidade());
 		if(!unidade.isPresent()) {
 			throw new NotFoundException("Unidade informada não existe.");
 		}
 		
+		camposObrigatoriosDepartamentoRule.verificar(to.getCdUnidadeDepartamento(), to.getNmDepartamento(), to.getUnidade().getIdUnidade());
+				
 		if(Objects.nonNull(to.getDepartamentoSuperior().getIdDepartamento())) {
 			Optional<Departamentos> departamento = departamentoRepository.findById(to.getDepartamentoSuperior().getIdDepartamento());
 			if(!departamento.isPresent()) {

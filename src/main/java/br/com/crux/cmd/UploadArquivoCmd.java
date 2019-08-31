@@ -13,7 +13,7 @@ import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.Arquivo;
 import br.com.crux.entity.Unidade;
 import br.com.crux.exception.NotFoundException;
-import br.com.crux.exception.ParametroNaoInformado;
+import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.exception.UploadArquivoException;
 import br.com.crux.infra.util.MD5Util;
 
@@ -73,7 +73,7 @@ public class UploadArquivoCmd {
 	
 	public byte[] getArquivo(Long idArquivo) {
 		if(Objects.isNull(idArquivo)) {
-			throw new ParametroNaoInformado("Erro ao buscar o arquivo, parâmetro não informado no resource.");
+			throw new ParametroNaoInformadoException("Erro ao buscar o arquivo, parâmetro não informado no resource.");
 		}
 		
 		Optional<Arquivo> arquivo = arquivoRepository.findById(idArquivo);

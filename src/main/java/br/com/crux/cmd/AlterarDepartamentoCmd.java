@@ -11,6 +11,7 @@ import br.com.crux.dao.repository.DepartamentoRepository;
 import br.com.crux.entity.Departamentos;
 import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
+import br.com.crux.rule.CamposObrigatoriosDepartamentoRule;
 import br.com.crux.to.DepartamentoTO;
 
 @Component
@@ -19,6 +20,7 @@ public class AlterarDepartamentoCmd {
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	@Autowired private DepartamentoRepository departamentoRepository;
 	@Autowired private UnidadeBuilder unidadeBuilder;
+	@Autowired private CamposObrigatoriosDepartamentoRule camposObrigatoriosDepartamentoRule;
 	
 	
 	public void alterar(DepartamentoTO to) {
@@ -30,10 +32,8 @@ public class AlterarDepartamentoCmd {
 		if(Objects.isNull(to.getUnidade())) {
 			throw new NotFoundException("Unidade não informada.");
 		}
-		if(Objects.isNull(to.getUnidade().getIdUnidade())) {
-			throw new NotFoundException("Unidade informada não existe.");
-		}
-
+		
+		camposObrigatoriosDepartamentoRule.verificar(to.getCdUnidadeDepartamento(), to.getNmDepartamento(), to.getUnidade().getIdUnidade());
 		
 		Departamentos departamentos = departamentoOptional.get();
 

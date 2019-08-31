@@ -1,50 +1,48 @@
 package br.com.crux.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import br.com.crux.infra.constantes.Constantes;
 
 
-/**
- * The persistent class for the perspectivas database table.
- * 
- */
 @Entity
 @Table(name="perspectivas")
-@NamedQuery(name="Perspectiva.findAll", query="SELECT p FROM Perspectiva p")
 public class Perspectiva implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_perspectiva")
+	@SequenceGenerator(name = "sq_id_perspectiva", sequenceName = "sq_id_perspectiva", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_perspectiva")
 	private Long idPerspectiva;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_implantacao")
-	private Date dtImplantacao;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_termino")
-	private Date dtTermino;
 
 	@Column(name="nm_perspectiva")
 	private String nmPerspectiva;
 
-	//bi-directional many-to-one association to Objetivo
-	@OneToMany(mappedBy="perspectiva")
-	private List<Objetivo> objetivos;
+	@Column(name="dt_implantacao")
+	private LocalDateTime dtImplantacao;
 
-	//bi-directional many-to-one association to Unidade
+	@Column(name="dt_termino")
+	private LocalDateTime dtTermino;
+
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_unidade")
 	private Unidade unidade;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
+	@Column(name="id_usuario_apl")
+	private Long usuariosAlteracao;
 
 	public Perspectiva() {
 	}
@@ -57,19 +55,19 @@ public class Perspectiva implements Serializable {
 		this.idPerspectiva = idPerspectiva;
 	}
 
-	public Date getDtImplantacao() {
+	public LocalDateTime getDtImplantacao() {
 		return this.dtImplantacao;
 	}
 
-	public void setDtImplantacao(Date dtImplantacao) {
+	public void setDtImplantacao(LocalDateTime dtImplantacao) {
 		this.dtImplantacao = dtImplantacao;
 	}
 
-	public Date getDtTermino() {
+	public LocalDateTime getDtTermino() {
 		return this.dtTermino;
 	}
 
-	public void setDtTermino(Date dtTermino) {
+	public void setDtTermino(LocalDateTime dtTermino) {
 		this.dtTermino = dtTermino;
 	}
 
@@ -81,28 +79,6 @@ public class Perspectiva implements Serializable {
 		this.nmPerspectiva = nmPerspectiva;
 	}
 
-	public List<Objetivo> getObjetivos() {
-		return this.objetivos;
-	}
-
-	public void setObjetivos(List<Objetivo> objetivos) {
-		this.objetivos = objetivos;
-	}
-
-	public Objetivo addObjetivo(Objetivo objetivo) {
-		getObjetivos().add(objetivo);
-		objetivo.setPerspectiva(this);
-
-		return objetivo;
-	}
-
-	public Objetivo removeObjetivo(Objetivo objetivo) {
-		getObjetivos().remove(objetivo);
-		objetivo.setPerspectiva(null);
-
-		return objetivo;
-	}
-
 	public Unidade getUnidade() {
 		return this.unidade;
 	}
@@ -111,12 +87,12 @@ public class Perspectiva implements Serializable {
 		this.unidade = unidade;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+	public Long getUsuariosAlteracao() {
+		return this.usuariosAlteracao;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
+	public void setUsuariosSistema(Long usuariosAlteracao) {
+		this.usuariosAlteracao = usuariosAlteracao;
 	}
 
 }
