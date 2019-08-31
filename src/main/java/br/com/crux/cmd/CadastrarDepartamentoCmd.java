@@ -37,7 +37,7 @@ public class CadastrarDepartamentoCmd {
 		
 		camposObrigatoriosDepartamentoRule.verificar(to.getCdUnidadeDepartamento(), to.getNmDepartamento(), to.getUnidade().getIdUnidade());
 				
-		if(Objects.nonNull(to.getDepartamentoSuperior().getIdDepartamento())) {
+		if(Objects.nonNull(to.getDepartamentoSuperior())) {
 			Optional<Departamentos> departamento = departamentoRepository.findById(to.getDepartamentoSuperior().getIdDepartamento());
 			if(!departamento.isPresent()) {
 				throw new NotFoundException("Departamento superior não existe.");
