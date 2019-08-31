@@ -1,10 +1,23 @@
 package br.com.crux.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.Date;
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import br.com.crux.infra.constantes.Constantes;
 
 
 @Entity
@@ -13,7 +26,8 @@ public class TalentosPf implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_talento_pf")
+	@SequenceGenerator(name = "sq_id_talento_pf", sequenceName = "sq_id_talento_pf", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_talento_pf")
 	private Long idTalentoPf;
 
@@ -30,15 +44,6 @@ public class TalentosPf implements Serializable {
 	@Column(name="tx_observacao")
 	private String txObservacao;
 
-	//bi-directional many-to-one association to AcoesCompetencia
-	@OneToMany(mappedBy="talentosPf")
-	private List<AcoesCompetencia> acoesCompetencias;
-
-	//bi-directional many-to-one association to Funcionario
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_funcionario")
-	private Funcionario funcionario;
-
 	//bi-directional many-to-one association to PessoasFisica
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_pessoa_fisica")
@@ -49,10 +54,8 @@ public class TalentosPf implements Serializable {
 	@JoinColumn(name="questionarios_id_quetionario")
 	private Questionario questionario;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
+	@Column(name="id_usuario_apl")
+	private Long usuariosAlteracao;
 
 	public TalentosPf() {
 	}
@@ -97,35 +100,6 @@ public class TalentosPf implements Serializable {
 		this.txObservacao = txObservacao;
 	}
 
-	public List<AcoesCompetencia> getAcoesCompetencias() {
-		return this.acoesCompetencias;
-	}
-
-	public void setAcoesCompetencias(List<AcoesCompetencia> acoesCompetencias) {
-		this.acoesCompetencias = acoesCompetencias;
-	}
-
-	public AcoesCompetencia addAcoesCompetencia(AcoesCompetencia acoesCompetencia) {
-		getAcoesCompetencias().add(acoesCompetencia);
-		acoesCompetencia.setTalentosPf(this);
-
-		return acoesCompetencia;
-	}
-
-	public AcoesCompetencia removeAcoesCompetencia(AcoesCompetencia acoesCompetencia) {
-		getAcoesCompetencias().remove(acoesCompetencia);
-		acoesCompetencia.setTalentosPf(null);
-
-		return acoesCompetencia;
-	}
-
-	public Funcionario getFuncionario() {
-		return this.funcionario;
-	}
-
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
-	}
 
 	public PessoasFisica getPessoasFisica() {
 		return this.pessoasFisica;
@@ -143,12 +117,12 @@ public class TalentosPf implements Serializable {
 		this.questionario = questionario;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+	public Long getUsuariosAlteracao() {
+		return this.usuariosAlteracao;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
+	public void setUsuariosSistema(Long usuariosAlteracao) {
+		this.usuariosAlteracao = usuariosAlteracao;
 	}
 
 }

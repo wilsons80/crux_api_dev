@@ -1,8 +1,19 @@
 package br.com.crux.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import br.com.crux.infra.constantes.Constantes;
 
 
 /**
@@ -11,12 +22,12 @@ import java.util.List;
  */
 @Entity
 @Table(name="departamentos_unidades")
-@NamedQuery(name="DepartamentosUnidade.findAll", query="SELECT d FROM DepartamentosUnidade d")
-public class DepartamentosUnidade implements Serializable {
+public class Departamentos implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_departamento")
+	@SequenceGenerator(name = "sq_id_departamento", sequenceName = "sq_id_departamento", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_departamento")
 	private Long idDepartamento;
 
@@ -31,27 +42,21 @@ public class DepartamentosUnidade implements Serializable {
 
 	@Column(name="nr_telefone_departamento")
 	private String nrTelefoneDepartamento;
-
+	
 	//bi-directional many-to-one association to DepartamentosUnidade
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_departamento_1")
-	private DepartamentosUnidade departamentosUnidade;
-
-	//bi-directional many-to-one association to DepartamentosUnidade
-	@OneToMany(mappedBy="departamentosUnidade")
-	private List<DepartamentosUnidade> departamentosUnidades;
+	@JoinColumn(name="id_departamento_sup")
+	private Departamentos departamentosSuperior;
 
 	//bi-directional many-to-one association to Unidade
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_unidade")
 	private Unidade unidade;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
+	@Column(name="id_usuario_apl")
+	private Long usuarioAlteracao;
 
-	public DepartamentosUnidade() {
+	public Departamentos() {
 	}
 
 	public Long getIdDepartamento() {
@@ -94,34 +99,12 @@ public class DepartamentosUnidade implements Serializable {
 		this.nrTelefoneDepartamento = nrTelefoneDepartamento;
 	}
 
-	public DepartamentosUnidade getDepartamentosUnidade() {
-		return this.departamentosUnidade;
+	public Departamentos getDepartamentosSuperior() {
+		return this.departamentosSuperior;
 	}
 
-	public void setDepartamentosUnidade(DepartamentosUnidade departamentosUnidade) {
-		this.departamentosUnidade = departamentosUnidade;
-	}
-
-	public List<DepartamentosUnidade> getDepartamentosUnidades() {
-		return this.departamentosUnidades;
-	}
-
-	public void setDepartamentosUnidades(List<DepartamentosUnidade> departamentosUnidades) {
-		this.departamentosUnidades = departamentosUnidades;
-	}
-
-	public DepartamentosUnidade addDepartamentosUnidade(DepartamentosUnidade departamentosUnidade) {
-		getDepartamentosUnidades().add(departamentosUnidade);
-		departamentosUnidade.setDepartamentosUnidade(this);
-
-		return departamentosUnidade;
-	}
-
-	public DepartamentosUnidade removeDepartamentosUnidade(DepartamentosUnidade departamentosUnidade) {
-		getDepartamentosUnidades().remove(departamentosUnidade);
-		departamentosUnidade.setDepartamentosUnidade(null);
-
-		return departamentosUnidade;
+	public void setDepartamentosSuperior(Departamentos departamentosUnidade) {
+		this.departamentosSuperior = departamentosUnidade;
 	}
 
 	public Unidade getUnidade() {
@@ -132,12 +115,12 @@ public class DepartamentosUnidade implements Serializable {
 		this.unidade = unidade;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+	public Long getUsuarioAlteracao() {
+		return this.usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
 }

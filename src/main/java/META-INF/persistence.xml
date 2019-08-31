@@ -25,7 +25,7 @@
 		<class>br.com.crux.entity.ContasBancaria</class>
 		<class>br.com.crux.entity.ContatosEmpresa</class>
 		<class>br.com.crux.entity.CursosFormacaoPf</class>
-		<class>br.com.crux.entity.DepartamentosUnidade</class>
+		<class>br.com.crux.entity.Departamentos</class>
 		<class>br.com.crux.entity.Diagnostico</class>
 		<class>br.com.crux.entity.DocumentosAtividade</class>
 		<class>br.com.crux.entity.Empresa</class>

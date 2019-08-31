@@ -117,12 +117,6 @@ public class Funcionario implements Serializable {
 	private List<Pedido> pedidos;
 
 
-	//bi-directional many-to-one association to TalentosPf
-	@OneToMany(mappedBy="funcionario")
-	private List<TalentosPf> talentosPfs;
-
-	
-	
 	public Funcionario() {
 	}
 
@@ -452,26 +446,5 @@ public class Funcionario implements Serializable {
 		return pedidos1;
 	}
 
-	public List<TalentosPf> getTalentosPfs() {
-		return this.talentosPfs;
-	}
-
-	public void setTalentosPfs(List<TalentosPf> talentosPfs) {
-		this.talentosPfs = talentosPfs;
-	}
-
-	public TalentosPf addTalentosPf(TalentosPf talentosPf) {
-		getTalentosPfs().add(talentosPf);
-		talentosPf.setFuncionario(this);
-
-		return talentosPf;
-	}
-
-	public TalentosPf removeTalentosPf(TalentosPf talentosPf) {
-		getTalentosPfs().remove(talentosPf);
-		talentosPf.setFuncionario(null);
-
-		return talentosPf;
-	}
 
 }

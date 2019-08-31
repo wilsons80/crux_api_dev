@@ -88,6 +88,26 @@ public class Unidade implements Serializable {
 			@Parameter(name = "enumClass", value = "br.com.crux.enums.ClassificadorSituacaoImovel") }) 
 	private ClassificadorSituacaoImovel classificacaoSituacaoImovel;
 	
+	
+	@Column(name = "nm_fantasia")
+	private String nomeFantasia;
+	
+	@Column(name = "nr_cnpj")
+	private String cnpj;
+	
+	@Column(name = "nr_inscricao_estadual")
+	private String inscricaoEstadual;
+	
+	@Column(name = "nr_inscricao_municipal")
+	private String inscricaoMunicipal;
+	
+	@Column(name = "ds_home_page")
+	private String homePage;
+	
+	@Column(name = "nm_cidade")
+	private String cidade;
+	
+	
 	public Unidade() {
 	}
 
@@ -233,6 +253,54 @@ public class Unidade implements Serializable {
 
 	public void setTipoUnidade(String tipoUnidade) {
 		this.tipoUnidade = tipoUnidade;
+	}
+
+	public String getNomeFantasia() {
+		return nomeFantasia;
+	}
+
+	public void setNomeFantasia(String nomeFantasia) {
+		this.nomeFantasia = nomeFantasia;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
+	public String getInscricaoEstadual() {
+		return inscricaoEstadual;
+	}
+
+	public void setInscricaoEstadual(String inscricaoEstadual) {
+		this.inscricaoEstadual = inscricaoEstadual;
+	}
+
+	public String getInscricaoMunicipal() {
+		return inscricaoMunicipal;
+	}
+
+	public void setInscricaoMunicipal(String inscricaoMunicipal) {
+		this.inscricaoMunicipal = inscricaoMunicipal;
+	}
+
+	public String getHomePage() {
+		return homePage;
+	}
+
+	public void setHomePage(String homePage) {
+		this.homePage = homePage;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
 	}
 
 

@@ -26,7 +26,14 @@ public class UnidadeTO {
 	private String celular;
 	private TipoUnidade tipoUnidade;
 	private ClassificadorSituacaoImovel classificacaoSituacaoImovel;
+	private String nomeFantasia;
+	private String cnpj;
+	private String inscricaoEstadual;
+	private String inscricaoMunicipal;
+	private String homePage;
+	private String cidade;
 
+	
 	public UnidadeTO() {
 	}
 
@@ -176,5 +183,55 @@ public class UnidadeTO {
 	public void setClassificacaoSituacaoImovel(ClassificadorSituacaoImovel classificacaoSituacaoImovel) {
 		this.classificacaoSituacaoImovel = classificacaoSituacaoImovel;
 	}
+	
+	public String getNomeFantasia() {
+		return nomeFantasia;
+	}
+
+	public void setNomeFantasia(String nomeFantasia) {
+		this.nomeFantasia = nomeFantasia;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
+	public String getInscricaoEstadual() {
+		return inscricaoEstadual;
+	}
+
+	public void setInscricaoEstadual(String inscricaoEstadual) {
+		this.inscricaoEstadual = inscricaoEstadual;
+	}
+
+	public String getInscricaoMunicipal() {
+		return inscricaoMunicipal;
+	}
+
+	public void setInscricaoMunicipal(String inscricaoMunicipal) {
+		this.inscricaoMunicipal = inscricaoMunicipal;
+	}
+
+	public String getHomePage() {
+		return homePage;
+	}
+
+	public void setHomePage(String homePage) {
+		this.homePage = homePage;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+
 
 }

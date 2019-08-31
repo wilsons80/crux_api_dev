@@ -34,6 +34,14 @@ public class UnidadeBuilder {
 		unidade.setTipoUnidade(to.getTipoUnidade().getTipo());
 		unidade.setClassificacaoSituacaoImovel(to.getClassificacaoSituacaoImovel());
 		
+		unidade.setNomeFantasia(to.getNomeFantasia());
+		unidade.setCnpj(to.getCnpj());
+		unidade.setInscricaoEstadual(to.getInscricaoEstadual());
+		unidade.setInscricaoMunicipal(to.getInscricaoMunicipal());
+		unidade.setHomePage(to.getHomePage());
+		unidade.setCidade(to.getCidade());
+		
+		
 		//unidade.setArquivo(to.getArquivo());
 
 		return unidade;
@@ -59,6 +67,13 @@ public class UnidadeBuilder {
 		unidade.setCelular(to.getCelular());
 		unidade.setTipoUnidade(TipoUnidade.getPorTipo(to.getTipoUnidade()));
 		unidade.setClassificacaoSituacaoImovel(to.getClassificacaoSituacaoImovel());
+		
+		unidade.setNomeFantasia(to.getNomeFantasia());
+		unidade.setCnpj(to.getCnpj());
+		unidade.setInscricaoEstadual(to.getInscricaoEstadual());
+		unidade.setInscricaoMunicipal(to.getInscricaoMunicipal());
+		unidade.setHomePage(to.getHomePage());
+		unidade.setCidade(to.getCidade());
 		
 		//unidade.setArquivo(to.getArquivo());
 
