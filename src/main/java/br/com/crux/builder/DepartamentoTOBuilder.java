@@ -1,6 +1,7 @@
 package br.com.crux.builder;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,9 @@ public class DepartamentoTOBuilder {
 		entity.setNmDepartamento(to.getNmDepartamento());
 		entity.setNrTelefoneDepartamento(to.getNrTelefoneDepartamento());
 		entity.setUnidade(unidadeBuilder.build(to.getUnidade()));
-		entity.setDepartamentosSuperior(buildDepartamentoSuperior(to.getDepartamentoSuperior()));
+		if(Objects.nonNull(to.getDepartamentoSuperior())) {
+			entity.setDepartamentosSuperior(buildDepartamentoSuperior(to.getDepartamentoSuperior()));
+		}
 		
 		return entity;
 	}
@@ -39,7 +42,10 @@ public class DepartamentoTOBuilder {
 		to.setNmDepartamento(dto.getNmDepartamento());
 		to.setNrTelefoneDepartamento(dto.getNrTelefoneDepartamento());
 		to.setUnidade(unidadeBuilder.buildTO(dto.getUnidade()));
-		to.setDepartamentoSuperior(buildTODepartamentoSuperior(dto.getDepartamentosSuperior()));
+		
+		if(Objects.nonNull(dto.getDepartamentosSuperior())) {
+			to.setDepartamentoSuperior(buildTODepartamentoSuperior(dto.getDepartamentosSuperior()));
+		}
 		
 		return to;
 	}
