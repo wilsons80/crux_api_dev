@@ -25,7 +25,7 @@ public class CausasEfeito implements Serializable {
 	//bi-directional many-to-one association to Indicadore
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_indicador")
-	private Indicadore indicadore;
+	private Indicadores indicadore;
 
 	//bi-directional many-to-one association to UsuariosSistema
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -51,11 +51,11 @@ public class CausasEfeito implements Serializable {
 		this.dsCausaEfeito = dsCausaEfeito;
 	}
 
-	public Indicadore getIndicadore() {
+	public Indicadores getIndicadore() {
 		return this.indicadore;
 	}
 
-	public void setIndicadore(Indicadore indicadore) {
+	public void setIndicadore(Indicadores indicadore) {
 		this.indicadore = indicadore;
 	}
 
