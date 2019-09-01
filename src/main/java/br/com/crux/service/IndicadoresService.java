@@ -20,7 +20,7 @@ import br.com.crux.cmd.GetIndicadoresCmd;
 import br.com.crux.to.IndicadoresTO;
 
 @RestController
-@RequestMapping(value = "objetivo")
+@RequestMapping(value = "indicadores")
 public class IndicadoresService {
 	
 	@Autowired
