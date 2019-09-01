@@ -1,9 +1,20 @@
 package br.com.crux.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import br.com.crux.infra.constantes.Constantes;
 
 
 /**
@@ -12,39 +23,30 @@ import java.util.List;
  */
 @Entity
 @Table(name="objetivos")
-@NamedQuery(name="Objetivo.findAll", query="SELECT o FROM Objetivo o")
 public class Objetivo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_objetivo")
+	@SequenceGenerator(name = "sq_id_objetivo", sequenceName = "sq_id_objetivo", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_objetivo")
 	private Long idObjetivo;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_implantacao")
-	private Date dtImplantacao;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_termino")
-	private Date dtTermino;
-
 	@Column(name="nm_objetivo")
-	private String nmObjetivo;
+	private String nome;
 
-	//bi-directional many-to-one association to Indicadore
-	@OneToMany(mappedBy="objetivo")
-	private List<Indicadore> indicadores;
+	@Column(name="dt_implantacao")
+	private LocalDateTime dataImplantacao;
 
-	//bi-directional many-to-one association to Perspectiva
+	@Column(name="dt_termino")
+	private LocalDateTime dataTermino;
+
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_perspectiva")
 	private Perspectiva perspectiva;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
+	@Column(name="id_usuario_apl")
+	private Long usuarioAlteracao;
 
 	public Objetivo() {
 	}
@@ -57,50 +59,28 @@ public class Objetivo implements Serializable {
 		this.idObjetivo = idObjetivo;
 	}
 
-	public Date getDtImplantacao() {
-		return this.dtImplantacao;
+	public LocalDateTime getDataImplantacao() {
+		return this.dataImplantacao;
 	}
 
-	public void setDtImplantacao(Date dtImplantacao) {
-		this.dtImplantacao = dtImplantacao;
+	public void setDataImplantacao(LocalDateTime dtImplantacao) {
+		this.dataImplantacao = dtImplantacao;
 	}
 
-	public Date getDtTermino() {
-		return this.dtTermino;
+	public LocalDateTime getDataTermino() {
+		return this.dataTermino;
 	}
 
-	public void setDtTermino(Date dtTermino) {
-		this.dtTermino = dtTermino;
+	public void setDataTermino(LocalDateTime dtTermino) {
+		this.dataTermino = dtTermino;
 	}
 
-	public String getNmObjetivo() {
-		return this.nmObjetivo;
+	public String getNome() {
+		return this.nome;
 	}
 
-	public void setNmObjetivo(String nmObjetivo) {
-		this.nmObjetivo = nmObjetivo;
-	}
-
-	public List<Indicadore> getIndicadores() {
-		return this.indicadores;
-	}
-
-	public void setIndicadores(List<Indicadore> indicadores) {
-		this.indicadores = indicadores;
-	}
-
-	public Indicadore addIndicadore(Indicadore indicadore) {
-		getIndicadores().add(indicadore);
-		indicadore.setObjetivo(this);
-
-		return indicadore;
-	}
-
-	public Indicadore removeIndicadore(Indicadore indicadore) {
-		getIndicadores().remove(indicadore);
-		indicadore.setObjetivo(null);
-
-		return indicadore;
+	public void setNome(String nmObjetivo) {
+		this.nome = nmObjetivo;
 	}
 
 	public Perspectiva getPerspectiva() {
@@ -111,12 +91,12 @@ public class Objetivo implements Serializable {
 		this.perspectiva = perspectiva;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+	public Long getUsuarioAlteracao() {
+		return this.usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
+	public void setUsuarioAlteracao(Long usuariosSistema) {
+		this.usuarioAlteracao = usuariosSistema;
 	}
 
 }
