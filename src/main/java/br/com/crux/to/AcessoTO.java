@@ -61,6 +61,5 @@ public class AcessoTO {
 		this.insere = insere;
 	}
 	
-	
 
 }

@@ -17,19 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.crux.cmd.AlterarAcessoUsuarioCmd;
 import br.com.crux.cmd.CadastrarAcessoUsuarioCmd;
 import br.com.crux.cmd.ExcluirAcessoUsuarioCmd;
-import br.com.crux.cmd.GetAcessoUsuarioCmd;
 import br.com.crux.cmd.GetPerfilAcessoCmd;
-import br.com.crux.to.AcessoTO;
 import br.com.crux.to.CadastroAcessoTO;
 import br.com.crux.to.PerfilAcessoUsuarioTO;
-import br.com.crux.to.UnidadeModuloAcessoTO;
 
 @RestController
 @RequestMapping(value = "acesso")
 public class AcessoService {
 	
-	@Autowired
-	private GetAcessoUsuarioCmd getAcessoUsuarioCmd;
 	@Autowired
 	private ExcluirAcessoUsuarioCmd excluirAcessoUsuarioCmd;
 	@Autowired
@@ -38,12 +33,7 @@ public class AcessoService {
 	private AlterarAcessoUsuarioCmd alterarAcessoUsuarioCmd;
 	@Autowired
 	private GetPerfilAcessoCmd getPerfilAcessoCmd;
-	
-	@GetMapping(path = "/usuario/unidade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<AcessoTO> getAllAcessos(@PathVariable(name = "id") Long idUnidade) {
-		return getAcessoUsuarioCmd.getAllAcessoUsuarioPorUnidade(idUnidade);
-	}
-	
+
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void cadastrar(@RequestBody CadastroAcessoTO acesso) {
 		cadastrarAcessoUsuarioCmd.cadastrar(acesso);
@@ -59,17 +49,20 @@ public class AcessoService {
 		excluirAcessoUsuarioCmd.excluir(idUsuarioGrupo);
 	}
 	
+	
 	@GetMapping(path = "/perfil/unidade/{idUnidade}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<PerfilAcessoUsuarioTO> getPerfilAcesso(@PathVariable(name = "idUnidade") Long idUnidade, 
-			                                           @RequestParam(name = "usuario", required = false) Long idUsuario, 
-			                                           @RequestParam(name = "modulo", required = false) Long idModulo) {
+	public List<PerfilAcessoUsuarioTO> getAcessosDoUsurioNoModulo(@PathVariable(name = "idUnidade") Long idUnidade, 
+			                                                     @RequestParam(name = "usuario", required = false) Long idUsuario, 
+			                                                     @RequestParam(name = "modulo", required = false) Long idModulo) {
 		return getPerfilAcessoCmd.getPerfilAcesso(idUnidade, idUsuario, idModulo);
 	}
 	
 	
+	/*
 	@GetMapping(path = "/cadastro/unidade", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<UnidadeModuloAcessoTO> getUnidadesComPermissaoModuloAcesso() {
 		return getPerfilAcessoCmd.getUnidadesComPermissaoModuloAcesso();
 	}
+	*/
 
 }

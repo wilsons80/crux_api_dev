@@ -5,14 +5,14 @@ import java.util.Objects;
 
 import org.springframework.stereotype.Component;
 
-import br.com.crux.dao.dto.AcessoDTO;
+import br.com.crux.dao.dto.MenuDTO;
 import br.com.crux.exception.UsuarioSemAcessoUnidadeException;
 
 @Component
-public class VerificaPermissaoAcessoUnidadeRule {
+public class VerificaPermissaoMenuRule {
 
-	public void verificar(List<AcessoDTO> acesso) {
-		if(Objects.isNull(acesso) || acesso.isEmpty()) {
+	public void verificar(List<MenuDTO> menu) {
+		if(Objects.isNull(menu) || menu.isEmpty()) {
 			throw new UsuarioSemAcessoUnidadeException("O usuário não possui acesso a esta unidade");
 		}
 		
