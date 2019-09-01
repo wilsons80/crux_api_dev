@@ -31,7 +31,7 @@ public class GetObjetivoCmd {
 			throw new ParametroNaoInformadoException("Unidade não informada.");
 		}
 		
-		Optional<List<Objetivo>> perspectivas = objetivoRepository.findByUnidade(unidade.get());
+		Optional<List<Objetivo>> perspectivas = objetivoRepository.findByIdUnidade(unidade.get().getIdUnidade());
 		if(perspectivas.isPresent()) {
 			return objetivoTOBuilder.buildAll(perspectivas.get());
 		}
