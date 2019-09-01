@@ -19,6 +19,7 @@ import br.com.crux.cmd.CadastrarAcessoUsuarioCmd;
 import br.com.crux.cmd.ExcluirAcessoUsuarioCmd;
 import br.com.crux.cmd.GetPerfilAcessoCmd;
 import br.com.crux.to.CadastroAcessoTO;
+import br.com.crux.to.PerfilAcessoTO;
 import br.com.crux.to.PerfilAcessoUsuarioTO;
 
 @RestController
@@ -49,13 +50,22 @@ public class AcessoService {
 		excluirAcessoUsuarioCmd.excluir(idUsuarioGrupo);
 	}
 	
-	
+	//Usado na tela de cadastro de acesso para um usuário específico
 	@GetMapping(path = "/perfil/unidade/{idUnidade}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<PerfilAcessoUsuarioTO> getAcessosDoUsurioNoModulo(@PathVariable(name = "idUnidade") Long idUnidade, 
-			                                                     @RequestParam(name = "usuario", required = false) Long idUsuario, 
-			                                                     @RequestParam(name = "modulo", required = false) Long idModulo) {
-		return getPerfilAcessoCmd.getPerfilAcesso(idUnidade, idUsuario, idModulo);
+	public List<PerfilAcessoUsuarioTO> getPerfilAcessoDoUsuario(@PathVariable(name = "idUnidade") Long idUnidade, 
+			                                                    @RequestParam(name = "usuario", required = false) Long idUsuario, 
+			                                                    @RequestParam(name = "modulo", required = false) Long idModulo) {
+		return getPerfilAcessoCmd.getPerfilAcessoDoUsuario(idUnidade, idUsuario, idModulo);
 	}
+	
+
+	//Retorna os acesso do módulo acessado no menu
+	@GetMapping(path = "/unidade/{idUnidade}/modulo/{idModulo}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<PerfilAcessoTO> getPerfilAcesso(@PathVariable(name = "idUnidade") Long idUnidade, 
+			                                          @PathVariable(name = "modulo") Long idModulo) {
+		return getPerfilAcessoCmd.getPerfilAcesso(idUnidade, idModulo);
+	}
+
 	
 	
 	/*

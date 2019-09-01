@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.dao.base.BaseDao;
+import br.com.crux.dao.dto.PerfilAcessoDTO;
 import br.com.crux.dao.dto.PerfilAcessoUsuarioDTO;
 import br.com.crux.dao.repository.TrocarSenhaRepository;
 import br.com.crux.dao.repository.UsuariosGrupoRepository;
@@ -63,7 +64,7 @@ public class AcessoDao extends BaseDao{
 	}
 	*/
 	
-	public List<PerfilAcessoUsuarioDTO> getPerfilAcesso(Long idUnidade,Long idUsuario,Long idModulo) {
+	public List<PerfilAcessoUsuarioDTO> getPerfilAcessoDoUsuario(Long idUnidade,Long idUsuario,Long idModulo) {
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append("	select us.id_usuario,                                         ");
@@ -110,6 +111,47 @@ public class AcessoDao extends BaseDao{
 		
 		List<PerfilAcessoUsuarioDTO> retorno = new ArrayList<PerfilAcessoUsuarioDTO>();
 		values.stream().forEach( colunas -> retorno.add(new PerfilAcessoUsuarioDTO(colunas)));
+		
+		return retorno;
+		
+	}
+	
+	
+	
+	public List<PerfilAcessoDTO> getPerfilAcesso(Long idUnidade,Long idUsuario,Long idModulo) {
+		StringBuilder sql = new StringBuilder();
+
+	  	sql.append(" select m.id_modulo,                                              ");
+	  	sql.append("        m.nm_modulo,                                              ");
+	  	sql.append("        pa.cs_consulta,                                           ");
+	  	sql.append("        pa.cs_altera,                                             ");
+	  	sql.append("        pa.cs_deleta,                                             ");
+	  	sql.append("        pa.cs_insere                                              ");
+	    sql.append("   from usuarios_grupos ug,                                       ");   
+	    sql.append("        usuarios_sistema us,                                      ");   
+	    sql.append("        modulos m,                                                ");   
+	    sql.append("        grupos_modulos gm,                                        ");
+	    sql.append("        perfis_acessos pa                                         ");   
+	    sql.append("  where ug.id_grupo_modulo  = gm.id_grupo_modulo                  ");   
+	    sql.append("    and gm.id_modulo        = m.id_modulo                         ");   
+	    sql.append("    and ug.id_usuario       = us.id_usuario                       ");   
+	    sql.append("    and us.st_ativo         = 'S'                                 ");
+	    sql.append("    and pa.id_perfil_acesso = gm.id_perfil_acesso                 ");                
+	    sql.append("    and gm.id_unidade       = :idUnidade                          ");                    
+	    sql.append("    and us.id_usuario       = :idUsuario                          ");
+	    sql.append("    and m.id_modulo         = :idModulo                           ");
+		
+	    
+		Query query = em.createNativeQuery(sql.toString());
+		query.setParameter("idUnidade", idUnidade);
+		query.setParameter("idModulo",  idModulo);
+		query.setParameter("idUsuario", idUsuario);
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> values = query.getResultList();
+		
+		List<PerfilAcessoDTO> retorno = new ArrayList<PerfilAcessoDTO>();
+		values.stream().forEach( colunas -> retorno.add(new PerfilAcessoDTO(colunas)));
 		
 		return retorno;
 		
