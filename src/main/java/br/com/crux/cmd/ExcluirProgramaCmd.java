@@ -7,31 +7,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.dao.repository.IniciativaRepository;
-import br.com.crux.dao.repository.PlanosAcaoRepository;
+import br.com.crux.dao.repository.ProgramaRepository;
 import br.com.crux.entity.Iniciativa;
-import br.com.crux.entity.PlanosAcao;
+import br.com.crux.entity.Programa;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.exception.TabaleReferenciaEncontradaException;
 
 @Component
-public class ExcluirPlanosAcaoCmd {
+public class ExcluirProgramaCmd {
 
-	@Autowired
-	private PlanosAcaoRepository repository;
+	@Autowired private ProgramaRepository repository;
 	
-	@Autowired
-	private IniciativaRepository iniciativaRepository;
+	@Autowired private IniciativaRepository iniciativaRepository;
+	
 	
 	public void excluir(Long id) {
 		if(Objects.isNull(id)) {
 			throw new ParametroNaoInformadoException("Erro ao excluir, parâmetro ausente.");
 		}
 		
-		Optional<PlanosAcao> entity = repository.findById(id);
+		Optional<Programa> entity = repository.findById(id);
 		if(!entity.isPresent()) {
-			throw new NotFoundException("Plano de Ação informado não existe.");
-			
+			throw new NotFoundException("Programa informado não existe.");
 		}
 		
 		Optional<Iniciativa> iniciativa = iniciativaRepository.findById(entity.get().getIniciativa().getId());
