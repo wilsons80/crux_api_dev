@@ -1,9 +1,20 @@
 package br.com.crux.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import br.com.crux.infra.constantes.Constantes;
 
 
 /**
@@ -12,95 +23,64 @@ import java.util.List;
  */
 @Entity
 @Table(name="planos_acao")
-@NamedQuery(name="PlanosAcao.findAll", query="SELECT p FROM PlanosAcao p")
 public class PlanosAcao implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_plano_acao")
+	@SequenceGenerator(name = "sq_id_plano_acao", sequenceName = "sq_id_plano_acao", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_plano_acao")
-	private Long idPlanoAcao;
+	private Long id;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_fim_plano_acao")
-	private Date dtFimPlanoAcao;
+	private LocalDateTime dataFim;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_inicio_plano_acao")
-	private Date dtInicioPlanoAcao;
+	private LocalDateTime dataInicio;
 
 	@Column(name="nm_plano_acao")
-	private String nmPlanoAcao;
+	private String nome;
 
-	//bi-directional many-to-one association to Atividade
-	@OneToMany(mappedBy="planosAcao")
-	private List<Atividade> atividades;
-
-	//bi-directional many-to-one association to Iniciativa
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="iniciativas_id_iniciativa")
 	private Iniciativa iniciativa;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
+	@Column(name="id_usuario_apl")
+	private Long usuarioAlteracao;
 
 	public PlanosAcao() {
 	}
 
-	public Long getIdPlanoAcao() {
-		return this.idPlanoAcao;
+	public Long getId() {
+		return this.id;
 	}
 
-	public void setIdPlanoAcao(Long idPlanoAcao) {
-		this.idPlanoAcao = idPlanoAcao;
+	public void setId(Long idPlanoAcao) {
+		this.id = idPlanoAcao;
 	}
 
-	public Date getDtFimPlanoAcao() {
-		return this.dtFimPlanoAcao;
+	public LocalDateTime getDataFim() {
+		return this.dataFim;
 	}
 
-	public void setDtFimPlanoAcao(Date dtFimPlanoAcao) {
-		this.dtFimPlanoAcao = dtFimPlanoAcao;
+	public void setDataFim(LocalDateTime dtFimPlanoAcao) {
+		this.dataFim = dtFimPlanoAcao;
 	}
 
-	public Date getDtInicioPlanoAcao() {
-		return this.dtInicioPlanoAcao;
+	public LocalDateTime getDataInicio() {
+		return this.dataInicio;
 	}
 
-	public void setDtInicioPlanoAcao(Date dtInicioPlanoAcao) {
-		this.dtInicioPlanoAcao = dtInicioPlanoAcao;
+	public void setDataInicio(LocalDateTime dtInicioPlanoAcao) {
+		this.dataInicio = dtInicioPlanoAcao;
 	}
 
-	public String getNmPlanoAcao() {
-		return this.nmPlanoAcao;
+	public String getNome() {
+		return this.nome;
 	}
 
-	public void setNmPlanoAcao(String nmPlanoAcao) {
-		this.nmPlanoAcao = nmPlanoAcao;
-	}
-
-	public List<Atividade> getAtividades() {
-		return this.atividades;
-	}
-
-	public void setAtividades(List<Atividade> atividades) {
-		this.atividades = atividades;
-	}
-
-	public Atividade addAtividade(Atividade atividade) {
-		getAtividades().add(atividade);
-		atividade.setPlanosAcao(this);
-
-		return atividade;
-	}
-
-	public Atividade removeAtividade(Atividade atividade) {
-		getAtividades().remove(atividade);
-		atividade.setPlanosAcao(null);
-
-		return atividade;
+	public void setNome(String nmPlanoAcao) {
+		this.nome = nmPlanoAcao;
 	}
 
 	public Iniciativa getIniciativa() {
@@ -111,12 +91,12 @@ public class PlanosAcao implements Serializable {
 		this.iniciativa = iniciativa;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+	public Long getUsuarioAlteracao() {
+		return this.usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
+	public void setUsuarioAlteracao(Long usuariosSistema) {
+		this.usuarioAlteracao = usuariosSistema;
 	}
 
 }
