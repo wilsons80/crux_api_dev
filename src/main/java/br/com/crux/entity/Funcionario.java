@@ -1,13 +1,29 @@
 package br.com.crux.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
-import br.com.crux.infra.constantes.Constantes;
-
-import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
+
+import br.com.crux.enums.ConclusaoParecer;
+import br.com.crux.enums.ParecerEntrevistador;
+import br.com.crux.enums.TipoFuncionario;
+import br.com.crux.infra.constantes.Constantes;
 
 @Entity
 @Table(name="funcionarios")
@@ -18,433 +34,233 @@ public class Funcionario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_funcionario")
 	@SequenceGenerator(name = "sq_id_funcionario", sequenceName = "sq_id_funcionario", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_funcionario")
-	private Long idFuncionario;
-
-	@Column(name="ds_parecer_entrevistador")
-	private String dsParecerEntrevistador;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_admissao")
-	private Date dtAdmissao;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_demissao")
-	private Date dtDemissao;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_hr_entrevista")
-	private Date dtHrEntrevista;
+	private Long id;
 
 	@Column(name="nr_matricula")
-	private String nrMatricula;
+	private String matricula;
 
-	@Column(name="st_conclusao_parecer")
-	private String stConclusaoParecer;
+	@Column(name="dt_admissao")
+	private LocalDateTime dataAdmissao;
 
-	@Column(name="st_parecer_entrevistador")
-	private String stParecerEntrevistador;
+	@Column(name="dt_demissao")
+	private LocalDateTime dataDemissao;
+	
 
 	@Column(name="st_tipo_funcionario")
-	private String stTipoFuncionario;
+	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", 
+	parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.TipoFuncionario") }) 
+	private TipoFuncionario tipoFuncionario;
 
 	@Column(name="vl_salario_pretendido")
-	private BigDecimal vlSalarioPretendido;
+	private Double salarioPretendido;
 
-	//bi-directional many-to-one association to Atendimento
-	@OneToMany(mappedBy="funcionario")
-	private List<Atendimento> atendimentos;
-
-	//bi-directional many-to-one association to ColaboradoresAtividade
-	@OneToMany(mappedBy="funcionario")
-	private List<ColaboradoresAtividade> colaboradoresAtividades;
-
-	//bi-directional many-to-one association to ColaboradoresPrograma
-	@OneToMany(mappedBy="funcionario")
-	private List<ColaboradoresPrograma> colaboradoresProgramas;
-
-	//bi-directional many-to-one association to ColaboradoresProjeto
-	@OneToMany(mappedBy="funcionario")
-	private List<ColaboradoresProjeto> colaboradoresProjetos;
-
-	//bi-directional many-to-one association to Estoque
-	@OneToMany(mappedBy="funcionario")
-	private List<Estoque> estoques;
-
-	//bi-directional many-to-one association to FaltasFuncionario
-	@OneToMany(mappedBy="funcionario1")
-	private List<FaltasFuncionario> faltasFuncionarios1;
-
-	//bi-directional many-to-one association to FaltasFuncionario
-	@OneToMany(mappedBy="funcionario2")
-	private List<FaltasFuncionario> faltasFuncionarios2;
-
-	//bi-directional many-to-one association to Cargo
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_cargo")
 	private Cargo cargo;
 
-	//bi-directional many-to-one association to Empresa
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_empresa_func")
-	private Empresa empresa;
-
-	//bi-directional many-to-one association to Funcionario
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_funcionario_entrevistador")
-	private Funcionario funcionario;
-
-	//bi-directional many-to-one association to PessoasFisica
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_pessoa_fisica")
-	private PessoasFisica pessoasFisica;
-
-	//bi-directional many-to-one association to Unidade
+	private PessoaFisica pessoasFisica;
+	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_unidade")
 	private Unidade unidade;
 
-	//bi-directional many-to-one association to UsuariosSistema
+	@Temporal(TemporalType.TIME)
+	@Column(name="dt_hr_entrevista")
+	private Date dtHrEntrevista;
+
+	@Column(name="st_parecer_entrevistador")
+	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", 
+	parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.ParecerEntrevistador") }) 
+	private ParecerEntrevistador parecerEntrevistador;
+	
+	//Descrição do parecer do entrevistador em relação ado candidato a funcionário  (Tipo =  D = CANDIDATO A VAGA DE FUNCIONÁRIO)
+	@Column(name="ds_parecer_entrevistador")
+	private String descricaoParecerEntrevistador;
+	
+	@Column(name="st_conclusao_parecer")
+	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", 
+	parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.ConclusaoParecer") }) 
+	private ConclusaoParecer conclusaoParecer;
+
+
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
+	@JoinColumn(name="id_funcionario_entrevistador")
+	private Funcionario funcionarioEntrevistador;
 
-	//bi-directional many-to-one association to MovimentacoesConta
-	@OneToMany(mappedBy="funcionario")
-	private List<MovimentacoesConta> movimentacoesContas;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_empresa_func")
+	private Empresa empresaFuncionario;
 
-	//bi-directional many-to-one association to Pedido
-	@OneToMany(mappedBy="funcionario1")
-	private List<Pedido> pedidos;
+	@Column(name="id_usuario_apl")
+	private Long usuarioAlteracao;
 
 
 	public Funcionario() {
 	}
 
-	public Long getIdFuncionario() {
-		return this.idFuncionario;
+
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdFuncionario(Long idFuncionario) {
-		this.idFuncionario = idFuncionario;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getDsParecerEntrevistador() {
-		return this.dsParecerEntrevistador;
+
+	public String getMatricula() {
+		return matricula;
 	}
 
-	public void setDsParecerEntrevistador(String dsParecerEntrevistador) {
-		this.dsParecerEntrevistador = dsParecerEntrevistador;
+
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
 	}
 
-	public Date getDtAdmissao() {
-		return this.dtAdmissao;
+
+	public LocalDateTime getDataAdmissao() {
+		return dataAdmissao;
 	}
 
-	public void setDtAdmissao(Date dtAdmissao) {
-		this.dtAdmissao = dtAdmissao;
+
+	public void setDataAdmissao(LocalDateTime dataAdmissao) {
+		this.dataAdmissao = dataAdmissao;
 	}
 
-	public Date getDtDemissao() {
-		return this.dtDemissao;
+
+	public LocalDateTime getDataDemissao() {
+		return dataDemissao;
 	}
 
-	public void setDtDemissao(Date dtDemissao) {
-		this.dtDemissao = dtDemissao;
+
+	public void setDataDemissao(LocalDateTime dataDemissao) {
+		this.dataDemissao = dataDemissao;
 	}
 
-	public Date getDtHrEntrevista() {
-		return this.dtHrEntrevista;
+
+	public TipoFuncionario getTipoFuncionario() {
+		return tipoFuncionario;
 	}
 
-	public void setDtHrEntrevista(Date dtHrEntrevista) {
-		this.dtHrEntrevista = dtHrEntrevista;
+
+	public void setTipoFuncionario(TipoFuncionario tipoFuncionario) {
+		this.tipoFuncionario = tipoFuncionario;
 	}
 
-	public String getNrMatricula() {
-		return this.nrMatricula;
+
+	public Double getSalarioPretendido() {
+		return salarioPretendido;
 	}
 
-	public void setNrMatricula(String nrMatricula) {
-		this.nrMatricula = nrMatricula;
+
+	public void setSalarioPretendido(Double salarioPretendido) {
+		this.salarioPretendido = salarioPretendido;
 	}
 
-	public String getStConclusaoParecer() {
-		return this.stConclusaoParecer;
-	}
-
-	public void setStConclusaoParecer(String stConclusaoParecer) {
-		this.stConclusaoParecer = stConclusaoParecer;
-	}
-
-	public String getStParecerEntrevistador() {
-		return this.stParecerEntrevistador;
-	}
-
-	public void setStParecerEntrevistador(String stParecerEntrevistador) {
-		this.stParecerEntrevistador = stParecerEntrevistador;
-	}
-
-	public String getStTipoFuncionario() {
-		return this.stTipoFuncionario;
-	}
-
-	public void setStTipoFuncionario(String stTipoFuncionario) {
-		this.stTipoFuncionario = stTipoFuncionario;
-	}
-
-	public BigDecimal getVlSalarioPretendido() {
-		return this.vlSalarioPretendido;
-	}
-
-	public void setVlSalarioPretendido(BigDecimal vlSalarioPretendido) {
-		this.vlSalarioPretendido = vlSalarioPretendido;
-	}
-
-	public List<Atendimento> getAtendimentos() {
-		return this.atendimentos;
-	}
-
-	public void setAtendimentos(List<Atendimento> atendimentos) {
-		this.atendimentos = atendimentos;
-	}
-
-	public Atendimento addAtendimento(Atendimento atendimento) {
-		getAtendimentos().add(atendimento);
-		atendimento.setFuncionario(this);
-
-		return atendimento;
-	}
-
-	public Atendimento removeAtendimento(Atendimento atendimento) {
-		getAtendimentos().remove(atendimento);
-		atendimento.setFuncionario(null);
-
-		return atendimento;
-	}
-
-	public List<ColaboradoresAtividade> getColaboradoresAtividades() {
-		return this.colaboradoresAtividades;
-	}
-
-	public void setColaboradoresAtividades(List<ColaboradoresAtividade> colaboradoresAtividades) {
-		this.colaboradoresAtividades = colaboradoresAtividades;
-	}
-
-	public ColaboradoresAtividade addColaboradoresAtividade(ColaboradoresAtividade colaboradoresAtividade) {
-		getColaboradoresAtividades().add(colaboradoresAtividade);
-		colaboradoresAtividade.setFuncionario(this);
-
-		return colaboradoresAtividade;
-	}
-
-	public ColaboradoresAtividade removeColaboradoresAtividade(ColaboradoresAtividade colaboradoresAtividade) {
-		getColaboradoresAtividades().remove(colaboradoresAtividade);
-		colaboradoresAtividade.setFuncionario(null);
-
-		return colaboradoresAtividade;
-	}
-
-	public List<ColaboradoresPrograma> getColaboradoresProgramas() {
-		return this.colaboradoresProgramas;
-	}
-
-	public void setColaboradoresProgramas(List<ColaboradoresPrograma> colaboradoresProgramas) {
-		this.colaboradoresProgramas = colaboradoresProgramas;
-	}
-
-	public ColaboradoresPrograma addColaboradoresPrograma(ColaboradoresPrograma colaboradoresPrograma) {
-		getColaboradoresProgramas().add(colaboradoresPrograma);
-		colaboradoresPrograma.setFuncionario(this);
-
-		return colaboradoresPrograma;
-	}
-
-	public ColaboradoresPrograma removeColaboradoresPrograma(ColaboradoresPrograma colaboradoresPrograma) {
-		getColaboradoresProgramas().remove(colaboradoresPrograma);
-		colaboradoresPrograma.setFuncionario(null);
-
-		return colaboradoresPrograma;
-	}
-
-	public List<ColaboradoresProjeto> getColaboradoresProjetos() {
-		return this.colaboradoresProjetos;
-	}
-
-	public void setColaboradoresProjetos(List<ColaboradoresProjeto> colaboradoresProjetos) {
-		this.colaboradoresProjetos = colaboradoresProjetos;
-	}
-
-	public ColaboradoresProjeto addColaboradoresProjeto(ColaboradoresProjeto colaboradoresProjeto) {
-		getColaboradoresProjetos().add(colaboradoresProjeto);
-		colaboradoresProjeto.setFuncionario(this);
-
-		return colaboradoresProjeto;
-	}
-
-	public ColaboradoresProjeto removeColaboradoresProjeto(ColaboradoresProjeto colaboradoresProjeto) {
-		getColaboradoresProjetos().remove(colaboradoresProjeto);
-		colaboradoresProjeto.setFuncionario(null);
-
-		return colaboradoresProjeto;
-	}
-
-	public List<Estoque> getEstoques() {
-		return this.estoques;
-	}
-
-	public void setEstoques(List<Estoque> estoques) {
-		this.estoques = estoques;
-	}
-
-	public Estoque addEstoque(Estoque estoque) {
-		getEstoques().add(estoque);
-		estoque.setFuncionario(this);
-
-		return estoque;
-	}
-
-	public Estoque removeEstoque(Estoque estoque) {
-		getEstoques().remove(estoque);
-		estoque.setFuncionario(null);
-
-		return estoque;
-	}
-
-	public List<FaltasFuncionario> getFaltasFuncionarios1() {
-		return this.faltasFuncionarios1;
-	}
-
-	public void setFaltasFuncionarios1(List<FaltasFuncionario> faltasFuncionarios1) {
-		this.faltasFuncionarios1 = faltasFuncionarios1;
-	}
-
-	public FaltasFuncionario addFaltasFuncionarios1(FaltasFuncionario faltasFuncionarios1) {
-		getFaltasFuncionarios1().add(faltasFuncionarios1);
-		faltasFuncionarios1.setFuncionario1(this);
-
-		return faltasFuncionarios1;
-	}
-
-	public FaltasFuncionario removeFaltasFuncionarios1(FaltasFuncionario faltasFuncionarios1) {
-		getFaltasFuncionarios1().remove(faltasFuncionarios1);
-		faltasFuncionarios1.setFuncionario1(null);
-
-		return faltasFuncionarios1;
-	}
-
-	public List<FaltasFuncionario> getFaltasFuncionarios2() {
-		return this.faltasFuncionarios2;
-	}
-
-	public void setFaltasFuncionarios2(List<FaltasFuncionario> faltasFuncionarios2) {
-		this.faltasFuncionarios2 = faltasFuncionarios2;
-	}
-
-	public FaltasFuncionario addFaltasFuncionarios2(FaltasFuncionario faltasFuncionarios2) {
-		getFaltasFuncionarios2().add(faltasFuncionarios2);
-		faltasFuncionarios2.setFuncionario2(this);
-
-		return faltasFuncionarios2;
-	}
-
-	public FaltasFuncionario removeFaltasFuncionarios2(FaltasFuncionario faltasFuncionarios2) {
-		getFaltasFuncionarios2().remove(faltasFuncionarios2);
-		faltasFuncionarios2.setFuncionario2(null);
-
-		return faltasFuncionarios2;
-	}
 
 	public Cargo getCargo() {
-		return this.cargo;
+		return cargo;
 	}
+
 
 	public void setCargo(Cargo cargo) {
 		this.cargo = cargo;
 	}
 
-	public Empresa getEmpresa() {
-		return this.empresa;
+
+	public PessoaFisica getPessoasFisica() {
+		return pessoasFisica;
 	}
 
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
 
-	public Funcionario getFuncionario() {
-		return this.funcionario;
-	}
-
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
-	}
-
-	public PessoasFisica getPessoasFisica() {
-		return this.pessoasFisica;
-	}
-
-	public void setPessoasFisica(PessoasFisica pessoasFisica) {
+	public void setPessoasFisica(PessoaFisica pessoasFisica) {
 		this.pessoasFisica = pessoasFisica;
 	}
 
+
 	public Unidade getUnidade() {
-		return this.unidade;
+		return unidade;
 	}
+
 
 	public void setUnidade(Unidade unidade) {
 		this.unidade = unidade;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+
+	public Date getDtHrEntrevista() {
+		return dtHrEntrevista;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
+
+	public void setDtHrEntrevista(Date dtHrEntrevista) {
+		this.dtHrEntrevista = dtHrEntrevista;
 	}
 
-	public List<MovimentacoesConta> getMovimentacoesContas() {
-		return this.movimentacoesContas;
+
+	public ParecerEntrevistador getParecerEntrevistador() {
+		return parecerEntrevistador;
 	}
 
-	public void setMovimentacoesContas(List<MovimentacoesConta> movimentacoesContas) {
-		this.movimentacoesContas = movimentacoesContas;
+
+	public void setParecerEntrevistador(ParecerEntrevistador parecerEntrevistador) {
+		this.parecerEntrevistador = parecerEntrevistador;
 	}
 
-	public MovimentacoesConta addMovimentacoesConta(MovimentacoesConta movimentacoesConta) {
-		getMovimentacoesContas().add(movimentacoesConta);
-		movimentacoesConta.setFuncionario(this);
 
-		return movimentacoesConta;
+	public String getDescricaoParecerEntrevistador() {
+		return descricaoParecerEntrevistador;
 	}
 
-	public MovimentacoesConta removeMovimentacoesConta(MovimentacoesConta movimentacoesConta) {
-		getMovimentacoesContas().remove(movimentacoesConta);
-		movimentacoesConta.setFuncionario(null);
 
-		return movimentacoesConta;
+	public void setDescricaoParecerEntrevistador(String descricaoParecerEntrevistador) {
+		this.descricaoParecerEntrevistador = descricaoParecerEntrevistador;
 	}
 
-	public List<Pedido> getPedidos() {
-		return this.pedidos;
+
+	public ConclusaoParecer getConclusaoParecer() {
+		return conclusaoParecer;
 	}
 
-	public void setPedidos(List<Pedido> pedidos1) {
-		this.pedidos = pedidos1;
+
+	public void setConclusaoParecer(ConclusaoParecer conclusaoParecer) {
+		this.conclusaoParecer = conclusaoParecer;
 	}
 
-	public Pedido addPedidos1(Pedido pedidos1) {
-		getPedidos().add(pedidos1);
-		pedidos1.setFuncionario1(this);
 
-		return pedidos1;
+	public Funcionario getFuncionarioEntrevistador() {
+		return funcionarioEntrevistador;
 	}
 
-	public Pedido removePedidos1(Pedido pedidos1) {
-		getPedidos().remove(pedidos1);
-		pedidos1.setFuncionario1(null);
 
-		return pedidos1;
+	public void setFuncionarioEntrevistador(Funcionario funcionarioEntrevistador) {
+		this.funcionarioEntrevistador = funcionarioEntrevistador;
 	}
+
+
+	public Empresa getEmpresaFuncionario() {
+		return empresaFuncionario;
+	}
+
+
+	public void setEmpresaFuncionario(Empresa empresaFuncionario) {
+		this.empresaFuncionario = empresaFuncionario;
+	}
+
+
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
+	}
+
+
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
+	}
+	
+	
 
 
 }

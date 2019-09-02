@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="pessoas_fisicas")
-public class PessoasFisica implements Serializable {
+public class PessoaFisica implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -259,7 +259,7 @@ public class PessoasFisica implements Serializable {
 	private List<TalentosPf> talentosPfs;
 
 
-	public PessoasFisica() {
+	public PessoaFisica() {
 	}
 
 	public Long getIdPessoaFisica() {

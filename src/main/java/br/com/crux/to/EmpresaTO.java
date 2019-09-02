@@ -1,109 +1,35 @@
-package br.com.crux.entity;
-
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Type;
+package br.com.crux.to;
 
 import br.com.crux.enums.CategoriaEmpresa;
 import br.com.crux.enums.TipoEmpresa;
-import br.com.crux.infra.constantes.Constantes;
 
-/**
- * The persistent class for the empresas database table.
- * 
- */
-@Entity
-@Table(name = "empresas")
-public class Empresa implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class EmpresaTO {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_empresa")
-	@SequenceGenerator(name = "sq_id_empresa", sequenceName = "sq_id_empresa", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
-	@Column(name = "id_empresa")
 	private Long id;
-
-	@Column(name = "cd_empresa")
 	private String codigo;
-
-	@Column(name = "nm_razao_social")
 	private String nomeRazaoSocial;
-
-	@Column(name = "nm_fantasia")
 	private String nomeFantasia;
-
-	@Column(name = "nr_cnpj")
 	private String cnpj;
-
-	@Column(name = "nr_inscricao_estadual")
 	private String inscricaoEstadual;
-
-	@Column(name = "nr_inscricao_municipal")
 	private String inscricaoMunicipal;
-
-	// S - Sim; N - Não
-	@Column(name = "st_ativa")
 	private String ativa;
-
-	@Column(name = "cs_tipo_empresa")
-	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", parameters = {
-			@Parameter(name = "enumClass", value = "br.com.crux.enums.TipoEmpresa") })
 	private TipoEmpresa tipoEmpresa;
-
-	@Column(name = "vl_icms")
 	private Double valorIcms;
-
-	@Column(name = "ds_tipo_empresa")
 	private String descricaoTipoEmpresa;
-
-	@Column(name = "cs_categoria_empresa")
-	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", parameters = {
-			@Parameter(name = "enumClass", value = "br.com.crux.enums.CategoriaEmpresa") })
 	private CategoriaEmpresa categoriaEmpresa;
-
-	@Column(name = "ds_categoria_empresa")
 	private String descricaoCategoriaEmpresa;
-
-	@Column(name = "nr_telefone")
 	private String telefone;
-
-	@Column(name = "ds_email")
 	private String email;
-
-	@Column(name = "st_autoriza_email")
 	private String autorizaEmail;
-
-	@Column(name = "ds_home_page")
 	private String homePage;
-
-	@Column(name = "ds_endereco")
 	private String endereco;
-
-	@Column(name = "ds_bairro")
 	private String bairro;
-
-	@Column(name = "nm_cidade")
 	private String cidade;
-
-	@Column(name = "nr_cep")
 	private Long cep;
-
-	@Column(name = "uf_empresa")
 	private String uf;
-
-	@Column(name = "id_usuario_apl")
 	private Long usuarioAlteracao;
 
-	public Empresa() {
+	public EmpresaTO() {
 	}
 
 	public Long getId() {

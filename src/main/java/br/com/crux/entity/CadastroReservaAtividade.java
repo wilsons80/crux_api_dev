@@ -51,7 +51,7 @@ public class CadastroReservaAtividade implements Serializable {
 	//bi-directional many-to-one association to PessoasFisica
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="pf_id_pessoa_fisica")
-	private PessoasFisica pessoasFisica;
+	private PessoaFisica pessoasFisica;
 
 	//bi-directional many-to-one association to UsuariosSistema
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -135,11 +135,11 @@ public class CadastroReservaAtividade implements Serializable {
 		this.atividade = atividade;
 	}
 
-	public PessoasFisica getPessoasFisica() {
+	public PessoaFisica getPessoasFisica() {
 		return this.pessoasFisica;
 	}
 
-	public void setPessoasFisica(PessoasFisica pessoasFisica) {
+	public void setPessoasFisica(PessoaFisica pessoasFisica) {
 		this.pessoasFisica = pessoasFisica;
 	}
 

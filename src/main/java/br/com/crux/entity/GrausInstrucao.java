@@ -30,7 +30,7 @@ public class GrausInstrucao implements Serializable {
 
 	//bi-directional many-to-one association to PessoasFisica
 	@OneToMany(mappedBy="grausInstrucao")
-	private List<PessoasFisica> pessoasFisicas;
+	private List<PessoaFisica> pessoasFisicas;
 
 	public GrausInstrucao() {
 	}
@@ -59,22 +59,22 @@ public class GrausInstrucao implements Serializable {
 		this.usuariosSistema = usuariosSistema;
 	}
 
-	public List<PessoasFisica> getPessoasFisicas() {
+	public List<PessoaFisica> getPessoasFisicas() {
 		return this.pessoasFisicas;
 	}
 
-	public void setPessoasFisicas(List<PessoasFisica> pessoasFisicas) {
+	public void setPessoasFisicas(List<PessoaFisica> pessoasFisicas) {
 		this.pessoasFisicas = pessoasFisicas;
 	}
 
-	public PessoasFisica addPessoasFisica(PessoasFisica pessoasFisica) {
+	public PessoaFisica addPessoasFisica(PessoaFisica pessoasFisica) {
 		getPessoasFisicas().add(pessoasFisica);
 		pessoasFisica.setGrausInstrucao(this);
 
 		return pessoasFisica;
 	}
 
-	public PessoasFisica removePessoasFisica(PessoasFisica pessoasFisica) {
+	public PessoaFisica removePessoasFisica(PessoaFisica pessoasFisica) {
 		getPessoasFisicas().remove(pessoasFisica);
 		pessoasFisica.setGrausInstrucao(null);
 
