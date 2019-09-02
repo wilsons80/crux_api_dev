@@ -35,7 +35,7 @@ public class Iniciativa implements Serializable {
 	//bi-directional many-to-one association to Meta
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="metas_id_meta")
-	private Meta meta;
+	private Metas meta;
 
 	//bi-directional many-to-one association to UsuariosSistema
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -89,11 +89,11 @@ public class Iniciativa implements Serializable {
 		this.dtInicioIniciativa = dtInicioIniciativa;
 	}
 
-	public Meta getMeta() {
+	public Metas getMeta() {
 		return this.meta;
 	}
 
-	public void setMeta(Meta meta) {
+	public void setMeta(Metas meta) {
 		this.meta = meta;
 	}
 

@@ -43,7 +43,7 @@
 		<class>br.com.crux.entity.Iniciativa</class>
 		<class>br.com.crux.entity.ItensFatura</class>
 		<class>br.com.crux.entity.ItensObjetosModulo</class>
-		<class>br.com.crux.entity.Meta</class>
+		<class>br.com.crux.entity.Metas</class>
 		<class>br.com.crux.entity.Modulo</class>
 		<class>br.com.crux.entity.MovimentacoesConta</class>
 		<class>br.com.crux.entity.Objetivo</class>
