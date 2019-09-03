@@ -16,7 +16,7 @@ public interface ProjetoRepository extends JpaRepository<Projeto, Long>{
 			+ " inner join Programa prog on proj.programa = prog"
 			+ " inner join Iniciativa ini on prog.iniciativa = ini"
 			+ " inner join Metas m on ini.meta = m"
-			+ " inner join Indicadore i on m.indicadores = i"
+			+ " inner join Indicadores i on m.indicadores = i"
 			+ " inner join Objetivo o on i.objetivo = o"
 			+ " inner join Perspectiva p on o.perspectiva.unidade = p.unidade "
 			+ " where p.unidade.idUnidade = ?1")

@@ -13,7 +13,7 @@ import br.com.crux.entity.Metas;
 public interface MetasRepository extends JpaRepository<Metas, Long>{
 
 	@Query(value = "SELECT m FROM Metas m "
-			+ " inner join Indicadore i on m.indicadores = i"
+			+ " inner join Indicadores i on m.indicadores = i"
 			+ " inner join Objetivo o on i.objetivo = o"
 			+ " inner join Perspectiva p on o.perspectiva.unidade = p.unidade "
 			+ " where p.unidade.idUnidade = ?1")

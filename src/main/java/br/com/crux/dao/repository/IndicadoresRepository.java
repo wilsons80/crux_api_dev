@@ -12,7 +12,7 @@ import br.com.crux.entity.Indicadores;
 @Repository
 public interface IndicadoresRepository extends JpaRepository<Indicadores, Long>{
 
-	@Query(value = "SELECT i FROM Indicadore i "
+	@Query(value = "SELECT i FROM Indicadores i "
 			+ " inner join Objetivo o on i.objetivo = o"
 			+ " inner join Perspectiva p on o.perspectiva.unidade = p.unidade "
 			+ " where p.unidade.idUnidade = ?1")
