@@ -1,6 +1,6 @@
 package br.com.crux.enums;
 
-public enum TipoCarga {
+public enum TipoCargo {
 
 	// F=FUNCIONÁRIO; V = VOLUNTÁRIO; E = ESTAGIÁRIO
 
@@ -12,7 +12,7 @@ public enum TipoCarga {
 	private String tipo;
 	private String descricao;
 
-	private TipoCarga(Long id, String tipo, String descricao) {
+	private TipoCargo(Long id, String tipo, String descricao) {
 		this.id = id;
 		this.tipo = tipo;
 		this.descricao = descricao;
@@ -42,8 +42,8 @@ public enum TipoCarga {
 		this.descricao = descricao;
 	}
 
-	public static TipoCarga getPorTipo(String tipo) {
-		for (TipoCarga tipoClassificador : values()) {
+	public static TipoCargo getPorTipo(String tipo) {
+		for (TipoCargo tipoClassificador : values()) {
 			if (tipoClassificador.getTipo().equals(tipo)) {
 				return tipoClassificador;
 			}

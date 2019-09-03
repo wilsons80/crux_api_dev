@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
-import br.com.crux.enums.TipoCarga;
+import br.com.crux.enums.TipoCargo;
 import br.com.crux.infra.constantes.Constantes;
 
 
@@ -37,7 +37,7 @@ public class Cargo implements Serializable {
 	@Column(name="st_tipo_cargo")
 	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", 
 	           parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.TipoCarga") }) 
-	private TipoCarga tipoCargo;	
+	private TipoCargo tipoCargo;	
 
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
@@ -70,11 +70,11 @@ public class Cargo implements Serializable {
 		this.nome = nmCargo;
 	}
 
-	public TipoCarga getTipoCargo() {
+	public TipoCargo getTipoCargo() {
 		return tipoCargo;
 	}
 
-	public void setTipoCargo(TipoCarga tipoCargo) {
+	public void setTipoCargo(TipoCargo tipoCargo) {
 		this.tipoCargo = tipoCargo;
 	}
 
