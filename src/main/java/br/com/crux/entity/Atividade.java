@@ -1,501 +1,401 @@
 package br.com.crux.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import br.com.crux.infra.constantes.Constantes;
 
 
-/**
- * The persistent class for the atividades database table.
- * 
- */
 @Entity
 @Table(name="atividades")
-@NamedQuery(name="Atividade.findAll", query="SELECT a FROM Atividade a")
 public class Atividade implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_atividade")
+	@SequenceGenerator(name = "sq_id_atividade", sequenceName = "sq_id_atividade", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_atividade")
-	private Long idAtividade;
+	private Long id;
 
 	@Column(name="ds_atividade")
-	private String dsAtividade;
+	private String descricao;
 
 	@Column(name="ds_local_execucao")
-	private String dsLocalExecucao;
+	private String descricaoLocalExecucao;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_fim_atividade")
-	private Date dtFimAtividade;
+	private LocalDateTime dataFim;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_inicio_atividade")
-	private Date dtInicioAtividade;
+	private LocalDateTime dataInicio;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_prev_inicio")
-	private Date dtPrevInicio;
+	private LocalDateTime dataPrevisaoInicio;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_prev_termino")
-	private Date dtPrevTermino;
+	private LocalDateTime dataPrevisaoTermino;
 
 	@Column(name="hr_fim")
-	private BigDecimal hrFim;
+	private Long horaFim;
 
 	@Column(name="hr_inicio")
-	private BigDecimal hrInicio;
+	private Long horaInicio;
 
 	@Column(name="nr_aulas")
-	private BigDecimal nrAulas;
+	private Long numeroAulas;
 
 	@Column(name="nr_carga_horaria")
-	private BigDecimal nrCargaHoraria;
+	private Long cargaHoraria;
 
 	@Column(name="nr_maximo_participantes")
-	private BigDecimal nrMaximoParticipantes;
+	private Long maximoParticipantes;
 
 	@Column(name="periodo_atividade")
-	private BigDecimal periodoAtividade;
+	private Long periodoAtividade;
 
 	@Column(name="st_domingo")
-	private String stDomingo;
+	private String domingo;
 
 	@Column(name="st_horario_fixo")
-	private String stHorarioFixo;
+	private String horarioFixo;
 
 	@Column(name="st_local_execucao")
-	private String stLocalExecucao;
+	private String localExecucao;
 
 	@Column(name="st_quarta")
-	private String stQuarta;
+	private String quarta;
 
 	@Column(name="st_quinta")
-	private String stQuinta;
+	private String quinta;
 
 	@Column(name="st_sabado")
-	private String stSabado;
+	private String sabado;
 
 	@Column(name="st_segunda")
-	private String stSegunda;
+	private String segunda;
 
 	@Column(name="st_sexta")
-	private String stSexta;
+	private String sexta;
 
 	@Column(name="st_terca")
-	private String stTerca;
+	private String terca;
 
 	@Column(name="tx_observacoes")
-	private String txObservacoes;
+	private String observacoes;
 
 	@Column(name="vl_custo_atividade")
-	private BigDecimal vlCustoAtividade;
+	private Long valorCustoAtividade;
 
-	//bi-directional many-to-one association to Acoe
-	@OneToMany(mappedBy="atividade")
-	private List<Acoe> acoes;
-
-	//bi-directional many-to-one association to PlanosAcao
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="planos_acao_id_plano_acao")
 	private PlanosAcao planosAcao;
 
-	//bi-directional many-to-one association to Projeto
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="projetos_id_projeto")
 	private Projeto projeto;
 
-	//bi-directional many-to-one association to Unidade
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="unidades_id_unidade")
 	private Unidade unidade;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
+	@Column(name="id_usuario_apl")
+	private Long usuarioAlteracao;
 
-	//bi-directional many-to-one association to AtividadesAluno
-	@OneToMany(mappedBy="atividade")
-	private List<AtividadesAluno> atividadesAlunos;
-
-	//bi-directional many-to-one association to CadastroReservaAtividade
-	@OneToMany(mappedBy="atividade")
-	private List<CadastroReservaAtividade> cadastroReservaAtividades;
-
-	//bi-directional many-to-one association to ColaboradoresAtividade
-	@OneToMany(mappedBy="atividade")
-	private List<ColaboradoresAtividade> colaboradoresAtividades;
-
-	//bi-directional many-to-one association to DocumentosAtividade
-	@OneToMany(mappedBy="atividade")
-	private List<DocumentosAtividade> documentosAtividades;
-
-	//bi-directional many-to-one association to ProdutosAtividade
-	@OneToMany(mappedBy="atividade")
-	private List<ProdutosAtividade> produtosAtividades;
 
 	public Atividade() {
 	}
 
-	public Long getIdAtividade() {
-		return this.idAtividade;
+
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdAtividade(Long idAtividade) {
-		this.idAtividade = idAtividade;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getDsAtividade() {
-		return this.dsAtividade;
+
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDsAtividade(String dsAtividade) {
-		this.dsAtividade = dsAtividade;
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public String getDsLocalExecucao() {
-		return this.dsLocalExecucao;
+
+	public String getDescricaoLocalExecucao() {
+		return descricaoLocalExecucao;
 	}
 
-	public void setDsLocalExecucao(String dsLocalExecucao) {
-		this.dsLocalExecucao = dsLocalExecucao;
+
+	public void setDescricaoLocalExecucao(String descricaoLocalExecucao) {
+		this.descricaoLocalExecucao = descricaoLocalExecucao;
 	}
 
-	public Date getDtFimAtividade() {
-		return this.dtFimAtividade;
+
+	public LocalDateTime getDataFim() {
+		return dataFim;
 	}
 
-	public void setDtFimAtividade(Date dtFimAtividade) {
-		this.dtFimAtividade = dtFimAtividade;
+
+	public void setDataFim(LocalDateTime dataFim) {
+		this.dataFim = dataFim;
 	}
 
-	public Date getDtInicioAtividade() {
-		return this.dtInicioAtividade;
+
+	public LocalDateTime getDataInicio() {
+		return dataInicio;
 	}
 
-	public void setDtInicioAtividade(Date dtInicioAtividade) {
-		this.dtInicioAtividade = dtInicioAtividade;
+
+	public void setDataInicio(LocalDateTime dataInicio) {
+		this.dataInicio = dataInicio;
 	}
 
-	public Date getDtPrevInicio() {
-		return this.dtPrevInicio;
+
+	public LocalDateTime getDataPrevisaoInicio() {
+		return dataPrevisaoInicio;
 	}
 
-	public void setDtPrevInicio(Date dtPrevInicio) {
-		this.dtPrevInicio = dtPrevInicio;
+
+	public void setDataPrevisaoInicio(LocalDateTime dataPrevisaoInicio) {
+		this.dataPrevisaoInicio = dataPrevisaoInicio;
 	}
 
-	public Date getDtPrevTermino() {
-		return this.dtPrevTermino;
+
+	public LocalDateTime getDataPrevisaoTermino() {
+		return dataPrevisaoTermino;
 	}
 
-	public void setDtPrevTermino(Date dtPrevTermino) {
-		this.dtPrevTermino = dtPrevTermino;
+
+	public void setDataPrevisaoTermino(LocalDateTime dataPrevisaoTermino) {
+		this.dataPrevisaoTermino = dataPrevisaoTermino;
 	}
 
-	public BigDecimal getHrFim() {
-		return this.hrFim;
+
+	public Long getHoraFim() {
+		return horaFim;
 	}
 
-	public void setHrFim(BigDecimal hrFim) {
-		this.hrFim = hrFim;
+
+	public void setHoraFim(Long horaFim) {
+		this.horaFim = horaFim;
 	}
 
-	public BigDecimal getHrInicio() {
-		return this.hrInicio;
+
+	public Long getHoraInicio() {
+		return horaInicio;
 	}
 
-	public void setHrInicio(BigDecimal hrInicio) {
-		this.hrInicio = hrInicio;
+
+	public void setHoraInicio(Long horaInicio) {
+		this.horaInicio = horaInicio;
 	}
 
-	public BigDecimal getNrAulas() {
-		return this.nrAulas;
+
+	public Long getNumeroAulas() {
+		return numeroAulas;
 	}
 
-	public void setNrAulas(BigDecimal nrAulas) {
-		this.nrAulas = nrAulas;
+
+	public void setNumeroAulas(Long numeroAulas) {
+		this.numeroAulas = numeroAulas;
 	}
 
-	public BigDecimal getNrCargaHoraria() {
-		return this.nrCargaHoraria;
+
+	public Long getCargaHoraria() {
+		return cargaHoraria;
 	}
 
-	public void setNrCargaHoraria(BigDecimal nrCargaHoraria) {
-		this.nrCargaHoraria = nrCargaHoraria;
+
+	public void setCargaHoraria(Long cargaHoraria) {
+		this.cargaHoraria = cargaHoraria;
 	}
 
-	public BigDecimal getNrMaximoParticipantes() {
-		return this.nrMaximoParticipantes;
+
+	public Long getMaximoParticipantes() {
+		return maximoParticipantes;
 	}
 
-	public void setNrMaximoParticipantes(BigDecimal nrMaximoParticipantes) {
-		this.nrMaximoParticipantes = nrMaximoParticipantes;
+
+	public void setMaximoParticipantes(Long maximoParticipantes) {
+		this.maximoParticipantes = maximoParticipantes;
 	}
 
-	public BigDecimal getPeriodoAtividade() {
-		return this.periodoAtividade;
+
+	public Long getPeriodoAtividade() {
+		return periodoAtividade;
 	}
 
-	public void setPeriodoAtividade(BigDecimal periodoAtividade) {
+
+	public void setPeriodoAtividade(Long periodoAtividade) {
 		this.periodoAtividade = periodoAtividade;
 	}
 
-	public String getStDomingo() {
-		return this.stDomingo;
+
+	public String getDomingo() {
+		return domingo;
 	}
 
-	public void setStDomingo(String stDomingo) {
-		this.stDomingo = stDomingo;
+
+	public void setDomingo(String domingo) {
+		this.domingo = domingo;
 	}
 
-	public String getStHorarioFixo() {
-		return this.stHorarioFixo;
+
+	public String getHorarioFixo() {
+		return horarioFixo;
 	}
 
-	public void setStHorarioFixo(String stHorarioFixo) {
-		this.stHorarioFixo = stHorarioFixo;
+
+	public void setHorarioFixo(String horarioFixo) {
+		this.horarioFixo = horarioFixo;
 	}
 
-	public String getStLocalExecucao() {
-		return this.stLocalExecucao;
+
+	public String getLocalExecucao() {
+		return localExecucao;
 	}
 
-	public void setStLocalExecucao(String stLocalExecucao) {
-		this.stLocalExecucao = stLocalExecucao;
+
+	public void setLocalExecucao(String localExecucao) {
+		this.localExecucao = localExecucao;
 	}
 
-	public String getStQuarta() {
-		return this.stQuarta;
+
+	public String getQuarta() {
+		return quarta;
 	}
 
-	public void setStQuarta(String stQuarta) {
-		this.stQuarta = stQuarta;
+
+	public void setQuarta(String quarta) {
+		this.quarta = quarta;
 	}
 
-	public String getStQuinta() {
-		return this.stQuinta;
+
+	public String getQuinta() {
+		return quinta;
 	}
 
-	public void setStQuinta(String stQuinta) {
-		this.stQuinta = stQuinta;
+
+	public void setQuinta(String quinta) {
+		this.quinta = quinta;
 	}
 
-	public String getStSabado() {
-		return this.stSabado;
+
+	public String getSabado() {
+		return sabado;
 	}
 
-	public void setStSabado(String stSabado) {
-		this.stSabado = stSabado;
+
+	public void setSabado(String sabado) {
+		this.sabado = sabado;
 	}
 
-	public String getStSegunda() {
-		return this.stSegunda;
+
+	public String getSegunda() {
+		return segunda;
 	}
 
-	public void setStSegunda(String stSegunda) {
-		this.stSegunda = stSegunda;
+
+	public void setSegunda(String segunda) {
+		this.segunda = segunda;
 	}
 
-	public String getStSexta() {
-		return this.stSexta;
+
+	public String getSexta() {
+		return sexta;
 	}
 
-	public void setStSexta(String stSexta) {
-		this.stSexta = stSexta;
+
+	public void setSexta(String sexta) {
+		this.sexta = sexta;
 	}
 
-	public String getStTerca() {
-		return this.stTerca;
+
+	public String getTerca() {
+		return terca;
 	}
 
-	public void setStTerca(String stTerca) {
-		this.stTerca = stTerca;
+
+	public void setTerca(String terca) {
+		this.terca = terca;
 	}
 
-	public String getTxObservacoes() {
-		return this.txObservacoes;
+
+	public String getObservacoes() {
+		return observacoes;
 	}
 
-	public void setTxObservacoes(String txObservacoes) {
-		this.txObservacoes = txObservacoes;
+
+	public void setObservacoes(String observacoes) {
+		this.observacoes = observacoes;
 	}
 
-	public BigDecimal getVlCustoAtividade() {
-		return this.vlCustoAtividade;
+
+	public Long getValorCustoAtividade() {
+		return valorCustoAtividade;
 	}
 
-	public void setVlCustoAtividade(BigDecimal vlCustoAtividade) {
-		this.vlCustoAtividade = vlCustoAtividade;
+
+	public void setValorCustoAtividade(Long valorCustoAtividade) {
+		this.valorCustoAtividade = valorCustoAtividade;
 	}
 
-	public List<Acoe> getAcoes() {
-		return this.acoes;
-	}
-
-	public void setAcoes(List<Acoe> acoes) {
-		this.acoes = acoes;
-	}
-
-	public Acoe addAcoe(Acoe acoe) {
-		getAcoes().add(acoe);
-		acoe.setAtividade(this);
-
-		return acoe;
-	}
-
-	public Acoe removeAcoe(Acoe acoe) {
-		getAcoes().remove(acoe);
-		acoe.setAtividade(null);
-
-		return acoe;
-	}
 
 	public PlanosAcao getPlanosAcao() {
-		return this.planosAcao;
+		return planosAcao;
 	}
+
 
 	public void setPlanosAcao(PlanosAcao planosAcao) {
 		this.planosAcao = planosAcao;
 	}
 
+
 	public Projeto getProjeto() {
-		return this.projeto;
+		return projeto;
 	}
+
 
 	public void setProjeto(Projeto projeto) {
 		this.projeto = projeto;
 	}
 
+
 	public Unidade getUnidade() {
-		return this.unidade;
+		return unidade;
 	}
+
 
 	public void setUnidade(Unidade unidade) {
 		this.unidade = unidade;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
+
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
-	public List<AtividadesAluno> getAtividadesAlunos() {
-		return this.atividadesAlunos;
-	}
 
-	public void setAtividadesAlunos(List<AtividadesAluno> atividadesAlunos) {
-		this.atividadesAlunos = atividadesAlunos;
-	}
-
-	public AtividadesAluno addAtividadesAluno(AtividadesAluno atividadesAluno) {
-		getAtividadesAlunos().add(atividadesAluno);
-		atividadesAluno.setAtividade(this);
-
-		return atividadesAluno;
-	}
-
-	public AtividadesAluno removeAtividadesAluno(AtividadesAluno atividadesAluno) {
-		getAtividadesAlunos().remove(atividadesAluno);
-		atividadesAluno.setAtividade(null);
-
-		return atividadesAluno;
-	}
-
-	public List<CadastroReservaAtividade> getCadastroReservaAtividades() {
-		return this.cadastroReservaAtividades;
-	}
-
-	public void setCadastroReservaAtividades(List<CadastroReservaAtividade> cadastroReservaAtividades) {
-		this.cadastroReservaAtividades = cadastroReservaAtividades;
-	}
-
-	public CadastroReservaAtividade addCadastroReservaAtividade(CadastroReservaAtividade cadastroReservaAtividade) {
-		getCadastroReservaAtividades().add(cadastroReservaAtividade);
-		cadastroReservaAtividade.setAtividade(this);
-
-		return cadastroReservaAtividade;
-	}
-
-	public CadastroReservaAtividade removeCadastroReservaAtividade(CadastroReservaAtividade cadastroReservaAtividade) {
-		getCadastroReservaAtividades().remove(cadastroReservaAtividade);
-		cadastroReservaAtividade.setAtividade(null);
-
-		return cadastroReservaAtividade;
-	}
-
-	public List<ColaboradoresAtividade> getColaboradoresAtividades() {
-		return this.colaboradoresAtividades;
-	}
-
-	public void setColaboradoresAtividades(List<ColaboradoresAtividade> colaboradoresAtividades) {
-		this.colaboradoresAtividades = colaboradoresAtividades;
-	}
-
-	public ColaboradoresAtividade addColaboradoresAtividade(ColaboradoresAtividade colaboradoresAtividade) {
-		getColaboradoresAtividades().add(colaboradoresAtividade);
-		colaboradoresAtividade.setAtividade(this);
-
-		return colaboradoresAtividade;
-	}
-
-	public ColaboradoresAtividade removeColaboradoresAtividade(ColaboradoresAtividade colaboradoresAtividade) {
-		getColaboradoresAtividades().remove(colaboradoresAtividade);
-		colaboradoresAtividade.setAtividade(null);
-
-		return colaboradoresAtividade;
-	}
-
-	public List<DocumentosAtividade> getDocumentosAtividades() {
-		return this.documentosAtividades;
-	}
-
-	public void setDocumentosAtividades(List<DocumentosAtividade> documentosAtividades) {
-		this.documentosAtividades = documentosAtividades;
-	}
-
-	public DocumentosAtividade addDocumentosAtividade(DocumentosAtividade documentosAtividade) {
-		getDocumentosAtividades().add(documentosAtividade);
-		documentosAtividade.setAtividade(this);
-
-		return documentosAtividade;
-	}
-
-	public DocumentosAtividade removeDocumentosAtividade(DocumentosAtividade documentosAtividade) {
-		getDocumentosAtividades().remove(documentosAtividade);
-		documentosAtividade.setAtividade(null);
-
-		return documentosAtividade;
-	}
-
-	public List<ProdutosAtividade> getProdutosAtividades() {
-		return this.produtosAtividades;
-	}
-
-	public void setProdutosAtividades(List<ProdutosAtividade> produtosAtividades) {
-		this.produtosAtividades = produtosAtividades;
-	}
-
-	public ProdutosAtividade addProdutosAtividade(ProdutosAtividade produtosAtividade) {
-		getProdutosAtividades().add(produtosAtividade);
-		produtosAtividade.setAtividade(this);
-
-		return produtosAtividade;
-	}
-
-	public ProdutosAtividade removeProdutosAtividade(ProdutosAtividade produtosAtividade) {
-		getProdutosAtividades().remove(produtosAtividade);
-		produtosAtividade.setAtividade(null);
-
-		return produtosAtividade;
-	}
 
 }
