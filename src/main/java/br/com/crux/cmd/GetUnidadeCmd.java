@@ -27,6 +27,7 @@ public class GetUnidadeCmd {
 	@Autowired private AcessoUnidadeTOBuilder acessoUnidadeTOBuilder;
 	@Autowired private UnidadeRepository unidadeRepository;
 	@Autowired private UnidadeBuilder unidadeBuilder;
+	@Autowired private CarregarUnidadeLogadaCmd carregarUnidadeLogadaCmd;
 	
 	public List<AcessoUnidadeTO> getUnidadesComAcesso() throws UsernameNotFoundException {
 		UsuariosSistema user = getUsuarioLogadoCmd.getUsuarioLogado();
@@ -43,6 +44,9 @@ public class GetUnidadeCmd {
 		if(!unidadeOptional.isPresent()) {
 			return Optional.empty();
 		}
+		
+		//Carrega a unidade logada no Contexto do usuário
+		carregarUnidadeLogadaCmd.carregarUnidadeLogada(unidadeOptional.get().getIdUnidade());		
 		
 		return Optional.ofNullable(unidadeBuilder.buildTO(unidadeOptional.get()));
 	}

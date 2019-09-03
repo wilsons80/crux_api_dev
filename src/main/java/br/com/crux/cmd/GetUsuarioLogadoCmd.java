@@ -35,4 +35,5 @@ public class GetUsuarioLogadoCmd {
 
 		return usuarioLogado.get();
 	}
+	
 }

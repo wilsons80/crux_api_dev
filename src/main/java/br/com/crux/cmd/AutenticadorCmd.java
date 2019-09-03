@@ -19,6 +19,7 @@ import br.com.crux.entity.Unidade;
 import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.to.TrocaSenhaTO;
+import br.com.crux.to.UnidadeLogadaTO;
 import br.com.crux.to.AcessoUnidadeTO;
 import br.com.crux.to.UsuarioLogadoTO;
 import br.com.crux.to.LoginTO;
@@ -32,6 +33,7 @@ public class AutenticadorCmd {
 	@Autowired private AcessoUnidadeTOBuilder unidadeTOBuilder;
 	@Autowired private TrocarSenhaCmd trocarSenhaCmd;
 	@Autowired private GetUsuarioSistemaCmd usuarioSistemaCmd;
+	@Autowired private CarregarUnidadeLogadaCmd carregarUnidadeLogadaCmd;
 	
 	
 	public UsuarioLogadoTO autenticar(LoginTO user) {
@@ -42,6 +44,11 @@ public class AutenticadorCmd {
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		User userSpring = (User) auth.getPrincipal();
 		UsuarioLogadoTO usuarioLogadoTO = getUsuarioLogado(userSpring);
+		
+		if(usuarioLogadoTO.getUnidades().size() == 1) {
+			Long idUnidade = usuarioLogadoTO.getUnidades().get(0).getId();
+			carregarUnidadeLogadaCmd.carregarUnidadeLogada(idUnidade);
+		}
 
 		return usuarioLogadoTO;
 	}
@@ -59,6 +66,10 @@ public class AutenticadorCmd {
 		
 		User userSpring = new User(username, usuarioByUsername.getDsSenha(), authentication.getAuthorities());
 		UsuarioLogadoTO usuarioLogadoTO = getUsuarioLogado(userSpring);
+		
+		if(Objects.nonNull(authentication.getDetails())) {
+			usuarioLogadoTO.setUnidadeLogada(((UnidadeLogadaTO)authentication.getDetails()));
+		}
 
 		return usuarioLogadoTO;
 	}

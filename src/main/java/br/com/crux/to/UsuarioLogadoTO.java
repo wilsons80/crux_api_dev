@@ -6,6 +6,7 @@ public class UsuarioLogadoTO {
 	
 	private String token;
 	private String username;
+	private UnidadeLogadaTO unidadeLogada;
 
 	private List<AcessoUnidadeTO> unidades;
 	
@@ -31,6 +32,14 @@ public class UsuarioLogadoTO {
 
 	public void setUnidades(List<AcessoUnidadeTO> unidades) {
 		this.unidades = unidades;
+	}
+
+	public UnidadeLogadaTO getUnidadeLogada() {
+		return unidadeLogada;
+	}
+
+	public void setUnidadeLogada(UnidadeLogadaTO unidadeLogada) {
+		this.unidadeLogada = unidadeLogada;
 	}
 
 	
