@@ -19,10 +19,10 @@ public class GetUnidadeLogadaCmd {
 			throw new NotFoundException("Problema ao recuperar o usuário logado.");
 		}
 		
-		if(Objects.nonNull(auth.getDetails())) {
-			return (UnidadeLogadaTO) auth.getDetails();
+		if(Objects.isNull(auth.getDetails())) {
+			throw new NotFoundException("Não é possível recuperar a unidade logada.");
 		}
-
-		return null;
+		
+		return (UnidadeLogadaTO) auth.getDetails();
 	}
 }

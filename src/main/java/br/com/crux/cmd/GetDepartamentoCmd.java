@@ -18,16 +18,14 @@ import br.com.crux.to.DepartamentoTO;
 @Component
 public class GetDepartamentoCmd {
 
-	@Autowired
-	private DepartamentoRepository departamentoRepository;
-	@Autowired
-	private DepartamentoTOBuilder departamentoTOBuilder;
-	@Autowired
-	private UnidadeRepository unidadeRepository;
+	@Autowired private DepartamentoRepository departamentoRepository;
+	@Autowired private DepartamentoTOBuilder departamentoTOBuilder;
+	@Autowired private UnidadeRepository unidadeRepository;
+	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	
 	
-	public List<DepartamentoTO> getAll(Long idUnidade) {
-		Optional<Unidade> unidade = unidadeRepository.findById(idUnidade);
+	public List<DepartamentoTO> getAll() {
+		Optional<Unidade> unidade = unidadeRepository.findById(getUnidadeLogadaCmd.get().getIdUnidade());
 		if(!unidade.isPresent()) {
 			throw new ParametroNaoInformadoException("Unidade não informada.");
 		}

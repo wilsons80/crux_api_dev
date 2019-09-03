@@ -33,9 +33,9 @@ public class MetasService {
 	private CadastrarMetasCmd cadastrarMetasCmd;
 	
 	
-	@GetMapping(path = "/unidade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<MetasTO> getAll(@PathVariable(name = "id") Long idUnidade) {
-		return getMetasCmd.getAll(idUnidade);
+	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<MetasTO> getAll() {
+		return getMetasCmd.getAll();
 	}
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

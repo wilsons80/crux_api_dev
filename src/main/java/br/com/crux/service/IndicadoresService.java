@@ -33,9 +33,9 @@ public class IndicadoresService {
 	private CadastrarIndicadoresCmd cadastrarIndicadoresCmd;
 	
 	
-	@GetMapping(path = "/unidade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<IndicadoresTO> getAll(@PathVariable(name = "id") Long idUnidade) {
-		return getIndicadoresCmd.getAll(idUnidade);
+	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<IndicadoresTO> getAll() {
+		return getIndicadoresCmd.getAll();
 	}
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -20,11 +20,9 @@ import br.com.crux.infra.util.MD5Util;
 @Component
 public class UploadArquivoCmd {
 
-	@Autowired
-	private ArquivoRepository arquivoRepository;
-	@Autowired
-	private UnidadeRepository unidadeRepository;
-	
+	@Autowired private ArquivoRepository arquivoRepository;
+	@Autowired private UnidadeRepository unidadeRepository;
+	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	
 	@Autowired
 	private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
@@ -32,16 +30,16 @@ public class UploadArquivoCmd {
 	@Autowired
 	private GetUnidadePorIdCmd getUnidadePorIdCmd;
 	
-	public void salvar(Long idUnidade, MultipartFile file) {
-		gravar(idUnidade, file);
+	public void salvar(MultipartFile file) {
+		gravar(file);
 	}
 	
 	
-	private void gravar(Long idUnidade, MultipartFile file) {
+	private void gravar(MultipartFile file) {
 		try {
 			String hashArquivo = MD5Util.getHashArquivo(file.getBytes());
 			
-			Unidade unidade = getUnidadePorIdCmd.getUnidade(idUnidade);
+			Unidade unidade = getUnidadePorIdCmd.getUnidade(getUnidadeLogadaCmd.get().getIdUnidade());
 			
 			//novo arquivo
 			if(Objects.isNull(unidade.getArquivo())) {

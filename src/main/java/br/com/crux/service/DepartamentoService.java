@@ -33,9 +33,9 @@ public class DepartamentoService {
 	private CadastrarDepartamentoCmd cadastrarDepartamentoCmd;
 	
 	
-	@GetMapping(path = "/unidade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<DepartamentoTO> getAll(@PathVariable(name = "id") Long idUnidade) {
-		return getDepartamentoCmd.getAll(idUnidade);
+	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<DepartamentoTO> getAll() {
+		return getDepartamentoCmd.getAll();
 	}
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

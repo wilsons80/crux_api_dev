@@ -33,9 +33,9 @@ public class ColaboradoresProjetoService {
 	private CadastrarColaboradoresProjetoCmd cadastrarCmd;
 	
 	
-	@GetMapping(path = "/unidade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<ColaboradoresProjetoTO> getAll(@PathVariable(name = "id") Long idUnidade) {
-		return getCmd.getAll(idUnidade);
+	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<ColaboradoresProjetoTO> getAll() {
+		return getCmd.getAll();
 	}
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

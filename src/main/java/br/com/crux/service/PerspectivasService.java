@@ -33,9 +33,9 @@ public class PerspectivasService {
 	private CadastrarPerspectivaCmd cadastrarPerspectivaCmd;
 	
 	
-	@GetMapping(path = "/unidade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<PerspectivaTO> getAll(@PathVariable(name = "id") Long idUnidade) {
-		return getPerspectivasCmd.getAll(idUnidade);
+	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<PerspectivaTO> getAll() {
+		return getPerspectivasCmd.getAll();
 	}
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

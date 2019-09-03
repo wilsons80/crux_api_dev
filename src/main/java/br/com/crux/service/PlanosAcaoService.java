@@ -33,9 +33,9 @@ public class PlanosAcaoService {
 	private CadastrarPlanosAcaoCmd cadastrarPlanosAcaoCmd;
 	
 	
-	@GetMapping(path = "/unidade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<PlanosAcaoTO> getAll(@PathVariable(name = "id") Long idUnidade) {
-		return getPlanosAcaoCmd.getAll(idUnidade);
+	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<PlanosAcaoTO> getAll() {
+		return getPlanosAcaoCmd.getAll();
 	}
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

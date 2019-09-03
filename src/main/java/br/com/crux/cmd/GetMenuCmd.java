@@ -21,9 +21,12 @@ public class GetMenuCmd {
 	@Autowired private VerificaParametrosAcessoRule verificaParametrosAcessoRule;
 	@Autowired private VerificaPermissaoMenuRule verificaPermissaoMenuRule;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
+	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	
 	
-	public List<MenuTO> getMenuPrincipal(Long idUnidade) {
+	public List<MenuTO> getMenuPrincipal() {
+		Long idUnidade = getUnidadeLogadaCmd.get().getIdUnidade();
+		
 		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		String username = usuarioLogado.getUsername();
 		

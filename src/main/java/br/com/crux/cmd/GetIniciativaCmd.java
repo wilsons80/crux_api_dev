@@ -18,15 +18,13 @@ import br.com.crux.to.IniciativaTO;
 @Component
 public class GetIniciativaCmd {
 
-	@Autowired
-	private IniciativaRepository iniciativaRepository;
-	@Autowired
-	private IniciativaTOBuilder iniciativaTOBuilder;
-	@Autowired
-	private UnidadeRepository unidadeRepository;
+	@Autowired private IniciativaRepository iniciativaRepository;
+	@Autowired private IniciativaTOBuilder iniciativaTOBuilder;
+	@Autowired private UnidadeRepository unidadeRepository;
+	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	
-	public List<IniciativaTO> getAll(Long idUnidade) {
-		Optional<Unidade> unidade = unidadeRepository.findById(idUnidade);
+	public List<IniciativaTO> getAll() {
+		Optional<Unidade> unidade = unidadeRepository.findById(getUnidadeLogadaCmd.get().getIdUnidade());
 		if(!unidade.isPresent()) {
 			throw new ParametroNaoInformadoException("Unidade não informada.");
 		}

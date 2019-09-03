@@ -18,15 +18,13 @@ import br.com.crux.to.ObjetivoTO;
 @Component
 public class GetObjetivoCmd {
 
-	@Autowired
-	private ObjetivoRepository objetivoRepository;
-	@Autowired
-	private ObjetivoTOBuilder objetivoTOBuilder;
-	@Autowired
-	private UnidadeRepository unidadeRepository;
+	@Autowired private ObjetivoRepository objetivoRepository;
+	@Autowired private ObjetivoTOBuilder objetivoTOBuilder;
+	@Autowired private UnidadeRepository unidadeRepository;
+	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	
-	public List<ObjetivoTO> getAll(Long idUnidade) {
-		Optional<Unidade> unidade = unidadeRepository.findById(idUnidade);
+	public List<ObjetivoTO> getAll() {
+		Optional<Unidade> unidade = unidadeRepository.findById(getUnidadeLogadaCmd.get().getIdUnidade());
 		if(!unidade.isPresent()) {
 			throw new ParametroNaoInformadoException("Unidade não informada.");
 		}

@@ -18,15 +18,13 @@ import br.com.crux.to.MetasTO;
 @Component
 public class GetMetasCmd {
 
-	@Autowired
-	private MetasRepository metasRepository;
-	@Autowired
-	private MetasTOBuilder metasTOBuilder;
-	@Autowired
-	private UnidadeRepository unidadeRepository;
+	@Autowired private MetasRepository metasRepository;
+	@Autowired private MetasTOBuilder metasTOBuilder;
+	@Autowired private UnidadeRepository unidadeRepository;
+	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	
-	public List<MetasTO> getAll(Long idUnidade) {
-		Optional<Unidade> unidade = unidadeRepository.findById(idUnidade);
+	public List<MetasTO> getAll() {
+		Optional<Unidade> unidade = unidadeRepository.findById(getUnidadeLogadaCmd.get().getIdUnidade());
 		if(!unidade.isPresent()) {
 			throw new ParametroNaoInformadoException("Unidade não informada.");
 		}

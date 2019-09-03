@@ -22,10 +22,11 @@ public class GetColaboradoresProjetoCmd {
 	@Autowired private ColaboradoresProjetoTOBuilder toBuilder;
 	
 	@Autowired private UnidadeRepository unidadeRepository;
+	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	
 	
-	public List<ColaboradoresProjetoTO> getAll(Long idUnidade) {
-		Optional<Unidade> unidade = unidadeRepository.findById(idUnidade);
+	public List<ColaboradoresProjetoTO> getAll() {
+		Optional<Unidade> unidade = unidadeRepository.findById(getUnidadeLogadaCmd.get().getIdUnidade());
 		if(!unidade.isPresent()) {
 			throw new ParametroNaoInformadoException("Unidade não informada.");
 		}

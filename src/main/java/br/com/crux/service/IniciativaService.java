@@ -33,9 +33,9 @@ public class IniciativaService {
 	private CadastrarIniciativaCmd cadastrarIniciativaCmd;
 	
 	
-	@GetMapping(path = "/unidade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<IniciativaTO> getAll(@PathVariable(name = "id") Long idUnidade) {
-		return getIniciativaCmd.getAll(idUnidade);
+	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<IniciativaTO> getAll() {
+		return getIniciativaCmd.getAll();
 	}
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

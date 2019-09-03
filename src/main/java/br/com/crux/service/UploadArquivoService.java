@@ -18,17 +18,15 @@ public class UploadArquivoService {
 	@Autowired
 	private UploadArquivoCmd uploadArquivoCmd;
 	
-	@PostMapping(path = "/{unidade}")
-	public void gravar(@PathVariable(name = "unidade") Long idUnidade,
-			           @RequestParam(name = "file") MultipartFile file ) {
-		uploadArquivoCmd.salvar(idUnidade, file);
+	@PostMapping(path = "")
+	public void gravar(@RequestParam(name = "file") MultipartFile file ) {
+		uploadArquivoCmd.salvar(file);
 	}
 	
-	@PutMapping(path = "/{unidade}")
-	public void alterar( @RequestParam(name = "file") MultipartFile file,
-			             @RequestParam(name = "unidade") Long idUnidade
+	@PutMapping(path = "")
+	public void alterar( @RequestParam(name = "file") MultipartFile file
 			            ) {
-		uploadArquivoCmd.salvar(idUnidade, file);
+		uploadArquivoCmd.salvar(file);
 	}
 	
 	

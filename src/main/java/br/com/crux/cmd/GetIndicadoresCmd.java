@@ -18,15 +18,13 @@ import br.com.crux.to.IndicadoresTO;
 @Component
 public class GetIndicadoresCmd {
 
-	@Autowired
-	private IndicadoresRepository indicadoresRepository;
-	@Autowired
-	private IndicadoresTOBuilder indicadoresTOBuilder;
-	@Autowired
-	private UnidadeRepository unidadeRepository;
+	@Autowired private IndicadoresRepository indicadoresRepository;
+	@Autowired private IndicadoresTOBuilder indicadoresTOBuilder;
+	@Autowired private UnidadeRepository unidadeRepository;
+	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	
-	public List<IndicadoresTO> getAll(Long idUnidade) {
-		Optional<Unidade> unidade = unidadeRepository.findById(idUnidade);
+	public List<IndicadoresTO> getAll() {
+		Optional<Unidade> unidade = unidadeRepository.findById(getUnidadeLogadaCmd.get().getIdUnidade());
 		if(!unidade.isPresent()) {
 			throw new ParametroNaoInformadoException("Unidade não informada.");
 		}

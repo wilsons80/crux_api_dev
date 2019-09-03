@@ -18,15 +18,13 @@ import br.com.crux.to.PerspectivaTO;
 @Component
 public class GetPerspectivasCmd {
 
-	@Autowired
-	private PerspectivaRepository perspectivaRepository;
-	@Autowired
-	private PerspectivaTOBuilder perspectivaTOBuilder;
-	@Autowired
-	private UnidadeRepository unidadeRepository;
+	@Autowired private PerspectivaRepository perspectivaRepository;
+	@Autowired private PerspectivaTOBuilder perspectivaTOBuilder;
+	@Autowired private UnidadeRepository unidadeRepository;
+	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	
-	public List<PerspectivaTO> getAll(Long idUnidade) {
-		Optional<Unidade> unidade = unidadeRepository.findById(idUnidade);
+	public List<PerspectivaTO> getAll() {
+		Optional<Unidade> unidade = unidadeRepository.findById(getUnidadeLogadaCmd.get().getIdUnidade());
 		if(!unidade.isPresent()) {
 			throw new ParametroNaoInformadoException("Unidade não informada.");
 		}

@@ -33,9 +33,9 @@ public class ObjetivoService {
 	private CadastrarObjetivoCmd cadastrarObjetivoCmd;
 	
 	
-	@GetMapping(path = "/unidade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<ObjetivoTO> getAll(@PathVariable(name = "id") Long idUnidade) {
-		return getObjetivoCmd.getAll(idUnidade);
+	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<ObjetivoTO> getAll() {
+		return getObjetivoCmd.getAll();
 	}
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
