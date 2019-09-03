@@ -39,8 +39,8 @@ public class DepartamentoService {
 	}
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public DepartamentoTO getDepartamentoById(@PathVariable(name = "id") Long idDepartamento) {
-		return getDepartamentoCmd.getDepartamentoById(idDepartamento);
+	public DepartamentoTO getById(@PathVariable(name = "id") Long idDepartamento) {
+		return getDepartamentoCmd.getById(idDepartamento);
 	}
 	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)

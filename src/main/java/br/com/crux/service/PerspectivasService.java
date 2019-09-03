@@ -39,7 +39,7 @@ public class PerspectivasService {
 	}
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public PerspectivaTO getDepartamentoById(@PathVariable(name = "id") Long idDepartamento) {
+	public PerspectivaTO getById(@PathVariable(name = "id") Long idDepartamento) {
 		return getPerspectivasCmd.getById(idDepartamento);
 	}
 	

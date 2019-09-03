@@ -34,7 +34,7 @@ public class GetDepartamentoCmd {
 		return departamentoTOBuilder.buildAll(departamentoRepository.findByUnidade(unidade.get()));
 	}
 	
-	public DepartamentoTO getDepartamentoById(Long idDepartamento) {
+	public DepartamentoTO getById(Long idDepartamento) {
 		Optional<Departamentos> departamentoOptional = departamentoRepository.findById(idDepartamento);
 		if(!departamentoOptional.isPresent()) {
 			throw new NotFoundException("Departamento não encontrado");

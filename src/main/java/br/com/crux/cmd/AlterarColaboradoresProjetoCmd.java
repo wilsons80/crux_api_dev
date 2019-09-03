@@ -8,36 +8,36 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.builder.CargosTOBuilder;
 import br.com.crux.builder.FuncionarioTOBuilder;
-import br.com.crux.builder.ProgramaTOBuilder;
-import br.com.crux.dao.repository.ColaboradoresProgramaRepository;
-import br.com.crux.entity.ColaboradoresPrograma;
+import br.com.crux.builder.ProjetoTOBuilder;
+import br.com.crux.dao.repository.ColaboradoresProjetoRepository;
+import br.com.crux.entity.ColaboradoresProjeto;
 import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.exception.ParametroNaoInformadoException;
-import br.com.crux.rule.CamposObrigatoriosColaboradoresProgramaRule;
-import br.com.crux.to.ColaboradoresProgramaTO;
+import br.com.crux.rule.CamposObrigatoriosColaboradoresProjetoRule;
+import br.com.crux.to.ColaboradoresProjetoTO;
 
 @Component
 public class AlterarColaboradoresProjetoCmd {
 
-	@Autowired private ColaboradoresProgramaRepository repository;
-	@Autowired private CamposObrigatoriosColaboradoresProgramaRule camposObrigatoriosRule;
+	@Autowired private ColaboradoresProjetoRepository repository;
+	@Autowired private CamposObrigatoriosColaboradoresProjetoRule camposObrigatoriosRule;
 	
-	@Autowired private ProgramaTOBuilder programaTOBuilder; 
+	@Autowired private ProjetoTOBuilder projetoTOBuilder; 
 	@Autowired private FuncionarioTOBuilder funcionarioTOBuilder;
 	@Autowired private CargosTOBuilder cargoTOBuilder;
 	
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	
 	
-	public void alterar(ColaboradoresProgramaTO to) {
-		Optional<ColaboradoresPrograma> entityOptional = repository.findById(to.getId());
+	public void alterar(ColaboradoresProjetoTO to) {
+		Optional<ColaboradoresProjeto> entityOptional = repository.findById(to.getId());
 		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Colaborador do Programa informado não existe.");
+			throw new NotFoundException("Colaborador do Projeto informado não existe.");
 		}
 		
-		if(Objects.isNull(to.getPrograma())) {
-			throw new ParametroNaoInformadoException("Programa não foi informado.");
+		if(Objects.isNull(to.getProjeto())) {
+			throw new ParametroNaoInformadoException("Projeto não foi informado.");
 		}
 		if(Objects.isNull(to.getCargo())) {
 			throw new ParametroNaoInformadoException("Cargo não foi informado.");
@@ -46,15 +46,15 @@ public class AlterarColaboradoresProjetoCmd {
 			throw new ParametroNaoInformadoException("Funcionário não foi informado.");
 		}
 		
-		camposObrigatoriosRule.verificar(to.getDataInicio(), to.getFuncionario().getId(), to.getPrograma().getId(), to.getCargo().getId());
+		camposObrigatoriosRule.verificar(to.getDataInicio(), to.getFuncionario().getId(), to.getProjeto().getId(), to.getCargo().getId());
 
 		
-		ColaboradoresPrograma entityUpdate = entityOptional.get();
+		ColaboradoresProjeto entityUpdate = entityOptional.get();
 
 		entityUpdate.setDataInicio(to.getDataInicio());
 		entityUpdate.setDataFim(to.getDataFim());
 		
-		entityUpdate.setPrograma(programaTOBuilder.build(to.getPrograma()));
+		entityUpdate.setProjeto(projetoTOBuilder.build(to.getProjeto()));
 		entityUpdate.setCargo(cargoTOBuilder.build(to.getCargo()));
 		entityUpdate.setFuncionario(funcionarioTOBuilder.build(to.getFuncionario()));
 		
@@ -64,4 +64,5 @@ public class AlterarColaboradoresProjetoCmd {
 		repository.save(entityUpdate);
 		
 	}
+
 }
