@@ -13,8 +13,8 @@ public class GetAcessoUsuarioCmd {
 	@Autowired
 	private GetMenuCmd getMenuCmd;
 
-	public List<MenuTO> getMenuPrincipal(Long idUnidade) {
-		return getMenuCmd.getMenuPrincipal(idUnidade);
+	public List<MenuTO> getMenuPrincipal() {
+		return getMenuCmd.getMenuPrincipal();
 	}
 
 }
