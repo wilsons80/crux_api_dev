@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.crux.cmd.AlterarColaboradoresProgramaCmd;
+import br.com.crux.cmd.AlterarColaboradoresProjetoCmd;
 import br.com.crux.cmd.CadastrarColaboradoresProjetoCmd;
 import br.com.crux.cmd.ExcluirColaboradoresProjetoCmd;
 import br.com.crux.cmd.GetColaboradoresProjetoCmd;
@@ -28,7 +28,7 @@ public class ColaboradoresProjetoService {
 	@Autowired
 	private ExcluirColaboradoresProjetoCmd  excluirCmd;
 	@Autowired
-	private AlterarColaboradoresProgramaCmd alterarCmd;
+	private AlterarColaboradoresProjetoCmd alterarCmd;
 	@Autowired
 	private CadastrarColaboradoresProjetoCmd cadastrarCmd;
 	
