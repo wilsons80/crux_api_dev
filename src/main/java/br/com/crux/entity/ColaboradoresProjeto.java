@@ -1,8 +1,20 @@
 package br.com.crux.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import br.com.crux.infra.constantes.Constantes;
 
 
 /**
@@ -11,68 +23,61 @@ import java.util.Date;
  */
 @Entity
 @Table(name="colaboradores_projetos")
-@NamedQuery(name="ColaboradoresProjeto.findAll", query="SELECT c FROM ColaboradoresProjeto c")
 public class ColaboradoresProjeto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_colaborador_projeto")
+	@SequenceGenerator(name = "sq_id_colaborador_projeto", sequenceName = "sq_id_colaborador_projeto", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_colaborador_projeto")
-	private Long idColaboradorProjeto;
+	private Long id;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_entrada_projeto")
-	private Date dtEntradaProjeto;
+	private LocalDateTime dataInicio;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_saida_projeto")
-	private Date dtSaidaProjeto;
+	private LocalDateTime dataFim;
 
-	//bi-directional many-to-one association to Cargo
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_cargo")
 	private Cargo cargo;
 
-	//bi-directional many-to-one association to Funcionario
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_funcionario")
 	private Funcionario funcionario;
 
-	//bi-directional many-to-one association to Projeto
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_projeto")
 	private Projeto projeto;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
+	@Column(name="id_usuario_apl")
+	private Long usuarioAlteracao;
 
 	public ColaboradoresProjeto() {
 	}
 
-	public Long getIdColaboradorProjeto() {
-		return this.idColaboradorProjeto;
+	public Long getId() {
+		return this.id;
 	}
 
-	public void setIdColaboradorProjeto(Long idColaboradorProjeto) {
-		this.idColaboradorProjeto = idColaboradorProjeto;
+	public void setId(Long idColaboradorProjeto) {
+		this.id = idColaboradorProjeto;
 	}
 
-	public Date getDtEntradaProjeto() {
-		return this.dtEntradaProjeto;
+	public LocalDateTime getDataInicio() {
+		return this.dataInicio;
 	}
 
-	public void setDtEntradaProjeto(Date dtEntradaProjeto) {
-		this.dtEntradaProjeto = dtEntradaProjeto;
+	public void setDataInicio(LocalDateTime dtEntradaProjeto) {
+		this.dataInicio = dtEntradaProjeto;
 	}
 
-	public Date getDtSaidaProjeto() {
-		return this.dtSaidaProjeto;
+	public LocalDateTime getDataFim() {
+		return this.dataFim;
 	}
 
-	public void setDtSaidaProjeto(Date dtSaidaProjeto) {
-		this.dtSaidaProjeto = dtSaidaProjeto;
+	public void setDataFim(LocalDateTime dtSaidaProjeto) {
+		this.dataFim = dtSaidaProjeto;
 	}
 
 	public Cargo getCargo() {
@@ -99,12 +104,12 @@ public class ColaboradoresProjeto implements Serializable {
 		this.projeto = projeto;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+	public Long getUsuarioAlteracao() {
+		return this.usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
+	public void setUsuarioAlteracao(Long usuariosSistema) {
+		this.usuarioAlteracao = usuariosSistema;
 	}
 
 }
