@@ -1,9 +1,20 @@
 package br.com.crux.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import br.com.crux.infra.constantes.Constantes;
 
 
 /**
@@ -12,46 +23,34 @@ import java.util.List;
  */
 @Entity
 @Table(name="projetos")
-@NamedQuery(name="Projeto.findAll", query="SELECT p FROM Projeto p")
 public class Projeto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_projeto")
+	@SequenceGenerator(name = "sq_id_projeto", sequenceName = "sq_id_projeto", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_projeto")
-	private Long idProjeto;
-
-	@Column(name="ds_projeto")
-	private String dsProjeto;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_fim_projeto")
-	private Date dtFimProjeto;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_inicio_projeto")
-	private Date dtInicioProjeto;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_prev_projeto")
-	private Date dtPrevProjeto;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_prev_termino")
-	private Date dtPrevTermino;
+	private Long id;
 
 	@Column(name="nm_projeto")
-	private String nmProjeto;
+	private String nome;
+	
+	@Column(name="ds_projeto")
+	private String descricao;
 
-	//bi-directional many-to-one association to Atividade
-	@OneToMany(mappedBy="projeto")
-	private List<Atividade> atividades;
+	@Column(name="dt_fim_projeto")
+	private LocalDateTime dataFim;
 
-	//bi-directional many-to-one association to ColaboradoresProjeto
-	@OneToMany(mappedBy="projeto")
-	private List<ColaboradoresProjeto> colaboradoresProjetos;
+	@Column(name="dt_inicio_projeto")
+	private LocalDateTime dataInicio;
 
-	//bi-directional many-to-one association to Iniciativa
+	@Column(name="dt_prev_projeto")
+	private LocalDateTime dataPrevisaoInicio;
+
+	@Column(name="dt_prev_termino")
+	private LocalDateTime dataPrevisaoTermino;
+
+
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="iniciativas_id_iniciativa")
 	private Iniciativa iniciativa;
@@ -61,116 +60,70 @@ public class Projeto implements Serializable {
 	@JoinColumn(name="programas_id_programa")
 	private Programa programa;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
+	@Column(name="id_usuario_apl")
+	private Long usuarioAlteracao;
 
 	public Projeto() {
 	}
 
-	public Long getIdProjeto() {
-		return this.idProjeto;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdProjeto(Long idProjeto) {
-		this.idProjeto = idProjeto;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getDsProjeto() {
-		return this.dsProjeto;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setDsProjeto(String dsProjeto) {
-		this.dsProjeto = dsProjeto;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public Date getDtFimProjeto() {
-		return this.dtFimProjeto;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDtFimProjeto(Date dtFimProjeto) {
-		this.dtFimProjeto = dtFimProjeto;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public Date getDtInicioProjeto() {
-		return this.dtInicioProjeto;
+	public LocalDateTime getDataFim() {
+		return dataFim;
 	}
 
-	public void setDtInicioProjeto(Date dtInicioProjeto) {
-		this.dtInicioProjeto = dtInicioProjeto;
+	public void setDataFim(LocalDateTime dataFim) {
+		this.dataFim = dataFim;
 	}
 
-	public Date getDtPrevProjeto() {
-		return this.dtPrevProjeto;
+	public LocalDateTime getDataInicio() {
+		return dataInicio;
 	}
 
-	public void setDtPrevProjeto(Date dtPrevProjeto) {
-		this.dtPrevProjeto = dtPrevProjeto;
+	public void setDataInicio(LocalDateTime dataInicio) {
+		this.dataInicio = dataInicio;
 	}
 
-	public Date getDtPrevTermino() {
-		return this.dtPrevTermino;
+	public LocalDateTime getDataPrevisaoInicio() {
+		return dataPrevisaoInicio;
 	}
 
-	public void setDtPrevTermino(Date dtPrevTermino) {
-		this.dtPrevTermino = dtPrevTermino;
+	public void setDataPrevisaoInicio(LocalDateTime dataPrevisaoInicio) {
+		this.dataPrevisaoInicio = dataPrevisaoInicio;
 	}
 
-	public String getNmProjeto() {
-		return this.nmProjeto;
+	public LocalDateTime getDataPrevisaoTermino() {
+		return dataPrevisaoTermino;
 	}
 
-	public void setNmProjeto(String nmProjeto) {
-		this.nmProjeto = nmProjeto;
-	}
-
-	public List<Atividade> getAtividades() {
-		return this.atividades;
-	}
-
-	public void setAtividades(List<Atividade> atividades) {
-		this.atividades = atividades;
-	}
-
-	public Atividade addAtividade(Atividade atividade) {
-		getAtividades().add(atividade);
-		atividade.setProjeto(this);
-
-		return atividade;
-	}
-
-	public Atividade removeAtividade(Atividade atividade) {
-		getAtividades().remove(atividade);
-		atividade.setProjeto(null);
-
-		return atividade;
-	}
-
-	public List<ColaboradoresProjeto> getColaboradoresProjetos() {
-		return this.colaboradoresProjetos;
-	}
-
-	public void setColaboradoresProjetos(List<ColaboradoresProjeto> colaboradoresProjetos) {
-		this.colaboradoresProjetos = colaboradoresProjetos;
-	}
-
-	public ColaboradoresProjeto addColaboradoresProjeto(ColaboradoresProjeto colaboradoresProjeto) {
-		getColaboradoresProjetos().add(colaboradoresProjeto);
-		colaboradoresProjeto.setProjeto(this);
-
-		return colaboradoresProjeto;
-	}
-
-	public ColaboradoresProjeto removeColaboradoresProjeto(ColaboradoresProjeto colaboradoresProjeto) {
-		getColaboradoresProjetos().remove(colaboradoresProjeto);
-		colaboradoresProjeto.setProjeto(null);
-
-		return colaboradoresProjeto;
+	public void setDataPrevisaoTermino(LocalDateTime dataPrevisaoTermino) {
+		this.dataPrevisaoTermino = dataPrevisaoTermino;
 	}
 
 	public Iniciativa getIniciativa() {
-		return this.iniciativa;
+		return iniciativa;
 	}
 
 	public void setIniciativa(Iniciativa iniciativa) {
@@ -178,19 +131,21 @@ public class Projeto implements Serializable {
 	}
 
 	public Programa getPrograma() {
-		return this.programa;
+		return programa;
 	}
 
 	public void setPrograma(Programa programa) {
 		this.programa = programa;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
+	
+	
 }
