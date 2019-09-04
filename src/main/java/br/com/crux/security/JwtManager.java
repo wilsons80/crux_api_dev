@@ -14,12 +14,12 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class JwtManager {
 
-	public String createToken(String email, List<String> roles) {
+	public String createToken(String username, List<String> roles) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.MINUTE, SecurityContantes.JWT_EXP_MINUTOS);
 		
 		String jwt = Jwts.builder()
-						 .setSubject(email)
+						 .setSubject(username)
 						 .setExpiration(calendar.getTime())
 						 .claim(SecurityContantes.JWT_ROLE_KEY, roles)
 						 .signWith(SignatureAlgorithm.HS512, SecurityContantes.API_KEY.getBytes())

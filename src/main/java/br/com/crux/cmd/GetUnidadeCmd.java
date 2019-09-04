@@ -69,5 +69,9 @@ public class GetUnidadeCmd {
 	public List<ClassificadorSituacaoImovel> getAllClassificadorSituacaoImovel() {
 		return Arrays.asList(ClassificadorSituacaoImovel.values());
 	}
+	
+	
 
+	
+	
 }

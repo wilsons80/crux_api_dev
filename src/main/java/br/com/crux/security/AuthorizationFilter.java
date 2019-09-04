@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -29,8 +30,6 @@ import io.jsonwebtoken.Claims;
 
 public class AuthorizationFilter extends OncePerRequestFilter {
 	
-	private Authentication authentication;
-
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
@@ -55,7 +54,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 		
 		try {
 			Claims claims = new JwtManager().parseToken(jwt);
-			String email = claims.getSubject();
+			String username = claims.getSubject();
 			
 			@SuppressWarnings("unchecked")
 			List<String> roles = (List<String>) claims.get(SecurityContantes.JWT_ROLE_KEY);
@@ -65,7 +64,15 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 				grantedAuthorities.add(new SimpleGrantedAuthority(role));
 			});
 			
-			authentication = new UsernamePasswordAuthenticationToken(email, null, grantedAuthorities);
+			CustomUserDetails customUserDetails = new CustomUserDetails();
+			customUserDetails.setUsername(username);
+
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			if(Objects.nonNull(authentication)) {
+				customUserDetails.setUnidadeLogada( ((CustomUserDetails) authentication.getPrincipal()).getUnidadeLogada());
+			}
+			
+			authentication = new UsernamePasswordAuthenticationToken(customUserDetails, null, grantedAuthorities);
 			
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			

@@ -18,11 +18,11 @@ import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.Unidade;
 import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
-import br.com.crux.to.TrocaSenhaTO;
-import br.com.crux.to.UnidadeLogadaTO;
+import br.com.crux.security.CustomUserDetails;
 import br.com.crux.to.AcessoUnidadeTO;
-import br.com.crux.to.UsuarioLogadoTO;
 import br.com.crux.to.LoginTO;
+import br.com.crux.to.TrocaSenhaTO;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class AutenticadorCmd {
@@ -61,14 +61,15 @@ public class AutenticadorCmd {
 			throw new NotFoundException("Problema ao recuperar o usuário logado.");
 		}
 		
-		String username = (String) authentication.getPrincipal();
+		CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+		String username = customUserDetails.getUsername();
 		UsuariosSistema usuarioByUsername = usuarioSistemaCmd.get(username);
 		
 		User userSpring = new User(username, usuarioByUsername.getDsSenha(), authentication.getAuthorities());
 		UsuarioLogadoTO usuarioLogadoTO = getUsuarioLogado(userSpring);
 		
-		if(Objects.nonNull(authentication.getDetails())) {
-			usuarioLogadoTO.setUnidadeLogada(((UnidadeLogadaTO)authentication.getDetails()));
+		if(Objects.nonNull(authentication.getPrincipal())) {
+			usuarioLogadoTO.setUnidadeLogada(((CustomUserDetails)authentication.getPrincipal()).getUnidadeLogada());
 		}
 
 		return usuarioLogadoTO;

@@ -15,13 +15,12 @@ public class TokenJwtCmd {
 	@Autowired private JwtManager jwtManager;
 	
 	public String createToken( String username, User userSpring ) {
-		String email = username;
 		List<String> roles = userSpring.getAuthorities().stream()
 				                                        .map(authority -> authority.getAuthority())
 				                                        .collect(Collectors.toList());
 
 		        
-		String jwt = jwtManager.createToken(email, roles);
+		String jwt = jwtManager.createToken(username, roles);
 		
 		return jwt;
 	}

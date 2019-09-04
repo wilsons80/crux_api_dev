@@ -12,14 +12,13 @@ import org.springframework.stereotype.Component;
 import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.Unidade;
 import br.com.crux.exception.NotFoundException;
+import br.com.crux.security.CustomUserDetails;
 import br.com.crux.to.UnidadeLogadaTO;
 
 @Component
 public class CarregarUnidadeLogadaCmd {
 
-	@Autowired
-	private UnidadeRepository unidadeRepository;
-	
+	@Autowired private UnidadeRepository unidadeRepository;
 	
 	public void carregarUnidadeLogada(Long idUnidade) {
 		if( Objects.nonNull(idUnidade) ) {
@@ -31,15 +30,18 @@ public class CarregarUnidadeLogadaCmd {
 					throw new NotFoundException("Problema ao recuperar o usuário logado.");
 				}
 				
-				UnidadeLogadaTO unidadeLogada = new UnidadeLogadaTO();
+				UnidadeLogadaTO unidadeLogada = new UnidadeLogadaTO();  
 				unidadeLogada.setIdUnidade(unidade.get().getIdUnidade());
 				unidadeLogada.setNomeUnidade(unidade.get().getNomeUnidade());
 				unidadeLogada.setSiglaUnidade(unidade.get().getSiglaUnidade());
 				
-				UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
-				auth.setDetails(unidadeLogada);
+
+				UsernamePasswordAuthenticationToken currentAuth = (UsernamePasswordAuthenticationToken) authentication;
 				
-				SecurityContextHolder.getContext().setAuthentication(auth);
+				CustomUserDetails userDetail = (CustomUserDetails) currentAuth.getPrincipal(); 
+				userDetail.setUnidadeLogada(unidadeLogada);
+				
+				SecurityContextHolder.getContext().setAuthentication(currentAuth);
 			}
 		}
 	}
