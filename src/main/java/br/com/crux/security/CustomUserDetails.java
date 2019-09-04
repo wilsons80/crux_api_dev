@@ -28,5 +28,11 @@ public class CustomUserDetails {
 		this.username = username;
 	}
 
+	@Override
+	public String toString() {
+		return "CustomUserDetails [username=" + username + ", unidadeLogada=" + unidadeLogada + "]";
+	}
 
+
+	
 }

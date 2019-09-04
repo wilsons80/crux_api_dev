@@ -25,6 +25,6 @@ public interface UnidadeRepository extends JpaRepository<Unidade, Long>{
 		     + " where uu.usuariosSistema.idUsuario = ?1 "
 		     + "   and u.idUnidade = ?2 ")
     public Optional<Unidade> findUnidadeDoUsuarioLogado(Long idUsuarioLogado, Long idUnidade);
-
+	
 
 }

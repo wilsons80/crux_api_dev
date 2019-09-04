@@ -6,6 +6,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +20,7 @@ import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.entity.UsuariosUnidade;
 import br.com.crux.enums.ClassificadorSituacaoImovel;
 import br.com.crux.enums.TipoUnidade;
+import br.com.crux.security.CustomUserDetails;
 import br.com.crux.to.AcessoUnidadeTO;
 import br.com.crux.to.UnidadeTO;
 
@@ -46,7 +50,11 @@ public class GetUnidadeCmd {
 		}
 		
 		//Carrega a unidade logada no Contexto do usuário
-		carregarUnidadeLogadaCmd.carregarUnidadeLogada(unidadeOptional.get().getIdUnidade());		
+		CustomUserDetails customUserDetails = carregarUnidadeLogadaCmd.carregarUnidadeLogada(unidadeOptional.get().getIdUnidade());		
+		Authentication authentication = getUsuarioLogadoCmd.get();
+		
+		authentication = new UsernamePasswordAuthenticationToken(customUserDetails, null, authentication.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		return Optional.ofNullable(unidadeBuilder.buildTO(unidadeOptional.get()));
 	}
@@ -72,6 +80,10 @@ public class GetUnidadeCmd {
 	
 	
 
+	public Unidade getBySigla(String sigla) {
+		Optional<Unidade> unidade = unidadeRepository.findBySiglaUnidade(sigla);
+		return unidade.orElse(null);
+	}
 	
 	
 }

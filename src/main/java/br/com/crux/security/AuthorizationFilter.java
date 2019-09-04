@@ -26,9 +26,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.crux.infra.constantes.SecurityContantes;
 import br.com.crux.service.exception.ApiError;
+import br.com.crux.to.AcessoUnidadeTO;
 import io.jsonwebtoken.Claims;
 
 public class AuthorizationFilter extends OncePerRequestFilter {
+	
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -67,13 +69,25 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 			CustomUserDetails customUserDetails = new CustomUserDetails();
 			customUserDetails.setUsername(username);
 
+			
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			if(Objects.nonNull(authentication)) {
-				customUserDetails.setUnidadeLogada( ((CustomUserDetails) authentication.getPrincipal()).getUnidadeLogada());
+				
+				if(authentication.getAuthorities().size() == 1) {
+					authentication.getAuthorities().forEach(a -> {
+						String siglaUnidade = String.valueOf(a).replaceAll("ROLE_", "");
+						
+						AcessoUnidadeTO unidadeLogada = new AcessoUnidadeTO();
+						unidadeLogada.setIdentificador(siglaUnidade);
+						
+						customUserDetails.setUnidadeLogada(unidadeLogada);
+					});
+				} else {
+					customUserDetails.setUnidadeLogada( ((CustomUserDetails) authentication.getPrincipal()).getUnidadeLogada());
+				}
 			}
 			
 			authentication = new UsernamePasswordAuthenticationToken(customUserDetails, null, grantedAuthorities);
-			
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			
 		} catch (Exception e) {

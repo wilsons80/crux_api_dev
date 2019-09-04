@@ -39,4 +39,10 @@ public class AcessoUnidadeTO {
 		this.nome = nome;
 	}
 
+	@Override
+	public String toString() {
+		return "AcessoUnidadeTO [id=" + id + ", identificador=" + identificador + ", nome=" + nome + "]";
+	}
+
+	
 }

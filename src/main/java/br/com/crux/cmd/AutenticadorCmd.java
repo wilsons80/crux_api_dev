@@ -34,22 +34,30 @@ public class AutenticadorCmd {
 	@Autowired private TrocarSenhaCmd trocarSenhaCmd;
 	@Autowired private GetUsuarioSistemaCmd usuarioSistemaCmd;
 	@Autowired private CarregarUnidadeLogadaCmd carregarUnidadeLogadaCmd;
+	@Autowired private GetUnidadeCmd getUnidadeCmd;
 	
 	
 	public UsuarioLogadoTO autenticar(LoginTO user) {
+		SecurityContextHolder.clearContext();
+		
+		UsernamePasswordAuthenticationToken userAuth = new UsernamePasswordAuthenticationToken(user.getUserName(),user.getSenha());
+		Authentication auth = authManager.authenticate(userAuth);
 
-		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUserName(),user.getSenha());
-		Authentication auth = authManager.authenticate(token);
-
-		SecurityContextHolder.getContext().setAuthentication(auth);
 		User userSpring = (User) auth.getPrincipal();
 		UsuarioLogadoTO usuarioLogadoTO = getUsuarioLogado(userSpring);
 		
+		
+		CustomUserDetails customUserDetails = new CustomUserDetails();
+		customUserDetails.setUsername(user.getUserName());
+
 		if(usuarioLogadoTO.getUnidades().size() == 1) {
 			Long idUnidade = usuarioLogadoTO.getUnidades().get(0).getId();
-			carregarUnidadeLogadaCmd.carregarUnidadeLogada(idUnidade);
+			customUserDetails = carregarUnidadeLogadaCmd.carregarUnidadeLogada(idUnidade);
 		}
-
+		
+		auth = new UsernamePasswordAuthenticationToken(customUserDetails, null, userSpring.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(auth);
+		
 		return usuarioLogadoTO;
 	}
 
@@ -68,8 +76,12 @@ public class AutenticadorCmd {
 		User userSpring = new User(username, usuarioByUsername.getDsSenha(), authentication.getAuthorities());
 		UsuarioLogadoTO usuarioLogadoTO = getUsuarioLogado(userSpring);
 		
-		if(Objects.nonNull(authentication.getPrincipal())) {
-			usuarioLogadoTO.setUnidadeLogada(((CustomUserDetails)authentication.getPrincipal()).getUnidadeLogada());
+		if(Objects.nonNull(authentication.getPrincipal()) && Objects.nonNull(((CustomUserDetails)authentication.getPrincipal()).getUnidadeLogada()) ) {
+			CustomUserDetails custom = (CustomUserDetails)authentication.getPrincipal();
+			Unidade unidade = getUnidadeCmd.getBySigla(custom.getUnidadeLogada().getIdentificador());
+			CustomUserDetails unidadeLogada = carregarUnidadeLogadaCmd.carregarUnidadeLogada(unidade.getIdUnidade());
+			
+			usuarioLogadoTO.setUnidadeLogada(unidadeLogada.getUnidadeLogada());
 		}
 
 		return usuarioLogadoTO;
