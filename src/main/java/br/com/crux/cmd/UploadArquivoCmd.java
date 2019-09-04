@@ -39,7 +39,7 @@ public class UploadArquivoCmd {
 		try {
 			String hashArquivo = MD5Util.getHashArquivo(file.getBytes());
 			
-			Unidade unidade = getUnidadePorIdCmd.getUnidade(getUnidadeLogadaCmd.get().getIdUnidade());
+			Unidade unidade = getUnidadePorIdCmd.getUnidade(getUnidadeLogadaCmd.get().getId());
 			
 			//novo arquivo
 			if(Objects.isNull(unidade.getArquivo())) {

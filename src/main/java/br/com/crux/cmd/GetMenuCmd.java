@@ -25,7 +25,7 @@ public class GetMenuCmd {
 	
 	
 	public List<MenuTO> getMenuPrincipal() {
-		Long idUnidade = getUnidadeLogadaCmd.get().getIdUnidade();
+		Long idUnidade = getUnidadeLogadaCmd.get().getId();
 		
 		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		String username = usuarioLogado.getUsername();

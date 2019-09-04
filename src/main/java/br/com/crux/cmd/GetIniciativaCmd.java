@@ -24,7 +24,7 @@ public class GetIniciativaCmd {
 	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	
 	public List<IniciativaTO> getAll() {
-		Optional<Unidade> unidade = unidadeRepository.findById(getUnidadeLogadaCmd.get().getIdUnidade());
+		Optional<Unidade> unidade = unidadeRepository.findById(getUnidadeLogadaCmd.get().getId());
 		if(!unidade.isPresent()) {
 			throw new ParametroNaoInformadoException("Unidade não informada.");
 		}

@@ -13,7 +13,7 @@ import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.Unidade;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.security.CustomUserDetails;
-import br.com.crux.to.UnidadeLogadaTO;
+import br.com.crux.to.AcessoUnidadeTO;
 
 @Component
 public class CarregarUnidadeLogadaCmd {
@@ -30,10 +30,10 @@ public class CarregarUnidadeLogadaCmd {
 					throw new NotFoundException("Problema ao recuperar o usuário logado.");
 				}
 				
-				UnidadeLogadaTO unidadeLogada = new UnidadeLogadaTO();  
-				unidadeLogada.setIdUnidade(unidade.get().getIdUnidade());
-				unidadeLogada.setNomeUnidade(unidade.get().getNomeUnidade());
-				unidadeLogada.setSiglaUnidade(unidade.get().getSiglaUnidade());
+				AcessoUnidadeTO unidadeLogada = new AcessoUnidadeTO();  
+				unidadeLogada.setId(unidade.get().getIdUnidade());
+				unidadeLogada.setNome(unidade.get().getNomeUnidade());
+				unidadeLogada.setIdentificador(unidade.get().getSiglaUnidade());
 				
 
 				UsernamePasswordAuthenticationToken currentAuth = (UsernamePasswordAuthenticationToken) authentication;

@@ -7,12 +7,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.exception.NotFoundException;
-import br.com.crux.to.UnidadeLogadaTO;
+import br.com.crux.to.AcessoUnidadeTO;
 
 @Component
 public class GetUnidadeLogadaCmd {
 
-	public UnidadeLogadaTO get() {
+	public AcessoUnidadeTO get() {
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if(Objects.isNull(auth)) {
@@ -23,6 +23,6 @@ public class GetUnidadeLogadaCmd {
 			throw new NotFoundException("Não é possível recuperar a unidade logada.");
 		}
 		
-		return (UnidadeLogadaTO) auth.getDetails();
+		return (AcessoUnidadeTO) auth.getDetails();
 	}
 }

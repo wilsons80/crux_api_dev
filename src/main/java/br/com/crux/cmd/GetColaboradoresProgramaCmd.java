@@ -27,7 +27,7 @@ public class GetColaboradoresProgramaCmd {
 	
 	public List<ColaboradoresProgramaTO> getAll() {
 		
-		Optional<Unidade> unidade = unidadeRepository.findById(getUnidadeLogadaCmd.get().getIdUnidade());
+		Optional<Unidade> unidade = unidadeRepository.findById(getUnidadeLogadaCmd.get().getId());
 		if(!unidade.isPresent()) {
 			throw new ParametroNaoInformadoException("Unidade não informada.");
 		}
