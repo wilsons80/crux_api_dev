@@ -1,0 +1,1 @@
+web: java -jar target/crux_api_dev-1.0.war
