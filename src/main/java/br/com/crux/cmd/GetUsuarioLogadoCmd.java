@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.SessionScope;
 
 import br.com.crux.dao.repository.UsuarioSistemaRepository;
 import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.security.CustomUserDetails;
 
+@SessionScope
 @Component
 public class GetUsuarioLogadoCmd {
 
