@@ -14,7 +14,7 @@
 	<version>1.0</version>
 	<name>crux_api_dev</name>
 	<description>Demo project for Spring Boot</description>
-	<packaging>war</packaging>
+	<!-- <packaging>war</packaging> -->
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -119,9 +119,7 @@
 	</dependencies>
 
 	<build>
-	
-	    <finalName>${project.artifactId}-${project.version}</finalName>
-	
+	    <finalName>${project.artifactId}</finalName>
 	
 		<plugins>
 			<plugin>
