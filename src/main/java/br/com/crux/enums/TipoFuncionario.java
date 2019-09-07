@@ -2,21 +2,29 @@ package br.com.crux.enums;
 
 public enum TipoFuncionario {
 
-	//F = FUNCIONÁRIO; E = ESTAGIÁRIO; C = COLABORADOR; I = INSTRUTOR; V = VOLUNTÁRIO; D = CANDIDATO A VAGA DE FUNCIONÁRIO
+	// F = FUNCIONÁRIO; E = ESTAGIÁRIO; C = COLABORADOR; I = INSTRUTOR; V =
+	// VOLUNTÁRIO; D = CANDIDATO A VAGA DE FUNCIONÁRIO
 
-	FUNCIONARIO("F", "Funcionário"), 
-	VOLUNTARIO("V", "Voluntário"),
-	ESTAGIARIO("E", "Estagiário"),
-	COLABORADOR("C", "Colaborador"),
-	INSTRUTOR("I", "Instrutor"),
-	CANDIDATO_VAGA_FUNCIONARIO("D", "Candidato a vaga de funcionário");
+	FUNCIONARIO(1, "F", "Funcionário"), VOLUNTARIO(2, "V", "Voluntário"), ESTAGIARIO(3, "E", "Estagiário"),
+	COLABORADOR(4, "C", "Colaborador"), INSTRUTOR(5, "I", "Instrutor"),
+	CANDIDATO_VAGA_FUNCIONARIO(6, "D", "Candidato a vaga de funcionário");
 
+	private Integer id;
 	private String tipo;
 	private String descricao;
 
-	private TipoFuncionario(String tipo, String descricao) {
+	private TipoFuncionario(Integer id, String tipo, String descricao) {
+		this.id = id;
 		this.tipo = tipo;
 		this.descricao = descricao;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getTipo() {

@@ -2,20 +2,31 @@ package br.com.crux.enums;
 
 public enum ParecerEntrevistador {
 
-	//D = CANDIDATO A VAGA DE FUNCIONÁRIO;  T=  Totalmente adequado ao perfil; N = Não adequado ao perfil; A = Adequado ao perfil; I = Indicado p/ consulta futura)	 
+	// D = CANDIDATO A VAGA DE FUNCIONÁRIO; T= Totalmente adequado ao perfil; N =
+	// Não adequado ao perfil; A = Adequado ao perfil; I = Indicado p/ consulta
+	// futura)
 
-	INDICADO_CONSULTA_FUTURA("I", "Indicado p/ consulta futura"),
-	ADEQUADO_PERFIL("A", "Adequado ao perfil"),
-	NAO_ADEQUADO_PERFIL("N", "Não adequado ao perfil"),
-	TOTALMENTO_ADEQUADO_PERFIL("T", "Totalmente adequado ao perfil"),
-	CANDIDATO_VAGA_FUNCIONARIO("D", "Candidato a vaga de funcionário");
+	INDICADO_CONSULTA_FUTURA(1, "I", "Indicado p/ consulta futura"), ADEQUADO_PERFIL(2, "A", "Adequado ao perfil"),
+	NAO_ADEQUADO_PERFIL(3, "N", "Não adequado ao perfil"),
+	TOTALMENTO_ADEQUADO_PERFIL(4, "T", "Totalmente adequado ao perfil"),
+	CANDIDATO_VAGA_FUNCIONARIO(5, "D", "Candidato a vaga de funcionário");
 
+	private Integer id;
 	private String tipo;
 	private String descricao;
 
-	private ParecerEntrevistador(String tipo, String descricao) {
+	private ParecerEntrevistador(Integer id, String tipo, String descricao) {
+		this.id = id;
 		this.tipo = tipo;
 		this.descricao = descricao;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getTipo() {

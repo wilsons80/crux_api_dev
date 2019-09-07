@@ -4,17 +4,25 @@ public enum ClassificadorSituacaoImovel {
 
 	// P = PRÓPRIO; C = CONCESSÃO; L = LICENÇA PARA FUNCIONAMENTO; O = OUTRO
 
-	PROPRIO("P", "Próprio"), 
-	CONCESSAO("C", "Concessão"),
-	LICENCA_PARA_FUNCIONAMENTO("L", "Licença pra funcionamento"), 
-	OUTRO("O", "Outro");
+	PROPRIO(1, "P", "Próprio"), CONCESSAO(2, "C", "Concessão"),
+	LICENCA_PARA_FUNCIONAMENTO(3, "L", "Licença pra funcionamento"), OUTRO(4, "O", "Outro");
 
+	private Integer id;
 	private String tipo;
 	private String descricao;
 
-	private ClassificadorSituacaoImovel(String tipo, String descricao) {
+	private ClassificadorSituacaoImovel(Integer id, String tipo, String descricao) {
+		this.id = id;
 		this.tipo = tipo;
 		this.descricao = descricao;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getTipo() {

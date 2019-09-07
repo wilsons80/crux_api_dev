@@ -4,16 +4,24 @@ public enum TipoCargo {
 
 	// F=FUNCIONÁRIO; V = VOLUNTÁRIO; E = ESTAGIÁRIO
 
-	FUNCIONARIO("F", "Funcionário"), 
-	VOLUNTARIO("V", "Voluntário"),
-	ESTAGIARIO("E", "Estagiário");
+	FUNCIONARIO(1, "F", "Funcionário"), VOLUNTARIO(2, "V", "Voluntário"), ESTAGIARIO(3, "E", "Estagiário");
 
+	private Integer id;
 	private String tipo;
 	private String descricao;
 
-	private TipoCargo(String tipo, String descricao) {
+	private TipoCargo(Integer id, String tipo, String descricao) {
+		this.id = id;
 		this.tipo = tipo;
 		this.descricao = descricao;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getTipo() {

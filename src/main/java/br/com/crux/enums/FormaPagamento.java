@@ -2,19 +2,28 @@ package br.com.crux.enums;
 
 public enum FormaPagamento {
 
-	//Forma de venda do produto da atividade (D = DINHEIRO; C = CARTÃO; D = DÉBITO; F = DESCONTO EM FOLHA
-	
-	DINHEIRO("R", "Dinheiro"), 
-	CARTAO("C", "Cartão"),
-	DEBITO("D", "Débito"),
-	DESCONTO_FOLHA("F", "Desconto em Folha");
+	// Forma de venda do produto da atividade (D = DINHEIRO; C = CARTÃO; D = DÉBITO;
+	// F = DESCONTO EM FOLHA
 
+	DINHEIRO(1, "R", "Dinheiro"), CARTAO(2, "C", "Cartão"), DEBITO(3, "D", "Débito"),
+	DESCONTO_FOLHA(4, "F", "Desconto em Folha");
+
+	private Integer id;
 	private String tipo;
 	private String descricao;
 
-	private FormaPagamento(String tipo, String descricao) {
+	private FormaPagamento(Integer id, String tipo, String descricao) {
+		this.id = id;
 		this.tipo = tipo;
 		this.descricao = descricao;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getTipo() {

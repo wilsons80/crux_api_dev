@@ -1,14 +1,23 @@
 package br.com.crux.enums;
 
 public enum TipoUnidade {
-	
-	MATRIZ("M"),
-	FILIAL("F");
-	
+
+	MATRIZ(1, "M"), FILIAL(2, "F");
+
+	private Integer id;
 	private String tipo;
-	
-	private TipoUnidade(String tipo) {
+
+	private TipoUnidade(Integer id, String tipo) {
+		this.id = id;
 		this.tipo = tipo;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getTipo() {
@@ -26,7 +35,6 @@ public enum TipoUnidade {
 			}
 		}
 		return null;
-	}	
-	
+	}
 
 }

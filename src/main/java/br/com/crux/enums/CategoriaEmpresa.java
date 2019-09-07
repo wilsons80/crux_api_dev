@@ -2,19 +2,27 @@ package br.com.crux.enums;
 
 public enum CategoriaEmpresa {
 
-	//P = PRESTADOR DE SERVIÇOS; C = COMERCIAL; I = INDUSTRIAS; O = OUTRO)
-	
-	PRESTADOR_SERVICO("P", "Prestador de Serviços"), 
-	COMERCIAL("C", "Comercial"),
-	INDUSTRIAS("I", "Industrias"),
-	OUTRO("O", "Outro");
+	// P = PRESTADOR DE SERVIÇOS; C = COMERCIAL; I = INDUSTRIAS; O = OUTRO)
 
+	PRESTADOR_SERVICO(1, "P", "Prestador de Serviços"), COMERCIAL(2, "C", "Comercial"),
+	INDUSTRIAS(3, "I", "Industrias"), OUTRO(4, "O", "Outro");
+
+	private Integer id;
 	private String tipo;
 	private String descricao;
 
-	private CategoriaEmpresa(String tipo, String descricao) {
+	private CategoriaEmpresa(Integer id, String tipo, String descricao) {
+		this.id = id;
 		this.tipo = tipo;
 		this.descricao = descricao;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getTipo() {
