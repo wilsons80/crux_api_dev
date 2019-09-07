@@ -1,7 +1,7 @@
 package br.com.crux.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,8 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import br.com.crux.infra.constantes.Constantes;
 
@@ -25,35 +23,30 @@ import br.com.crux.infra.constantes.Constantes;
  */
 @Entity
 @Table(name="acoes")
-public class Acoe implements Serializable {
+public class Acoes implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_acao")
 	@SequenceGenerator(name = "sq_id_acao", sequenceName = "sq_id_acao", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_acao", unique=true, nullable=false, precision=10)
-	private Long idAcao;
+	private Long id;
 
-	@Temporal(TemporalType.DATE)
 	@Column(name="dt_fim_acao")
-	private Date dtFimAcao;
+	private LocalDateTime dataFim;
 
-	@Temporal(TemporalType.DATE)
 	@Column(name="dt_inicio_acao")
-	private Date dtInicioAcao;
+	private LocalDateTime dataInicio;
 
-	@Temporal(TemporalType.DATE)
 	@Column(name="dt_prev_fim_acao")
-	private Date dtPrevFimAcao;
+	private LocalDateTime dataPrevisaoFim;
 
-	@Temporal(TemporalType.DATE)
 	@Column(name="dt_prev_inicio_acao")
-	private Date dtPrevInicioAcao;
+	private LocalDateTime dataPrevisaoInicio;
 
 	@Column(name="nm_plano_acao")
-	private String nmPlanoAcao;
+	private String nome;
 
-	//bi-directional many-to-one association to Atividade
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="atividades_id_atividade")
 	private Atividade atividade;
@@ -61,59 +54,59 @@ public class Acoe implements Serializable {
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
 
-	public Acoe() {
+	public Acoes() {
 	}
 
-	public Long getIdAcao() {
-		return this.idAcao;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdAcao(Long idAcao) {
-		this.idAcao = idAcao;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public Date getDtFimAcao() {
-		return this.dtFimAcao;
+	public LocalDateTime getDataFim() {
+		return dataFim;
 	}
 
-	public void setDtFimAcao(Date dtFimAcao) {
-		this.dtFimAcao = dtFimAcao;
+	public void setDataFim(LocalDateTime dataFim) {
+		this.dataFim = dataFim;
 	}
 
-	public Date getDtInicioAcao() {
-		return this.dtInicioAcao;
+	public LocalDateTime getDataInicio() {
+		return dataInicio;
 	}
 
-	public void setDtInicioAcao(Date dtInicioAcao) {
-		this.dtInicioAcao = dtInicioAcao;
+	public void setDataInicio(LocalDateTime dataInicio) {
+		this.dataInicio = dataInicio;
 	}
 
-	public Date getDtPrevFimAcao() {
-		return this.dtPrevFimAcao;
+	public LocalDateTime getDataPrevisaoFim() {
+		return dataPrevisaoFim;
 	}
 
-	public void setDtPrevFimAcao(Date dtPrevFimAcao) {
-		this.dtPrevFimAcao = dtPrevFimAcao;
+	public void setDataPrevisaoFim(LocalDateTime dataPrevisaoFim) {
+		this.dataPrevisaoFim = dataPrevisaoFim;
 	}
 
-	public Date getDtPrevInicioAcao() {
-		return this.dtPrevInicioAcao;
+	public LocalDateTime getDataPrevisaoInicio() {
+		return dataPrevisaoInicio;
 	}
 
-	public void setDtPrevInicioAcao(Date dtPrevInicioAcao) {
-		this.dtPrevInicioAcao = dtPrevInicioAcao;
+	public void setDataPrevisaoInicio(LocalDateTime dataPrevisaoInicio) {
+		this.dataPrevisaoInicio = dataPrevisaoInicio;
 	}
 
-	public String getNmPlanoAcao() {
-		return this.nmPlanoAcao;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setNmPlanoAcao(String nmPlanoAcao) {
-		this.nmPlanoAcao = nmPlanoAcao;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public Atividade getAtividade() {
-		return this.atividade;
+		return atividade;
 	}
 
 	public void setAtividade(Atividade atividade) {
@@ -121,11 +114,12 @@ public class Acoe implements Serializable {
 	}
 
 	public Long getUsuarioAlteracao() {
-		return this.usuarioAlteracao;
+		return usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema(Long usuarioAlteracao) {
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
+	
 }
