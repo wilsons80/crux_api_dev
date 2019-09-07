@@ -3,25 +3,15 @@ package br.com.crux.enums;
 public enum ConclusaoParecer {
 	//S = Dar continuidade ao processo seletivo; n = Não dar continuidade ao processo seletivo	 
 
-	CONTINUAR(1L, "S", "Dar continuidade ao processo seletivo"),
-	NAO_CONTINUAR(2L, "N", "Não dar continuidade ao processo seletivo");
+	CONTINUAR("S", "Dar continuidade ao processo seletivo"),
+	NAO_CONTINUAR("N", "Não dar continuidade ao processo seletivo");
 
-	private Long id;
 	private String tipo;
 	private String descricao;
 
-	private ConclusaoParecer(Long id, String tipo, String descricao) {
-		this.id = id;
+	private ConclusaoParecer(String tipo, String descricao) {
 		this.tipo = tipo;
 		this.descricao = descricao;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getTipo() {

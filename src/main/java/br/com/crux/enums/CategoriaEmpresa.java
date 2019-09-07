@@ -4,27 +4,17 @@ public enum CategoriaEmpresa {
 
 	//P = PRESTADOR DE SERVIÇOS; C = COMERCIAL; I = INDUSTRIAS; O = OUTRO)
 	
-	PRESTADOR_SERVICO(1L, "P", "Prestador de Serviços"), 
-	COMERCIAL(2L, "C", "Comercial"),
-	INDUSTRIAS(3L, "I", "Industrias"),
-	OUTRO(4L, "O", "Outro");
+	PRESTADOR_SERVICO("P", "Prestador de Serviços"), 
+	COMERCIAL("C", "Comercial"),
+	INDUSTRIAS("I", "Industrias"),
+	OUTRO("O", "Outro");
 
-	private Long id;
 	private String tipo;
 	private String descricao;
 
-	private CategoriaEmpresa(Long id, String tipo, String descricao) {
-		this.id = id;
+	private CategoriaEmpresa(String tipo, String descricao) {
 		this.tipo = tipo;
 		this.descricao = descricao;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getTipo() {

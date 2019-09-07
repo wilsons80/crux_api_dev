@@ -1,17 +1,18 @@
 package br.com.crux.enums;
 
-public enum TipoCargo {
+public enum FormaPagamento {
 
-	// F=FUNCIONÁRIO; V = VOLUNTÁRIO; E = ESTAGIÁRIO
-
-	FUNCIONARIO("F", "Funcionário"), 
-	VOLUNTARIO("V", "Voluntário"),
-	ESTAGIARIO("E", "Estagiário");
+	//Forma de venda do produto da atividade (D = DINHEIRO; C = CARTÃO; D = DÉBITO; F = DESCONTO EM FOLHA
+	
+	DINHEIRO("R", "Dinheiro"), 
+	CARTAO("C", "Cartão"),
+	DEBITO("D", "Débito"),
+	DESCONTO_FOLHA("F", "Desconto em Folha");
 
 	private String tipo;
 	private String descricao;
 
-	private TipoCargo(String tipo, String descricao) {
+	private FormaPagamento(String tipo, String descricao) {
 		this.tipo = tipo;
 		this.descricao = descricao;
 	}
@@ -32,8 +33,8 @@ public enum TipoCargo {
 		this.descricao = descricao;
 	}
 
-	public static TipoCargo getPorTipo(String tipo) {
-		for (TipoCargo tipoClassificador : values()) {
+	public static FormaPagamento getPorTipo(String tipo) {
+		for (FormaPagamento tipoClassificador : values()) {
 			if (tipoClassificador.getTipo().equals(tipo)) {
 				return tipoClassificador;
 			}

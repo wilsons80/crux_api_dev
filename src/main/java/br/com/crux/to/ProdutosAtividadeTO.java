@@ -1,77 +1,28 @@
-package br.com.crux.entity;
+package br.com.crux.to;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Type;
-
 import br.com.crux.enums.FormaPagamento;
-import br.com.crux.infra.constantes.Constantes;
 
+public class ProdutosAtividadeTO {
 
-@Entity
-@Table(name="produtos_atividades")
-public class ProdutosAtividade  {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_produto_atividade")
-	@SequenceGenerator(name = "sq_id_produto_atividade", sequenceName = "sq_id_produto_atividade", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
-	@Column(name="id_produto_atividade")
 	private Long id;
-
-	@Column(name="ds_produto_atividade")
 	private String descricao;
-
-	@Column(name="tx_produto_atividade")
 	private String observacao;
-
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_atividade")
-	private Atividade atividade;
-	
-	@Column(name="dt_aquisicao")
 	private LocalDateTime dataAquisicao;
-
-	@Column(name="vl_produto")
 	private Double valorProduto;
-
-	@Column(name="dt_venda_produto")
 	private LocalDateTime dataVendaProduto;
-	
-	@Column(name="ds_origem_produto")
 	private String descricaoOrigemProduto;
-
-	@Column(name="qtd_produto")
 	private Long qtdProduto;
-	
-	@Column(name="qtd_produto_vendida")
 	private Long qtdProdutoVendida;
-
-	
-	@Column(name="ds_forma_pagamento")
-	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", 
-    parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.FormaPagamento") }) 
 	private FormaPagamento formaPagamento;
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_produto")
-	private Produto produto;
+	private AtividadeTO atividade;
+	private ProdutoTO produto;
 
-	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
 
-	public ProdutosAtividade() {
+	public ProdutosAtividadeTO() {
 	}
 
 	public Long getId() {
@@ -96,14 +47,6 @@ public class ProdutosAtividade  {
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
-	}
-
-	public Atividade getAtividade() {
-		return atividade;
-	}
-
-	public void setAtividade(Atividade atividade) {
-		this.atividade = atividade;
 	}
 
 	public LocalDateTime getDataAquisicao() {
@@ -162,11 +105,19 @@ public class ProdutosAtividade  {
 		this.formaPagamento = formaPagamento;
 	}
 
-	public Produto getProduto() {
+	public AtividadeTO getAtividade() {
+		return atividade;
+	}
+
+	public void setAtividade(AtividadeTO atividade) {
+		this.atividade = atividade;
+	}
+
+	public ProdutoTO getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Produto produto) {
+	public void setProduto(ProdutoTO produto) {
 		this.produto = produto;
 	}
 
@@ -177,7 +128,5 @@ public class ProdutosAtividade  {
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
-
-	
 
 }

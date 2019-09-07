@@ -4,29 +4,19 @@ public enum TipoFuncionario {
 
 	//F = FUNCIONÁRIO; E = ESTAGIÁRIO; C = COLABORADOR; I = INSTRUTOR; V = VOLUNTÁRIO; D = CANDIDATO A VAGA DE FUNCIONÁRIO
 
-	FUNCIONARIO(1L, "F", "Funcionário"), 
-	VOLUNTARIO(2L, "V", "Voluntário"),
-	ESTAGIARIO(3L, "E", "Estagiário"),
-	COLABORADOR(4L, "C", "Colaborador"),
-	INSTRUTOR(5L, "I", "Instrutor"),
-	CANDIDATO_VAGA_FUNCIONARIO(6L, "D", "Candidato a vaga de funcionário");
+	FUNCIONARIO("F", "Funcionário"), 
+	VOLUNTARIO("V", "Voluntário"),
+	ESTAGIARIO("E", "Estagiário"),
+	COLABORADOR("C", "Colaborador"),
+	INSTRUTOR("I", "Instrutor"),
+	CANDIDATO_VAGA_FUNCIONARIO("D", "Candidato a vaga de funcionário");
 
-	private Long id;
 	private String tipo;
 	private String descricao;
 
-	private TipoFuncionario(Long id, String tipo, String descricao) {
-		this.id = id;
+	private TipoFuncionario(String tipo, String descricao) {
 		this.tipo = tipo;
 		this.descricao = descricao;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getTipo() {
