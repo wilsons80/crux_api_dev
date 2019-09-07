@@ -1,81 +1,86 @@
 package br.com.crux.entity;
 
-import java.io.Serializable;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
+import br.com.crux.infra.constantes.Constantes;
 
 /**
  * The persistent class for the documentos_atividades database table.
  * 
  */
 @Entity
-@Table(name="documentos_atividades")
-@NamedQuery(name="DocumentosAtividade.findAll", query="SELECT d FROM DocumentosAtividade d")
-public class DocumentosAtividade implements Serializable {
-	private static final long serialVersionUID = 1L;
-
-	@Column(name="ds_documento_atividade")
-	private String dsDocumentoAtividade;
+@Table(name = "documentos_atividades")
+public class DocumentosAtividade {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_documento_atividade")
-	private Long idDocumentoAtividade;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_documento_atividade")
+	@SequenceGenerator(name = "sq_id_documento_atividade", sequenceName = "sq_id_documento_atividade", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
+	@Column(name = "id_documento_atividade")
+	private Long id;
 
-	@Column(name="tx_documento_atividade")
-	private String txDocumentoAtividade;
+	@Column(name = "ds_documento_atividade")
+	private String descricao;
 
-	//bi-directional many-to-one association to Atividade
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_atividade")
+	@Column(name = "tx_documento_atividade")
+	private String observacao;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_atividade")
 	private Atividade atividade;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
+	@Column(name = "id_usuario_apl")
+	private Long usuarioAlteracao;
 
 	public DocumentosAtividade() {
 	}
 
-	public String getDsDocumentoAtividade() {
-		return this.dsDocumentoAtividade;
+	public Long getId() {
+		return id;
 	}
 
-	public void setDsDocumentoAtividade(String dsDocumentoAtividade) {
-		this.dsDocumentoAtividade = dsDocumentoAtividade;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public Long getIdDocumentoAtividade() {
-		return this.idDocumentoAtividade;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setIdDocumentoAtividade(Long idDocumentoAtividade) {
-		this.idDocumentoAtividade = idDocumentoAtividade;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public String getTxDocumentoAtividade() {
-		return this.txDocumentoAtividade;
+	public String getObservacao() {
+		return observacao;
 	}
 
-	public void setTxDocumentoAtividade(String txDocumentoAtividade) {
-		this.txDocumentoAtividade = txDocumentoAtividade;
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
 
 	public Atividade getAtividade() {
-		return this.atividade;
+		return atividade;
 	}
 
 	public void setAtividade(Atividade atividade) {
 		this.atividade = atividade;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
 }
