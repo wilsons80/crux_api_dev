@@ -1,134 +1,135 @@
 package br.com.crux.entity;
 
-import java.io.Serializable;
-import javax.persistence.*;
-import java.util.Date;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import br.com.crux.infra.constantes.Constantes;
 
 
-/**
- * The persistent class for the cadastro_reserva_atividades database table.
- * 
- */
 @Entity
 @Table(name="cadastro_reserva_atividades")
-@NamedQuery(name="CadastroReservaAtividade.findAll", query="SELECT c FROM CadastroReservaAtividade c")
-public class CadastroReservaAtividade implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class CadastroReservaAtividade {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_cadastro_reserva")
+	@SequenceGenerator(name = "sq_id_cadastro_reserva", sequenceName = "sq_id_cadastro_reserva", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_cadastro_reserva")
-	private Long idCadastroReserva;
+	private Long id;
 
+	@Column(name="dt_cadastro_reserva")
+	private LocalDateTime dataCadastroReserva;
+	
 	@Column(name="ds_cadastro_reserva")
-	private Timestamp dsCadastroReserva;
+	private String descricaoCadastroReserva;
+
+	@Column(name="dt_cancelamento_cadastro")
+	private LocalDateTime dataCancelamentoCadastro;
+
+	@Column(name="us_cadastro_id_usuario")
+	private Long usuarioCadastro;	
+	
+	@Column(name="dt_cadastro_atividade")
+	private LocalDateTime dataCadastroAtividade;
 
 	@Column(name="ds_cancelamento_cadastro")
-	private String dsCancelamentoCadastro;
+	private String descricaoCancelamentoCadastro;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_alteracao_atividade")
-	private Date dtAlteracaoAtividade;
+	private LocalDateTime dtAlteracaoAtividade;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_cadastro_atividade")
-	private Date dtCadastroAtividade;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_cadastro_reserva")
-	private Date dtCadastroReserva;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_cancelamento_cadastro")
-	private Date dtCancelamentoCadastro;
-
-	//bi-directional many-to-one association to Atividade
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_atividade")
 	private Atividade atividade;
 
-	//bi-directional many-to-one association to PessoasFisica
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="pf_id_pessoa_fisica")
 	private PessoaFisica pessoasFisica;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="us_alteraca_id_usuario")
-	private UsuariosSistema usuariosSistema1;
+	@Column(name="us_alteraca_id_usuario")
+	private Long usuarioUltimaAlteracao;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="us_cadastro_id_usuario")
-	private UsuariosSistema usuariosSistema2;
-
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema3;
+	@Column(name="id_usuario_apl")
+	private Long usuarioAlteracao;
 
 	public CadastroReservaAtividade() {
 	}
 
-	public Long getIdCadastroReserva() {
-		return this.idCadastroReserva;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdCadastroReserva(Long idCadastroReserva) {
-		this.idCadastroReserva = idCadastroReserva;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public Timestamp getDsCadastroReserva() {
-		return this.dsCadastroReserva;
+	public LocalDateTime getDataCadastroReserva() {
+		return dataCadastroReserva;
 	}
 
-	public void setDsCadastroReserva(Timestamp dsCadastroReserva) {
-		this.dsCadastroReserva = dsCadastroReserva;
+	public void setDataCadastroReserva(LocalDateTime dataCadastroReserva) {
+		this.dataCadastroReserva = dataCadastroReserva;
 	}
 
-	public String getDsCancelamentoCadastro() {
-		return this.dsCancelamentoCadastro;
+	public String getDescricaoCadastroReserva() {
+		return descricaoCadastroReserva;
 	}
 
-	public void setDsCancelamentoCadastro(String dsCancelamentoCadastro) {
-		this.dsCancelamentoCadastro = dsCancelamentoCadastro;
+	public void setDescricaoCadastroReserva(String descricaoCadastroReserva) {
+		this.descricaoCadastroReserva = descricaoCadastroReserva;
 	}
 
-	public Date getDtAlteracaoAtividade() {
-		return this.dtAlteracaoAtividade;
+	public LocalDateTime getDataCancelamentoCadastro() {
+		return dataCancelamentoCadastro;
 	}
 
-	public void setDtAlteracaoAtividade(Date dtAlteracaoAtividade) {
+	public void setDataCancelamentoCadastro(LocalDateTime dataCancelamentoCadastro) {
+		this.dataCancelamentoCadastro = dataCancelamentoCadastro;
+	}
+
+	public Long getUsuarioCadastro() {
+		return usuarioCadastro;
+	}
+
+	public void setUsuarioCadastro(Long usuarioCadastro) {
+		this.usuarioCadastro = usuarioCadastro;
+	}
+
+	public LocalDateTime getDataCadastroAtividade() {
+		return dataCadastroAtividade;
+	}
+
+	public void setDataCadastroAtividade(LocalDateTime dataCadastroAtividade) {
+		this.dataCadastroAtividade = dataCadastroAtividade;
+	}
+
+	public String getDescricaoCancelamentoCadastro() {
+		return descricaoCancelamentoCadastro;
+	}
+
+	public void setDescricaoCancelamentoCadastro(String descricaoCancelamentoCadastro) {
+		this.descricaoCancelamentoCadastro = descricaoCancelamentoCadastro;
+	}
+
+	public LocalDateTime getDtAlteracaoAtividade() {
+		return dtAlteracaoAtividade;
+	}
+
+	public void setDtAlteracaoAtividade(LocalDateTime dtAlteracaoAtividade) {
 		this.dtAlteracaoAtividade = dtAlteracaoAtividade;
 	}
 
-	public Date getDtCadastroAtividade() {
-		return this.dtCadastroAtividade;
-	}
-
-	public void setDtCadastroAtividade(Date dtCadastroAtividade) {
-		this.dtCadastroAtividade = dtCadastroAtividade;
-	}
-
-	public Date getDtCadastroReserva() {
-		return this.dtCadastroReserva;
-	}
-
-	public void setDtCadastroReserva(Date dtCadastroReserva) {
-		this.dtCadastroReserva = dtCadastroReserva;
-	}
-
-	public Date getDtCancelamentoCadastro() {
-		return this.dtCancelamentoCadastro;
-	}
-
-	public void setDtCancelamentoCadastro(Date dtCancelamentoCadastro) {
-		this.dtCancelamentoCadastro = dtCancelamentoCadastro;
-	}
-
 	public Atividade getAtividade() {
-		return this.atividade;
+		return atividade;
 	}
 
 	public void setAtividade(Atividade atividade) {
@@ -136,35 +137,28 @@ public class CadastroReservaAtividade implements Serializable {
 	}
 
 	public PessoaFisica getPessoasFisica() {
-		return this.pessoasFisica;
+		return pessoasFisica;
 	}
 
 	public void setPessoasFisica(PessoaFisica pessoasFisica) {
 		this.pessoasFisica = pessoasFisica;
 	}
 
-	public UsuariosSistema getUsuariosSistema1() {
-		return this.usuariosSistema1;
+	public Long getUsuarioUltimaAlteracao() {
+		return usuarioUltimaAlteracao;
 	}
 
-	public void setUsuariosSistema1(UsuariosSistema usuariosSistema1) {
-		this.usuariosSistema1 = usuariosSistema1;
+	public void setUsuarioUltimaAlteracao(Long usuarioUltimaAlteracao) {
+		this.usuarioUltimaAlteracao = usuarioUltimaAlteracao;
 	}
 
-	public UsuariosSistema getUsuariosSistema2() {
-		return this.usuariosSistema2;
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema2(UsuariosSistema usuariosSistema2) {
-		this.usuariosSistema2 = usuariosSistema2;
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
-	public UsuariosSistema getUsuariosSistema3() {
-		return this.usuariosSistema3;
-	}
-
-	public void setUsuariosSistema3(UsuariosSistema usuariosSistema3) {
-		this.usuariosSistema3 = usuariosSistema3;
-	}
-
+	
 }
