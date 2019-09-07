@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 import br.com.crux.builder.ObjetivoTOBuilder;
 import br.com.crux.dao.repository.IndicadoresRepository;
 import br.com.crux.entity.Indicadores;
-import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosIndicadoresRule;
 import br.com.crux.to.IndicadoresTO;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class AlterarIndicadoresCmd {
@@ -43,7 +43,7 @@ public class AlterarIndicadoresCmd {
 
 		entityUpdate.setObjetivo(objetivoTOBuilder.build(to.getObjetivo()));
 		
-		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		entityUpdate.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
 		
 		indicadoresRepository.save(entityUpdate);

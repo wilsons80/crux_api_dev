@@ -9,10 +9,10 @@ import br.com.crux.builder.IniciativaTOBuilder;
 import br.com.crux.builder.ProgramaTOBuilder;
 import br.com.crux.dao.repository.ProjetoRepository;
 import br.com.crux.entity.Projeto;
-import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosProjetoRule;
 import br.com.crux.to.ProjetoTO;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class AlterarProjetoCmd {
@@ -48,7 +48,7 @@ public class AlterarProjetoCmd {
 		entityUpdate.setPrograma(programaTOBuilder.build(to.getPrograma()));
 		
 		
-		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		entityUpdate.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
 		
 		repository.save(entityUpdate);

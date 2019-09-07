@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -24,9 +23,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.com.crux.exception.TokenInvalidoException;
 import br.com.crux.infra.constantes.SecurityContantes;
 import br.com.crux.service.exception.ApiError;
-import br.com.crux.to.AcessoUnidadeTO;
 import io.jsonwebtoken.Claims;
 
 public class AuthorizationFilter extends OncePerRequestFilter {
@@ -55,7 +54,12 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 		jwt = jwt.replace(SecurityContantes.JWT_PROVIDER, "");
 		
 		try {
-			Claims claims = new JwtManager().parseToken(jwt);
+			//Valida o token informado
+			Claims claims = new JwtManager().validaToken(jwt);
+			if( claims == null ) {
+				throw new TokenInvalidoException("Token de acesso inválido.");
+			}
+			
 			String username = claims.getSubject();
 			
 			@SuppressWarnings("unchecked")
@@ -66,29 +70,9 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 				grantedAuthorities.add(new SimpleGrantedAuthority(role));
 			});
 			
-			CustomUserDetails customUserDetails = new CustomUserDetails();
-			customUserDetails.setUsername(username);
-
-			
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			if(Objects.nonNull(authentication)) {
-				
-				if(authentication.getAuthorities().size() == 1) {
-					authentication.getAuthorities().forEach(a -> {
-						String siglaUnidade = String.valueOf(a).replaceAll("ROLE_", "");
-						
-						AcessoUnidadeTO unidadeLogada = new AcessoUnidadeTO();
-						unidadeLogada.setIdentificador(siglaUnidade);
-						
-						customUserDetails.setUnidadeLogada(unidadeLogada);
-					});
-				} else {
-					customUserDetails.setUnidadeLogada( ((CustomUserDetails) authentication.getPrincipal()).getUnidadeLogada());
-				}
-			}
-			
-			authentication = new UsernamePasswordAuthenticationToken(customUserDetails, null, grantedAuthorities);
+			Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, grantedAuthorities);
 			SecurityContextHolder.getContext().setAuthentication(authentication);
+			
 			
 		} catch (Exception e) {
 			ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED.value(), e.getMessage(), new Date());

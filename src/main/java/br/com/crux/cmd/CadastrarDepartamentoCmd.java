@@ -12,10 +12,10 @@ import br.com.crux.dao.repository.DepartamentoRepository;
 import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.Departamentos;
 import br.com.crux.entity.Unidade;
-import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosDepartamentoRule;
 import br.com.crux.to.DepartamentoTO;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class CadastrarDepartamentoCmd {
@@ -44,8 +44,6 @@ public class CadastrarDepartamentoCmd {
 			}
 		}
 		
-
-		
 		Departamentos departamento = new Departamentos();
 
 		departamento.setCdUnidadeDepartamento(to.getCdUnidadeDepartamento());
@@ -58,7 +56,7 @@ public class CadastrarDepartamentoCmd {
 			departamento.setDepartamentosSuperior(departamentoTOBuilder.build(to.getDepartamentoSuperior()));
 		}
 		
-		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		departamento.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
 		
 		departamentoRepository.save(departamento);

@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 import br.com.crux.builder.UnidadeBuilder;
 import br.com.crux.dao.repository.DepartamentoRepository;
 import br.com.crux.entity.Departamentos;
-import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosDepartamentoRule;
 import br.com.crux.to.DepartamentoTO;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class AlterarDepartamentoCmd {
@@ -51,7 +51,7 @@ public class AlterarDepartamentoCmd {
 			departamentos.setDepartamentosSuperior(departamentoSuperior.get());
 		}
 		
-		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		departamentos.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
 		
 		departamentoRepository.save(departamentos);

@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 import br.com.crux.builder.IniciativaTOBuilder;
 import br.com.crux.dao.repository.PlanosAcaoRepository;
 import br.com.crux.entity.PlanosAcao;
-import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosPlanosAcaoRule;
 import br.com.crux.to.PlanosAcaoTO;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class AlterarPlanosAcaoCmd {
@@ -45,7 +45,7 @@ public class AlterarPlanosAcaoCmd {
 
 		entityUpdate.setIniciativa(toBuilder.build(to.getIniciativa()));
 		
-		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		entityUpdate.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
 		
 		repository.save(entityUpdate);

@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 import br.com.crux.builder.MetasTOBuilder;
 import br.com.crux.dao.repository.IniciativaRepository;
 import br.com.crux.entity.Iniciativa;
-import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosMetasRule;
 import br.com.crux.to.IniciativaTO;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class AlterarIniciativaCmd {
@@ -43,7 +43,7 @@ public class AlterarIniciativaCmd {
 
 		entityUpdate.setMeta(metasTOBuilder.build(to.getMetas()));
 		
-		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		entityUpdate.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
 		
 		iniciativaRepository.save(entityUpdate);

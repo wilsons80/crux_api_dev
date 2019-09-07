@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 import br.com.crux.builder.PerspectivaTOBuilder;
 import br.com.crux.dao.repository.ObjetivoRepository;
 import br.com.crux.entity.Objetivo;
-import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosObjetivoRule;
 import br.com.crux.to.ObjetivoTO;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class AlterarObjetivoCmd {
@@ -43,7 +43,7 @@ public class AlterarObjetivoCmd {
 
 		objetivo.setPerspectiva(perspectivaTOBuilder.build(to.getPerspectiva()));
 		
-		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		objetivo.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
 		
 		objetivoRepository.save(objetivo);

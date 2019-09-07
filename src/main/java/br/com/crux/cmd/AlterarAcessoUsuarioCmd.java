@@ -18,6 +18,7 @@ import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.exception.PerfilAcessoCadastradoException;
 import br.com.crux.to.CadastroAcessoTO;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class AlterarAcessoUsuarioCmd {
@@ -52,14 +53,19 @@ public class AlterarAcessoUsuarioCmd {
 		}
 
 		
-		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
-		Optional<UsuariosGrupo> usuarioGrupo = usuariosGrupoRepository.findByGruposModuloAndUsuariosSistema(gruposModulo.get(), usuarioLogado);
+		UsuarioLogadoTO usuarioLogadoTO = getUsuarioLogadoCmd.getUsuarioLogado();
+		Optional<UsuariosSistema> usuarioLogado = usuarioSistemaRepository.findById(usuarioLogadoTO.getIdUsuario());
+		if(!usuario.isPresent()) {
+			throw new NotFoundException("Usuario logado não existe.");
+		}		
+		
+		Optional<UsuariosGrupo> usuarioGrupo = usuariosGrupoRepository.findByGruposModuloAndUsuariosSistema(gruposModulo.get(), usuarioLogado.get());
 		if(usuarioGrupo.isPresent()) {
 			throw new PerfilAcessoCadastradoException("Usuário já possui esse perfil cadastrado.");
 		}
 		
 		usuarioGrupo.get().setGruposModulo(gruposModulo.get());
-		usuarioGrupo.get().setIdUsuarioApl(usuarioLogado.getIdUsuario());
+		usuarioGrupo.get().setIdUsuarioApl(usuarioLogado.get().getIdUsuario());
 		usuariosGrupoRepository.save(usuarioGrupo.get());
 		
 	}

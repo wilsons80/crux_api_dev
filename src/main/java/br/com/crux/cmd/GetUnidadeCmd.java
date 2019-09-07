@@ -3,64 +3,58 @@ package br.com.crux.cmd;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.builder.AcessoUnidadeTOBuilder;
 import br.com.crux.builder.UnidadeBuilder;
 import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.Unidade;
-import br.com.crux.entity.UsuariosSistema;
-import br.com.crux.entity.UsuariosUnidade;
 import br.com.crux.enums.ClassificadorSituacaoImovel;
 import br.com.crux.enums.TipoUnidade;
-import br.com.crux.security.CustomUserDetails;
+import br.com.crux.exception.SemAcessoUnidadeException;
 import br.com.crux.to.AcessoUnidadeTO;
 import br.com.crux.to.UnidadeTO;
+import br.com.crux.to.UsuarioLogadoHolder;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class GetUnidadeCmd {
 
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
-	@Autowired private AcessoUnidadeTOBuilder acessoUnidadeTOBuilder;
 	@Autowired private UnidadeRepository unidadeRepository;
 	@Autowired private UnidadeBuilder unidadeBuilder;
 	@Autowired private CarregarUnidadeLogadaCmd carregarUnidadeLogadaCmd;
 	
+	@Autowired private UsuarioLogadoHolder usuarioLogadoHolder;
+	
 	public List<AcessoUnidadeTO> getUnidadesComAcesso() throws UsernameNotFoundException {
-		UsuariosSistema user = getUsuarioLogadoCmd.getUsuarioLogado();
-		
-		return user.getUsuariosUnidades().stream().map((UsuariosUnidade unidade) -> {
-			return acessoUnidadeTOBuilder.build(unidade.getUnidade());
-		}).collect(Collectors.toList());
+		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
+		return usuarioLogado.getUnidades();
 	}
 
 	public Optional<UnidadeTO> getUnidadeUsuarioLogadoComAcesso(Long idUnidade) {
-		UsuariosSistema user = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO user = getUsuarioLogadoCmd.getUsuarioLogado();
 		
 		Optional<Unidade> unidadeOptional = unidadeRepository.findUnidadeDoUsuarioLogado(user.getIdUsuario(), idUnidade);
 		if(!unidadeOptional.isPresent()) {
-			return Optional.empty();
+			throw new SemAcessoUnidadeException("Usuário não tem acesso a essa unidade.");
 		}
-		
+
 		//Carrega a unidade logada no Contexto do usuário
-		CustomUserDetails customUserDetails = carregarUnidadeLogadaCmd.carregarUnidadeLogada(unidadeOptional.get().getIdUnidade());		
-		Authentication authentication = getUsuarioLogadoCmd.get();
+		AcessoUnidadeTO unidadeLogada = carregarUnidadeLogadaCmd.carregarUnidadeLogada(unidadeOptional.get().getIdUnidade());
 		
-		authentication = new UsernamePasswordAuthenticationToken(customUserDetails, null, authentication.getAuthorities());
-		SecurityContextHolder.getContext().setAuthentication(authentication);
+		UsuarioLogadoTO usuarioLogadoTO = usuarioLogadoHolder.getUsuarioLogadoTO();
+		usuarioLogadoTO.setUnidadeLogada(unidadeLogada);
 		
 		return Optional.ofNullable(unidadeBuilder.buildTO(unidadeOptional.get()));
 	}
 	
+	
+	
 	public List<UnidadeTO> getAllUnidadesUsuarioLogadoTemAcesso() {
-		UsuariosSistema user = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO user = getUsuarioLogadoCmd.getUsuarioLogado();
 		
 		Optional<List<Unidade>> unidadesOptional = unidadeRepository.findAllUnidadesDoUsuarioLogado(user.getIdUsuario());
 		if(!unidadesOptional.isPresent()) {
@@ -69,6 +63,8 @@ public class GetUnidadeCmd {
 		
 		return unidadeBuilder.buildAllTO(unidadesOptional.get());
 	}
+	
+	
 	
 	public List<TipoUnidade> getAllTiposUnidade() {
 		return Arrays.asList(TipoUnidade.values());

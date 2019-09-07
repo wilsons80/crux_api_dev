@@ -11,11 +11,11 @@ import br.com.crux.dao.repository.IniciativaRepository;
 import br.com.crux.dao.repository.ProgramaRepository;
 import br.com.crux.entity.Iniciativa;
 import br.com.crux.entity.Programa;
-import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.rule.CamposObrigatoriosProgramaRule;
 import br.com.crux.to.ProgramaTO;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class CadastrarProgramaCmd {
@@ -57,7 +57,7 @@ public class CadastrarProgramaCmd {
 		entity.setIniciativa(iniciativaTOBuilder.build(to.getIniciativa()));
 		entity.setObjetivo(iniciativa.get().getMeta().getIndicadores().getObjetivo());
 		
-		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		entity.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
 		
 		repository.save(entity);

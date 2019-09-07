@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 import br.com.crux.builder.IniciativaTOBuilder;
 import br.com.crux.dao.repository.ProgramaRepository;
 import br.com.crux.entity.Programa;
-import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosProgramaRule;
 import br.com.crux.to.ProgramaTO;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class AlterarProgramaCmd {
@@ -59,7 +59,7 @@ public class AlterarProgramaCmd {
 		
 		//entityUpdate.setObjetivo(objetivoTOBuilder.build(to.getObjetivo()));
 		
-		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		entityUpdate.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
 		
 		repository.save(entityUpdate);

@@ -17,11 +17,11 @@ import br.com.crux.entity.Cargo;
 import br.com.crux.entity.ColaboradoresPrograma;
 import br.com.crux.entity.Funcionario;
 import br.com.crux.entity.Programa;
-import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.rule.CamposObrigatoriosColaboradoresProgramaRule;
 import br.com.crux.to.ColaboradoresProgramaTO;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class CadastrarColaboradoresProgramaCmd {
@@ -79,7 +79,7 @@ public class CadastrarColaboradoresProgramaCmd {
 		entity.setFuncionario(funcionarioTOBuilder.build(to.getFuncionario()));
 		
 		
-		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		entity.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
 		
 		repository.save(entity);

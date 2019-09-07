@@ -11,11 +11,11 @@ import br.com.crux.dao.repository.ObjetivoRepository;
 import br.com.crux.dao.repository.PerspectivaRepository;
 import br.com.crux.entity.Objetivo;
 import br.com.crux.entity.Perspectiva;
-import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.rule.CamposObrigatoriosObjetivoRule;
 import br.com.crux.to.ObjetivoTO;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class CadastrarObjetivoCmd {
@@ -46,7 +46,7 @@ public class CadastrarObjetivoCmd {
 		entity.setDataTermino(to.getDataTermino());
 		entity.setPerspectiva(perspectivaTOBuilder.build(to.getPerspectiva()));
 		
-		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		entity.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
 		
 		objetivoRepository.save(entity);

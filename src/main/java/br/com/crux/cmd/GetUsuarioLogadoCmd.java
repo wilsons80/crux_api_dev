@@ -1,23 +1,20 @@
 package br.com.crux.cmd;
 
 import java.util.Objects;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.dao.repository.UsuarioSistemaRepository;
-import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
-import br.com.crux.security.CustomUserDetails;
+import br.com.crux.to.UsuarioLogadoHolder;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class GetUsuarioLogadoCmd {
 
-	@Autowired
-	private UsuarioSistemaRepository usuarioSistemaRepository;
+	@Autowired private UsuarioLogadoHolder usuarioLogadoHolder;
 	
 	
 	public Authentication get() {
@@ -28,18 +25,14 @@ public class GetUsuarioLogadoCmd {
 		return authentication;
 	}
 	
-	public UsuariosSistema getUsuarioLogado() {
-		CustomUserDetails userDetails = ((CustomUserDetails)get().getPrincipal());
-		if(Objects.isNull(userDetails)) {
-			throw new NotFoundException("Usuário logado ausente no contexto.");
-		}
+	public UsuarioLogadoTO getUsuarioLogado() {
+		UsuarioLogadoTO usuarioLogado = usuarioLogadoHolder.getUsuarioLogadoTO();
 		
-		Optional<UsuariosSistema> usuarioLogado = usuarioSistemaRepository.findByUsername(userDetails.getUsername());
-		if(!usuarioLogado.isPresent()) {
+		if(usuarioLogado == null) {
 			throw new NotFoundException("Erro ao recuperar o usuário logado.");
 		}
 
-		return usuarioLogado.get();
+		return usuarioLogado;
 	}
 	
 }

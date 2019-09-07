@@ -10,10 +10,10 @@ import br.com.crux.dao.repository.PerspectivaRepository;
 import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.Perspectiva;
 import br.com.crux.entity.Unidade;
-import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosPerspectivaRule;
 import br.com.crux.to.PerspectivaTO;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class CadastrarPerspectivaCmd {
@@ -40,7 +40,7 @@ public class CadastrarPerspectivaCmd {
 		entity.setDtTermino(to.getDtTermino());
 		entity.setUnidade(unidadeBuilder.build(to.getUnidade()));
 		
-		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		entity.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
 		
 		perspectivaRepository.save(entity);

@@ -11,11 +11,11 @@ import br.com.crux.dao.repository.IndicadoresRepository;
 import br.com.crux.dao.repository.ObjetivoRepository;
 import br.com.crux.entity.Indicadores;
 import br.com.crux.entity.Objetivo;
-import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.rule.CamposObrigatoriosIndicadoresRule;
 import br.com.crux.to.IndicadoresTO;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class CadastrarIndicadoresCmd {
@@ -47,7 +47,7 @@ public class CadastrarIndicadoresCmd {
 		
 		entity.setObjetivo(objetivoTOBuilder.build(to.getObjetivo()));
 		
-		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		entity.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
 		
 		indicadoresRepository.save(entity);

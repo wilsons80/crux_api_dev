@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 import br.com.crux.builder.IndicadoresTOBuilder;
 import br.com.crux.dao.repository.MetasRepository;
 import br.com.crux.entity.Metas;
-import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosMetasRule;
 import br.com.crux.to.MetasTO;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class AlterarMetasCmd {
@@ -43,7 +43,7 @@ public class AlterarMetasCmd {
 
 		entityUpdate.setIndicadores(indicadoresTOBuilder.build(to.getIndicadores()));
 		
-		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		entityUpdate.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
 		
 		metasRepository.save(entityUpdate);

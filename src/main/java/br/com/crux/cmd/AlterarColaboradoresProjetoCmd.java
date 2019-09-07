@@ -11,11 +11,11 @@ import br.com.crux.builder.FuncionarioTOBuilder;
 import br.com.crux.builder.ProjetoTOBuilder;
 import br.com.crux.dao.repository.ColaboradoresProjetoRepository;
 import br.com.crux.entity.ColaboradoresProjeto;
-import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.rule.CamposObrigatoriosColaboradoresProjetoRule;
 import br.com.crux.to.ColaboradoresProjetoTO;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class AlterarColaboradoresProjetoCmd {
@@ -58,7 +58,7 @@ public class AlterarColaboradoresProjetoCmd {
 		entityUpdate.setCargo(cargoTOBuilder.build(to.getCargo()));
 		entityUpdate.setFuncionario(funcionarioTOBuilder.build(to.getFuncionario()));
 		
-		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		entityUpdate.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
 		
 		repository.save(entityUpdate);

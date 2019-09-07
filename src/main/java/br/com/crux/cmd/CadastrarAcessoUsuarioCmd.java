@@ -18,6 +18,7 @@ import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.exception.PerfilAcessoCadastradoException;
 import br.com.crux.to.CadastroAcessoTO;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class CadastrarAcessoUsuarioCmd {
@@ -50,12 +51,13 @@ public class CadastrarAcessoUsuarioCmd {
 		if(!gruposModulo.isPresent()) {
 			throw new NotFoundException("Não existe o tipo de perfil cadastrado para essa unidade.");
 		}
-
-		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
-		Optional<UsuariosGrupo> usuarioGrupo = usuariosGrupoRepository.findByGruposModuloAndUsuariosSistema(gruposModulo.get(), usuarioLogado);
+		
+		Optional<UsuariosGrupo> usuarioGrupo = usuariosGrupoRepository.findByGruposModuloAndUsuariosSistema(gruposModulo.get(), usuario.get());
 		if(usuarioGrupo.isPresent()) {
 			throw new PerfilAcessoCadastradoException("Usuário já possui esse perfil cadastrado.");
 		}
+		
+		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		
 		UsuariosGrupo usuariosGrupo = new UsuariosGrupo();
 		usuariosGrupo.setGruposModulo(gruposModulo.get());

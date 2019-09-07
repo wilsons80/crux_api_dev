@@ -11,11 +11,11 @@ import br.com.crux.dao.repository.IndicadoresRepository;
 import br.com.crux.dao.repository.MetasRepository;
 import br.com.crux.entity.Indicadores;
 import br.com.crux.entity.Metas;
-import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.rule.CamposObrigatoriosMetasRule;
 import br.com.crux.to.MetasTO;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class CadastrarMetasCmd {
@@ -47,7 +47,7 @@ public class CadastrarMetasCmd {
 		
 		entity.setIndicadores(indicadoresTOBuilder.build(to.getIndicadores()));
 		
-		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		entity.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
 		
 		metasRepository.save(entity);

@@ -9,10 +9,10 @@ import br.com.crux.builder.IniciativaTOBuilder;
 import br.com.crux.builder.ProgramaTOBuilder;
 import br.com.crux.dao.repository.ProjetoRepository;
 import br.com.crux.entity.Projeto;
-import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.rule.CamposObrigatoriosProjetoRule;
 import br.com.crux.to.ProjetoTO;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class CadastrarProjetoCmd {
@@ -52,7 +52,7 @@ public class CadastrarProjetoCmd {
 		}
 		
 		
-		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		entity.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
 		
 		repository.save(entity);

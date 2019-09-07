@@ -11,11 +11,11 @@ import br.com.crux.dao.repository.IniciativaRepository;
 import br.com.crux.dao.repository.MetasRepository;
 import br.com.crux.entity.Iniciativa;
 import br.com.crux.entity.Metas;
-import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.rule.CamposObrigatoriosIniciativaRule;
 import br.com.crux.to.IniciativaTO;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class CadastrarIniciativaCmd {
@@ -48,7 +48,7 @@ public class CadastrarIniciativaCmd {
 		
 		entity.setMeta(metasTOBuilder.build(to.getMetas()));
 		
-		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		entity.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
 		
 		iniciativaRepository.save(entity);

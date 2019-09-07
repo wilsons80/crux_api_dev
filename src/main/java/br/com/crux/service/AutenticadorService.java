@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.crux.cmd.AutenticadorCmd;
+import br.com.crux.to.LoginTO;
 import br.com.crux.to.TrocaSenhaTO;
 import br.com.crux.to.UsuarioLogadoTO;
-import br.com.crux.to.LoginTO;
 
 @RestController
 @RequestMapping(value = "autenticador")

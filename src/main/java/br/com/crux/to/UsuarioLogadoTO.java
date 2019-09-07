@@ -3,9 +3,10 @@ package br.com.crux.to;
 import java.util.List;
 
 public class UsuarioLogadoTO {
-	
-	private String token;
+
+	private Long   idUsuario;
 	private String username;
+	private String token;
 	private AcessoUnidadeTO unidadeLogada;
 
 	private List<AcessoUnidadeTO> unidades;
@@ -16,6 +17,14 @@ public class UsuarioLogadoTO {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public Long getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(Long id) {
+		this.idUsuario = id;
 	}
 
 	public String getUsername() {

@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 import br.com.crux.builder.MenuTOBuilder;
 import br.com.crux.dao.MenuDao;
 import br.com.crux.dao.dto.MenuDTO;
-import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.rule.VerificaParametrosAcessoRule;
 import br.com.crux.rule.VerificaPermissaoMenuRule;
 import br.com.crux.to.MenuTO;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class GetMenuCmd {
@@ -27,7 +27,7 @@ public class GetMenuCmd {
 	public List<MenuTO> getMenuPrincipal() {
 		Long idUnidade = getUnidadeLogadaCmd.get().getId();
 		
-		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		String username = usuarioLogado.getUsername();
 		
 		verificaParametrosAcessoRule.verificar(username, idUnidade);

@@ -30,13 +30,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/autenticador/login","/css/**","/fonts/**","/images/**");
+		web.ignoring().antMatchers("/autenticador/login","/css/**","/fonts/**", "/images/**", "/js/**", "/resources/**");
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests().anyRequest().authenticated();
-		
 		http.addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 

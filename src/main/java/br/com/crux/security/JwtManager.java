@@ -28,7 +28,7 @@ public class JwtManager {
 		return jwt;
 	}
 	
-	public Claims parseToken(String jwt) throws JwtException {
+	public Claims validaToken(String jwt) throws JwtException {
 		Claims claims = Jwts.parser()
 							.setSigningKey(SecurityContantes.API_KEY.getBytes())
 							.parseClaimsJws(jwt)

@@ -11,10 +11,10 @@ import br.com.crux.builder.PerfilAcessoUsuarioTOBuilder;
 import br.com.crux.dao.AcessoDao;
 import br.com.crux.dao.repository.PerfilAcessoRepository;
 import br.com.crux.entity.PerfisAcesso;
-import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.to.PerfilAcessoTO;
 import br.com.crux.to.PerfilAcessoUsuarioTO;
+import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class GetPerfilAcessoCmd {
@@ -43,7 +43,7 @@ public class GetPerfilAcessoCmd {
 			throw new ParametroNaoInformadoException("Erro ao recuperar os perfils do usuário, unidade não informada.");
 		}
 		
-		UsuariosSistema usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		return perfilAcessoTOBuilder.buildAll(acessoDao.getPerfilAcesso(idUnidade, usuarioLogado.getIdUsuario(), idModulo));
 	}
 
