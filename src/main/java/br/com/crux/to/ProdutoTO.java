@@ -1,41 +1,15 @@
-package br.com.crux.entity;
+package br.com.crux.to;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+public class ProdutoTO {
 
-import br.com.crux.infra.constantes.Constantes;
-
-@Entity
-@Table(name="produtos")
-public class Produto {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_produto")
-	@SequenceGenerator(name = "sq_id_produto", sequenceName = "sq_id_produto", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
-	@Column(name="id_produto")
 	private Long id;
-
-	@Column(name="nm_produto")
 	private String nome;
-	
-	@Column(name="cd_unidade_medida")
 	private String codigoUnidadeMedida;
-
-	@Column(name="ds_unidade_medida")
 	private String descricaoUnidadeMedida;
-
-	@Column(name="nm_produto_nf")
 	private String nomeProdutoNatafiscal;
-
-	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
 
-	public Produto() {
+	public ProdutoTO() {
 	}
 
 	public Long getId() {
@@ -86,5 +60,5 @@ public class Produto {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
-	
+
 }
