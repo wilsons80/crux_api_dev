@@ -53,7 +53,7 @@ public class DepartamentoService {
 		alterarDepartamentoCmd.alterar(departamento);
 	}
 	
-	@DeleteMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(path = "/{id}")
 	public void excluir(@PathVariable(name = "id") Long idDepartamento) {
 		excluirDepartamentoCmd.excluir(idDepartamento);
 	}

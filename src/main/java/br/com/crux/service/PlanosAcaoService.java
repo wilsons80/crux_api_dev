@@ -53,7 +53,7 @@ public class PlanosAcaoService {
 		alterarPlanosAcaoCmd.alterar(to);
 	}
 	
-	@DeleteMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(path = "/{id}")
 	public void excluir(@PathVariable(name = "id") Long id) {
 		excluirPlanosAcaoCmd.excluir(id);
 	}

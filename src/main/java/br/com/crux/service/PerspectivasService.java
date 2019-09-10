@@ -53,7 +53,7 @@ public class PerspectivasService {
 		alterarPerspectivaCmd.alterar(to);
 	}
 	
-	@DeleteMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(path = "/{id}")
 	public void excluir(@PathVariable(name = "id") Long id) {
 		excluirPerspectivaCmd.excluir(id);
 	}
