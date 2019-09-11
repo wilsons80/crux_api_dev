@@ -66,13 +66,4 @@ public class AcessoService {
 		return getPerfilAcessoCmd.getPerfilAcesso(idUnidade, idModulo);
 	}
 
-	
-	
-	/*
-	@GetMapping(path = "/cadastro/unidade", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<UnidadeModuloAcessoTO> getUnidadesComPermissaoModuloAcesso() {
-		return getPerfilAcessoCmd.getUnidadesComPermissaoModuloAcesso();
-	}
-	*/
-
 }

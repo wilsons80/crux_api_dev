@@ -53,7 +53,7 @@ public class DocumentosAtividadeService {
 		alterarCmd.alterar(param);
 	}
 	
-	@DeleteMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(path = "/{id}")
 	public void excluir(@PathVariable(name = "id") Long id) {
 		excluirCmd.excluir(id);
 	}
