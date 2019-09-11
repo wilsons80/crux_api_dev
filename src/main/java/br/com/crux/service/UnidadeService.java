@@ -50,12 +50,6 @@ public class UnidadeService {
 		return getUnidadeCmd.getUnidadesComAcesso();
 	}
 
-	@GetMapping(path = "/{idUnidade}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public UnidadeTO getUnidadePorId(@PathVariable(name = "idUnidade") Long idUnidade) {
-		return getUnidadeCmd.getUnidadeUsuarioLogadoComAcesso(idUnidade).get();
-	}
-
-	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void cadastrar(@RequestBody UnidadeTO unidade) {
 		cadastrarUnidadeCmd.cadastrar(unidade);
