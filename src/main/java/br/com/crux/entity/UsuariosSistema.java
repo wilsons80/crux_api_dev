@@ -55,7 +55,10 @@ public class UsuariosSistema implements Serializable {
 
 	@Column(name="st_troca_senha")
 	private String stTrocaSenha;
-
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_pessoa_fisica")
+	private PessoaFisica pessoaFisica;
 
 	//bi-directional many-to-one association to UsuariosGrupo
 	@OneToMany(mappedBy="usuariosSistema")
@@ -165,6 +168,16 @@ public class UsuariosSistema implements Serializable {
 	public void setUsuariosUnidades(List<UsuariosUnidade> usuariosUnidades) {
 		this.usuariosUnidades = usuariosUnidades;
 	}
+
+	public PessoaFisica getPessoaFisica() {
+		return pessoaFisica;
+	}
+
+	public void setPessoaFisica(PessoaFisica pessoaFisica) {
+		this.pessoaFisica = pessoaFisica;
+	}
+	
+	
 
 	
 

@@ -24,6 +24,9 @@ public class PessoaFisica implements Serializable {
 	@SequenceGenerator(name = "sq_id_pessoa_fisica", sequenceName = "sq_id_pessoa_fisica", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_pessoa_fisica")
 	private Long idPessoaFisica;
+	
+	@Column(name="nm_pessoa_fisica")
+	private String nome;
 
 	@Column(name="cd_orgao_ci")
 	private String cdOrgaoCi;
@@ -134,8 +137,6 @@ public class PessoaFisica implements Serializable {
 	@Column(name="nm_pai")
 	private String nmPai;
 
-	@Column(name="nm_pessoa_fisica")
-	private String nmPessoaFisica;
 
 	@Column(name="nr_cep")
 	private BigDecimal nrCep;
@@ -558,12 +559,12 @@ public class PessoaFisica implements Serializable {
 		this.nmPai = nmPai;
 	}
 
-	public String getNmPessoaFisica() {
-		return this.nmPessoaFisica;
+	public String getNome() {
+		return this.nome;
 	}
 
 	public void setNmPessoaFisica(String nmPessoaFisica) {
-		this.nmPessoaFisica = nmPessoaFisica;
+		this.nome = nmPessoaFisica;
 	}
 
 	public BigDecimal getNrCep() {

@@ -6,11 +6,21 @@ public class UsuarioLogadoTO {
 
 	private Long   idUsuario;
 	private String username;
+	private String nomeUsuario;
 	private String token;
 	private AcessoUnidadeTO unidadeLogada;
 
 	private List<AcessoUnidadeTO> unidades;
 	
+	
+	public String getNomeUsuario() {
+		return nomeUsuario;
+	}
+
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
+	}
+
 	public String getToken() {
 		return token;
 	}
