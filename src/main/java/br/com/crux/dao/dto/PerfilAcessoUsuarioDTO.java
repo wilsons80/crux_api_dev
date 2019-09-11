@@ -13,7 +13,7 @@ public class PerfilAcessoUsuarioDTO {
 	private Long idGrupoModulo;
 	private String nomeGrupoModulo;
 	private String descricaoGrupoModulo;
-
+	private Long idUsuarioGrupo;
 	
 	public PerfilAcessoUsuarioDTO() {
 	}
@@ -28,6 +28,7 @@ public class PerfilAcessoUsuarioDTO {
 		this.idGrupoModulo        = (colunas[6] != null)? ((BigDecimal)colunas[6]).longValue() : null;
 		this.nomeGrupoModulo      = (String) colunas[7];
 		this.descricaoGrupoModulo = (String) colunas[8];
+		this.idUsuarioGrupo        = (colunas[9] != null)? ((BigDecimal)colunas[9]).longValue() : null;
 	}
 
 	public Long getIdUsuario() {
@@ -100,6 +101,14 @@ public class PerfilAcessoUsuarioDTO {
 
 	public void setDescricaoGrupoModulo(String descricaoGrupoModulo) {
 		this.descricaoGrupoModulo = descricaoGrupoModulo;
+	}
+
+	public Long getIdUsuarioGrupo() {
+		return idUsuarioGrupo;
+	}
+
+	public void setIdUsuarioGrupo(Long idUsuarioGrupo) {
+		this.idUsuarioGrupo = idUsuarioGrupo;
 	}
 
 	

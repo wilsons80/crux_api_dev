@@ -23,6 +23,7 @@ public class PerfilAcessoUsuarioTOBuilder {
 		to.setIdGrupoModulo(dto.getIdGrupoModulo());
 		to.setNomeGrupoModulo(dto.getNomeGrupoModulo());
 		to.setDescricaoGrupoModulo(dto.getDescricaoGrupoModulo());
+		to.setIdUsuarioGrupo(dto.getIdUsuarioGrupo());
 		
 		return to;
 	}

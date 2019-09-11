@@ -75,7 +75,8 @@ public class AcessoDao extends BaseDao{
 		sql.append("       m.nm_modulo,                                               ");
 		sql.append("       gm.id_grupo_modulo,                                        ");
 		sql.append("       gm.nm_grupo,                                               ");
-		sql.append("       gm.tx_descricao_grupo                                      ");
+		sql.append("       gm.tx_descricao_grupo,                                     ");
+		sql.append("       ug.id_usuario_grupo                                        ");
 		sql.append("  from usuarios_grupos ug,                                        ");
 		sql.append("       usuarios_sistema us,                                       ");
 		sql.append("       modulos m,                                                 ");

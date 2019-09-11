@@ -24,7 +24,7 @@ public class AutenticadorCmd {
 	
 	
 	public UsuarioLogadoTO autenticar(LoginTO user) {
-		saveUsuarioLogadoCmd.reset();
+		logout();
 		
 		UsernamePasswordAuthenticationToken userAuth = new UsernamePasswordAuthenticationToken(user.getUserName(),user.getSenha());
 		Authentication auth = authManager.authenticate(userAuth);
@@ -33,7 +33,13 @@ public class AutenticadorCmd {
 		saveUsuarioLogadoCmd.save(auth);
 		UsuarioLogadoTO usuarioLogadoTO = usuarioLogadoHolder.getUsuarioLogadoTO();
 		
+		SecurityContextHolder.getContext().getAuthentication();
 		return usuarioLogadoTO;
+	}
+
+
+	public void logout() {
+		saveUsuarioLogadoCmd.reset();
 	}
 
 	
