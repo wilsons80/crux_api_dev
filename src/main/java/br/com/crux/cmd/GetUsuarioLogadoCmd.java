@@ -6,13 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.SessionScope;
 
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.to.UsuarioLogadoHolder;
 import br.com.crux.to.UsuarioLogadoTO;
 
-@SessionScope
 @Component
 public class GetUsuarioLogadoCmd {
 
