@@ -28,5 +28,5 @@ public class AutenticadorService {
 	public void trocarSenha(@RequestBody TrocaSenhaTO trocaSenhaTO) {
 		autenticadorLoginCmd.trocarSenha(trocaSenhaTO);
 	}
-
+	
 }
