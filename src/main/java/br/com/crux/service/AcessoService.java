@@ -67,6 +67,7 @@ public class AcessoService {
 	}
 	
 	
+	
 	//Retorna os acesso do módulo acessado no menu
 	@GetMapping(path = "/unidade/{idUnidade}/modulo/{idModulo}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<PerfilAcessoTO> getPerfilAcesso(@PathVariable(name = "idUnidade") Long idUnidade, 
