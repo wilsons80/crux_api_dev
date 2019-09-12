@@ -61,7 +61,13 @@ public class UsuarioLogadoTO {
 		this.unidadeLogada = unidadeLogada;
 	}
 
+	@Override
+	public String toString() {
+		return "UsuarioLogadoTO [idUsuario=" + idUsuario + ", username=" + username + ", nomeUsuario=" + nomeUsuario + ", token=" + token + ", unidadeLogada=" + unidadeLogada + ", unidades=" + unidades + "]";
+	}
+
 	
 
+	
 	
 }

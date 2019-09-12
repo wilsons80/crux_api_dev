@@ -1,5 +1,7 @@
 package br.com.crux.cmd;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,6 +33,8 @@ public class AutenticadorCmd {
 		saveUsuarioLogadoCmd.save(auth);
 		UsuarioLogadoTO usuarioLogadoTO = usuarioLogadoHolder.getUsuarioLogadoTO();
 		
+		System.out.println("Data:" + new Date());
+		System.out.println("autenticar: " + usuarioLogadoTO);
 		return usuarioLogadoTO;
 	}
 
@@ -38,10 +42,13 @@ public class AutenticadorCmd {
 	public UsuarioLogadoTO refreshToken() {
 		Authentication auth = getUsuarioLogadoCmd.get();
 		String tokenJwt = createTokenJwtCmd.createToken(auth.getName(), auth.getAuthorities());
-
+		saveUsuarioLogadoCmd.save(auth);
+		
 		UsuarioLogadoTO usuarioLogadoTO = usuarioLogadoHolder.getUsuarioLogadoTO();
 		usuarioLogadoTO.setToken(tokenJwt);
 
+		System.out.println("Data:" + new Date());
+		System.out.println("refreshToken: " + usuarioLogadoTO);
 		return usuarioLogadoTO;
 	}
 	

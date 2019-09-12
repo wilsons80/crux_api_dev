@@ -30,22 +30,20 @@ public class GetUnidadeCmd {
 	@Autowired private UsuarioLogadoHolder usuarioLogadoHolder;
 	
 	public List<AcessoUnidadeTO> getUnidadesComAcesso() throws UsernameNotFoundException {
-		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO usuarioLogado = usuarioLogadoHolder.getUsuarioLogadoTO();
 		return usuarioLogado.getUnidades();
 	}
 
 	public Optional<UnidadeTO> getUnidadeUsuarioLogadoComAcesso(Long idUnidade) {
-		UsuarioLogadoTO user = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO usuarioLogadoTO = usuarioLogadoHolder.getUsuarioLogadoTO();
 		
-		Optional<Unidade> unidadeOptional = unidadeRepository.findUnidadeDoUsuarioLogado(user.getIdUsuario(), idUnidade);
+		Optional<Unidade> unidadeOptional = unidadeRepository.findUnidadeDoUsuarioLogado(usuarioLogadoTO.getIdUsuario(), idUnidade);
 		if(!unidadeOptional.isPresent()) {
 			throw new SemAcessoUnidadeException("Usuário não tem acesso a essa unidade.");
 		}
 
 		//Carrega a unidade logada no Contexto do usuário
 		AcessoUnidadeTO unidadeLogada = carregarUnidadeLogadaCmd.carregarUnidadeLogada(unidadeOptional.get().getIdUnidade());
-		
-		UsuarioLogadoTO usuarioLogadoTO = usuarioLogadoHolder.getUsuarioLogadoTO();
 		usuarioLogadoTO.setUnidadeLogada(unidadeLogada);
 		
 		return Optional.ofNullable(unidadeBuilder.buildTO(unidadeOptional.get()));
