@@ -18,6 +18,11 @@ public class UsuarioService {
 
 	@Autowired GetUsuariosPorUnidadeCmd getUsuariosPorUnidadeCmd;
 	
+	@GetMapping(path = "/unidade", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<UsuarioUnidadeTO> getUsuariosPorUnidadeLogada() {
+		return getUsuariosPorUnidadeCmd.getUsuariosPorUnidade();
+	}
+	
 	@GetMapping(path = "/unidade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<UsuarioUnidadeTO> getUsuariosPorUnidade(@PathVariable(name = "id") Long idUnidade) {
 		return getUsuariosPorUnidadeCmd.getUsuariosPorUnidade(idUnidade);

@@ -21,9 +21,9 @@ public class ModuloService {
 	@Autowired private GetGruposModulosCmd getGruposModulosCmd; 
 	
 	
-	@GetMapping(path = "/unidade/{idUnidade}")
-	public List<ModuloTO> getModulosPorUnidade(@PathVariable(name = "idUnidade") Long idUnidade) {
-		return getModulosPorUnidadeCmd.getModulosPorUnidade(idUnidade);
+	@GetMapping(path = "/unidade")
+	public List<ModuloTO> getModulosPorUnidade() {
+		return getModulosPorUnidadeCmd.getModulosPorUnidade();
 	}
 
 	@GetMapping(path = "/{idModulo}/unidade/{idUnidade}")
