@@ -24,6 +24,7 @@ public class GetPerfilAcessoCmd {
 	@Autowired private PerfilAcessoTOBuilder perfilAcessoTOBuilder;
 	@Autowired private PerfilAcessoUsuarioTOBuilder perfilAcessoUsuarioTOBuilder;  
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
+	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 
 	
 	public List<PerfisAcesso> getAllPerfilAcesso() {
@@ -37,6 +38,11 @@ public class GetPerfilAcessoCmd {
 		}
 		return perfilAcessoUsuarioTOBuilder.buildAll(acessoDao.getPerfilAcessoDoUsuario(idUnidade, idUsuario , idModulo));
 	}
+
+	public List<PerfilAcessoUsuarioTO> getPerfilAcessoDoUsuarioNaUnidadeLogada(Long idUsuario, Long idModulo) {
+		return perfilAcessoUsuarioTOBuilder.buildAll(acessoDao.getPerfilAcessoDoUsuario(getUnidadeLogadaCmd.get().getId(), idUsuario , idModulo));
+	}
+	
 	
 	public List<PerfilAcessoTO> getPerfilAcesso(Long idUnidade,Long idModulo) {
 		if(Objects.isNull(idUnidade)) {

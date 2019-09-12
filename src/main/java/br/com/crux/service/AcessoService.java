@@ -59,6 +59,14 @@ public class AcessoService {
 	}
 	
 
+	//Usado na tela de consulta de acesso para um usuário específico
+	@GetMapping(path = "/perfil/unidadelogada", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<PerfilAcessoUsuarioTO> getPerfilAcessoDoUsuarioNaUnidadeLogada( @RequestParam(name = "usuario", required = false) Long idUsuario, 
+			                                                                    @RequestParam(name = "modulo", required = false) Long idModulo) {
+		return getPerfilAcessoCmd.getPerfilAcessoDoUsuarioNaUnidadeLogada(idUsuario, idModulo);
+	}
+	
+	
 	//Retorna os acesso do módulo acessado no menu
 	@GetMapping(path = "/unidade/{idUnidade}/modulo/{idModulo}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<PerfilAcessoTO> getPerfilAcesso(@PathVariable(name = "idUnidade") Long idUnidade, 
