@@ -37,12 +37,9 @@ public class SaveUsuarioLogadoCmd {
 	}
 	
 	public void save(Authentication auth) {
-		if(usuarioLogadoHolder.getUsuarioLogadoTO() == null) {
-			
-			String username = auth.getName();
-			UsuarioLogadoTO usuarioLogadoTO = getUsuarioLogado(username, auth.getAuthorities());
-			usuarioLogadoHolder.setUsuarioLogadoTO(usuarioLogadoTO);
-		}
+		String username = auth.getName();
+		UsuarioLogadoTO usuarioLogadoTO = getUsuarioLogado(username, auth.getAuthorities());
+		usuarioLogadoHolder.setUsuarioLogadoTO(usuarioLogadoTO);
 	}
 	
 	
