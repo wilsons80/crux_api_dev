@@ -22,7 +22,9 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-		authentication.setAuthenticated(false);
-		saveUsuarioLogadoCmd.reset();
+		if (authentication != null) {
+			authentication.setAuthenticated(false);
+			saveUsuarioLogadoCmd.reset();
+		}
 	}
 }
