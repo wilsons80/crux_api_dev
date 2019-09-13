@@ -16,8 +16,11 @@ public class GetModulosPorUnidadeCmd {
 	@Autowired private ModuloTOBuilder moduloTOBuilder;
 	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	
-	public List<ModuloTO> getModulosPorUnidade() {
-		
-		return moduloTOBuilder.buildAll(moduloDao.getModuloPorUnidade(getUnidadeLogadaCmd.get().getId()));
+	public List<ModuloTO> getModulosPorUnidadeLogada() {
+		return getModulosPorUnidade(getUnidadeLogadaCmd.get().getId());
 	}
+	
+	public List<ModuloTO> getModulosPorUnidade(Long idUnidade) {
+		return moduloTOBuilder.buildAll(moduloDao.getModuloPorUnidade(idUnidade));
+	}	
 }

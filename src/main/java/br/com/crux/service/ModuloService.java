@@ -22,9 +22,14 @@ public class ModuloService {
 	
 	
 	@GetMapping(path = "/unidade")
-	public List<ModuloTO> getModulosPorUnidade() {
-		return getModulosPorUnidadeCmd.getModulosPorUnidade();
+	public List<ModuloTO> getModulosPorUnidadeLogada() {
+		return getModulosPorUnidadeCmd.getModulosPorUnidadeLogada();
 	}
+	
+	@GetMapping(path = "/unidade/{idUnidade}")
+	public List<ModuloTO> getModulosPorUnidade(@PathVariable(name = "idUnidade") Long idUnidade) {
+		return getModulosPorUnidadeCmd.getModulosPorUnidade(idUnidade);
+	}	
 
 	@GetMapping(path = "/{idModulo}/unidade/{idUnidade}")
 	public List<GrupoModuloTO> getGrupoModulo(@PathVariable(name = "idUnidade") Long idUnidade, 
