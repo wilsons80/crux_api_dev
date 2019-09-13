@@ -16,7 +16,7 @@ public interface AtividadeRepository extends JpaRepository<Atividade, Long>{
 	@Query(value = "SELECT ati FROM Atividade ati"
 			+ " inner join Unidade uni on ati.unidade = uni"
 			+ " where uni.idUnidade = ?1")
-	public Optional<List<Atividade>> findByUnidade(Long idUnidade);
+	public Optional<List<Atividade>> findByIdUnidade(Long idUnidade);
 
 	
 	@Query(value = "SELECT ati FROM Atividade ati"

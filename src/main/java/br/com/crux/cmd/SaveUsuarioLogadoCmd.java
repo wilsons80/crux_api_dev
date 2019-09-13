@@ -8,7 +8,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.builder.AcessoUnidadeTOBuilder;
@@ -32,7 +31,6 @@ public class SaveUsuarioLogadoCmd {
 
 	
 	public void reset() {
-		SecurityContextHolder.clearContext();
 		usuarioLogadoHolder.setUsuarioLogadoTO(null);
 	}
 	
@@ -46,7 +44,11 @@ public class SaveUsuarioLogadoCmd {
 	private UsuarioLogadoTO getUsuarioLogado(String username, Collection<? extends GrantedAuthority> authorities) {
 		String jwt = createTokenJwtCmd.createToken(username, authorities);
 		
-		UsuarioLogadoTO usuarioLogadoTO = new UsuarioLogadoTO();
+		
+		UsuarioLogadoTO usuarioLogadoTO = usuarioLogadoHolder.getUsuarioLogadoTO();
+		if(usuarioLogadoTO == null) {
+			usuarioLogadoTO = new UsuarioLogadoTO();
+		}
 		
 		UsuariosSistema usuariosSistema = getUsuarioSistemaCmd.get(username);
 		usuarioLogadoTO.setIdUsuario(usuariosSistema.getIdUsuario());

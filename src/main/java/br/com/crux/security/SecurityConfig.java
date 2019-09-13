@@ -39,8 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 		  .logout()
 		  .logoutSuccessHandler(logoutSuccessHandler())
-		  .invalidateHttpSession(true)
-		  .deleteCookies("JSESSIONID")
 		  .permitAll()
 	    .and()
 	    	.cors()

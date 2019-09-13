@@ -1,6 +1,7 @@
 package br.com.crux.cmd;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +32,14 @@ public class GetUnidadeCmd {
 	
 	public List<AcessoUnidadeTO> getUnidadesComAcesso() throws UsernameNotFoundException {
 		UsuarioLogadoTO usuarioLogado = usuarioLogadoHolder.getUsuarioLogadoTO();
+		
+		System.out.println("======================================================");
+		System.out.println("Data:" + new Date());
+		System.out.println("usuarioLogadoHolder:" + usuarioLogadoHolder);
+		System.out.println("GetUnidadeCmd.getUnidadesComAcesso:" + usuarioLogadoHolder);
+		System.out.println("======================================================");
+
+		
 		return usuarioLogado.getUnidades();
 	}
 

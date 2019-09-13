@@ -1,5 +1,6 @@
 package br.com.crux.cmd;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,9 +22,13 @@ public class GetAtividadeCmd {
 	
 	
 	public List<AtividadeTO> getAll() {
-		Optional<Atividade> unidade = repository.findById(getUnidadeLogadaCmd.get().getId());
+		Long idUnidade = getUnidadeLogadaCmd.get().getId();
 		
-		return toBuilder.buildAll(repository.findByUnidade(unidade.get().getId()).get());
+		if(repository.findByIdUnidade(idUnidade).isPresent()) {
+			return toBuilder.buildAll(repository.findByIdUnidade(idUnidade).get());
+		}
+		
+		return new ArrayList<AtividadeTO>();
 	}
 	
 	public AtividadeTO getById(Long id) {

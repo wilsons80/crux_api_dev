@@ -33,8 +33,11 @@ public class AutenticadorCmd {
 		saveUsuarioLogadoCmd.save(auth);
 		UsuarioLogadoTO usuarioLogadoTO = usuarioLogadoHolder.getUsuarioLogadoTO();
 		
+		System.out.println("======================================================");
 		System.out.println("Data:" + new Date());
+		System.out.println("usuarioLogadoHolder:" + usuarioLogadoHolder);
 		System.out.println("autenticar: " + usuarioLogadoTO);
+		System.out.println("======================================================");
 		return usuarioLogadoTO;
 	}
 
@@ -47,8 +50,12 @@ public class AutenticadorCmd {
 		UsuarioLogadoTO usuarioLogadoTO = usuarioLogadoHolder.getUsuarioLogadoTO();
 		usuarioLogadoTO.setToken(tokenJwt);
 
+		System.out.println("======================================================");
 		System.out.println("Data:" + new Date());
+		System.out.println("usuarioLogadoHolder:" + usuarioLogadoHolder);
 		System.out.println("refreshToken: " + usuarioLogadoTO);
+		System.out.println("======================================================");
+
 		return usuarioLogadoTO;
 	}
 	
