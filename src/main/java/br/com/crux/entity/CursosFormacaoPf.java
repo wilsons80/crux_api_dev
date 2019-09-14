@@ -1,8 +1,19 @@
 package br.com.crux.entity;
 
-import java.io.Serializable;
-import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import br.com.crux.infra.constantes.Constantes;
 
 
 /**
@@ -11,96 +22,92 @@ import java.util.Date;
  */
 @Entity
 @Table(name="cursos_formacao_pf")
-@NamedQuery(name="CursosFormacaoPf.findAll", query="SELECT c FROM CursosFormacaoPf c")
-public class CursosFormacaoPf implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class CursosFormacaoPf  {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_curso")
+	@SequenceGenerator(name = "sq_id_curso", sequenceName = "sq_id_curso", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_curso")
-	private Long idCurso;
+	private Long id;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_fim_curso")
-	private Date dtFimCurso;
+	private LocalDateTime dataFim;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_inicio_curso")
-	private Date dtInicioCurso;
+	private LocalDateTime dataInicio;
 
 	@Column(name="nm_curso")
-	private String nmCurso;
+	private String nome;
 
 	@Column(name="nm_instuicao")
-	private String nmInstuicao;
+	private String nomeInstuicao;
 
-	//bi-directional many-to-one association to PessoasFisica
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_pessoa_fisica")
-	private PessoaFisica pessoasFisica;
+	private PessoaFisica pessoaFisica;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
+	@Column(name="id_usuario_apl")
+	private Long usuarioAlteracao;
 
 	public CursosFormacaoPf() {
 	}
 
-	public Long getIdCurso() {
-		return this.idCurso;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdCurso(Long idCurso) {
-		this.idCurso = idCurso;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public Date getDtFimCurso() {
-		return this.dtFimCurso;
+	public LocalDateTime getDataFim() {
+		return dataFim;
 	}
 
-	public void setDtFimCurso(Date dtFimCurso) {
-		this.dtFimCurso = dtFimCurso;
+	public void setDataFim(LocalDateTime dataFim) {
+		this.dataFim = dataFim;
 	}
 
-	public Date getDtInicioCurso() {
-		return this.dtInicioCurso;
+	public LocalDateTime getDataInicio() {
+		return dataInicio;
 	}
 
-	public void setDtInicioCurso(Date dtInicioCurso) {
-		this.dtInicioCurso = dtInicioCurso;
+	public void setDataInicio(LocalDateTime dataInicio) {
+		this.dataInicio = dataInicio;
 	}
 
-	public String getNmCurso() {
-		return this.nmCurso;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setNmCurso(String nmCurso) {
-		this.nmCurso = nmCurso;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public String getNmInstuicao() {
-		return this.nmInstuicao;
+	public String getNomeInstuicao() {
+		return nomeInstuicao;
 	}
 
-	public void setNmInstuicao(String nmInstuicao) {
-		this.nmInstuicao = nmInstuicao;
+	public void setNomeInstuicao(String nomeInstuicao) {
+		this.nomeInstuicao = nomeInstuicao;
 	}
 
-	public PessoaFisica getPessoasFisica() {
-		return this.pessoasFisica;
+	public PessoaFisica getPessoaFisica() {
+		return pessoaFisica;
 	}
 
-	public void setPessoasFisica(PessoaFisica pessoasFisica) {
-		this.pessoasFisica = pessoasFisica;
+	public void setPessoaFisica(PessoaFisica pessoaFisica) {
+		this.pessoaFisica = pessoaFisica;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
 	}
+
+	
 
 }

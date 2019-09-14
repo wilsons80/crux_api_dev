@@ -67,18 +67,5 @@ public class GrausInstrucao implements Serializable {
 		this.pessoasFisicas = pessoasFisicas;
 	}
 
-	public PessoaFisica addPessoasFisica(PessoaFisica pessoasFisica) {
-		getPessoasFisicas().add(pessoasFisica);
-		pessoasFisica.setGrausInstrucao(this);
-
-		return pessoasFisica;
-	}
-
-	public PessoaFisica removePessoasFisica(PessoaFisica pessoasFisica) {
-		getPessoasFisicas().remove(pessoasFisica);
-		pessoasFisica.setGrausInstrucao(null);
-
-		return pessoasFisica;
-	}
 
 }

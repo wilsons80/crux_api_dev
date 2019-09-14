@@ -67,18 +67,4 @@ public class CondicoesMoradia implements Serializable {
 		this.pessoasFisicas = pessoasFisicas;
 	}
 
-	public PessoaFisica addPessoasFisica(PessoaFisica pessoasFisica) {
-		getPessoasFisicas().add(pessoasFisica);
-		pessoasFisica.setCondicoesMoradia(this);
-
-		return pessoasFisica;
-	}
-
-	public PessoaFisica removePessoasFisica(PessoaFisica pessoasFisica) {
-		getPessoasFisicas().remove(pessoasFisica);
-		pessoasFisica.setCondicoesMoradia(null);
-
-		return pessoasFisica;
-	}
-
 }

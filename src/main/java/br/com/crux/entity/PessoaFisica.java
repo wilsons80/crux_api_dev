@@ -1,13 +1,20 @@
 package br.com.crux.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import br.com.crux.infra.constantes.Constantes;
-
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -23,842 +30,860 @@ public class PessoaFisica implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_pessoa_fisica")
 	@SequenceGenerator(name = "sq_id_pessoa_fisica", sequenceName = "sq_id_pessoa_fisica", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_pessoa_fisica")
-	private Long idPessoaFisica;
+	private Long id;
 	
 	@Column(name="nm_pessoa_fisica")
 	private String nome;
 
 	@Column(name="cd_orgao_ci")
-	private String cdOrgaoCi;
+	private String orgaoCi;
 
+	//Classificador do motivo da Pessoa física não trabalhar ( SI = Não tem interesse em trabalhar; NE =  Procurou, mas não encontrou emprego ES =  Somente estuda SM = Presta serviço militar PS =  Por problemas de saúde LA= Do lar OU = Outros 
 	@Column(name="cs_motivo_nao_trab")
-	private String csMotivoNaoTrab;
+	private String classificadorMotivoNaoTrab;
 
 	@Column(name="ds_atendido_orgao_rede")
-	private String dsAtendidoOrgaoRede;
+	private String descricaoAlunoAtendidoOrgaoRede;
 
 	@Column(name="ds_atendido_orgao_rede_1")
-	private String dsAtendidoOrgaoRede1;
+	private String descricaoFamiliaAtendidoOrgaoRede;
 
 	@Column(name="ds_bairro")
-	private String dsBairro;
+	private String bairro;
 
 	@Column(name="ds_cidade_naturalidade")
-	private String dsCidadeNaturalidade;
+	private String cidadeNaturalidade;
 
 	@Column(name="ds_condicao_moradia")
-	private String dsCondicaoMoradia;
+	private String condicaoMoradia;
 
 	@Column(name="ds_cor")
-	private String dsCor;
+	private String cor;
 
 	@Column(name="ds_curso_escola")
-	private String dsCursoEscola;
+	private String cursoEscola;
 
 	@Column(name="ds_email")
-	private String dsEmail;
+	private String email;
 
 	@Column(name="ds_endereco")
-	private String dsEndereco;
+	private String endereco;
 
 	@Column(name="ds_escola")
-	private String dsEscola;
+	private String escola;
 
 	@Column(name="ds_escolaridade")
-	private String dsEscolaridade;
+	private String escolaridade;
 
 	@Column(name="ds_estado_civil")
-	private String dsEstadoCivil;
+	private String estadoCivil;
 
 	@Column(name="ds_forma_ingresso_entidade")
-	private String dsFormaIngressoEntidade;
+	private String formaIngressoEntidade;
 
 	@Column(name="ds_medicamentos_controlados")
-	private String dsMedicamentosControlados;
+	private String medicamentosControlados;
 
 	@Column(name="ds_motivo_nao_trab")
-	private String dsMotivoNaoTrab;
+	private String motivoNaoTrab;
 
 	@Column(name="ds_nivel_escolaridade")
-	private String dsNivelEscolaridade;
+	private String nivelEscolaridade;
 
 	@Column(name="ds_outros_ben_soc")
-	private String dsOutrosBenSoc;
+	private String outrosBenSoc;
 
 	@Column(name="ds_periodo_escola")
-	private String dsPeriodoEscola;
+	private String periodoEscola;
 
 	@Column(name="ds_ponto_referencia")
-	private String dsPontoReferencia;
+	private String pontoReferencia;
 
 	@Column(name="ds_problema_saude")
-	private String dsProblemaSaude;
+	private String problemaSaude;
 
 	@Column(name="ds_profissao")
-	private String dsProfissao;
+	private String profissao;
 
 	@Column(name="ds_rede_ap_soc_relev")
-	private String dsRedeApSocRelev;
+	private String redeApSocRelev;
 
 	@Column(name="ds_rede_apoio_social")
-	private String dsRedeApoioSocial;
+	private String redeApoioSocial;
 
 	@Column(name="ds_rede_apoio_social_1")
-	private String dsRedeApoioSocial1;
+	private String redeApoioSocial1;
 
 	@Column(name="ds_regiao_escola")
-	private String dsRegiaoEscola;
+	private String regiaoEscola;
 
 	@Column(name="ds_serie_escola")
-	private String dsSerieEscola;
+	private String serieEscola;
 
 	@Column(name="ds_sexo")
-	private String dsSexo;
+	private String sexo;
 
 	@Column(name="ds_situacao_trabalho")
-	private String dsSituacaoTrabalho;
+	private String situacaoTrabalho;
 
 	@Column(name="ds_tipo_escola")
-	private String dsTipoEscola;
+	private String tipoEscola;
 
 	@Column(name="ds_turno")
-	private String dsTurno;
+	private String turno;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_nascimento")
-	private Date dtNascimento;
+	private LocalDateTime dataNascimento;
 
 	@Column(name="nm_empresa_trabalho")
-	private String nmEmpresaTrabalho;
+	private String nomeEmpresaTrabalho;
 
 	@Column(name="nm_mae")
-	private String nmMae;
+	private String nomeMae;
 
 	@Column(name="nm_pai")
-	private String nmPai;
-
+	private String nomePai;
 
 	@Column(name="nr_cep")
-	private BigDecimal nrCep;
+	private Long cep;
 
 	@Column(name="nr_ci")
-	private String nrCi;
+	private String identidade;
 
 	@Column(name="nr_cpf")
-	private BigDecimal nrCpf;
+	private Long cpf;
 
 	@Column(name="nr_cts")
-	private String nrCts;
+	private String cts;
 
 	@Column(name="nr_fone_celular")
-	private String nrFoneCelular;
+	private String celular;
 
 	@Column(name="nr_nis")
-	private String nrNis;
+	private String nis;
 
 	@Column(name="nr_serie_ctps")
-	private String nrSerieCtps;
+	private String serieCtps;
 
 	@Column(name="nr_sessao_titulo")
-	private String nrSessaoTitulo;
+	private String sessaoTitulo;
 
 	@Column(name="nr_telefone_comercial")
-	private String nrTelefoneComercial;
+	private String telefoneComercial;
 
 	@Column(name="nr_telefone_residencial")
-	private String nrTelefoneResidencial;
+	private String telefoneResidencial;
 
 	@Column(name="nr_titulo_eleitor")
-	private String nrTituloEleitor;
+	private String tituloEleitor;
 
 	@Column(name="nr_zona_titulo")
-	private String nrZonaTitulo;
+	private String zonaTitulo;
 
 	@Column(name="sg_uf_ci")
-	private String sgUfCi;
+	private String ufCi;
 
 	@Column(name="sg_uf_endereco")
-	private String sgUfEndereco;
+	private String ufEndereco;
 
 	@Column(name="sg_uf_nascimento")
-	private String sgUfNascimento;
+	private String ufNascimento;
 
+	//Classificador indicativo se a pessoa física é atendida por outro órgão da rede de apoio social / pessoal
 	@Column(name="st_atendido_orgao_rede")
-	private String stAtendidoOrgaoRede;
+	private String statusAtendidoOrgaoRede;
 
 	@Column(name="st_autoriza_email")
-	private String stAutorizaEmail;
+	private String autorizaEmail;
 
 	@Column(name="st_ben_bolsa_familia")
-	private String stBenBolsaFamilia;
+	private String beneficiarioBolsaFamilia;
 
 	@Column(name="tx_observacoes")
-	private String txObservacoes;
+	private String observacoes;
 
 	@Column(name="vl_aluguel")
-	private BigDecimal vlAluguel;
+	private Long valorAluguel;
 
 	@Column(name="vl_bolsa_familia")
-	private BigDecimal vlBolsaFamilia;
+	private Long valorBolsaFamilia;
 
 	@Column(name="vl_outros_benerficios_soc")
-	private String vlOutrosBenerficiosSoc;
+	private String valorOutrosBenerficiosSoc;
 
 	@Column(name="vl_renda")
-	private BigDecimal vlRenda;
+	private Long valorRenda;
 
-	//bi-directional many-to-one association to Aluno
-	@OneToMany(mappedBy="pessoasFisica")
-	private List<Aluno> alunos;
-
-	//bi-directional many-to-one association to CadastroReservaAtividade
-	@OneToMany(mappedBy="pessoasFisica")
-	private List<CadastroReservaAtividade> cadastroReservaAtividades;
-
-	//bi-directional many-to-one association to ContatosEmpresa
-	@OneToMany(mappedBy="pessoasFisica")
-	private List<ContatosEmpresa> contatosEmpresas;
-
-	//bi-directional many-to-one association to CursosFormacaoPf
-	@OneToMany(mappedBy="pessoasFisica")
-	private List<CursosFormacaoPf> cursosFormacaoPfs;
-
-	//bi-directional many-to-one association to Familiare
-	@OneToMany(mappedBy="pessoasFisica")
-	private List<Familiare> familiares;
-
-	//bi-directional many-to-one association to Funcionario
-	@OneToMany(mappedBy="pessoasFisica")
-	private List<Funcionario> funcionarios;
-
-	//bi-directional many-to-one association to Arquivo
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_arquivo_foto")
 	private Arquivo arquivo;
 
-	//bi-directional many-to-one association to CondicoesMoradia
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_condicao_moradia")
 	private CondicoesMoradia condicoesMoradia;
 
-	//bi-directional many-to-one association to GrausInstrucao
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="graus_inscrucao_pf")
 	private GrausInstrucao grausInstrucao;
 
-	//bi-directional many-to-one association to UsuariosSistema
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_usuario_apl")
 	private UsuariosSistema usuariosSistema;
-
-	//bi-directional many-to-one association to Responsavei
-	@OneToMany(mappedBy="pessoasFisica")
-	private List<Responsaveis> responsaveis;
-
-	//bi-directional many-to-one association to TalentosPf
-	@OneToMany(mappedBy="pessoasFisica")
-	private List<TalentosPf> talentosPfs;
 
 
 	public PessoaFisica() {
 	}
 
-	public Long getIdPessoaFisica() {
-		return this.idPessoaFisica;
-	}
-
-	public void setIdPessoaFisica(Long idPessoaFisica) {
-		this.idPessoaFisica = idPessoaFisica;
-	}
-
-	public String getCdOrgaoCi() {
-		return this.cdOrgaoCi;
-	}
-
-	public void setCdOrgaoCi(String cdOrgaoCi) {
-		this.cdOrgaoCi = cdOrgaoCi;
-	}
-
-	public String getCsMotivoNaoTrab() {
-		return this.csMotivoNaoTrab;
-	}
-
-	public void setCsMotivoNaoTrab(String csMotivoNaoTrab) {
-		this.csMotivoNaoTrab = csMotivoNaoTrab;
-	}
-
-	public String getDsAtendidoOrgaoRede() {
-		return this.dsAtendidoOrgaoRede;
-	}
-
-	public void setDsAtendidoOrgaoRede(String dsAtendidoOrgaoRede) {
-		this.dsAtendidoOrgaoRede = dsAtendidoOrgaoRede;
-	}
-
-	public String getDsAtendidoOrgaoRede1() {
-		return this.dsAtendidoOrgaoRede1;
-	}
-
-	public void setDsAtendidoOrgaoRede1(String dsAtendidoOrgaoRede1) {
-		this.dsAtendidoOrgaoRede1 = dsAtendidoOrgaoRede1;
-	}
-
-	public String getDsBairro() {
-		return this.dsBairro;
-	}
-
-	public void setDsBairro(String dsBairro) {
-		this.dsBairro = dsBairro;
-	}
-
-	public String getDsCidadeNaturalidade() {
-		return this.dsCidadeNaturalidade;
-	}
-
-	public void setDsCidadeNaturalidade(String dsCidadeNaturalidade) {
-		this.dsCidadeNaturalidade = dsCidadeNaturalidade;
-	}
-
-	public String getDsCondicaoMoradia() {
-		return this.dsCondicaoMoradia;
-	}
-
-	public void setDsCondicaoMoradia(String dsCondicaoMoradia) {
-		this.dsCondicaoMoradia = dsCondicaoMoradia;
-	}
-
-	public String getDsCor() {
-		return this.dsCor;
-	}
-
-	public void setDsCor(String dsCor) {
-		this.dsCor = dsCor;
-	}
-
-	public String getDsCursoEscola() {
-		return this.dsCursoEscola;
-	}
-
-	public void setDsCursoEscola(String dsCursoEscola) {
-		this.dsCursoEscola = dsCursoEscola;
-	}
-
-	public String getDsEmail() {
-		return this.dsEmail;
-	}
-
-	public void setDsEmail(String dsEmail) {
-		this.dsEmail = dsEmail;
-	}
-
-	public String getDsEndereco() {
-		return this.dsEndereco;
-	}
-
-	public void setDsEndereco(String dsEndereco) {
-		this.dsEndereco = dsEndereco;
-	}
-
-	public String getDsEscola() {
-		return this.dsEscola;
-	}
-
-	public void setDsEscola(String dsEscola) {
-		this.dsEscola = dsEscola;
-	}
-
-	public String getDsEscolaridade() {
-		return this.dsEscolaridade;
-	}
-
-	public void setDsEscolaridade(String dsEscolaridade) {
-		this.dsEscolaridade = dsEscolaridade;
-	}
-
-	public String getDsEstadoCivil() {
-		return this.dsEstadoCivil;
-	}
-
-	public void setDsEstadoCivil(String dsEstadoCivil) {
-		this.dsEstadoCivil = dsEstadoCivil;
-	}
-
-	public String getDsFormaIngressoEntidade() {
-		return this.dsFormaIngressoEntidade;
-	}
-
-	public void setDsFormaIngressoEntidade(String dsFormaIngressoEntidade) {
-		this.dsFormaIngressoEntidade = dsFormaIngressoEntidade;
-	}
-
-	public String getDsMedicamentosControlados() {
-		return this.dsMedicamentosControlados;
-	}
-
-	public void setDsMedicamentosControlados(String dsMedicamentosControlados) {
-		this.dsMedicamentosControlados = dsMedicamentosControlados;
-	}
-
-	public String getDsMotivoNaoTrab() {
-		return this.dsMotivoNaoTrab;
-	}
-
-	public void setDsMotivoNaoTrab(String dsMotivoNaoTrab) {
-		this.dsMotivoNaoTrab = dsMotivoNaoTrab;
-	}
-
-	public String getDsNivelEscolaridade() {
-		return this.dsNivelEscolaridade;
-	}
-
-	public void setDsNivelEscolaridade(String dsNivelEscolaridade) {
-		this.dsNivelEscolaridade = dsNivelEscolaridade;
-	}
-
-	public String getDsOutrosBenSoc() {
-		return this.dsOutrosBenSoc;
-	}
-
-	public void setDsOutrosBenSoc(String dsOutrosBenSoc) {
-		this.dsOutrosBenSoc = dsOutrosBenSoc;
-	}
-
-	public String getDsPeriodoEscola() {
-		return this.dsPeriodoEscola;
-	}
-
-	public void setDsPeriodoEscola(String dsPeriodoEscola) {
-		this.dsPeriodoEscola = dsPeriodoEscola;
-	}
-
-	public String getDsPontoReferencia() {
-		return this.dsPontoReferencia;
-	}
-
-	public void setDsPontoReferencia(String dsPontoReferencia) {
-		this.dsPontoReferencia = dsPontoReferencia;
-	}
-
-	public String getDsProblemaSaude() {
-		return this.dsProblemaSaude;
-	}
-
-	public void setDsProblemaSaude(String dsProblemaSaude) {
-		this.dsProblemaSaude = dsProblemaSaude;
-	}
-
-	public String getDsProfissao() {
-		return this.dsProfissao;
-	}
-
-	public void setDsProfissao(String dsProfissao) {
-		this.dsProfissao = dsProfissao;
-	}
-
-	public String getDsRedeApSocRelev() {
-		return this.dsRedeApSocRelev;
-	}
-
-	public void setDsRedeApSocRelev(String dsRedeApSocRelev) {
-		this.dsRedeApSocRelev = dsRedeApSocRelev;
-	}
-
-	public String getDsRedeApoioSocial() {
-		return this.dsRedeApoioSocial;
-	}
-
-	public void setDsRedeApoioSocial(String dsRedeApoioSocial) {
-		this.dsRedeApoioSocial = dsRedeApoioSocial;
-	}
-
-	public String getDsRedeApoioSocial1() {
-		return this.dsRedeApoioSocial1;
-	}
 
-	public void setDsRedeApoioSocial1(String dsRedeApoioSocial1) {
-		this.dsRedeApoioSocial1 = dsRedeApoioSocial1;
+	public Long getId() {
+		return id;
 	}
 
-	public String getDsRegiaoEscola() {
-		return this.dsRegiaoEscola;
-	}
-
-	public void setDsRegiaoEscola(String dsRegiaoEscola) {
-		this.dsRegiaoEscola = dsRegiaoEscola;
-	}
-
-	public String getDsSerieEscola() {
-		return this.dsSerieEscola;
-	}
-
-	public void setDsSerieEscola(String dsSerieEscola) {
-		this.dsSerieEscola = dsSerieEscola;
-	}
-
-	public String getDsSexo() {
-		return this.dsSexo;
-	}
-
-	public void setDsSexo(String dsSexo) {
-		this.dsSexo = dsSexo;
-	}
-
-	public String getDsSituacaoTrabalho() {
-		return this.dsSituacaoTrabalho;
-	}
-
-	public void setDsSituacaoTrabalho(String dsSituacaoTrabalho) {
-		this.dsSituacaoTrabalho = dsSituacaoTrabalho;
-	}
-
-	public String getDsTipoEscola() {
-		return this.dsTipoEscola;
-	}
-
-	public void setDsTipoEscola(String dsTipoEscola) {
-		this.dsTipoEscola = dsTipoEscola;
-	}
-
-	public String getDsTurno() {
-		return this.dsTurno;
-	}
-
-	public void setDsTurno(String dsTurno) {
-		this.dsTurno = dsTurno;
-	}
-
-	public Date getDtNascimento() {
-		return this.dtNascimento;
-	}
-
-	public void setDtNascimento(Date dtNascimento) {
-		this.dtNascimento = dtNascimento;
-	}
 
-	public String getNmEmpresaTrabalho() {
-		return this.nmEmpresaTrabalho;
+	public void setId(Long idPessoaFisica) {
+		this.id = idPessoaFisica;
 	}
 
-	public void setNmEmpresaTrabalho(String nmEmpresaTrabalho) {
-		this.nmEmpresaTrabalho = nmEmpresaTrabalho;
-	}
-
-	public String getNmMae() {
-		return this.nmMae;
-	}
-
-	public void setNmMae(String nmMae) {
-		this.nmMae = nmMae;
-	}
-
-	public String getNmPai() {
-		return this.nmPai;
-	}
-
-	public void setNmPai(String nmPai) {
-		this.nmPai = nmPai;
-	}
 
 	public String getNome() {
-		return this.nome;
+		return nome;
 	}
 
-	public void setNmPessoaFisica(String nmPessoaFisica) {
-		this.nome = nmPessoaFisica;
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public BigDecimal getNrCep() {
-		return this.nrCep;
+
+	public String getOrgaoCi() {
+		return orgaoCi;
 	}
 
-	public void setNrCep(BigDecimal nrCep) {
-		this.nrCep = nrCep;
+
+	public void setOrgaoCi(String orgaoCi) {
+		this.orgaoCi = orgaoCi;
 	}
 
-	public String getNrCi() {
-		return this.nrCi;
+
+	public String getClassificadorMotivoNaoTrab() {
+		return classificadorMotivoNaoTrab;
 	}
 
-	public void setNrCi(String nrCi) {
-		this.nrCi = nrCi;
+
+	public void setClassificadorMotivoNaoTrab(String classificadorMotivoNaoTrab) {
+		this.classificadorMotivoNaoTrab = classificadorMotivoNaoTrab;
 	}
 
-	public BigDecimal getNrCpf() {
-		return this.nrCpf;
+
+	public String getDescricaoAlunoAtendidoOrgaoRede() {
+		return descricaoAlunoAtendidoOrgaoRede;
 	}
 
-	public void setNrCpf(BigDecimal nrCpf) {
-		this.nrCpf = nrCpf;
+
+	public void setDescricaoAlunoAtendidoOrgaoRede(String descricaoAlunoAtendidoOrgaoRede) {
+		this.descricaoAlunoAtendidoOrgaoRede = descricaoAlunoAtendidoOrgaoRede;
 	}
 
-	public String getNrCts() {
-		return this.nrCts;
+
+	public String getDescricaoFamiliaAtendidoOrgaoRede() {
+		return descricaoFamiliaAtendidoOrgaoRede;
 	}
 
-	public void setNrCts(String nrCts) {
-		this.nrCts = nrCts;
+
+	public void setDescricaoFamiliaAtendidoOrgaoRede(String descricaoFamiliaAtendidoOrgaoRede) {
+		this.descricaoFamiliaAtendidoOrgaoRede = descricaoFamiliaAtendidoOrgaoRede;
 	}
 
-	public String getNrFoneCelular() {
-		return this.nrFoneCelular;
+
+	public String getBairro() {
+		return bairro;
 	}
 
-	public void setNrFoneCelular(String nrFoneCelular) {
-		this.nrFoneCelular = nrFoneCelular;
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
 	}
 
-	public String getNrNis() {
-		return this.nrNis;
+
+	public String getCidadeNaturalidade() {
+		return cidadeNaturalidade;
 	}
 
-	public void setNrNis(String nrNis) {
-		this.nrNis = nrNis;
+
+	public void setCidadeNaturalidade(String cidadeNaturalidade) {
+		this.cidadeNaturalidade = cidadeNaturalidade;
 	}
 
-	public String getNrSerieCtps() {
-		return this.nrSerieCtps;
+
+	public String getCondicaoMoradia() {
+		return condicaoMoradia;
 	}
 
-	public void setNrSerieCtps(String nrSerieCtps) {
-		this.nrSerieCtps = nrSerieCtps;
+
+	public void setCondicaoMoradia(String condicaoMoradia) {
+		this.condicaoMoradia = condicaoMoradia;
 	}
 
-	public String getNrSessaoTitulo() {
-		return this.nrSessaoTitulo;
+
+	public String getCor() {
+		return cor;
 	}
 
-	public void setNrSessaoTitulo(String nrSessaoTitulo) {
-		this.nrSessaoTitulo = nrSessaoTitulo;
+
+	public void setCor(String cor) {
+		this.cor = cor;
 	}
 
-	public String getNrTelefoneComercial() {
-		return this.nrTelefoneComercial;
+
+	public String getCursoEscola() {
+		return cursoEscola;
 	}
 
-	public void setNrTelefoneComercial(String nrTelefoneComercial) {
-		this.nrTelefoneComercial = nrTelefoneComercial;
+
+	public void setCursoEscola(String cursoEscola) {
+		this.cursoEscola = cursoEscola;
 	}
 
-	public String getNrTelefoneResidencial() {
-		return this.nrTelefoneResidencial;
+
+	public String getEmail() {
+		return email;
 	}
 
-	public void setNrTelefoneResidencial(String nrTelefoneResidencial) {
-		this.nrTelefoneResidencial = nrTelefoneResidencial;
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getNrTituloEleitor() {
-		return this.nrTituloEleitor;
+
+	public String getEndereco() {
+		return endereco;
 	}
 
-	public void setNrTituloEleitor(String nrTituloEleitor) {
-		this.nrTituloEleitor = nrTituloEleitor;
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
 	}
 
-	public String getNrZonaTitulo() {
-		return this.nrZonaTitulo;
+
+	public String getEscola() {
+		return escola;
 	}
 
-	public void setNrZonaTitulo(String nrZonaTitulo) {
-		this.nrZonaTitulo = nrZonaTitulo;
+
+	public void setEscola(String escola) {
+		this.escola = escola;
 	}
 
-	public String getSgUfCi() {
-		return this.sgUfCi;
+
+	public String getEscolaridade() {
+		return escolaridade;
 	}
 
-	public void setSgUfCi(String sgUfCi) {
-		this.sgUfCi = sgUfCi;
+
+	public void setEscolaridade(String escolaridade) {
+		this.escolaridade = escolaridade;
 	}
 
-	public String getSgUfEndereco() {
-		return this.sgUfEndereco;
+
+	public String getEstadoCivil() {
+		return estadoCivil;
 	}
 
-	public void setSgUfEndereco(String sgUfEndereco) {
-		this.sgUfEndereco = sgUfEndereco;
+
+	public void setEstadoCivil(String estadoCivil) {
+		this.estadoCivil = estadoCivil;
 	}
 
-	public String getSgUfNascimento() {
-		return this.sgUfNascimento;
+
+	public String getFormaIngressoEntidade() {
+		return formaIngressoEntidade;
 	}
 
-	public void setSgUfNascimento(String sgUfNascimento) {
-		this.sgUfNascimento = sgUfNascimento;
+
+	public void setFormaIngressoEntidade(String formaIngressoEntidade) {
+		this.formaIngressoEntidade = formaIngressoEntidade;
 	}
 
-	public String getStAtendidoOrgaoRede() {
-		return this.stAtendidoOrgaoRede;
+
+	public String getMedicamentosControlados() {
+		return medicamentosControlados;
 	}
 
-	public void setStAtendidoOrgaoRede(String stAtendidoOrgaoRede) {
-		this.stAtendidoOrgaoRede = stAtendidoOrgaoRede;
+
+	public void setMedicamentosControlados(String medicamentosControlados) {
+		this.medicamentosControlados = medicamentosControlados;
 	}
 
-	public String getStAutorizaEmail() {
-		return this.stAutorizaEmail;
+
+	public String getMotivoNaoTrab() {
+		return motivoNaoTrab;
 	}
 
-	public void setStAutorizaEmail(String stAutorizaEmail) {
-		this.stAutorizaEmail = stAutorizaEmail;
+
+	public void setMotivoNaoTrab(String motivoNaoTrab) {
+		this.motivoNaoTrab = motivoNaoTrab;
 	}
 
-	public String getStBenBolsaFamilia() {
-		return this.stBenBolsaFamilia;
+
+	public String getNivelEscolaridade() {
+		return nivelEscolaridade;
 	}
 
-	public void setStBenBolsaFamilia(String stBenBolsaFamilia) {
-		this.stBenBolsaFamilia = stBenBolsaFamilia;
+
+	public void setNivelEscolaridade(String nivelEscolaridade) {
+		this.nivelEscolaridade = nivelEscolaridade;
 	}
 
-	public String getTxObservacoes() {
-		return this.txObservacoes;
+
+	public String getOutrosBenSoc() {
+		return outrosBenSoc;
 	}
 
-	public void setTxObservacoes(String txObservacoes) {
-		this.txObservacoes = txObservacoes;
+
+	public void setOutrosBenSoc(String outrosBenSoc) {
+		this.outrosBenSoc = outrosBenSoc;
 	}
 
-	public BigDecimal getVlAluguel() {
-		return this.vlAluguel;
+
+	public String getPeriodoEscola() {
+		return periodoEscola;
 	}
 
-	public void setVlAluguel(BigDecimal vlAluguel) {
-		this.vlAluguel = vlAluguel;
+
+	public void setPeriodoEscola(String periodoEscola) {
+		this.periodoEscola = periodoEscola;
 	}
 
-	public BigDecimal getVlBolsaFamilia() {
-		return this.vlBolsaFamilia;
+
+	public String getPontoReferencia() {
+		return pontoReferencia;
 	}
 
-	public void setVlBolsaFamilia(BigDecimal vlBolsaFamilia) {
-		this.vlBolsaFamilia = vlBolsaFamilia;
+
+	public void setPontoReferencia(String pontoReferencia) {
+		this.pontoReferencia = pontoReferencia;
 	}
 
-	public String getVlOutrosBenerficiosSoc() {
-		return this.vlOutrosBenerficiosSoc;
+
+	public String getProblemaSaude() {
+		return problemaSaude;
 	}
 
-	public void setVlOutrosBenerficiosSoc(String vlOutrosBenerficiosSoc) {
-		this.vlOutrosBenerficiosSoc = vlOutrosBenerficiosSoc;
+
+	public void setProblemaSaude(String problemaSaude) {
+		this.problemaSaude = problemaSaude;
 	}
 
-	public BigDecimal getVlRenda() {
-		return this.vlRenda;
+
+	public String getProfissao() {
+		return profissao;
 	}
 
-	public void setVlRenda(BigDecimal vlRenda) {
-		this.vlRenda = vlRenda;
+
+	public void setProfissao(String profissao) {
+		this.profissao = profissao;
 	}
 
-	public List<Aluno> getAlunos() {
-		return this.alunos;
+
+	public String getRedeApSocRelev() {
+		return redeApSocRelev;
 	}
 
-	public void setAlunos(List<Aluno> alunos) {
-		this.alunos = alunos;
+
+	public void setRedeApSocRelev(String redeApSocRelev) {
+		this.redeApSocRelev = redeApSocRelev;
 	}
 
-	public Aluno addAluno(Aluno aluno) {
-		getAlunos().add(aluno);
-		aluno.setPessoasFisica(this);
 
-		return aluno;
+	public String getRedeApoioSocial() {
+		return redeApoioSocial;
 	}
 
-	public Aluno removeAluno(Aluno aluno) {
-		getAlunos().remove(aluno);
-		aluno.setPessoasFisica(null);
 
-		return aluno;
+	public void setRedeApoioSocial(String redeApoioSocial) {
+		this.redeApoioSocial = redeApoioSocial;
 	}
 
-	public List<CadastroReservaAtividade> getCadastroReservaAtividades() {
-		return this.cadastroReservaAtividades;
+
+	public String getRedeApoioSocial1() {
+		return redeApoioSocial1;
 	}
 
-	public void setCadastroReservaAtividades(List<CadastroReservaAtividade> cadastroReservaAtividades) {
-		this.cadastroReservaAtividades = cadastroReservaAtividades;
+
+	public void setRedeApoioSocial1(String redeApoioSocial1) {
+		this.redeApoioSocial1 = redeApoioSocial1;
 	}
 
-	public List<ContatosEmpresa> getContatosEmpresas() {
-		return this.contatosEmpresas;
+
+	public String getRegiaoEscola() {
+		return regiaoEscola;
 	}
 
-	public void setContatosEmpresas(List<ContatosEmpresa> contatosEmpresas) {
-		this.contatosEmpresas = contatosEmpresas;
+
+	public void setRegiaoEscola(String regiaoEscola) {
+		this.regiaoEscola = regiaoEscola;
 	}
 
-	public List<CursosFormacaoPf> getCursosFormacaoPfs() {
-		return this.cursosFormacaoPfs;
+
+	public String getSerieEscola() {
+		return serieEscola;
 	}
 
-	public void setCursosFormacaoPfs(List<CursosFormacaoPf> cursosFormacaoPfs) {
-		this.cursosFormacaoPfs = cursosFormacaoPfs;
+
+	public void setSerieEscola(String serieEscola) {
+		this.serieEscola = serieEscola;
 	}
 
-	public List<Familiare> getFamiliares() {
-		return this.familiares;
+
+	public String getSexo() {
+		return sexo;
 	}
 
-	public void setFamiliares(List<Familiare> familiares) {
-		this.familiares = familiares;
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 
-	public List<Funcionario> getFuncionarios() {
-		return this.funcionarios;
+
+	public String getSituacaoTrabalho() {
+		return situacaoTrabalho;
 	}
 
-	public void setFuncionarios(List<Funcionario> funcionarios) {
-		this.funcionarios = funcionarios;
+
+	public void setSituacaoTrabalho(String situacaoTrabalho) {
+		this.situacaoTrabalho = situacaoTrabalho;
 	}
+
+
+	public String getTipoEscola() {
+		return tipoEscola;
+	}
+
+
+	public void setTipoEscola(String tipoEscola) {
+		this.tipoEscola = tipoEscola;
+	}
+
+
+	public String getTurno() {
+		return turno;
+	}
+
+
+	public void setTurno(String turno) {
+		this.turno = turno;
+	}
+
+
+	public LocalDateTime getDataNascimento() {
+		return dataNascimento;
+	}
+
+
+	public void setDataNascimento(LocalDateTime dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+
+	public String getNomeEmpresaTrabalho() {
+		return nomeEmpresaTrabalho;
+	}
+
+
+	public void setNomeEmpresaTrabalho(String nomeEmpresaTrabalho) {
+		this.nomeEmpresaTrabalho = nomeEmpresaTrabalho;
+	}
+
+
+	public String getNomeMae() {
+		return nomeMae;
+	}
+
+
+	public void setNomeMae(String nomeMae) {
+		this.nomeMae = nomeMae;
+	}
+
+
+	public String getNomePai() {
+		return nomePai;
+	}
+
+
+	public void setNomePai(String nomePai) {
+		this.nomePai = nomePai;
+	}
+
+
+	public Long getCep() {
+		return cep;
+	}
+
+
+	public void setCep(Long cep) {
+		this.cep = cep;
+	}
+
+
+	public String getIdentidade() {
+		return identidade;
+	}
+
+
+	public void setIdentidade(String identidade) {
+		this.identidade = identidade;
+	}
+
+
+	public Long getCpf() {
+		return cpf;
+	}
+
+
+	public void setCpf(Long cpf) {
+		this.cpf = cpf;
+	}
+
+
+	public String getCts() {
+		return cts;
+	}
+
+
+	public void setCts(String cts) {
+		this.cts = cts;
+	}
+
+
+	public String getCelular() {
+		return celular;
+	}
+
+
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
+
+
+	public String getNis() {
+		return nis;
+	}
+
+
+	public void setNis(String nis) {
+		this.nis = nis;
+	}
+
+
+	public String getSerieCtps() {
+		return serieCtps;
+	}
+
+
+	public void setSerieCtps(String serieCtps) {
+		this.serieCtps = serieCtps;
+	}
+
+
+	public String getSessaoTitulo() {
+		return sessaoTitulo;
+	}
+
+
+	public void setSessaoTitulo(String sessaoTitulo) {
+		this.sessaoTitulo = sessaoTitulo;
+	}
+
+
+	public String getTelefoneComercial() {
+		return telefoneComercial;
+	}
+
+
+	public void setTelefoneComercial(String telefoneComercial) {
+		this.telefoneComercial = telefoneComercial;
+	}
+
+
+	public String getTelefoneResidencial() {
+		return telefoneResidencial;
+	}
+
+
+	public void setTelefoneResidencial(String telefoneResidencial) {
+		this.telefoneResidencial = telefoneResidencial;
+	}
+
+
+	public String getTituloEleitor() {
+		return tituloEleitor;
+	}
+
+
+	public void setTituloEleitor(String tituloEleitor) {
+		this.tituloEleitor = tituloEleitor;
+	}
+
+
+	public String getZonaTitulo() {
+		return zonaTitulo;
+	}
+
+
+	public void setZonaTitulo(String zonaTitulo) {
+		this.zonaTitulo = zonaTitulo;
+	}
+
+
+	public String getUfCi() {
+		return ufCi;
+	}
+
+
+	public void setUfCi(String ufCi) {
+		this.ufCi = ufCi;
+	}
+
+
+	public String getUfEndereco() {
+		return ufEndereco;
+	}
+
+
+	public void setUfEndereco(String ufEndereco) {
+		this.ufEndereco = ufEndereco;
+	}
+
+
+	public String getUfNascimento() {
+		return ufNascimento;
+	}
+
+
+	public void setUfNascimento(String ufNascimento) {
+		this.ufNascimento = ufNascimento;
+	}
+
+
+	public String getStatusAtendidoOrgaoRede() {
+		return statusAtendidoOrgaoRede;
+	}
+
+
+	public void setStatusAtendidoOrgaoRede(String statusAtendidoOrgaoRede) {
+		this.statusAtendidoOrgaoRede = statusAtendidoOrgaoRede;
+	}
+
+
+	public String getAutorizaEmail() {
+		return autorizaEmail;
+	}
+
+
+	public void setAutorizaEmail(String autorizaEmail) {
+		this.autorizaEmail = autorizaEmail;
+	}
+
+
+	public String getBeneficiarioBolsaFamilia() {
+		return beneficiarioBolsaFamilia;
+	}
+
+
+	public void setBeneficiarioBolsaFamilia(String beneficiarioBolsaFamilia) {
+		this.beneficiarioBolsaFamilia = beneficiarioBolsaFamilia;
+	}
+
+
+	public String getObservacoes() {
+		return observacoes;
+	}
+
+
+	public void setObservacoes(String observacoes) {
+		this.observacoes = observacoes;
+	}
+
+
+	public Long getValorAluguel() {
+		return valorAluguel;
+	}
+
+
+	public void setValorAluguel(Long valorAluguel) {
+		this.valorAluguel = valorAluguel;
+	}
+
+
+	public Long getValorBolsaFamilia() {
+		return valorBolsaFamilia;
+	}
+
+
+	public void setValorBolsaFamilia(Long valorBolsaFamilia) {
+		this.valorBolsaFamilia = valorBolsaFamilia;
+	}
+
+
+	public String getValorOutrosBenerficiosSoc() {
+		return valorOutrosBenerficiosSoc;
+	}
+
+
+	public void setValorOutrosBenerficiosSoc(String valorOutrosBenerficiosSoc) {
+		this.valorOutrosBenerficiosSoc = valorOutrosBenerficiosSoc;
+	}
+
+
+	public Long getValorRenda() {
+		return valorRenda;
+	}
+
+
+	public void setValorRenda(Long valorRenda) {
+		this.valorRenda = valorRenda;
+	}
+
 
 	public Arquivo getArquivo() {
-		return this.arquivo;
+		return arquivo;
 	}
+
 
 	public void setArquivo(Arquivo arquivo) {
 		this.arquivo = arquivo;
 	}
 
+
 	public CondicoesMoradia getCondicoesMoradia() {
-		return this.condicoesMoradia;
+		return condicoesMoradia;
 	}
+
 
 	public void setCondicoesMoradia(CondicoesMoradia condicoesMoradia) {
 		this.condicoesMoradia = condicoesMoradia;
 	}
 
+
 	public GrausInstrucao getGrausInstrucao() {
-		return this.grausInstrucao;
+		return grausInstrucao;
 	}
+
 
 	public void setGrausInstrucao(GrausInstrucao grausInstrucao) {
 		this.grausInstrucao = grausInstrucao;
 	}
 
+
 	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+		return usuariosSistema;
 	}
+
 
 	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
 		this.usuariosSistema = usuariosSistema;
 	}
 
-	public List<Responsaveis> getResponsaveis() {
-		return this.responsaveis;
-	}
-
-	public void setResponsaveis(List<Responsaveis> responsaveis) {
-		this.responsaveis = responsaveis;
-	}
-
-	public List<TalentosPf> getTalentosPfs() {
-		return this.talentosPfs;
-	}
-
-	public void setTalentosPfs(List<TalentosPf> talentosPfs) {
-		this.talentosPfs = talentosPfs;
-	}
+	
 
 }
