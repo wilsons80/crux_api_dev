@@ -66,7 +66,6 @@ public class AlterarFuncionarioCmd {
 		
 		Funcionario entity = entityOptional.get();
 		
-		entity.setId(to.getId());
 		entity.setMatricula(to.getMatricula());
 		entity.setDataAdmissao(to.getDataAdmissao());
 		entity.setDataDemissao(to.getDataDemissao());

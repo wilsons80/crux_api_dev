@@ -1,119 +1,120 @@
 package br.com.crux.entity;
 
-import java.io.Serializable;
-import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import br.com.crux.infra.constantes.Constantes;
 
 
-/**
- * The persistent class for the faltas_funcionarios database table.
- * 
- */
 @Entity
 @Table(name="faltas_funcionarios")
-@NamedQuery(name="FaltasFuncionario.findAll", query="SELECT f FROM FaltasFuncionario f")
-public class FaltasFuncionario implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class FaltasFuncionario  {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_falta_funcionario")
+	@SequenceGenerator(name = "sq_id_falta_funcionario", sequenceName = "sq_id_falta_funcionario", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_falta_funcionario")
-	private Long idFaltaFuncionario;
+	private Long id;
 
 	@Column(name="ds_falta_funcionario")
-	private String dsFaltaFuncionario;
+	private String descricao;
 
 	@Column(name="ds_jutifi_falta")
-	private String dsJutifiFalta;
+	private String jutificativaFalta;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_cadastro")
-	private Date dtCadastro;
+	private LocalDateTime dataCadastro;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_falta_funcionario")
-	private Date dtFaltaFuncionario;
+	private LocalDateTime dataFaltaFuncionario;
 
-	//bi-directional many-to-one association to Funcionario
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_funcionario_falta")
-	private Funcionario funcionario1;
+	private Funcionario funcionarioFaltou;
 
-	//bi-directional many-to-one association to Funcionario
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_funcionario_cadastro")
-	private Funcionario funcionario2;
+	private Funcionario funcionarioCadastrouFalta;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
+	@Column(name="id_usuario_apl")
+	private Long usuarioAlteracao;
 
 	public FaltasFuncionario() {
 	}
 
-	public Long getIdFaltaFuncionario() {
-		return this.idFaltaFuncionario;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdFaltaFuncionario(Long idFaltaFuncionario) {
-		this.idFaltaFuncionario = idFaltaFuncionario;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getDsFaltaFuncionario() {
-		return this.dsFaltaFuncionario;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDsFaltaFuncionario(String dsFaltaFuncionario) {
-		this.dsFaltaFuncionario = dsFaltaFuncionario;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public String getDsJutifiFalta() {
-		return this.dsJutifiFalta;
+	public String getJutificativaFalta() {
+		return jutificativaFalta;
 	}
 
-	public void setDsJutifiFalta(String dsJutifiFalta) {
-		this.dsJutifiFalta = dsJutifiFalta;
+	public void setJutificativaFalta(String jutificativaFalta) {
+		this.jutificativaFalta = jutificativaFalta;
 	}
 
-	public Date getDtCadastro() {
-		return this.dtCadastro;
+	public LocalDateTime getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setDtCadastro(Date dtCadastro) {
-		this.dtCadastro = dtCadastro;
+	public void setDataCadastro(LocalDateTime dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
-	public Date getDtFaltaFuncionario() {
-		return this.dtFaltaFuncionario;
+	public LocalDateTime getDataFaltaFuncionario() {
+		return dataFaltaFuncionario;
 	}
 
-	public void setDtFaltaFuncionario(Date dtFaltaFuncionario) {
-		this.dtFaltaFuncionario = dtFaltaFuncionario;
+	public void setDataFaltaFuncionario(LocalDateTime dataFaltaFuncionario) {
+		this.dataFaltaFuncionario = dataFaltaFuncionario;
 	}
 
-	public Funcionario getFuncionario1() {
-		return this.funcionario1;
+	public Funcionario getFuncionarioFaltou() {
+		return funcionarioFaltou;
 	}
 
-	public void setFuncionario1(Funcionario funcionario1) {
-		this.funcionario1 = funcionario1;
+	public void setFuncionarioFaltou(Funcionario funcionarioFaltou) {
+		this.funcionarioFaltou = funcionarioFaltou;
 	}
 
-	public Funcionario getFuncionario2() {
-		return this.funcionario2;
+	public Funcionario getFuncionarioCadastrouFalta() {
+		return funcionarioCadastrouFalta;
 	}
 
-	public void setFuncionario2(Funcionario funcionario2) {
-		this.funcionario2 = funcionario2;
+	public void setFuncionarioCadastrouFalta(Funcionario funcionarioCadastrouFalta) {
+		this.funcionarioCadastrouFalta = funcionarioCadastrouFalta;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
 	}
+
 
 }
