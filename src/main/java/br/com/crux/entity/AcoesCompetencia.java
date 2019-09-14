@@ -1,120 +1,121 @@
 package br.com.crux.entity;
 
-import java.io.Serializable;
-import javax.persistence.*;
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import br.com.crux.infra.constantes.Constantes;
-
-import java.util.Date;
-
 
 /**
  * The persistent class for the acoes_competencias database table.
  * 
  */
 @Entity
-@Table(name="acoes_competencias")
-public class AcoesCompetencia implements Serializable {
-	private static final long serialVersionUID = 1L;
+@Table(name = "acoes_competencias")
+public class AcoesCompetencia {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_acao_competencia")
 	@SequenceGenerator(name = "sq_id_acao_competencia", sequenceName = "sq_id_acao_competencia", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
-	@Column(name="id_acao_competencia", unique=true, nullable=false, precision=10)	
-	private Long idAcaoCompetencia;
+	@Column(name = "id_acao_competencia", unique = true, nullable = false, precision = 10)
+	private Long id;
 
-	@Column(name="ds_questionario")
-	private String dsQuestionario;
+	@Column(name = "ds_questionario")
+	private String descricao;
 
-	@Column(name="ds_resultado_acao")
-	private String dsResultadoAcao;
+	@Column(name = "ds_resultado_acao")
+	private String resultadoAcao;
 
-	@Column(name="ds_resultado_prev_acao")
-	private String dsResultadoPrevAcao;
+	@Column(name = "ds_resultado_prev_acao")
+	private String resultadoPrevAcao;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_fim_acao")
-	private Date dtFimAcao;
+	@Column(name = "dt_fim_acao")
+	private LocalDateTime dataFim;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_inicio_acao")
-	private Date dtInicioAcao;
+	@Column(name = "dt_inicio_acao")
+	private LocalDateTime dataInicio;
 
-	//bi-directional many-to-one association to TalentosPf
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="talentos_pf_id_talento_pf")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "talentos_pf_id_talento_pf")
 	private TalentosPf talentosPf;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario")
-	private UsuariosSistema usuariosSistema;
+	@Column(name = "id_usuario")
+	private Long usuarioAlteracao;
 
 	public AcoesCompetencia() {
 	}
 
-	public Long getIdAcaoCompetencia() {
-		return this.idAcaoCompetencia;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdAcaoCompetencia(Long idAcaoCompetencia) {
-		this.idAcaoCompetencia = idAcaoCompetencia;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getDsQuestionario() {
-		return this.dsQuestionario;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDsQuestionario(String dsQuestionario) {
-		this.dsQuestionario = dsQuestionario;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public String getDsResultadoAcao() {
-		return this.dsResultadoAcao;
+	public String getResultadoAcao() {
+		return resultadoAcao;
 	}
 
-	public void setDsResultadoAcao(String dsResultadoAcao) {
-		this.dsResultadoAcao = dsResultadoAcao;
+	public void setResultadoAcao(String resultadoAcao) {
+		this.resultadoAcao = resultadoAcao;
 	}
 
-	public String getDsResultadoPrevAcao() {
-		return this.dsResultadoPrevAcao;
+	public String getResultadoPrevAcao() {
+		return resultadoPrevAcao;
 	}
 
-	public void setDsResultadoPrevAcao(String dsResultadoPrevAcao) {
-		this.dsResultadoPrevAcao = dsResultadoPrevAcao;
+	public void setResultadoPrevAcao(String resultadoPrevAcao) {
+		this.resultadoPrevAcao = resultadoPrevAcao;
 	}
 
-	public Date getDtFimAcao() {
-		return this.dtFimAcao;
+	public LocalDateTime getDataFim() {
+		return dataFim;
 	}
 
-	public void setDtFimAcao(Date dtFimAcao) {
-		this.dtFimAcao = dtFimAcao;
+	public void setDataFim(LocalDateTime dataFim) {
+		this.dataFim = dataFim;
 	}
 
-	public Date getDtInicioAcao() {
-		return this.dtInicioAcao;
+	public LocalDateTime getDataInicio() {
+		return dataInicio;
 	}
 
-	public void setDtInicioAcao(Date dtInicioAcao) {
-		this.dtInicioAcao = dtInicioAcao;
+	public void setDataInicio(LocalDateTime dataInicio) {
+		this.dataInicio = dataInicio;
 	}
 
 	public TalentosPf getTalentosPf() {
-		return this.talentosPf;
+		return talentosPf;
 	}
 
 	public void setTalentosPf(TalentosPf talentosPf) {
 		this.talentosPf = talentosPf;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
 }
