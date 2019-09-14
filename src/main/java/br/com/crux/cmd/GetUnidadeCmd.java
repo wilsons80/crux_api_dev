@@ -1,7 +1,6 @@
 package br.com.crux.cmd;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +16,6 @@ import br.com.crux.enums.TipoUnidade;
 import br.com.crux.exception.SemAcessoUnidadeException;
 import br.com.crux.to.AcessoUnidadeTO;
 import br.com.crux.to.UnidadeTO;
-import br.com.crux.to.UsuarioLogadoHolder;
 import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
@@ -28,23 +26,13 @@ public class GetUnidadeCmd {
 	@Autowired private UnidadeBuilder unidadeBuilder;
 	@Autowired private CarregarUnidadeLogadaCmd carregarUnidadeLogadaCmd;
 	
-	@Autowired private UsuarioLogadoHolder usuarioLogadoHolder;
-	
 	public List<AcessoUnidadeTO> getUnidadesComAcesso() throws UsernameNotFoundException {
-		UsuarioLogadoTO usuarioLogado = usuarioLogadoHolder.getUsuarioLogadoTO();
-		
-		System.out.println("======================================================");
-		System.out.println("Data:" + new Date());
-		System.out.println("usuarioLogadoHolder:" + usuarioLogadoHolder);
-		System.out.println("GetUnidadeCmd.getUnidadesComAcesso:" + usuarioLogadoHolder);
-		System.out.println("======================================================");
-
-		
+		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		return usuarioLogado.getUnidades();
 	}
 
 	public Optional<UnidadeTO> getUnidadeUsuarioLogadoComAcesso(Long idUnidade) {
-		UsuarioLogadoTO usuarioLogadoTO = usuarioLogadoHolder.getUsuarioLogadoTO();
+		UsuarioLogadoTO usuarioLogadoTO = getUsuarioLogadoCmd.getUsuarioLogado();
 		
 		Optional<Unidade> unidadeOptional = unidadeRepository.findUnidadeDoUsuarioLogado(usuarioLogadoTO.getIdUsuario(), idUnidade);
 		if(!unidadeOptional.isPresent()) {
