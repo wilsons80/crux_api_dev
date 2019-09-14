@@ -1,71 +1,56 @@
 package br.com.crux.entity;
 
-import java.io.Serializable;
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
+import br.com.crux.infra.constantes.Constantes;
 
-/**
- * The persistent class for the graus_instrucao database table.
- * 
- */
 @Entity
-@Table(name="graus_instrucao")
-@NamedQuery(name="GrausInstrucao.findAll", query="SELECT g FROM GrausInstrucao g")
-public class GrausInstrucao implements Serializable {
-	private static final long serialVersionUID = 1L;
+@Table(name = "graus_instrucao")
+public class GrausInstrucao {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_grau_instrucao")
-	private Long idGrauInstrucao;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_grau_instrucao")
+	@SequenceGenerator(name = "sq_id_grau_instrucao", sequenceName = "sq_id_grau_instrucao", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
+	@Column(name = "id_grau_instrucao")
+	private Long id;
 
-	@Column(name="ds_grau_instrucao")
-	private String dsGrauInstrucao;
+	@Column(name = "ds_grau_instrucao")
+	private String descricao;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
-
-	//bi-directional many-to-one association to PessoasFisica
-	@OneToMany(mappedBy="grausInstrucao")
-	private List<PessoaFisica> pessoasFisicas;
+	@Column(name = "id_usuario_apl")
+	private Long usuarioAlteracao;
 
 	public GrausInstrucao() {
 	}
 
-	public Long getIdGrauInstrucao() {
-		return this.idGrauInstrucao;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdGrauInstrucao(Long idGrauInstrucao) {
-		this.idGrauInstrucao = idGrauInstrucao;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getDsGrauInstrucao() {
-		return this.dsGrauInstrucao;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDsGrauInstrucao(String dsGrauInstrucao) {
-		this.dsGrauInstrucao = dsGrauInstrucao;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
 	}
-
-	public List<PessoaFisica> getPessoasFisicas() {
-		return this.pessoasFisicas;
-	}
-
-	public void setPessoasFisicas(List<PessoaFisica> pessoasFisicas) {
-		this.pessoasFisicas = pessoasFisicas;
-	}
-
 
 }
