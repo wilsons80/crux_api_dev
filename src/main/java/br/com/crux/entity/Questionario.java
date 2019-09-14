@@ -1,120 +1,97 @@
 package br.com.crux.entity;
 
-import java.io.Serializable;
-import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-/**
- * The persistent class for the questionarios database table.
- * 
- */
+import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
+
+import br.com.crux.enums.TipoQuestionario;
+import br.com.crux.infra.constantes.Constantes;
+
 @Entity
-@Table(name="questionarios")
-@NamedQuery(name="Questionario.findAll", query="SELECT q FROM Questionario q")
-public class Questionario implements Serializable {
-	private static final long serialVersionUID = 1L;
+@Table(name = "questionarios")
+public class Questionario {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_quetionario")
-	private Long idQuetionario;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_quetionario")
+	@SequenceGenerator(name = "sq_id_quetionario", sequenceName = "sq_id_quetionario", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
+	@Column(name = "id_quetionario")
+	private Long id;
 
-	@Column(name="ds_questionario")
-	private String dsQuestionario;
+	@Column(name = "ds_questionario")
+	private String descricao;
 
-	@Column(name="ds_tipo_questionario")
-	private String dsTipoQuestionario;
+	@Column(name = "ds_tipo_questionario")
+	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", parameters = {
+			@Parameter(name = "enumClass", value = "br.com.crux.enums.TipoQuestionario") })
+	private TipoQuestionario tipoQuestionario;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_fim_questionario")
-	private Date dtFimQuestionario;
+	@Column(name = "dt_fim_questionario")
+	private LocalDateTime dataFim;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_inicio_questionario")
-	private Date dtInicioQuestionario;
+	@Column(name = "dt_inicio_questionario")
+	private LocalDateTime dataInicio;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
-
-	//bi-directional many-to-one association to TalentosPf
-	@OneToMany(mappedBy="questionario")
-	private List<TalentosPf> talentosPfs;
+	@Column(name = "id_usuario_apl")
+	private Long usuarioAlteracao;
 
 	public Questionario() {
 	}
 
-	public Long getIdQuetionario() {
-		return this.idQuetionario;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdQuetionario(Long idQuetionario) {
-		this.idQuetionario = idQuetionario;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getDsQuestionario() {
-		return this.dsQuestionario;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDsQuestionario(String dsQuestionario) {
-		this.dsQuestionario = dsQuestionario;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public String getDsTipoQuestionario() {
-		return this.dsTipoQuestionario;
+	public TipoQuestionario getTipoQuestionario() {
+		return tipoQuestionario;
 	}
 
-	public void setDsTipoQuestionario(String dsTipoQuestionario) {
-		this.dsTipoQuestionario = dsTipoQuestionario;
+	public void setTipoQuestionario(TipoQuestionario tipoQuestionario) {
+		this.tipoQuestionario = tipoQuestionario;
 	}
 
-	public Date getDtFimQuestionario() {
-		return this.dtFimQuestionario;
+	public LocalDateTime getDataFim() {
+		return dataFim;
 	}
 
-	public void setDtFimQuestionario(Date dtFimQuestionario) {
-		this.dtFimQuestionario = dtFimQuestionario;
+	public void setDataFim(LocalDateTime dataFim) {
+		this.dataFim = dataFim;
 	}
 
-	public Date getDtInicioQuestionario() {
-		return this.dtInicioQuestionario;
+	public LocalDateTime getDataInicio() {
+		return dataInicio;
 	}
 
-	public void setDtInicioQuestionario(Date dtInicioQuestionario) {
-		this.dtInicioQuestionario = dtInicioQuestionario;
+	public void setDataInicio(LocalDateTime dataInicio) {
+		this.dataInicio = dataInicio;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
-	}
-
-	public List<TalentosPf> getTalentosPfs() {
-		return this.talentosPfs;
-	}
-
-	public void setTalentosPfs(List<TalentosPf> talentosPfs) {
-		this.talentosPfs = talentosPfs;
-	}
-
-	public TalentosPf addTalentosPf(TalentosPf talentosPf) {
-		getTalentosPfs().add(talentosPf);
-		talentosPf.setQuestionario(this);
-
-		return talentosPf;
-	}
-
-	public TalentosPf removeTalentosPf(TalentosPf talentosPf) {
-		getTalentosPfs().remove(talentosPf);
-		talentosPf.setQuestionario(null);
-
-		return talentosPf;
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
 }
