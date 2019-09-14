@@ -84,7 +84,6 @@ public class Funcionario implements Serializable {
 	parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.ConclusaoParecer") }) 
 	private ConclusaoParecer conclusaoParecer;
 
-
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_funcionario_entrevistador")
 	private Funcionario funcionarioEntrevistador;

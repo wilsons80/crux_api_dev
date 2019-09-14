@@ -1,70 +1,60 @@
 package br.com.crux.entity;
 
-import java.io.Serializable;
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
+import br.com.crux.infra.constantes.Constantes;
 
 /**
  * The persistent class for the condicoes_moradia database table.
  * 
  */
 @Entity
-@Table(name="condicoes_moradia")
-@NamedQuery(name="CondicoesMoradia.findAll", query="SELECT c FROM CondicoesMoradia c")
-public class CondicoesMoradia implements Serializable {
-	private static final long serialVersionUID = 1L;
+@Table(name = "condicoes_moradia")
+public class CondicoesMoradia {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_condicao_moradia")
-	private Long idCondicaoMoradia;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_condicao_moradia")
+	@SequenceGenerator(name = "sq_id_condicao_moradia", sequenceName = "sq_id_condicao_moradia", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
+	@Column(name = "id_condicao_moradia")
+	private Long id;
 
-	@Column(name="ds_condicao_moradia")
-	private String dsCondicaoMoradia;
+	@Column(name = "ds_condicao_moradia")
+	private String descricao;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
-
-	//bi-directional many-to-one association to PessoasFisica
-	@OneToMany(mappedBy="condicoesMoradia")
-	private List<PessoaFisica> pessoasFisicas;
+	@Column(name = "id_usuario_apl")
+	private Long usuarioAlteracao;
 
 	public CondicoesMoradia() {
 	}
 
-	public Long getIdCondicaoMoradia() {
-		return this.idCondicaoMoradia;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdCondicaoMoradia(Long idCondicaoMoradia) {
-		this.idCondicaoMoradia = idCondicaoMoradia;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getDsCondicaoMoradia() {
-		return this.dsCondicaoMoradia;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDsCondicaoMoradia(String dsCondicaoMoradia) {
-		this.dsCondicaoMoradia = dsCondicaoMoradia;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
-	}
-
-	public List<PessoaFisica> getPessoasFisicas() {
-		return this.pessoasFisicas;
-	}
-
-	public void setPessoasFisicas(List<PessoaFisica> pessoasFisicas) {
-		this.pessoasFisicas = pessoasFisicas;
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
 }

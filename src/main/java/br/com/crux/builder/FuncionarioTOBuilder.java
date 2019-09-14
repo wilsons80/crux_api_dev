@@ -90,7 +90,7 @@ public class FuncionarioTOBuilder {
 		return retorno;
 	}
 	
-	private Funcionario getFuncionarioEntrevistador(FuncionarioTO p) {
+	public Funcionario getFuncionarioEntrevistador(FuncionarioTO p) {
 		Funcionario retorno = new Funcionario();
 		
 		retorno.setId(p.getId());
