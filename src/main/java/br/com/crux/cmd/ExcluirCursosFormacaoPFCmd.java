@@ -28,12 +28,12 @@ public class ExcluirCursosFormacaoPFCmd {
 			throw new ParametroNaoInformadoException("Erro ao excluir o curso formação.");
 		}
 		
-		Optional<CursosFormacaoPf> curso = repository.findById(id);
-		if(!curso.isPresent()) {
+		Optional<CursosFormacaoPf> entity = repository.findById(id);
+		if(!entity.isPresent()) {
 			throw new NotFoundException("Curso de Formação informado não existe.");
 		}
 		
-		Optional<PessoaFisica> pessoaFisica = pessoaFisicarepository.findById(curso.get().getPessoaFisica().getId());
+		Optional<PessoaFisica> pessoaFisica = pessoaFisicarepository.findById(entity.get().getPessoaFisica().getId());
 		if(pessoaFisica.isPresent()) {
 			throw new TabaleReferenciaEncontradaException("Pessoa Física deve ser excluída primeiro.");
 		}

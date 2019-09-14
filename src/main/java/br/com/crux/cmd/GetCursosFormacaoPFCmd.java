@@ -24,8 +24,8 @@ public class GetCursosFormacaoPFCmd {
 		return toBuilder.buildAll(repository.findAll());
 	}
 	
-	public CursosFormacaoPfTO getById(Long idDepartamento) {
-		Optional<CursosFormacaoPf> entityOptional = repository.findById(idDepartamento);
+	public CursosFormacaoPfTO getById(Long id) {
+		Optional<CursosFormacaoPf> entityOptional = repository.findById(id);
 		if(!entityOptional.isPresent()) {
 			throw new NotFoundException("Curso Formação não encontrado");
 		}
