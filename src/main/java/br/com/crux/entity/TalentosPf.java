@@ -1,8 +1,6 @@
 package br.com.crux.entity;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,42 +12,36 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import br.com.crux.infra.constantes.Constantes;
 
 
 @Entity
 @Table(name="talentos_pf")
-public class TalentosPf implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class TalentosPf  {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_talento_pf")
 	@SequenceGenerator(name = "sq_id_talento_pf", sequenceName = "sq_id_talento_pf", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_talento_pf")
-	private Long idTalentoPf;
+	private Long id;
 
 	@Column(name="ds_resposta_talento")
-	private String dsRespostaTalento;
+	private String respostaTalento;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_resposta_talento")
-	private Date dtRespostaTalento;
+	private LocalDateTime dataRespostaTalento;
 
 	@Column(name="nr_nota_competencia")
-	private Timestamp nrNotaCompetencia;
+	private Double nrNotaCompetencia;
 
 	@Column(name="tx_observacao")
-	private String txObservacao;
+	private String observacao;
 
-	//bi-directional many-to-one association to PessoasFisica
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_pessoa_fisica")
 	private PessoaFisica pessoasFisica;
 
-	//bi-directional many-to-one association to Questionario
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="questionarios_id_quetionario")
 	private Questionario questionario;
@@ -60,49 +52,48 @@ public class TalentosPf implements Serializable {
 	public TalentosPf() {
 	}
 
-	public Long getIdTalentoPf() {
-		return this.idTalentoPf;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdTalentoPf(Long idTalentoPf) {
-		this.idTalentoPf = idTalentoPf;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getDsRespostaTalento() {
-		return this.dsRespostaTalento;
+	public String getRespostaTalento() {
+		return respostaTalento;
 	}
 
-	public void setDsRespostaTalento(String dsRespostaTalento) {
-		this.dsRespostaTalento = dsRespostaTalento;
+	public void setRespostaTalento(String respostaTalento) {
+		this.respostaTalento = respostaTalento;
 	}
 
-	public Date getDtRespostaTalento() {
-		return this.dtRespostaTalento;
+	public LocalDateTime getDataRespostaTalento() {
+		return dataRespostaTalento;
 	}
 
-	public void setDtRespostaTalento(Date dtRespostaTalento) {
-		this.dtRespostaTalento = dtRespostaTalento;
+	public void setDataRespostaTalento(LocalDateTime dataRespostaTalento) {
+		this.dataRespostaTalento = dataRespostaTalento;
 	}
 
-	public Timestamp getNrNotaCompetencia() {
-		return this.nrNotaCompetencia;
+	public Double getNrNotaCompetencia() {
+		return nrNotaCompetencia;
 	}
 
-	public void setNrNotaCompetencia(Timestamp nrNotaCompetencia) {
+	public void setNrNotaCompetencia(Double nrNotaCompetencia) {
 		this.nrNotaCompetencia = nrNotaCompetencia;
 	}
 
-	public String getTxObservacao() {
-		return this.txObservacao;
+	public String getObservacao() {
+		return observacao;
 	}
 
-	public void setTxObservacao(String txObservacao) {
-		this.txObservacao = txObservacao;
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
-
 
 	public PessoaFisica getPessoasFisica() {
-		return this.pessoasFisica;
+		return pessoasFisica;
 	}
 
 	public void setPessoasFisica(PessoaFisica pessoasFisica) {
@@ -110,7 +101,7 @@ public class TalentosPf implements Serializable {
 	}
 
 	public Questionario getQuestionario() {
-		return this.questionario;
+		return questionario;
 	}
 
 	public void setQuestionario(Questionario questionario) {
@@ -118,11 +109,12 @@ public class TalentosPf implements Serializable {
 	}
 
 	public Long getUsuariosAlteracao() {
-		return this.usuariosAlteracao;
+		return usuariosAlteracao;
 	}
 
-	public void setUsuariosSistema(Long usuariosAlteracao) {
+	public void setUsuariosAlteracao(Long usuariosAlteracao) {
 		this.usuariosAlteracao = usuariosAlteracao;
 	}
+
 
 }
