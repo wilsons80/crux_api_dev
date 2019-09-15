@@ -12,7 +12,6 @@ import br.com.crux.dao.repository.ArquivoRepository;
 import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.Arquivo;
 import br.com.crux.entity.Unidade;
-import br.com.crux.exception.NotFoundException;
 import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.exception.UploadArquivoException;
 import br.com.crux.infra.util.MD5Util;
@@ -69,12 +68,17 @@ public class ArquivoCmd {
 		
 		Unidade unidade = getUnidadePorIdCmd.getUnidade(idUnidade);
 		
+		if(unidade.getIdArquivo() == null) {
+			return null;
+		}
+		
 		Optional<Arquivo> arquivo = arquivoRepository.findById(unidade.getIdArquivo());
 		if(!arquivo.isPresent()) {
-			throw new NotFoundException("Erro ao recuperar o arquivo.");
+			return null;
 		}
 		
 		return arquivo.get().getBlob();
+		
 	}
 	
 
