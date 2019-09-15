@@ -18,7 +18,7 @@ import br.com.crux.exception.UploadArquivoException;
 import br.com.crux.infra.util.MD5Util;
 
 @Component
-public class UploadArquivoCmd {
+public class ArquivoCmd {
 
 	@Autowired private ArquivoRepository arquivoRepository;
 	@Autowired private UnidadeRepository unidadeRepository;
