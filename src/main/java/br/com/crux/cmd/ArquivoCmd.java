@@ -23,12 +23,9 @@ public class ArquivoCmd {
 	@Autowired private ArquivoRepository arquivoRepository;
 	@Autowired private UnidadeRepository unidadeRepository;
 	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
+	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
+	@Autowired private GetUnidadePorIdCmd getUnidadePorIdCmd;
 	
-	@Autowired
-	private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
-	
-	@Autowired
-	private GetUnidadePorIdCmd getUnidadePorIdCmd;
 	
 	public void salvar(MultipartFile file) {
 		gravar(file);
@@ -41,25 +38,21 @@ public class ArquivoCmd {
 			
 			Unidade unidade = getUnidadePorIdCmd.getUnidade(getUnidadeLogadaCmd.get().getId());
 			
-			//novo arquivo
-			if(Objects.isNull(unidade.getArquivo())) {
-				Arquivo arquivo = new Arquivo();
-				unidade.setArquivo(arquivo);
-			}
-			
-			unidade.getArquivo().setBlob(file.getBytes());
-			unidade.getArquivo().setDtCriacao(new Date());
-			unidade.getArquivo().setHash(hashArquivo);
-			unidade.getArquivo().setNmArquivo(file.getOriginalFilename());
-			unidade.getArquivo().setNrTamanhoArquivo(file.getSize());
-			unidade.getArquivo().setDsTipoArquivo(file.getContentType());
+			Arquivo arquivo = new Arquivo();
+			arquivo.setBlob(file.getBytes());
+			arquivo.setDtCriacao(new Date());
+			arquivo.setHash(hashArquivo);
+			arquivo.setNmArquivo(file.getOriginalFilename());
+			arquivo.setNrTamanhoArquivo(file.getSize());
+			arquivo.setDsTipoArquivo(file.getContentType());
 			
 			Long idUsuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario();
-			unidade.getArquivo().setUsuarioAlteracao(idUsuarioLogado);
-	
-			Arquivo arquivoSalvo = arquivoRepository.save(unidade.getArquivo());
-			unidade.getArquivo().setIdArquivo(arquivoSalvo.getIdArquivo());
+			arquivo.setUsuarioAlteracao(idUsuarioLogado);
 			
+			Arquivo arquivoSalvo = arquivoRepository.save(arquivo);
+			arquivo.setIdArquivo(arquivoSalvo.getIdArquivo());
+			
+			unidade.setIdArquivo(arquivo.getIdArquivo());
 			unidadeRepository.save(unidade);
 			
 		} catch (Exception e) {
@@ -69,12 +62,14 @@ public class ArquivoCmd {
 	}
 	
 	
-	public byte[] getArquivo(Long idArquivo) {
-		if(Objects.isNull(idArquivo)) {
+	public byte[] getArquivoPorUnidade(Long idUnidade) {
+		if(Objects.isNull(idUnidade)) {
 			throw new ParametroNaoInformadoException("Erro ao buscar o arquivo, parâmetro não informado no resource.");
 		}
 		
-		Optional<Arquivo> arquivo = arquivoRepository.findById(idArquivo);
+		Unidade unidade = getUnidadePorIdCmd.getUnidade(idUnidade);
+		
+		Optional<Arquivo> arquivo = arquivoRepository.findById(unidade.getIdArquivo());
 		if(!arquivo.isPresent()) {
 			throw new NotFoundException("Erro ao recuperar o arquivo.");
 		}

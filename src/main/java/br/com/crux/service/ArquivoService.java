@@ -29,9 +29,9 @@ public class ArquivoService {
 		arquivoCmd.salvar(file);
 	}
 	
-	@GetMapping(path = "/{id}")
-	public byte[] get(@PathVariable(name = "id") Long id) {
-		return arquivoCmd.getArquivo(id);
+	@GetMapping(path = "/{idUnidade}")
+	public byte[] getPorUnidade(@PathVariable(name = "idUnidade") Long idUnidade) {
+		return arquivoCmd.getArquivoPorUnidade(idUnidade);
 	}	
 	
 }

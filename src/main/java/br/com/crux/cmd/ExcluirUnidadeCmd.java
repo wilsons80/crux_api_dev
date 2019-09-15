@@ -41,7 +41,10 @@ public class ExcluirUnidadeCmd {
 		}
 		
 		try {
-			arquivoRepository.delete(unidade.get().getArquivo());
+			if(unidade.get().getIdArquivo() != null) {
+				arquivoRepository.deleteById(unidade.get().getIdArquivo());
+			}
+			
 			unidadeRepository.delete(unidade.get());
 		} catch (DataIntegrityViolationException e) {
 			throw new NegocioException("Erro ao excluir, existem dados vinculados a essa unidade.");

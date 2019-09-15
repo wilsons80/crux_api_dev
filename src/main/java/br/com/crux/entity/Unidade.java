@@ -49,9 +49,8 @@ public class Unidade implements Serializable {
 	@Column(name = "ds_estrutura_fisica_imovel")
 	private String descricaoEstruturaFisicaImovel;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_arquivo_logomarca")
-	private Arquivo arquivo;
+	@Column(name = "id_arquivo_logomarca")
+	private Long idArquivo;
 
 	@Column(name = "id_usuario_apl")
 	private Long usuarioAlteracao;
@@ -175,12 +174,12 @@ public class Unidade implements Serializable {
 		this.descricaoEstruturaFisicaImovel = dsEstruturaFisicaImovel;
 	}
 
-	public Arquivo getArquivo() {
-		return arquivo;
+	public Long getIdArquivo() {
+		return idArquivo;
 	}
 
-	public void setArquivo(Arquivo arquivo) {
-		this.arquivo = arquivo;
+	public void setIdArquivo(Long idArquivo) {
+		this.idArquivo = idArquivo;
 	}
 
 	public Long getUsuarioAlteracao() {
