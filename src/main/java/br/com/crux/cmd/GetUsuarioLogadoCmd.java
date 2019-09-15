@@ -27,12 +27,11 @@ public class GetUsuarioLogadoCmd {
 	
 	public UsuarioLogadoTO getUsuarioLogado() {
 		UsuarioLogadoTO usuarioLogado = usuarioLogadoHolder.getUsuarioLogadoTO();
-		
 		if(usuarioLogado == null) {
 			throw new NotFoundException("Erro ao recuperar o usuário logado.");
 		}
 
 		return usuarioLogado;
 	}
-	
+
 }

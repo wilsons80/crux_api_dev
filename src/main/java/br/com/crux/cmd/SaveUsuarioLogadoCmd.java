@@ -44,7 +44,6 @@ public class SaveUsuarioLogadoCmd {
 	private UsuarioLogadoTO getUsuarioLogado(String username, Collection<? extends GrantedAuthority> authorities) {
 		String jwt = createTokenJwtCmd.createToken(username, authorities);
 		
-		
 		UsuarioLogadoTO usuarioLogadoTO = usuarioLogadoHolder.getUsuarioLogadoTO();
 		if(usuarioLogadoTO == null) {
 			usuarioLogadoTO = new UsuarioLogadoTO();
