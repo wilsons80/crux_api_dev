@@ -1,13 +1,16 @@
 package br.com.crux.cmd;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.builder.AcessoUnidadeTOBuilder;
 import br.com.crux.builder.UnidadeBuilder;
 import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.Unidade;
@@ -25,10 +28,21 @@ public class GetUnidadeCmd {
 	@Autowired private UnidadeRepository unidadeRepository;
 	@Autowired private UnidadeBuilder unidadeBuilder;
 	@Autowired private CarregarUnidadeLogadaCmd carregarUnidadeLogadaCmd;
+	@Autowired private AcessoUnidadeTOBuilder unidadeTOBuilder;
 	
 	public List<AcessoUnidadeTO> getUnidadesComAcesso() throws UsernameNotFoundException {
-		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
-		return usuarioLogado.getUnidades();
+		Authentication authentication = getUsuarioLogadoCmd.get();
+		
+		List<AcessoUnidadeTO> unidades = new ArrayList<>();
+		authentication.getAuthorities().stream().forEach( autho -> {
+			Optional<Unidade> unidade = unidadeRepository.findBySiglaUnidade(autho.getAuthority().replace("ROLE_", ""));
+			
+			if(unidade.isPresent()) {
+				unidades.add(unidadeTOBuilder.build(unidade.get()));
+			}
+		});
+		
+		return unidades;
 	}
 
 	public Optional<UnidadeTO> getUnidadeUsuarioLogadoComAcesso(Long idUnidade) {
