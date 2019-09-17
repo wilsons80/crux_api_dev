@@ -31,7 +31,7 @@ public class GetUnidadeCmd {
 	@Autowired private AcessoUnidadeTOBuilder unidadeTOBuilder;
 	
 	public List<AcessoUnidadeTO> getUnidadesComAcesso() throws UsernameNotFoundException {
-		Authentication authentication = getUsuarioLogadoCmd.get();
+		Authentication authentication = getUsuarioLogadoCmd.getAuthentication();
 		
 		List<AcessoUnidadeTO> unidades = new ArrayList<>();
 		authentication.getAuthorities().stream().forEach( autho -> {

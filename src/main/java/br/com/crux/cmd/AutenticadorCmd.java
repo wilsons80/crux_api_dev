@@ -34,7 +34,7 @@ public class AutenticadorCmd {
 
 
 	public UsuarioLogadoTO refreshToken() {
-		Authentication auth = getUsuarioLogadoCmd.get();
+		Authentication auth = getUsuarioLogadoCmd.getAuthentication();
 		String tokenJwt = createTokenJwtCmd.createToken(auth.getName(), auth.getAuthorities());
 		
 		saveUsuarioLogadoCmd.save(auth);

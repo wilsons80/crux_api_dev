@@ -18,13 +18,11 @@ import br.com.crux.entity.Unidade;
 import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.SemAcessoUnidadeException;
 import br.com.crux.to.AcessoUnidadeTO;
-import br.com.crux.to.UsuarioLogadoHolder;
 import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class SaveUsuarioLogadoCmd {
 	
-	@Autowired private UsuarioLogadoHolder usuarioLogadoHolder;
 	@Autowired private TokenJwtCmd createTokenJwtCmd;
 	@Autowired private UnidadeRepository unidadeRepository;
 	@Autowired private AcessoUnidadeTOBuilder unidadeTOBuilder;
@@ -32,21 +30,20 @@ public class SaveUsuarioLogadoCmd {
 	@Autowired private GetUsuarioSistemaCmd getUsuarioSistemaCmd;
 	
 	public void reset(String username) {
-		usuarioLogadoHolder.setUsuarioLogadoTO(null);
+		GetUsuarioLogadoCmd.set(username, null);
 	}
 	
 	@Transactional
 	public void save(Authentication auth) {
 		String username = auth.getName();
-		UsuarioLogadoTO usuarioLogadoTO = getUsuarioLogado(username, auth.getAuthorities());
-		usuarioLogadoHolder.setUsuarioLogadoTO(usuarioLogadoTO);
+		montarUsuarioLogado(username, auth.getAuthorities());
 	}
 	
 	
-	private UsuarioLogadoTO getUsuarioLogado(String username, Collection<? extends GrantedAuthority> authorities) {
+	private void montarUsuarioLogado(String username, Collection<? extends GrantedAuthority> authorities) {
 		String jwt = createTokenJwtCmd.createToken(username, authorities);
 		
-		UsuarioLogadoTO usuarioLogadoTO = usuarioLogadoHolder.getUsuarioLogadoTO();
+		UsuarioLogadoTO usuarioLogadoTO = GetUsuarioLogadoCmd.get(username);
 		if(usuarioLogadoTO == null) {
 			usuarioLogadoTO = new UsuarioLogadoTO();
 		}
@@ -80,7 +77,7 @@ public class SaveUsuarioLogadoCmd {
 			usuarioLogadoTO.setUnidadeLogada(unidadeLogada);
 		}
 		
-		return usuarioLogadoTO;
+		GetUsuarioLogadoCmd.set(username, usuarioLogadoTO);
 	}	
 	
 }

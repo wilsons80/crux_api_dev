@@ -51,7 +51,7 @@ public class UnidadeLogadaFilter implements Filter {
 			if(req.getRequestURI().contains("/unidade/logada/")) {
 				String unidadeLogada = req.getRequestURI().replaceAll("/unidade/logada/", "");
 				
-				Authentication auth = getUsuarioLogadoCmd.get();
+				Authentication auth = getUsuarioLogadoCmd.getAuthentication();
 				saveUsuarioLogadoCmd.save(auth);
 				
 				AcessoUnidadeTO unidadeLogadaTO = carregarUnidadeLogadaCmd.carregarUnidadeLogada(Long.valueOf(unidadeLogada));
