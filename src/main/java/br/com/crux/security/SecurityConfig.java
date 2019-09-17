@@ -36,7 +36,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
+		http.authorizeRequests()
+	      .anyRequest().authenticated()
+	      .and().formLogin()
+	      .loginPage("/login").permitAll()
+		.and()
 		  .logout()
 		  .logoutSuccessHandler(logoutSuccessHandler())
 		  .permitAll()
@@ -58,5 +62,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public LogoutSuccessHandler logoutSuccessHandler() {
 	    return new CustomLogoutSuccessHandler();
 	}	
-
+	
 }

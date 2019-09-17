@@ -11,6 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,12 +30,13 @@ import br.com.crux.infra.constantes.SecurityContantes;
 import br.com.crux.service.exception.ApiError;
 import io.jsonwebtoken.Claims;
 
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class AuthorizationFilter extends OncePerRequestFilter {
-	
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
+		
 		String jwt = request.getHeader(HttpHeaders.AUTHORIZATION);
 		
 		if(jwt == null || !jwt.startsWith(SecurityContantes.JWT_PROVIDER)) {
@@ -72,8 +75,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 			
 			Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, grantedAuthorities);
 			SecurityContextHolder.getContext().setAuthentication(authentication);
-			
-			
+						
 		} catch (Exception e) {
 			ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED.value(), e.getMessage(), new Date());
 			PrintWriter writer = response.getWriter();

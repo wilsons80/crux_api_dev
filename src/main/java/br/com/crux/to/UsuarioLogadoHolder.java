@@ -1,10 +1,8 @@
 package br.com.crux.to;
 
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.SessionScope;
 
 @Component
-@SessionScope
 public class UsuarioLogadoHolder {
 
 	private UsuarioLogadoTO usuarioLogadoTO;

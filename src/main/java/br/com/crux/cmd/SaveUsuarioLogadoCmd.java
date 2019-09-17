@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -28,12 +30,12 @@ public class SaveUsuarioLogadoCmd {
 	@Autowired private AcessoUnidadeTOBuilder unidadeTOBuilder;
 	@Autowired private CarregarUnidadeLogadaCmd carregarUnidadeLogadaCmd;
 	@Autowired private GetUsuarioSistemaCmd getUsuarioSistemaCmd;
-
 	
-	public void reset() {
+	public void reset(String username) {
 		usuarioLogadoHolder.setUsuarioLogadoTO(null);
 	}
 	
+	@Transactional
 	public void save(Authentication auth) {
 		String username = auth.getName();
 		UsuarioLogadoTO usuarioLogadoTO = getUsuarioLogado(username, auth.getAuthorities());

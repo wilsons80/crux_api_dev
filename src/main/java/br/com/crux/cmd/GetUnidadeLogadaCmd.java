@@ -9,7 +9,6 @@ import br.com.crux.to.AcessoUnidadeTO;
 @Component
 public class GetUnidadeLogadaCmd {
 	
-	
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd; 
 
 	public AcessoUnidadeTO get() {
@@ -21,4 +20,5 @@ public class GetUnidadeLogadaCmd {
 		
 		return unidadeLogada;
 	}
+
 }

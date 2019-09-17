@@ -18,12 +18,11 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 
 	@Autowired private SaveUsuarioLogadoCmd saveUsuarioLogadoCmd;
 	
-	
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 		if (authentication != null) {
+			saveUsuarioLogadoCmd.reset(authentication.getName());
 			authentication.setAuthenticated(false);
-			saveUsuarioLogadoCmd.reset();
 		}
 	}
 }
