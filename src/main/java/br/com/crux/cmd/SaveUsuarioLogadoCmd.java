@@ -17,6 +17,7 @@ import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.Unidade;
 import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.SemAcessoUnidadeException;
+import br.com.crux.security.UsuarioLocals;
 import br.com.crux.to.AcessoUnidadeTO;
 import br.com.crux.to.UsuarioLogadoTO;
 
@@ -30,20 +31,20 @@ public class SaveUsuarioLogadoCmd {
 	@Autowired private GetUsuarioSistemaCmd getUsuarioSistemaCmd;
 	
 	public void reset(String username) {
-		GetUsuarioLogadoCmd.set(username, null);
+		UsuarioLocals.set(username, null);
 	}
 	
 	@Transactional
-	public void save(Authentication auth) {
+	public UsuarioLogadoTO save(Authentication auth) {
 		String username = auth.getName();
-		montarUsuarioLogado(username, auth.getAuthorities());
+		return montarUsuarioLogado(username, auth.getAuthorities());
 	}
 	
 	
-	private void montarUsuarioLogado(String username, Collection<? extends GrantedAuthority> authorities) {
+	private UsuarioLogadoTO montarUsuarioLogado(String username, Collection<? extends GrantedAuthority> authorities) {
 		String jwt = createTokenJwtCmd.createToken(username, authorities);
 		
-		UsuarioLogadoTO usuarioLogadoTO = GetUsuarioLogadoCmd.get(username);
+		UsuarioLogadoTO usuarioLogadoTO = UsuarioLocals.get(username);
 		if(usuarioLogadoTO == null) {
 			usuarioLogadoTO = new UsuarioLogadoTO();
 		}
@@ -77,7 +78,7 @@ public class SaveUsuarioLogadoCmd {
 			usuarioLogadoTO.setUnidadeLogada(unidadeLogada);
 		}
 		
-		GetUsuarioLogadoCmd.set(username, usuarioLogadoTO);
+		return usuarioLogadoTO;
 	}	
 	
 }

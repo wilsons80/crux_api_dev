@@ -47,18 +47,16 @@ public class UnidadeLogadaFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 		
 		try {
-			
 			if(req.getRequestURI().contains("/unidade/logada/")) {
 				String unidadeLogada = req.getRequestURI().replaceAll("/unidade/logada/", "");
 				
 				Authentication auth = getUsuarioLogadoCmd.getAuthentication();
-				saveUsuarioLogadoCmd.save(auth);
-				
+				UsuarioLogadoTO usuarioLogado = saveUsuarioLogadoCmd.save(auth);
 				AcessoUnidadeTO unidadeLogadaTO = carregarUnidadeLogadaCmd.carregarUnidadeLogada(Long.valueOf(unidadeLogada));
-				UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 				usuarioLogado.setUnidadeLogada(unidadeLogadaTO);
+				
+				UsuarioLocals.set(auth.getName(), usuarioLogado);
 			}
-			
 		} catch (Exception e) {
 			ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), new Date());
 			PrintWriter writer = res.getWriter();

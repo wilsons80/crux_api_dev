@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.security.UsuarioLocals;
 import br.com.crux.to.LoginTO;
 import br.com.crux.to.TrocaSenhaTO;
 import br.com.crux.to.UsuarioLogadoTO;
@@ -26,9 +27,8 @@ public class AutenticadorCmd {
 		Authentication auth = authManager.authenticate(userAuth);
 		SecurityContextHolder.getContext().setAuthentication(auth);
 
-		saveUsuarioLogadoCmd.save(auth);
-		UsuarioLogadoTO usuarioLogadoTO = getUsuarioLogadoCmd.getUsuarioLogado();
-		
+		UsuarioLogadoTO usuarioLogadoTO = saveUsuarioLogadoCmd.save(auth);
+		UsuarioLocals.set(auth.getName(), usuarioLogadoTO);
 		return usuarioLogadoTO;
 	}
 
@@ -37,10 +37,10 @@ public class AutenticadorCmd {
 		Authentication auth = getUsuarioLogadoCmd.getAuthentication();
 		String tokenJwt = createTokenJwtCmd.createToken(auth.getName(), auth.getAuthorities());
 		
-		saveUsuarioLogadoCmd.save(auth);
-		UsuarioLogadoTO usuarioLogadoTO = getUsuarioLogadoCmd.getUsuarioLogado();
+		UsuarioLogadoTO usuarioLogadoTO = saveUsuarioLogadoCmd.save(auth);
 		usuarioLogadoTO.setToken(tokenJwt);
 
+		UsuarioLocals.set(auth.getName(), usuarioLogadoTO);
 		return usuarioLogadoTO;
 	}
 	
