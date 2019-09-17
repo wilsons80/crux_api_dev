@@ -65,7 +65,7 @@ public class UnidadeService {
 		excluirUnidadeCmd.excluir(idUnidade);
 	}
 	
-	@GetMapping(path = "/{idUnidade}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/logada/{idUnidade}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public UnidadeTO getUnidade(@PathVariable(name = "idUnidade") Long idUnidade) {
 		return getUnidadeCmd.getUnidadeUsuarioLogadoComAcesso(idUnidade).get();
 	}
