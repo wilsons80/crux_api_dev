@@ -58,7 +58,7 @@ public class CadastrarAtividadeCmd {
 		if(!unidade.isPresent()) {
 			throw new NotFoundException("Unidade informada não existe.");
 		}
-		Optional<Projeto> projeto = projetoRepository.findById(to.getUnidade().getIdUnidade());
+		Optional<Projeto> projeto = projetoRepository.findById(to.getProjeto().getId());
 		if(!projeto.isPresent()) {
 			throw new NotFoundException("Projeto informado não existe.");
 		}
