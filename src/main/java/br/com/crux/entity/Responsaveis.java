@@ -1,9 +1,16 @@
 package br.com.crux.entity;
 
-import java.io.Serializable;
-import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 
 /**
@@ -12,199 +19,90 @@ import java.util.List;
  */
 @Entity
 @Table(name="responsaveis")
-public class Responsaveis implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Responsaveis{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_responsavel")
-	private Long idResponsavel;
+	private Long id;
 
-	@Column(name="ds_desligamento")
-	private String dsDesligamento;
+	@Column(name="desc_desligamento")
+	private String descDesligamento;
 
-	@Column(name="ds_outras_informacoes")
-	private String dsOutrasInformacoes;
+	@Column(name="desc_outras_informacoes")
+	private String descOutrasInformacoes;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_cadastro")
-	private Date dtCadastro;
+	@Column(name="data_cadastro")
+	private LocalDateTime dataCadastro;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_desligamento")
-	private Date dtDesligamento;
+	@Column(name="data_desligamento")
+	private LocalDateTime dataDesligamento;
 
-	//bi-directional many-to-one association to Atendimento
-	@OneToMany(mappedBy="responsaveis")
-	private List<Atendimento> atendimentos;
-
-	//bi-directional many-to-one association to Familiare
-	@OneToMany(mappedBy="responsavei")
-	private List<Familiare> familiares;
-
-	//bi-directional many-to-one association to PessoasFisica
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_pessoa_fisica")
 	private PessoaFisica pessoasFisica;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
+	@Column(name="id_usuario_apl")
+	private Long usuarioAlteracao;
 
-	//bi-directional many-to-one association to ResponsaveisAluno
-	@OneToMany(mappedBy="responsavei")
-	private List<ResponsaveisAluno> responsaveisAlunos;
-
-	//bi-directional many-to-one association to VulnerabilidadesResponsavel
-	@OneToMany(mappedBy="responsavei")
-	private List<VulnerabilidadesResponsavel> vulnerabilidadesResponsavels;
 
 	public Responsaveis() {
 	}
 
-	public Long getIdResponsavel() {
-		return this.idResponsavel;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdResponsavel(Long idResponsavel) {
-		this.idResponsavel = idResponsavel;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getDsDesligamento() {
-		return this.dsDesligamento;
+	public String getDescDesligamento() {
+		return descDesligamento;
 	}
 
-	public void setDsDesligamento(String dsDesligamento) {
-		this.dsDesligamento = dsDesligamento;
+	public void setDescDesligamento(String descDesligamento) {
+		this.descDesligamento = descDesligamento;
 	}
 
-	public String getDsOutrasInformacoes() {
-		return this.dsOutrasInformacoes;
+	public String getDescOutrasInformacoes() {
+		return descOutrasInformacoes;
 	}
 
-	public void setDsOutrasInformacoes(String dsOutrasInformacoes) {
-		this.dsOutrasInformacoes = dsOutrasInformacoes;
+	public void setDescOutrasInformacoes(String descOutrasInformacoes) {
+		this.descOutrasInformacoes = descOutrasInformacoes;
 	}
 
-	public Date getDtCadastro() {
-		return this.dtCadastro;
+	public LocalDateTime getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setDtCadastro(Date dtCadastro) {
-		this.dtCadastro = dtCadastro;
+	public void setDataCadastro(LocalDateTime dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
-	public Date getDtDesligamento() {
-		return this.dtDesligamento;
+	public LocalDateTime getDataDesligamento() {
+		return dataDesligamento;
 	}
 
-	public void setDtDesligamento(Date dtDesligamento) {
-		this.dtDesligamento = dtDesligamento;
-	}
-
-	public List<Atendimento> getAtendimentos() {
-		return this.atendimentos;
-	}
-
-	public void setAtendimentos(List<Atendimento> atendimentos) {
-		this.atendimentos = atendimentos;
-	}
-
-	public Atendimento addAtendimento(Atendimento atendimento) {
-		getAtendimentos().add(atendimento);
-		atendimento.setResponsaveis(this);
-
-		return atendimento;
-	}
-
-	public Atendimento removeAtendimento(Atendimento atendimento) {
-		getAtendimentos().remove(atendimento);
-		atendimento.setResponsaveis(null);
-
-		return atendimento;
-	}
-
-	public List<Familiare> getFamiliares() {
-		return this.familiares;
-	}
-
-	public void setFamiliares(List<Familiare> familiares) {
-		this.familiares = familiares;
-	}
-
-	public Familiare addFamiliare(Familiare familiare) {
-		getFamiliares().add(familiare);
-		familiare.setResponsavei(this);
-
-		return familiare;
-	}
-
-	public Familiare removeFamiliare(Familiare familiare) {
-		getFamiliares().remove(familiare);
-		familiare.setResponsavei(null);
-
-		return familiare;
+	public void setDataDesligamento(LocalDateTime dataDesligamento) {
+		this.dataDesligamento = dataDesligamento;
 	}
 
 	public PessoaFisica getPessoasFisica() {
-		return this.pessoasFisica;
+		return pessoasFisica;
 	}
 
 	public void setPessoasFisica(PessoaFisica pessoasFisica) {
 		this.pessoasFisica = pessoasFisica;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
-	}
-
-	public List<ResponsaveisAluno> getResponsaveisAlunos() {
-		return this.responsaveisAlunos;
-	}
-
-	public void setResponsaveisAlunos(List<ResponsaveisAluno> responsaveisAlunos) {
-		this.responsaveisAlunos = responsaveisAlunos;
-	}
-
-	public ResponsaveisAluno addResponsaveisAluno(ResponsaveisAluno responsaveisAluno) {
-		getResponsaveisAlunos().add(responsaveisAluno);
-		responsaveisAluno.setResponsavei(this);
-
-		return responsaveisAluno;
-	}
-
-	public ResponsaveisAluno removeResponsaveisAluno(ResponsaveisAluno responsaveisAluno) {
-		getResponsaveisAlunos().remove(responsaveisAluno);
-		responsaveisAluno.setResponsavei(null);
-
-		return responsaveisAluno;
-	}
-
-	public List<VulnerabilidadesResponsavel> getVulnerabilidadesResponsavels() {
-		return this.vulnerabilidadesResponsavels;
-	}
-
-	public void setVulnerabilidadesResponsavels(List<VulnerabilidadesResponsavel> vulnerabilidadesResponsavels) {
-		this.vulnerabilidadesResponsavels = vulnerabilidadesResponsavels;
-	}
-
-	public VulnerabilidadesResponsavel addVulnerabilidadesResponsavel(VulnerabilidadesResponsavel vulnerabilidadesResponsavel) {
-		getVulnerabilidadesResponsavels().add(vulnerabilidadesResponsavel);
-		vulnerabilidadesResponsavel.setResponsavei(this);
-
-		return vulnerabilidadesResponsavel;
-	}
-
-	public VulnerabilidadesResponsavel removeVulnerabilidadesResponsavel(VulnerabilidadesResponsavel vulnerabilidadesResponsavel) {
-		getVulnerabilidadesResponsavels().remove(vulnerabilidadesResponsavel);
-		vulnerabilidadesResponsavel.setResponsavei(null);
-
-		return vulnerabilidadesResponsavel;
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
 }
