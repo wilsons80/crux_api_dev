@@ -41,7 +41,7 @@ public class Atendimento implements Serializable {
 	//bi-directional many-to-one association to Familiare
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="familiares_id_familiar")
-	private Familiare familiare;
+	private Familiares familiare;
 
 	//bi-directional many-to-one association to Funcionario
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -114,11 +114,11 @@ public class Atendimento implements Serializable {
 		this.diagnostico = diagnostico;
 	}
 
-	public Familiare getFamiliare() {
+	public Familiares getFamiliare() {
 		return this.familiare;
 	}
 
-	public void setFamiliare(Familiare familiare) {
+	public void setFamiliare(Familiares familiare) {
 		this.familiare = familiare;
 	}
 

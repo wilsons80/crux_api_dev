@@ -2,6 +2,10 @@ package br.com.crux.to;
 
 import java.time.LocalDateTime;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import br.com.crux.infra.adapter.LocalDateTimeAdapter;
+
 
 public class AlunoTO {
 	
@@ -11,14 +15,21 @@ public class AlunoTO {
 	private String descOutrasInformacoes;
 	private String descFormaIngressoEntidade;
 	private String atendidoOrgaoRede;
-	private LocalDateTime dataEntrada;
 	private String observacoes;
+	
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+	private LocalDateTime dataEntrada;
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime dataDesligamento;
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+	private LocalDateTime dataCadastro;
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+	private LocalDateTime dataAlteracaoCadastro;
+
 	private String descDesligamento;
 	private PessoaFisicaTO pessoaFisica;
 	private UnidadeTO unidade;
-	private LocalDateTime dataCadastro;
-	private LocalDateTime dataAlteracaoCadastro;
+	
 	private String moraPais;
 	private String paisCasados;
 	private String matriculadoEscPub;
