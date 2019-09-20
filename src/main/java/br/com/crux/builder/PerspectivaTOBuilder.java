@@ -14,7 +14,7 @@ import br.com.crux.to.PerspectivaTO;
 public class PerspectivaTOBuilder {
 	
 	@Autowired
-	private UnidadeBuilder unidadeBuilder;
+	private UnidadeTOBuilder unidadeBuilder;
 	
 
 	public Perspectiva build(PerspectivaTO to) {

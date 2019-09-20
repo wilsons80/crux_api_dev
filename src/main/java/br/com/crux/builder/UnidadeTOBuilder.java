@@ -11,7 +11,7 @@ import br.com.crux.to.UnidadeTO;
 
 
 @Component
-public class UnidadeBuilder {
+public class UnidadeTOBuilder {
 	
 	public Unidade build(UnidadeTO to) {
 		Unidade unidade = new Unidade();

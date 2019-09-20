@@ -15,7 +15,7 @@ public class FuncionarioTOBuilder {
 	
 	@Autowired private CargosTOBuilder cargoTOBuilder;
 	@Autowired private PessoaFisicaTOBuilder pessoaFisicaTOBuilder;
-	@Autowired private UnidadeBuilder unidadeBuilder;
+	@Autowired private UnidadeTOBuilder unidadeBuilder;
 	@Autowired private EmpresaTOBuilder empresaTOBuilder; 
 	
 

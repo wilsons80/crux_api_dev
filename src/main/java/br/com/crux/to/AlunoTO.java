@@ -1,100 +1,34 @@
-package br.com.crux.entity;
+package br.com.crux.to;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
-import br.com.crux.infra.constantes.Constantes;
-
-
-/**
- * The persistent class for the alunos database table.
- * 
- */
-@Entity
-@Table(name="alunos")
-public class Aluno {
+public class AlunoTO {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_aluno")
-	@SequenceGenerator(name = "sq_id_aluno", sequenceName = "sq_id_aluno", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
-	@Column(name="id_aluno", unique=true, nullable=false, precision=10)
 	private Long id;
-
-	@Column(name="desc_problema_saude")
 	private String descProblemaSaude;
-
-	@Column(name="desc_medicamentos_controlados")
 	private String descMedicamentosControlados;
-
-	@Column(name="desc_outras_informacoes")
 	private String descOutrasInformacoes;
-
-	@Column(name="desc_forma_ingresso_entidade")
 	private String descFormaIngressoEntidade;
-	
-	//Classificador para indicar se a família já foi atendita por outro órgão da rede
-	@Column(name="st_atendido_orgao_rede")
 	private String atendidoOrgaoRede;
-
-	@Column(name="data_entrada")
 	private LocalDateTime dataEntrada;
-	
-	@Column(name="tx_observacoes")
 	private String observacoes;
-	
-	@Column(name="data_desligamento")
 	private LocalDateTime dataDesligamento;
-	
-	@Column(name="desc_desligamento")
 	private String descDesligamento;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_pessoa_fisica")
-	private PessoaFisica pessoasFisica;
-
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_unidade")
-	private Unidade unidade;
-	
-	@Column(name="data_cadastro")
+	private PessoaFisicaTO pessoaFisica;
+	private UnidadeTO unidade;
 	private LocalDateTime dataCadastro;
-	
-	@Column(name="data_alteracao_cadastro")
 	private LocalDateTime dataAlteracaoCadastro;
-	
-	@Column(name="st_mora_pais")
 	private String moraPais;
-	
-	@Column(name="st_pais_casados")
 	private String paisCasados;
-	
-	@Column(name="st_matriculado_esc_pub")
 	private String matriculadoEscPub;
-		
-	@Column(name="desc_busca_escola")
 	private String descBuscaEscola;
-
-	@Column(name="st_publico_prioritario")
 	private String publicoPrioritario;
-
-	@Column(name="nr_matricula_aluno")
 	private String matriculaAluno;
-
-	@JoinColumn(name="id_usuario_apl")
 	private Long usuarioAlteracao;
 
 
-	public Aluno() {
+	public AlunoTO() {
 	}
 
 	public Long getId() {
@@ -177,19 +111,19 @@ public class Aluno {
 		this.descDesligamento = descDesligamento;
 	}
 
-	public PessoaFisica getPessoasFisica() {
-		return pessoasFisica;
+	public PessoaFisicaTO getPessoaFisica() {
+		return pessoaFisica;
 	}
 
-	public void setPessoasFisica(PessoaFisica pessoasFisica) {
-		this.pessoasFisica = pessoasFisica;
+	public void setPessoasFisica(PessoaFisicaTO pessoasFisica) {
+		this.pessoaFisica = pessoasFisica;
 	}
 
-	public Unidade getUnidade() {
+	public UnidadeTO getUnidade() {
 		return unidade;
 	}
 
-	public void setUnidade(Unidade unidade) {
+	public void setUnidade(UnidadeTO unidade) {
 		this.unidade = unidade;
 	}
 

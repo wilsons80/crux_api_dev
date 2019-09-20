@@ -9,7 +9,7 @@ import br.com.crux.builder.CargosTOBuilder;
 import br.com.crux.builder.EmpresaTOBuilder;
 import br.com.crux.builder.FuncionarioTOBuilder;
 import br.com.crux.builder.PessoaFisicaTOBuilder;
-import br.com.crux.builder.UnidadeBuilder;
+import br.com.crux.builder.UnidadeTOBuilder;
 import br.com.crux.dao.repository.FuncionarioRepository;
 import br.com.crux.entity.Funcionario;
 import br.com.crux.exception.NotFoundException;
@@ -30,7 +30,7 @@ public class CadastrarFuncionarioCmd {
 	
 	@Autowired private CargosTOBuilder cargoTOBuilder;
 	@Autowired private PessoaFisicaTOBuilder pessoaFisicaTOBuilder; 
-	@Autowired private UnidadeBuilder unidadeBuilder;
+	@Autowired private UnidadeTOBuilder unidadeBuilder;
 	@Autowired private EmpresaTOBuilder empresaTOBuilder;
 
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;

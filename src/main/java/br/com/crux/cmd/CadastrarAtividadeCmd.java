@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.builder.PlanosAcaoTOBuilder;
 import br.com.crux.builder.ProjetoTOBuilder;
-import br.com.crux.builder.UnidadeBuilder;
+import br.com.crux.builder.UnidadeTOBuilder;
 import br.com.crux.dao.repository.AtividadeRepository;
 import br.com.crux.dao.repository.PlanosAcaoRepository;
 import br.com.crux.dao.repository.ProjetoRepository;
@@ -28,7 +28,7 @@ public class CadastrarAtividadeCmd {
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	@Autowired private AtividadeRepository repository;
 	
-	@Autowired private UnidadeBuilder unidadeBuilder;
+	@Autowired private UnidadeTOBuilder unidadeBuilder;
 	@Autowired private ProjetoTOBuilder projetoBuilder;
 	@Autowired private PlanosAcaoTOBuilder planosAcaoBuilder;
 	

@@ -13,7 +13,7 @@ import br.com.crux.to.AtividadeTO;
 public class AtividadeTOBuilder {
 
 	@Autowired
-	private UnidadeBuilder unidadeBuilder;
+	private UnidadeTOBuilder unidadeBuilder;
 	@Autowired
 	private ProjetoTOBuilder projetoBuilder;
 	@Autowired

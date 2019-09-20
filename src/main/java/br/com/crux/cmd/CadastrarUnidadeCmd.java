@@ -3,7 +3,7 @@ package br.com.crux.cmd;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.builder.UnidadeBuilder;
+import br.com.crux.builder.UnidadeTOBuilder;
 import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.Unidade;
 import br.com.crux.rule.ValidarCadastroUnidadeRule;
@@ -20,7 +20,7 @@ public class CadastrarUnidadeCmd {
 	@Autowired
 	private ValidarCadastroUnidadeRule validarCadastroUnidadeRule;
 	@Autowired
-	private UnidadeBuilder cadastroUnidadeBuilder;
+	private UnidadeTOBuilder cadastroUnidadeBuilder;
 	
 	public void cadastrar(UnidadeTO to) {
 		validarCadastroUnidadeRule.validar(to.getNomeUnidade(), to.getNomeUnidade());

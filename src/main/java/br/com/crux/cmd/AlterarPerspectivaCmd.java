@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.builder.UnidadeBuilder;
+import br.com.crux.builder.UnidadeTOBuilder;
 import br.com.crux.dao.repository.PerspectivaRepository;
 import br.com.crux.entity.Perspectiva;
 import br.com.crux.exception.NotFoundException;
@@ -19,7 +19,7 @@ public class AlterarPerspectivaCmd {
 
 	@Autowired private PerspectivaRepository perspectivaRepository;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
-	@Autowired private UnidadeBuilder unidadeBuilder;
+	@Autowired private UnidadeTOBuilder unidadeBuilder;
 	@Autowired private CamposObrigatoriosPerspectivaRule camposObrigatoriosPerspectivaRule;
 	
 	

@@ -15,7 +15,7 @@ import br.com.crux.to.DepartamentoTO;
 public class DepartamentoTOBuilder {
 	
 	@Autowired
-	private UnidadeBuilder unidadeBuilder;
+	private UnidadeTOBuilder unidadeBuilder;
 	
 
 	public Departamentos build(DepartamentoTO to) {

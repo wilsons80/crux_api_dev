@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.builder.UnidadeBuilder;
+import br.com.crux.builder.UnidadeTOBuilder;
 import br.com.crux.dao.repository.PerspectivaRepository;
 import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.Perspectiva;
@@ -20,7 +20,7 @@ public class CadastrarPerspectivaCmd {
 
 	@Autowired private UnidadeRepository unidadeRepository;
 	@Autowired private PerspectivaRepository perspectivaRepository;  
-	@Autowired private UnidadeBuilder unidadeBuilder;
+	@Autowired private UnidadeTOBuilder unidadeBuilder;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	@Autowired private CamposObrigatoriosPerspectivaRule camposObrigatoriosPerspectivaRule;
 	

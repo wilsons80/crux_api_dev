@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.builder.AcessoUnidadeTOBuilder;
-import br.com.crux.builder.UnidadeBuilder;
+import br.com.crux.builder.UnidadeTOBuilder;
 import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.Unidade;
 import br.com.crux.enums.ClassificadorSituacaoImovel;
@@ -26,7 +26,7 @@ public class GetUnidadeCmd {
 
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	@Autowired private UnidadeRepository unidadeRepository;
-	@Autowired private UnidadeBuilder unidadeBuilder;
+	@Autowired private UnidadeTOBuilder unidadeBuilder;
 	@Autowired private CarregarUnidadeLogadaCmd carregarUnidadeLogadaCmd;
 	@Autowired private AcessoUnidadeTOBuilder unidadeTOBuilder;
 	

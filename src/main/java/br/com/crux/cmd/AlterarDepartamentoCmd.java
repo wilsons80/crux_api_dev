@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.builder.UnidadeBuilder;
+import br.com.crux.builder.UnidadeTOBuilder;
 import br.com.crux.dao.repository.DepartamentoRepository;
 import br.com.crux.entity.Departamentos;
 import br.com.crux.exception.NotFoundException;
@@ -19,7 +19,7 @@ public class AlterarDepartamentoCmd {
 
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	@Autowired private DepartamentoRepository departamentoRepository;
-	@Autowired private UnidadeBuilder unidadeBuilder;
+	@Autowired private UnidadeTOBuilder unidadeBuilder;
 	@Autowired private CamposObrigatoriosDepartamentoRule camposObrigatoriosDepartamentoRule;
 	
 	
