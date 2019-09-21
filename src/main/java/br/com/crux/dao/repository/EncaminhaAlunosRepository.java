@@ -15,7 +15,7 @@ public interface EncaminhaAlunosRepository extends JpaRepository<EncaminhaAlunos
 	
 	@Query(value = "SELECT e FROM EncaminhaAlunos e "
 			+ " inner join Aluno a on a = e.aluno"
-			+ " inner join Unidade uni on e.unidade = uni"
+			+ " inner join Unidade uni on a.unidade = uni"
 			+ " where uni.idUnidade = ?1")
 	public Optional<List<EncaminhaAlunos>> findByUnidade(Long idUnidade);
 

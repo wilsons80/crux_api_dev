@@ -14,7 +14,7 @@ public interface PerspectivaRepository extends JpaRepository<Perspectiva, Long>{
 
 	@Query(value = "select p from Perspectiva p "
 			+ " inner join Unidade u on u = p.unidade "
-			+ " where u.idUnidade = 1?")
+			+ " where u.idUnidade = ?1")
 	public Optional<List<Perspectiva>> findByIdUnidade(Long idUnidade);
 	
 
