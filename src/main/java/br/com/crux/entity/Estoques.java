@@ -1,9 +1,19 @@
 package br.com.crux.entity;
 
-import java.io.Serializable;
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -12,9 +22,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="estoques")
-@NamedQuery(name="Estoque.findAll", query="SELECT e FROM Estoque e")
-public class Estoque implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Estoques {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -61,7 +69,7 @@ public class Estoque implements Serializable {
 	@JoinColumn(name="id_usuario_apl")
 	private UsuariosSistema usuariosSistema;
 
-	public Estoque() {
+	public Estoques() {
 	}
 
 	public Long getIdEstoque() {

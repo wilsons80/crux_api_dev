@@ -35,7 +35,7 @@ public class EncaminhaAluno implements Serializable {
 	//bi-directional many-to-one association to EntidadesSociai
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_entidade_social")
-	private EntidadesSociai entidadesSociai;
+	private EntidadesSociais entidadesSociai;
 
 	//bi-directional many-to-one association to UsuariosSistema
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -77,11 +77,11 @@ public class EncaminhaAluno implements Serializable {
 		this.aluno = aluno;
 	}
 
-	public EntidadesSociai getEntidadesSociai() {
+	public EntidadesSociais getEntidadesSociai() {
 		return this.entidadesSociai;
 	}
 
-	public void setEntidadesSociai(EntidadesSociai entidadesSociai) {
+	public void setEntidadesSociai(EntidadesSociais entidadesSociai) {
 		this.entidadesSociai = entidadesSociai;
 	}
 

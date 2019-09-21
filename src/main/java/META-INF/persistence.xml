@@ -30,8 +30,8 @@
 		<class>br.com.crux.entity.DocumentosAtividade</class>
 		<class>br.com.crux.entity.Empresa</class>
 		<class>br.com.crux.entity.EncaminhaAluno</class>
-		<class>br.com.crux.entity.EntidadesSociai</class>
-		<class>br.com.crux.entity.Estoque</class>
+		<class>br.com.crux.entity.EntidadesSociais</class>
+		<class>br.com.crux.entity.Estoques</class>
 		<class>br.com.crux.entity.FaltasFuncionario</class>
 		<class>br.com.crux.entity.Familiares</class>
 		<class>br.com.crux.entity.Fatura</class>

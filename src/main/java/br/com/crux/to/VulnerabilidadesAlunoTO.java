@@ -2,11 +2,19 @@ package br.com.crux.to;
 
 import java.time.LocalDateTime;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import br.com.crux.infra.adapter.LocalDateTimeAdapter;
+
 public class VulnerabilidadesAlunoTO {
 
 	private Long id;
+	
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime dataIdentificacao;
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime dataSolucao;
+	
 	private AlunoTO aluno;
 	private SituacoesVulnerabilidadeTO situacoesVulnerabilidade;
 	private SolucoesTO solucoe;
