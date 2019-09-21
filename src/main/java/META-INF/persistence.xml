@@ -35,7 +35,7 @@
 		<class>br.com.crux.entity.FaltasFuncionario</class>
 		<class>br.com.crux.entity.Familiares</class>
 		<class>br.com.crux.entity.Fatura</class>
-		<class>br.com.crux.entity.FrequenciasAluno</class>
+		<class>br.com.crux.entity.FrequenciasAlunos</class>
 		<class>br.com.crux.entity.Funcionario</class>
 		<class>br.com.crux.entity.GrausInstrucao</class>
 		<class>br.com.crux.entity.GruposModulo</class>

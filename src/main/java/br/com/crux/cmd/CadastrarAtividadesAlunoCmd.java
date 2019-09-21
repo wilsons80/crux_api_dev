@@ -42,7 +42,7 @@ public class CadastrarAtividadesAlunoCmd {
 		entity.setDataInicioAtividade(to.getDataInicioAtividade());
 		entity.setDataDesvinculacao(to.getDataDesvinculacao());
 		entity.setDataCadastroAtividade(to.getDataCadastroAtividade());
-		entity.setDataAlteracaoAtividade(to.getDataAlteracaoAtividade());
+		//entity.setDataAlteracaoAtividade(to.getDataAlteracaoAtividade());
 		entity.setAluno(alunoTOBuilder.build(to.getAluno()));
 		entity.setAtividade(atividadesTOBuilder.build(to.getAtividade()));
 		

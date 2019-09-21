@@ -47,7 +47,7 @@ public class AlterarAtividadesAlunoCmd {
 		entity.setDescDesligamento(to.getDescDesligamento());
 		entity.setDataInicioAtividade(to.getDataInicioAtividade());
 		entity.setDataDesvinculacao(to.getDataDesvinculacao());
-		entity.setDataCadastroAtividade(to.getDataCadastroAtividade());
+		//entity.setDataCadastroAtividade(to.getDataCadastroAtividade());
 		entity.setDataAlteracaoAtividade(to.getDataAlteracaoAtividade());
 		entity.setAluno(alunoTOBuilder.build(to.getAluno()));
 		entity.setAtividade(atividadesTOBuilder.build(to.getAtividade()));
