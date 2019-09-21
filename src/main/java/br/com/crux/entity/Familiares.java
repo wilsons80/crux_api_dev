@@ -31,10 +31,10 @@ public class Familiares {
 	@Column(name="id_familiar")
 	private Long id;
 	
-	@Column(name="data_cadastro")
+	@Column(name="dt_cadastro")
 	private LocalDateTime dataCadastro;
 
-	@Column(name="desc_grau_parentesco")
+	@Column(name="ds_grau_parentesco")
 	private String descGrauParentesco;
 
 	//Classificador da situação do grau de parentesco (E = ESTREMECIDO; I = INTERROMPIDO; X = INEXISTENTE)
@@ -43,13 +43,13 @@ public class Familiares {
 	parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.SituacaoParentesco") }) 
 	private SituacaoParentesco situacaoParentesco;
 	
-	@Column(name="desc_outras_informacoes")
+	@Column(name="ds_outras_informacoes")
 	private String descOutrasInformacoes;
 	
-	@Column(name="desc_desligamento")
+	@Column(name="ds_desligamento")
 	private String descDesligamento;
 
-	@Column(name="data_desligamento")
+	@Column(name="dt_desligamento")
 	private LocalDateTime dataDesligamento;
 
 	@ManyToOne(fetch=FetchType.LAZY)

@@ -30,32 +30,32 @@ public class Aluno {
 	@Column(name="id_aluno", unique=true, nullable=false, precision=10)
 	private Long id;
 
-	@Column(name="desc_problema_saude")
+	@Column(name="ds_problema_saude")
 	private String descProblemaSaude;
 
-	@Column(name="desc_medicamentos_controlados")
+	@Column(name="ds_medicamentos_controlados")
 	private String descMedicamentosControlados;
 
-	@Column(name="desc_outras_informacoes")
+	@Column(name="ds_outras_informacoes")
 	private String descOutrasInformacoes;
 
-	@Column(name="desc_forma_ingresso_entidade")
+	@Column(name="ds_forma_ingresso_entidade")
 	private String descFormaIngressoEntidade;
 	
 	//Classificador para indicar se a família já foi atendita por outro órgão da rede
 	@Column(name="st_atendido_orgao_rede")
 	private String atendidoOrgaoRede;
 
-	@Column(name="data_entrada")
+	@Column(name="dt_entrada")
 	private LocalDateTime dataEntrada;
 	
 	@Column(name="tx_observacoes")
 	private String observacoes;
 	
-	@Column(name="data_desligamento")
+	@Column(name="dt_desligamento")
 	private LocalDateTime dataDesligamento;
 	
-	@Column(name="desc_desligamento")
+	@Column(name="ds_desligamento")
 	private String descDesligamento;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -66,10 +66,10 @@ public class Aluno {
 	@JoinColumn(name="id_unidade")
 	private Unidade unidade;
 	
-	@Column(name="data_cadastro")
+	@Column(name="dt_cadastro")
 	private LocalDateTime dataCadastro;
 	
-	@Column(name="data_alteracao_cadastro")
+	@Column(name="dt_alteracao_cadastro")
 	private LocalDateTime dataAlteracaoCadastro;
 	
 	@Column(name="st_mora_pais")
@@ -81,7 +81,7 @@ public class Aluno {
 	@Column(name="st_matriculado_esc_pub")
 	private String matriculadoEscPub;
 		
-	@Column(name="desc_busca_escola")
+	@Column(name="ds_busca_escola")
 	private String descBuscaEscola;
 
 	@Column(name="st_publico_prioritario")

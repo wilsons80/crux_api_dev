@@ -1,71 +1,30 @@
-package br.com.crux.entity;
+package br.com.crux.to;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Type;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import br.com.crux.enums.TipoResponsavel;
-import br.com.crux.infra.constantes.Constantes;
+import br.com.crux.infra.adapter.LocalDateTimeAdapter;
 
+public class ResponsaveisAlunoTO {
 
-/**
- * The persistent class for the responsaveis_alunos database table.
- * 
- */
-@Entity
-@Table(name="responsaveis_alunos")
-public class ResponsaveisAluno  {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_responsavel_aluno")
-	@SequenceGenerator(name = "sq_id_responsavel_aluno", sequenceName = "sq_id_responsavel_aluno", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
-	@Column(name="id_responsavel_aluno")
 	private Long id;
-
-	@Column(name="ds_desligamento")
 	private String descDesligamento;
-
-	@Column(name="ds_grau_parentesco")
 	private String descGrauParentesco;
 
-	@Column(name="dt_desvinculacao")
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime dataDesvinculacao;
-
-	@Column(name="dt_vinculacao")
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime dataVinculacao;
 
-	@Column(name="st_mesmo_ender_resp")
 	private String mesmoEnderResponsavel;
-
-	@Column(name="st_tipo_responsavel")
-	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", 
-	      parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.TipoResponsavel") }) 	
 	private TipoResponsavel tipoResponsavel;
-
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_aluno")
-	private Aluno aluno;
-
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_familiar")
-	private Familiares familiar;
-
-	@Column(name="id_usuario_apl")
+	private AlunoTO aluno;
+	private FamiliaresTO familiar;
 	private Long usuarioAlteracao;
 
-	public ResponsaveisAluno() {
+	public ResponsaveisAlunoTO() {
 	}
 
 	public Long getId() {
@@ -124,19 +83,19 @@ public class ResponsaveisAluno  {
 		this.tipoResponsavel = tipoResponsavel;
 	}
 
-	public Aluno getAluno() {
+	public AlunoTO getAluno() {
 		return aluno;
 	}
 
-	public void setAluno(Aluno aluno) {
+	public void setAluno(AlunoTO aluno) {
 		this.aluno = aluno;
 	}
 
-	public Familiares getFamiliar() {
+	public FamiliaresTO getFamiliar() {
 		return familiar;
 	}
 
-	public void setFamiliar(Familiares familiar) {
+	public void setFamiliar(FamiliaresTO familiar) {
 		this.familiar = familiar;
 	}
 
@@ -147,6 +106,5 @@ public class ResponsaveisAluno  {
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
-
 
 }
