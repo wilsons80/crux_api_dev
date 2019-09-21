@@ -65,7 +65,7 @@
 		<class>br.com.crux.entity.ResponsaveisAluno</class>
 		<class>br.com.crux.entity.Servico</class>
 		<class>br.com.crux.entity.SituacoesVulnerabilidade</class>
-		<class>br.com.crux.entity.Solucoe</class>
+		<class>br.com.crux.entity.Solucoes</class>
 		<class>br.com.crux.entity.TalentosPf</class>
 		<class>br.com.crux.entity.Unidade</class>
 		<class>br.com.crux.entity.UniformesAluno</class>

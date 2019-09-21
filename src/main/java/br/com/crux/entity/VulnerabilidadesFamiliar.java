@@ -41,7 +41,7 @@ public class VulnerabilidadesFamiliar implements Serializable {
 	//bi-directional many-to-one association to Solucoe
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_solucao")
-	private Solucoe solucoe;
+	private Solucoes solucoe;
 
 	//bi-directional many-to-one association to UsuariosSistema
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -91,11 +91,11 @@ public class VulnerabilidadesFamiliar implements Serializable {
 		this.situacoesVulnerabilidade = situacoesVulnerabilidade;
 	}
 
-	public Solucoe getSolucoe() {
+	public Solucoes getSolucoe() {
 		return this.solucoe;
 	}
 
-	public void setSolucoe(Solucoe solucoe) {
+	public void setSolucoe(Solucoes solucoe) {
 		this.solucoe = solucoe;
 	}
 
