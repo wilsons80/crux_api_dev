@@ -1,13 +1,24 @@
 package br.com.crux.entity;
 
-import java.io.Serializable;
-import javax.persistence.*;
-
-import br.com.crux.infra.constantes.Constantes;
-
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import br.com.crux.infra.constantes.Constantes;
 
 
 /**
@@ -16,8 +27,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="usuarios_sistema")
-public class UsuariosSistema implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class UsuariosSistema {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_usuario")

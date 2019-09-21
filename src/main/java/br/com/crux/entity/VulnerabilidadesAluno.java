@@ -1,82 +1,80 @@
 package br.com.crux.entity;
 
-import java.io.Serializable;
-import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-/**
- * The persistent class for the vulnerabilidades_aluno database table.
- * 
- */
+import br.com.crux.infra.constantes.Constantes;
+
 @Entity
 @Table(name="vulnerabilidades_aluno")
-@NamedQuery(name="VulnerabilidadesAluno.findAll", query="SELECT v FROM VulnerabilidadesAluno v")
-public class VulnerabilidadesAluno implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class VulnerabilidadesAluno {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_vulnerabilidade_aluno")
+	@SequenceGenerator(name = "sq_id_vulnerabilidade_aluno", sequenceName = "sq_id_vulnerabilidade_aluno", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_vulnerabilidade_aluno")
-	private Long idVulnerabilidadeAluno;
+	private Long id;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_ident_vulnerabilidade")
-	private Date dtIdentVulnerabilidade;
+	private LocalDateTime dataIdentificacao;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_solucao_vulnerabilidade")
-	private Date dtSolucaoVulnerabilidade;
+	private LocalDateTime dataSolucao;
 
-	//bi-directional many-to-one association to Aluno
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_aluno")
 	private Aluno aluno;
 
-	//bi-directional many-to-one association to SituacoesVulnerabilidade
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_vulnerabilidade")
 	private SituacoesVulnerabilidade situacoesVulnerabilidade;
 
-	//bi-directional many-to-one association to Solucoe
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_solucao")
 	private Solucoes solucoe;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
+	@Column(name="id_usuario_apl")
+	private Long usuarioAlteracao;
 
 	public VulnerabilidadesAluno() {
 	}
 
-	public Long getIdVulnerabilidadeAluno() {
-		return this.idVulnerabilidadeAluno;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdVulnerabilidadeAluno(Long idVulnerabilidadeAluno) {
-		this.idVulnerabilidadeAluno = idVulnerabilidadeAluno;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public Date getDtIdentVulnerabilidade() {
-		return this.dtIdentVulnerabilidade;
+	public LocalDateTime getDataIdentificacao() {
+		return dataIdentificacao;
 	}
 
-	public void setDtIdentVulnerabilidade(Date dtIdentVulnerabilidade) {
-		this.dtIdentVulnerabilidade = dtIdentVulnerabilidade;
+	public void setDataIdentificacao(LocalDateTime dataIdentificacao) {
+		this.dataIdentificacao = dataIdentificacao;
 	}
 
-	public Date getDtSolucaoVulnerabilidade() {
-		return this.dtSolucaoVulnerabilidade;
+	public LocalDateTime getDataSolucao() {
+		return dataSolucao;
 	}
 
-	public void setDtSolucaoVulnerabilidade(Date dtSolucaoVulnerabilidade) {
-		this.dtSolucaoVulnerabilidade = dtSolucaoVulnerabilidade;
+	public void setDataSolucao(LocalDateTime dataSolucao) {
+		this.dataSolucao = dataSolucao;
 	}
 
 	public Aluno getAluno() {
-		return this.aluno;
+		return aluno;
 	}
 
 	public void setAluno(Aluno aluno) {
@@ -84,7 +82,7 @@ public class VulnerabilidadesAluno implements Serializable {
 	}
 
 	public SituacoesVulnerabilidade getSituacoesVulnerabilidade() {
-		return this.situacoesVulnerabilidade;
+		return situacoesVulnerabilidade;
 	}
 
 	public void setSituacoesVulnerabilidade(SituacoesVulnerabilidade situacoesVulnerabilidade) {
@@ -92,19 +90,20 @@ public class VulnerabilidadesAluno implements Serializable {
 	}
 
 	public Solucoes getSolucoe() {
-		return this.solucoe;
+		return solucoe;
 	}
 
 	public void setSolucoe(Solucoes solucoe) {
 		this.solucoe = solucoe;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
 	}
+
 
 }

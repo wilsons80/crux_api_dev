@@ -10,7 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import br.com.crux.infra.constantes.Constantes;
 
 
 /**
@@ -22,7 +25,8 @@ import javax.persistence.Table;
 public class VulnerabilidadesFamiliar  {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_vulnerabilidade_fam")
+	@SequenceGenerator(name = "sq_id_vulnerabilidade_fam", sequenceName = "sq_id_vulnerabilidade_fam", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_vulnerabilidade_fam")
 	private Long id;
 

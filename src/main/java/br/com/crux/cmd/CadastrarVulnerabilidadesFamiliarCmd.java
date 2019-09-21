@@ -11,7 +11,7 @@ import br.com.crux.builder.SolucoesTOBuilder;
 import br.com.crux.dao.repository.VulnerabilidadesFamiliarRepository;
 import br.com.crux.entity.VulnerabilidadesFamiliar;
 import br.com.crux.exception.NotFoundException;
-import br.com.crux.rule.CamposObrigatoriosVulnerabilidadeSFamiliarRule;
+import br.com.crux.rule.CamposObrigatoriosVulnerabilidadesFamiliarRule;
 import br.com.crux.to.UsuarioLogadoTO;
 import br.com.crux.to.VulnerabilidadesFamiliarTO;
 
@@ -21,7 +21,7 @@ public class CadastrarVulnerabilidadesFamiliarCmd {
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	
 	@Autowired private VulnerabilidadesFamiliarRepository repository;
-	@Autowired private CamposObrigatoriosVulnerabilidadeSFamiliarRule camposObrigatoriosRule;
+	@Autowired private CamposObrigatoriosVulnerabilidadesFamiliarRule camposObrigatoriosRule;
 	
 	@Autowired private SituacoesVulnerabilidadeTOBuilder situacoesVulnerabilidadeTOBuilder;
 	@Autowired private SolucoesTOBuilder solucoesTOBuilder;

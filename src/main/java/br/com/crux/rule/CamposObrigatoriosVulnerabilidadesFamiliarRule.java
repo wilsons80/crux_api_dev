@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import br.com.crux.exception.CamposObrigatoriosException;
 
 @Component
-public class CamposObrigatoriosVulnerabilidadeSFamiliarRule {
+public class CamposObrigatoriosVulnerabilidadesFamiliarRule {
 
 	public void verificar(LocalDateTime dataIdentificacao, Long idVulnerabilidade, Long idSolucao, Long idFamiliar) {
 		if(Objects.isNull(dataIdentificacao)) {
