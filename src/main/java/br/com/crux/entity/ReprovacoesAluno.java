@@ -1,106 +1,107 @@
 package br.com.crux.entity;
 
-import java.io.Serializable;
-import javax.persistence.*;
-import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-/**
- * The persistent class for the reprovacoes_aluno database table.
- * 
- */
+import br.com.crux.infra.constantes.Constantes;
+
 @Entity
 @Table(name="reprovacoes_aluno")
-@NamedQuery(name="ReprovacoesAluno.findAll", query="SELECT r FROM ReprovacoesAluno r")
-public class ReprovacoesAluno implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class ReprovacoesAluno {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_reprovacao_aluno")
+	@SequenceGenerator(name = "sq_id_reprovacao_aluno", sequenceName = "sq_id_reprovacao_aluno", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_reprovacao_aluno")
-	private Long idReprovacaoAluno;
+	private Long id;
 
 	@Column(name="ds_reprovacao_aluno")
-	private String dsReprovacaoAluno;
+	private String descricaoMotivo;
 
 	@Column(name="ds_serie_reprovacao")
-	private String dsSerieReprovacao;
+	private String serieReprovacao;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_reprovacao_aluno")
-	private Date dtReprovacaoAluno;
+	private LocalDateTime dataReprovacao;
 
 	@Column(name="qtd_reprovacao")
-	private BigDecimal qtdReprovacao;
+	private Long qtdReprovacao;
 
-	//bi-directional many-to-one association to Aluno
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_aluno")
 	private Aluno aluno;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
+	@Column(name="id_usuario_apl")
+	private Long usuarioAlteracao;
 
 	public ReprovacoesAluno() {
 	}
 
-	public Long getIdReprovacaoAluno() {
-		return this.idReprovacaoAluno;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdReprovacaoAluno(Long idReprovacaoAluno) {
-		this.idReprovacaoAluno = idReprovacaoAluno;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getDsReprovacaoAluno() {
-		return this.dsReprovacaoAluno;
+	public String getDescricaoMotivo() {
+		return descricaoMotivo;
 	}
 
-	public void setDsReprovacaoAluno(String dsReprovacaoAluno) {
-		this.dsReprovacaoAluno = dsReprovacaoAluno;
+	public void setDescricaoMotivo(String descricaoMotivo) {
+		this.descricaoMotivo = descricaoMotivo;
 	}
 
-	public String getDsSerieReprovacao() {
-		return this.dsSerieReprovacao;
+	public String getSerieReprovacao() {
+		return serieReprovacao;
 	}
 
-	public void setDsSerieReprovacao(String dsSerieReprovacao) {
-		this.dsSerieReprovacao = dsSerieReprovacao;
+	public void setSerieReprovacao(String serieReprovacao) {
+		this.serieReprovacao = serieReprovacao;
 	}
 
-	public Date getDtReprovacaoAluno() {
-		return this.dtReprovacaoAluno;
+	public LocalDateTime getDataReprovacao() {
+		return dataReprovacao;
 	}
 
-	public void setDtReprovacaoAluno(Date dtReprovacaoAluno) {
-		this.dtReprovacaoAluno = dtReprovacaoAluno;
+	public void setDataReprovacao(LocalDateTime dataReprovacao) {
+		this.dataReprovacao = dataReprovacao;
 	}
 
-	public BigDecimal getQtdReprovacao() {
-		return this.qtdReprovacao;
+	public Long getQtdReprovacao() {
+		return qtdReprovacao;
 	}
 
-	public void setQtdReprovacao(BigDecimal qtdReprovacao) {
+	public void setQtdReprovacao(Long qtdReprovacao) {
 		this.qtdReprovacao = qtdReprovacao;
 	}
 
 	public Aluno getAluno() {
-		return this.aluno;
+		return aluno;
 	}
 
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
 	}
+
 
 }
