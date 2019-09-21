@@ -1,5 +1,6 @@
 package br.com.crux.cmd;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +20,11 @@ public class GetDiagnosticosCmd {
 	@Autowired private DiagnosticosTOBuilder toBuilder;
 	
 	public List<DiagnosticosTO> getAll() {
-		return toBuilder.buildAll(repository.findAll());
+		List<DiagnosticosTO> entitys = toBuilder.buildAll(repository.findAll());
+		if(entitys == null || entitys.isEmpty()) {
+			return new ArrayList<DiagnosticosTO>();
+		}
+		return entitys;
 	}
 	
 	public DiagnosticosTO getById(Long id) {

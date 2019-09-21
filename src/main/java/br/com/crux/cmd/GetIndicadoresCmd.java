@@ -1,5 +1,6 @@
 package br.com.crux.cmd;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,11 +9,8 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.builder.IndicadoresTOBuilder;
 import br.com.crux.dao.repository.IndicadoresRepository;
-import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.Indicadores;
-import br.com.crux.entity.Unidade;
 import br.com.crux.exception.NotFoundException;
-import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.to.IndicadoresTO;
 
 @Component
@@ -20,20 +18,15 @@ public class GetIndicadoresCmd {
 
 	@Autowired private IndicadoresRepository indicadoresRepository;
 	@Autowired private IndicadoresTOBuilder indicadoresTOBuilder;
-	@Autowired private UnidadeRepository unidadeRepository;
 	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	
 	public List<IndicadoresTO> getAll() {
-		Optional<Unidade> unidade = unidadeRepository.findById(getUnidadeLogadaCmd.get().getId());
-		if(!unidade.isPresent()) {
-			throw new ParametroNaoInformadoException("Unidade não informada.");
+		Long idUnidade = getUnidadeLogadaCmd.get().getId();
+		Optional<List<Indicadores>> entitys = indicadoresRepository.findByIdUnidade(idUnidade);
+		if(entitys.isPresent()) {
+			return indicadoresTOBuilder.buildAll(entitys.get());
 		}
-		
-		Optional<List<Indicadores>> perspectivas = indicadoresRepository.findByIdUnidade(unidade.get().getIdUnidade());
-		if(perspectivas.isPresent()) {
-			return indicadoresTOBuilder.buildAll(perspectivas.get());
-		}
-		return null;
+		return new ArrayList<IndicadoresTO>();
 	}
 	
 	public IndicadoresTO getById(Long id) {

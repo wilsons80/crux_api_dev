@@ -1,5 +1,6 @@
 package br.com.crux.cmd;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,11 +9,8 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.builder.ProgramaTOBuilder;
 import br.com.crux.dao.repository.ProgramaRepository;
-import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.Programa;
-import br.com.crux.entity.Unidade;
 import br.com.crux.exception.NotFoundException;
-import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.to.ProgramaTO;
 
 @Component
@@ -21,20 +19,15 @@ public class GetProgramaCmd {
 	@Autowired private ProgramaRepository repository;
 	@Autowired private ProgramaTOBuilder toBuilder;
 	
-	@Autowired private UnidadeRepository unidadeRepository;
 	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	
 	public List<ProgramaTO> getAll() {
-		Optional<Unidade> unidade = unidadeRepository.findById(getUnidadeLogadaCmd.get().getId());
-		if(!unidade.isPresent()) {
-			throw new ParametroNaoInformadoException("Unidade não informada.");
-		}
-		
-		Optional<List<Programa>> listaRetorno = repository.findByIdUnidade(unidade.get().getIdUnidade());
+		Long idUnidade = getUnidadeLogadaCmd.get().getId();
+		Optional<List<Programa>> listaRetorno = repository.findByIdUnidade(idUnidade);
 		if(listaRetorno.isPresent()) {
 			return toBuilder.buildAll(listaRetorno.get());
 		}
-		return null;
+		return new ArrayList<ProgramaTO>();
 	}
 	
 	public ProgramaTO getById(Long id) {

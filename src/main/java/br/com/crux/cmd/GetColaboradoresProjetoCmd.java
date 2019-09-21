@@ -1,5 +1,6 @@
 package br.com.crux.cmd;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,7 +13,6 @@ import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.ColaboradoresProjeto;
 import br.com.crux.entity.Unidade;
 import br.com.crux.exception.NotFoundException;
-import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.to.ColaboradoresProjetoTO;
 
 @Component
@@ -27,15 +27,11 @@ public class GetColaboradoresProjetoCmd {
 	
 	public List<ColaboradoresProjetoTO> getAll() {
 		Optional<Unidade> unidade = unidadeRepository.findById(getUnidadeLogadaCmd.get().getId());
-		if(!unidade.isPresent()) {
-			throw new ParametroNaoInformadoException("Unidade não informada.");
-		}
-		
 		Optional<List<ColaboradoresProjeto>> listaRetorno = repository.findByIdUnidade(unidade.get().getIdUnidade());
 		if(listaRetorno.isPresent()) {
 			return toBuilder.buildAll(listaRetorno.get());
 		}
-		return null;
+		return new ArrayList<ColaboradoresProjetoTO>();
 	}
 	
 	public ColaboradoresProjetoTO getById(Long id) {

@@ -1,5 +1,6 @@
 package br.com.crux.cmd;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +22,11 @@ public class GetEmpresaCmd {
 	
 	
 	public List<EmpresaTO> getAll() {
-		return toBuilder.buildAll(repository.findAll());
+		List<EmpresaTO> entitys = toBuilder.buildAll(repository.findAll());
+		if(entitys == null || entitys.isEmpty()) {
+			return new ArrayList<EmpresaTO>();
+		}
+		return entitys;
 	}
 	
 	public EmpresaTO getById(Long id) {

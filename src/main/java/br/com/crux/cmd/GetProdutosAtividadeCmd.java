@@ -1,5 +1,6 @@
 package br.com.crux.cmd;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +21,11 @@ public class GetProdutosAtividadeCmd {
 	
 	
 	public List<ProdutosAtividadeTO> getAll() {
-		return toBuilder.buildAll(repository.findAll());
+		List<ProdutosAtividadeTO> entitys = toBuilder.buildAll(repository.findAll());
+		if(entitys == null || entitys.isEmpty()) {
+			return new ArrayList<ProdutosAtividadeTO>();
+		}
+		return entitys;
 	}
 	
 	public ProdutosAtividadeTO getById(Long id) {

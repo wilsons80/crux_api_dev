@@ -1,5 +1,6 @@
 package br.com.crux.cmd;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +20,11 @@ public class GetSituacoesVulnerabilidadeCmd {
 	@Autowired private SituacoesVulnerabilidadeTOBuilder toBuilder;
 	
 	public List<SituacoesVulnerabilidadeTO> getAll() {
-		return toBuilder.buildAll(repository.findAll());
+		List<SituacoesVulnerabilidadeTO> entitys = toBuilder.buildAll(repository.findAll());
+		if(entitys == null || entitys.isEmpty()) {
+			return new ArrayList<SituacoesVulnerabilidadeTO>();
+		}
+		return entitys;
 	}
 	
 	public SituacoesVulnerabilidadeTO getById(Long id) {

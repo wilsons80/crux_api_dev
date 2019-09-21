@@ -29,7 +29,7 @@
 		<class>br.com.crux.entity.Diagnosticos</class>
 		<class>br.com.crux.entity.DocumentosAtividade</class>
 		<class>br.com.crux.entity.Empresa</class>
-		<class>br.com.crux.entity.EncaminhaAluno</class>
+		<class>br.com.crux.entity.EncaminhaAlunos</class>
 		<class>br.com.crux.entity.EntidadesSociais</class>
 		<class>br.com.crux.entity.Estoques</class>
 		<class>br.com.crux.entity.FaltasFuncionario</class>

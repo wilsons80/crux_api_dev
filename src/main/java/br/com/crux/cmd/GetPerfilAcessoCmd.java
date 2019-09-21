@@ -1,5 +1,6 @@
 package br.com.crux.cmd;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,7 +29,11 @@ public class GetPerfilAcessoCmd {
 
 	
 	public List<PerfisAcesso> getAllPerfilAcesso() {
-		return perfilAcessoRepository.findAll();
+		List<PerfisAcesso> entitys = perfilAcessoRepository.findAll();
+		if(entitys == null || entitys.isEmpty()) {
+			return new ArrayList<PerfisAcesso>();
+		}
+		return entitys;
 	}
 
 	

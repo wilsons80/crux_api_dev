@@ -35,7 +35,7 @@ public class ExcluirUnidadeCmd {
 		
 		Optional<Unidade> unidade = unidadeRepository.findById(idUnidade);
 		
-		Optional<List<Perspectiva>> perspectiva = perspectivaRepository.findByUnidade(unidade.get());
+		Optional<List<Perspectiva>> perspectiva = perspectivaRepository.findByIdUnidade(unidade.get().getIdUnidade());
 		if(perspectiva.isPresent()) {
 			throw new TabaleReferenciaEncontradaException("Por favor, exclua a Perspectiva antes.");
 		}

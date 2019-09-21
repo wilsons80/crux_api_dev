@@ -1,5 +1,6 @@
 package br.com.crux.cmd;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,11 +9,8 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.builder.MetasTOBuilder;
 import br.com.crux.dao.repository.MetasRepository;
-import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.Metas;
-import br.com.crux.entity.Unidade;
 import br.com.crux.exception.NotFoundException;
-import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.to.MetasTO;
 
 @Component
@@ -20,20 +18,15 @@ public class GetMetasCmd {
 
 	@Autowired private MetasRepository metasRepository;
 	@Autowired private MetasTOBuilder metasTOBuilder;
-	@Autowired private UnidadeRepository unidadeRepository;
 	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	
 	public List<MetasTO> getAll() {
-		Optional<Unidade> unidade = unidadeRepository.findById(getUnidadeLogadaCmd.get().getId());
-		if(!unidade.isPresent()) {
-			throw new ParametroNaoInformadoException("Unidade não informada.");
-		}
-		
-		Optional<List<Metas>> perspectivas = metasRepository.findByIdUnidade(unidade.get().getIdUnidade());
+		Long idUnidade = getUnidadeLogadaCmd.get().getId();
+		Optional<List<Metas>> perspectivas = metasRepository.findByIdUnidade(idUnidade);
 		if(perspectivas.isPresent()) {
 			return metasTOBuilder.buildAll(perspectivas.get());
 		}
-		return null;
+		return new ArrayList<MetasTO>();
 	}
 	
 	public MetasTO getById(Long id) {

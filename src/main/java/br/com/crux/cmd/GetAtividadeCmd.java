@@ -23,11 +23,10 @@ public class GetAtividadeCmd {
 	
 	public List<AtividadeTO> getAll() {
 		Long idUnidade = getUnidadeLogadaCmd.get().getId();
-		
-		if(repository.findByIdUnidade(idUnidade).isPresent()) {
-			return toBuilder.buildAll(repository.findByIdUnidade(idUnidade).get());
+		Optional<List<Atividade>> entitys = repository.findByIdUnidade(idUnidade);
+		if(entitys.isPresent()) {
+			return toBuilder.buildAll(entitys.get());
 		}
-		
 		return new ArrayList<AtividadeTO>();
 	}
 	

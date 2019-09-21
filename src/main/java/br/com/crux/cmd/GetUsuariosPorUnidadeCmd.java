@@ -1,5 +1,6 @@
 package br.com.crux.cmd;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.builder.UsuarioUnidadeTOBuilder;
 import br.com.crux.dao.GetUsuarioSistemaDao;
+import br.com.crux.dao.dto.UsuarioUnidadeDTO;
 import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.to.UsuarioUnidadeTO;
 
@@ -19,7 +21,12 @@ public class GetUsuariosPorUnidadeCmd {
 	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 
 	public List<UsuarioUnidadeTO> getUsuariosPorUnidade() {
-		return usuarioUnidadeTOBuilder.buildAll(getUsuarioSistemaDao.getUsuariosPorUnidade(getUnidadeLogadaCmd.get().getId()));
+		Long idUnidade = getUnidadeLogadaCmd.get().getId();
+		List<UsuarioUnidadeDTO> entitys = getUsuarioSistemaDao.getUsuariosPorUnidade(idUnidade);
+		if(entitys == null || entitys.isEmpty()) {
+			return new ArrayList<UsuarioUnidadeTO>();
+		}
+		return usuarioUnidadeTOBuilder.buildAll(entitys);
 	}
 
 	

@@ -1,5 +1,6 @@
 package br.com.crux.cmd;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +20,11 @@ public class GetVulnerabilidadesAlunoCmd {
 	@Autowired private VulnerabilidadesAlunoTOBuilder toBuilder;
 	
 	public List<VulnerabilidadesAlunoTO> getAll() {
-		return toBuilder.buildAll(repository.findAll());
+		List<VulnerabilidadesAlunoTO> entitys = toBuilder.buildAll(repository.findAll());
+		if(entitys == null || entitys.isEmpty()) {
+			return new ArrayList<VulnerabilidadesAlunoTO>();
+		}
+		return entitys;
 	}
 	
 	public VulnerabilidadesAlunoTO getById(Long id) {
