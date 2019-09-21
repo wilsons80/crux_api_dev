@@ -1,8 +1,16 @@
 package br.com.crux.entity;
 
-import java.io.Serializable;
-import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 
 /**
@@ -11,80 +19,71 @@ import java.util.Date;
  */
 @Entity
 @Table(name="vulnerabilidades_familiar")
-@NamedQuery(name="VulnerabilidadesFamiliar.findAll", query="SELECT v FROM VulnerabilidadesFamiliar v")
-public class VulnerabilidadesFamiliar implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class VulnerabilidadesFamiliar  {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_vulnerabilidade_fam")
-	private Long idVulnerabilidadeFam;
+	private Long id;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_ident_vulnerabilidade")
-	private Date dtIdentVulnerabilidade;
+	private LocalDateTime dataIdentificacao;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_solucao_vulnerabilidade")
-	private Date dtSolucaoVulnerabilidade;
+	private LocalDateTime dataSolucao;
 
-	//bi-directional many-to-one association to Familiare
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_familiar")
-	private Familiares familiare;
+	private Familiares familiar;
 
-	//bi-directional many-to-one association to SituacoesVulnerabilidade
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_vulnerabilidade")
 	private SituacoesVulnerabilidade situacoesVulnerabilidade;
 
-	//bi-directional many-to-one association to Solucoe
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_solucao")
 	private Solucoes solucoe;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
+	private Long usuarioAlteracao;
 
 	public VulnerabilidadesFamiliar() {
 	}
 
-	public Long getIdVulnerabilidadeFam() {
-		return this.idVulnerabilidadeFam;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdVulnerabilidadeFam(Long idVulnerabilidadeFam) {
-		this.idVulnerabilidadeFam = idVulnerabilidadeFam;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public Date getDtIdentVulnerabilidade() {
-		return this.dtIdentVulnerabilidade;
+	public LocalDateTime getDataIdentificacao() {
+		return dataIdentificacao;
 	}
 
-	public void setDtIdentVulnerabilidade(Date dtIdentVulnerabilidade) {
-		this.dtIdentVulnerabilidade = dtIdentVulnerabilidade;
+	public void setDataIdentificacao(LocalDateTime dataIdentificacao) {
+		this.dataIdentificacao = dataIdentificacao;
 	}
 
-	public Date getDtSolucaoVulnerabilidade() {
-		return this.dtSolucaoVulnerabilidade;
+	public LocalDateTime getDataSolucao() {
+		return dataSolucao;
 	}
 
-	public void setDtSolucaoVulnerabilidade(Date dtSolucaoVulnerabilidade) {
-		this.dtSolucaoVulnerabilidade = dtSolucaoVulnerabilidade;
+	public void setDataSolucao(LocalDateTime dataSolucao) {
+		this.dataSolucao = dataSolucao;
 	}
 
-	public Familiares getFamiliare() {
-		return this.familiare;
+	public Familiares getFamiliar() {
+		return familiar;
 	}
 
-	public void setFamiliare(Familiares familiare) {
-		this.familiare = familiare;
+	public void setFamiliar(Familiares familiare) {
+		this.familiar = familiare;
 	}
 
 	public SituacoesVulnerabilidade getSituacoesVulnerabilidade() {
-		return this.situacoesVulnerabilidade;
+		return situacoesVulnerabilidade;
 	}
 
 	public void setSituacoesVulnerabilidade(SituacoesVulnerabilidade situacoesVulnerabilidade) {
@@ -92,19 +91,20 @@ public class VulnerabilidadesFamiliar implements Serializable {
 	}
 
 	public Solucoes getSolucoe() {
-		return this.solucoe;
+		return solucoe;
 	}
 
 	public void setSolucoe(Solucoes solucoe) {
 		this.solucoe = solucoe;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
+	
 }
