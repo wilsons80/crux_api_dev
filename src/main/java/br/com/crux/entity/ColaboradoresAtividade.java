@@ -31,7 +31,7 @@ public class ColaboradoresAtividade implements Serializable {
 	//bi-directional many-to-one association to Atividade
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_atividade")
-	private Atividade atividade;
+	private Atividades atividade;
 
 	//bi-directional many-to-one association to Cargo
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -75,11 +75,11 @@ public class ColaboradoresAtividade implements Serializable {
 		this.dtSaidaAtividade = dtSaidaAtividade;
 	}
 
-	public Atividade getAtividade() {
+	public Atividades getAtividade() {
 		return this.atividade;
 	}
 
-	public void setAtividade(Atividade atividade) {
+	public void setAtividade(Atividades atividade) {
 		this.atividade = atividade;
 	}
 

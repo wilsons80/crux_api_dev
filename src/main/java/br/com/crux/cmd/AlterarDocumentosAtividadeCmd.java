@@ -6,10 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.builder.AtividadeTOBuilder;
+import br.com.crux.builder.AtividadesTOBuilder;
 import br.com.crux.dao.repository.AtividadeRepository;
 import br.com.crux.dao.repository.DocumentosAtividadeRepository;
-import br.com.crux.entity.Atividade;
+import br.com.crux.entity.Atividades;
 import br.com.crux.entity.DocumentosAtividade;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosDocumentosAtividadeRule;
@@ -24,7 +24,7 @@ public class AlterarDocumentosAtividadeCmd {
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	@Autowired private AtividadeRepository atividadeRepository;
 	
-	@Autowired private AtividadeTOBuilder atividadeBuilder;
+	@Autowired private AtividadesTOBuilder atividadeBuilder;
 	
 	@Autowired private CamposObrigatoriosDocumentosAtividadeRule camposObrigatoriosRule;
 	
@@ -41,7 +41,7 @@ public class AlterarDocumentosAtividadeCmd {
 		
 		camposObrigatoriosRule.verificar(to.getDescricao(), to.getAtividade().getId());
 		
-		Optional<Atividade> atividadeOptional = atividadeRepository.findById(to.getAtividade().getId());
+		Optional<Atividades> atividadeOptional = atividadeRepository.findById(to.getAtividade().getId());
 		if(!atividadeOptional.isPresent()) {
 			throw new NotFoundException("Atividade informado não existe.");
 		}

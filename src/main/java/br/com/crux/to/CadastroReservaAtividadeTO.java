@@ -13,7 +13,7 @@ public class CadastroReservaAtividadeTO {
 	private LocalDateTime dataCadastroAtividade;
 	private LocalDateTime dtAlteracaoAtividade;
 
-	private AtividadeTO atividade;
+	private AtividadesTO atividade;
 	private PessoaFisicaTO pessoasFisica;
 
 	private Long usuarioCadastro;
@@ -79,11 +79,11 @@ public class CadastroReservaAtividadeTO {
 		this.dtAlteracaoAtividade = dtAlteracaoAtividade;
 	}
 
-	public AtividadeTO getAtividade() {
+	public AtividadesTO getAtividade() {
 		return atividade;
 	}
 
-	public void setAtividade(AtividadeTO atividade) {
+	public void setAtividade(AtividadesTO atividade) {
 		this.atividade = atividade;
 	}
 

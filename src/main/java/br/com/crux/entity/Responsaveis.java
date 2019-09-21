@@ -26,16 +26,16 @@ public class Responsaveis{
 	@Column(name="id_responsavel")
 	private Long id;
 
-	@Column(name="desc_desligamento")
+	@Column(name="ds_desligamento")
 	private String descDesligamento;
 
-	@Column(name="desc_outras_informacoes")
+	@Column(name="ds_outras_informacoes")
 	private String descOutrasInformacoes;
 
-	@Column(name="data_cadastro")
+	@Column(name="dt_cadastro")
 	private LocalDateTime dataCadastro;
 
-	@Column(name="data_desligamento")
+	@Column(name="dt_desligamento")
 	private LocalDateTime dataDesligamento;
 
 	@ManyToOne(fetch=FetchType.LAZY)

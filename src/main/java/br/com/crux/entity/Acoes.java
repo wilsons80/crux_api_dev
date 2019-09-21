@@ -49,7 +49,7 @@ public class Acoes implements Serializable {
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="atividades_id_atividade")
-	private Atividade atividade;
+	private Atividades atividade;
 
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
@@ -105,11 +105,11 @@ public class Acoes implements Serializable {
 		this.nome = nome;
 	}
 
-	public Atividade getAtividade() {
+	public Atividades getAtividade() {
 		return atividade;
 	}
 
-	public void setAtividade(Atividade atividade) {
+	public void setAtividade(Atividades atividade) {
 		this.atividade = atividade;
 	}
 

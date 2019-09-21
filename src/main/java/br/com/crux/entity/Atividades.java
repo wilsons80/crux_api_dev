@@ -19,7 +19,7 @@ import br.com.crux.infra.constantes.Constantes;
 
 @Entity
 @Table(name="atividades")
-public class Atividade implements Serializable {
+public class Atividades implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -113,7 +113,7 @@ public class Atividade implements Serializable {
 	private Long usuarioAlteracao;
 
 
-	public Atividade() {
+	public Atividades() {
 	}
 
 

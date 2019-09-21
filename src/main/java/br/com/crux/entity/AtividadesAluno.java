@@ -1,263 +1,129 @@
 package br.com.crux.entity;
 
-import java.io.Serializable;
-import javax.persistence.*;
-import java.util.Date;
-import java.sql.Timestamp;
-import java.util.List;
+import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-/**
- * The persistent class for the atividades_aluno database table.
- * 
- */
+import br.com.crux.infra.constantes.Constantes;
+
 @Entity
-@Table(name="atividades_aluno")
-@NamedQuery(name="AtividadesAluno.findAll", query="SELECT a FROM AtividadesAluno a")
-public class AtividadesAluno implements Serializable {
-	private static final long serialVersionUID = 1L;
+@Table(name = "atividades_aluno")
+public class AtividadesAluno {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_atividade_aluno")
-	private Long idAtividadeAluno;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_atividade_aluno")
+	@SequenceGenerator(name = "sq_id_atividade_aluno", sequenceName = "sq_id_atividade_aluno", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
+	@Column(name = "id_atividade_aluno")
+	private Long id;
 
-	@Column(name="ds_desligamento")
-	private Timestamp dsDesligamento;
+	@Column(name = "dt_inicio_atividade")
+	private LocalDateTime dataInicioAtividade;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_alteracao_atividade")
-	private Date dtAlteracaoAtividade;
+	@Column(name = "ds_desligamento")
+	private String descDesligamento;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_cadastro_atividade")
-	private Date dtCadastroAtividade;
+	@Column(name = "dt_desvinculacao")
+	private LocalDateTime dataDesvinculacao;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_desvinculacao")
-	private Date dtDesvinculacao;
+	@Column(name = "dt_alteracao_atividade")
+	private LocalDateTime dataAlteracaoAtividade;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_inicio_atividade")
-	private Date dtInicioAtividade;
+	@Column(name = "dt_cadastro_atividade")
+	private LocalDateTime dataCadastroAtividade;
 
-	//bi-directional many-to-one association to AlunosTrabalhando
-	@OneToMany(mappedBy="atividadesAluno")
-	private List<AlunosTrabalhando> alunosTrabalhandos;
-
-	//bi-directional many-to-one association to Aluno
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "aluno_id_aluno")
 	private Aluno aluno;
 
-	//bi-directional many-to-one association to Atividade
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="atividades_id_atividade")
-	private Atividade atividade;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "atividades_id_atividade")
+	private Atividades atividade;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="us_alteraca_id_usuario")
-	private UsuariosSistema usuariosSistema1;
-
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="us_cadastro_id_usuario")
-	private UsuariosSistema usuariosSistema2;
-
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema3;
-
-	//bi-directional many-to-one association to AvaliacoesAluno
-	@OneToMany(mappedBy="atividadesAluno")
-	private List<AvaliacoesAluno> avaliacoesAlunos;
-
-	//bi-directional many-to-one association to FrequenciasAluno
-	@OneToMany(mappedBy="atividadesAluno")
-	private List<FrequenciasAluno> frequenciasAlunos;
-
-	//bi-directional many-to-one association to UniformesAluno
-	@OneToMany(mappedBy="atividadesAluno")
-	private List<UniformesAluno> uniformesAlunos;
+	@Column(name = "id_usuario_apl")
+	private Long usuarioAlteracao;
 
 	public AtividadesAluno() {
 	}
 
-	public Long getIdAtividadeAluno() {
-		return this.idAtividadeAluno;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdAtividadeAluno(Long idAtividadeAluno) {
-		this.idAtividadeAluno = idAtividadeAluno;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public Timestamp getDsDesligamento() {
-		return this.dsDesligamento;
+	public LocalDateTime getDataInicioAtividade() {
+		return dataInicioAtividade;
 	}
 
-	public void setDsDesligamento(Timestamp dsDesligamento) {
-		this.dsDesligamento = dsDesligamento;
+	public void setDataInicioAtividade(LocalDateTime dtInicioAtividade) {
+		this.dataInicioAtividade = dtInicioAtividade;
 	}
 
-	public Date getDtAlteracaoAtividade() {
-		return this.dtAlteracaoAtividade;
+	public String getDescDesligamento() {
+		return descDesligamento;
 	}
 
-	public void setDtAlteracaoAtividade(Date dtAlteracaoAtividade) {
-		this.dtAlteracaoAtividade = dtAlteracaoAtividade;
+	public void setDescDesligamento(String descDesligamento) {
+		this.descDesligamento = descDesligamento;
 	}
 
-	public Date getDtCadastroAtividade() {
-		return this.dtCadastroAtividade;
+	public LocalDateTime getDataDesvinculacao() {
+		return dataDesvinculacao;
 	}
 
-	public void setDtCadastroAtividade(Date dtCadastroAtividade) {
-		this.dtCadastroAtividade = dtCadastroAtividade;
+	public void setDataDesvinculacao(LocalDateTime dataDesvinculacao) {
+		this.dataDesvinculacao = dataDesvinculacao;
 	}
 
-	public Date getDtDesvinculacao() {
-		return this.dtDesvinculacao;
+	public LocalDateTime getDataAlteracaoAtividade() {
+		return dataAlteracaoAtividade;
 	}
 
-	public void setDtDesvinculacao(Date dtDesvinculacao) {
-		this.dtDesvinculacao = dtDesvinculacao;
+	public void setDataAlteracaoAtividade(LocalDateTime dataAlteracaoAtividade) {
+		this.dataAlteracaoAtividade = dataAlteracaoAtividade;
 	}
 
-	public Date getDtInicioAtividade() {
-		return this.dtInicioAtividade;
+	public LocalDateTime getDataCadastroAtividade() {
+		return dataCadastroAtividade;
 	}
 
-	public void setDtInicioAtividade(Date dtInicioAtividade) {
-		this.dtInicioAtividade = dtInicioAtividade;
-	}
-
-	public List<AlunosTrabalhando> getAlunosTrabalhandos() {
-		return this.alunosTrabalhandos;
-	}
-
-	public void setAlunosTrabalhandos(List<AlunosTrabalhando> alunosTrabalhandos) {
-		this.alunosTrabalhandos = alunosTrabalhandos;
-	}
-
-	public AlunosTrabalhando addAlunosTrabalhando(AlunosTrabalhando alunosTrabalhando) {
-		getAlunosTrabalhandos().add(alunosTrabalhando);
-		alunosTrabalhando.setAtividadesAluno(this);
-
-		return alunosTrabalhando;
-	}
-
-	public AlunosTrabalhando removeAlunosTrabalhando(AlunosTrabalhando alunosTrabalhando) {
-		getAlunosTrabalhandos().remove(alunosTrabalhando);
-		alunosTrabalhando.setAtividadesAluno(null);
-
-		return alunosTrabalhando;
+	public void setDataCadastroAtividade(LocalDateTime dataCadastroAtividade) {
+		this.dataCadastroAtividade = dataCadastroAtividade;
 	}
 
 	public Aluno getAluno() {
-		return this.aluno;
+		return aluno;
 	}
 
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
 	}
 
-	public Atividade getAtividade() {
-		return this.atividade;
+	public Atividades getAtividade() {
+		return atividade;
 	}
 
-	public void setAtividade(Atividade atividade) {
+	public void setAtividade(Atividades atividade) {
 		this.atividade = atividade;
 	}
 
-	public UsuariosSistema getUsuariosSistema1() {
-		return this.usuariosSistema1;
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema1(UsuariosSistema usuariosSistema1) {
-		this.usuariosSistema1 = usuariosSistema1;
-	}
-
-	public UsuariosSistema getUsuariosSistema2() {
-		return this.usuariosSistema2;
-	}
-
-	public void setUsuariosSistema2(UsuariosSistema usuariosSistema2) {
-		this.usuariosSistema2 = usuariosSistema2;
-	}
-
-	public UsuariosSistema getUsuariosSistema3() {
-		return this.usuariosSistema3;
-	}
-
-	public void setUsuariosSistema3(UsuariosSistema usuariosSistema3) {
-		this.usuariosSistema3 = usuariosSistema3;
-	}
-
-	public List<AvaliacoesAluno> getAvaliacoesAlunos() {
-		return this.avaliacoesAlunos;
-	}
-
-	public void setAvaliacoesAlunos(List<AvaliacoesAluno> avaliacoesAlunos) {
-		this.avaliacoesAlunos = avaliacoesAlunos;
-	}
-
-	public AvaliacoesAluno addAvaliacoesAluno(AvaliacoesAluno avaliacoesAluno) {
-		getAvaliacoesAlunos().add(avaliacoesAluno);
-		avaliacoesAluno.setAtividadesAluno(this);
-
-		return avaliacoesAluno;
-	}
-
-	public AvaliacoesAluno removeAvaliacoesAluno(AvaliacoesAluno avaliacoesAluno) {
-		getAvaliacoesAlunos().remove(avaliacoesAluno);
-		avaliacoesAluno.setAtividadesAluno(null);
-
-		return avaliacoesAluno;
-	}
-
-	public List<FrequenciasAluno> getFrequenciasAlunos() {
-		return this.frequenciasAlunos;
-	}
-
-	public void setFrequenciasAlunos(List<FrequenciasAluno> frequenciasAlunos) {
-		this.frequenciasAlunos = frequenciasAlunos;
-	}
-
-	public FrequenciasAluno addFrequenciasAluno(FrequenciasAluno frequenciasAluno) {
-		getFrequenciasAlunos().add(frequenciasAluno);
-		frequenciasAluno.setAtividadesAluno(this);
-
-		return frequenciasAluno;
-	}
-
-	public FrequenciasAluno removeFrequenciasAluno(FrequenciasAluno frequenciasAluno) {
-		getFrequenciasAlunos().remove(frequenciasAluno);
-		frequenciasAluno.setAtividadesAluno(null);
-
-		return frequenciasAluno;
-	}
-
-	public List<UniformesAluno> getUniformesAlunos() {
-		return this.uniformesAlunos;
-	}
-
-	public void setUniformesAlunos(List<UniformesAluno> uniformesAlunos) {
-		this.uniformesAlunos = uniformesAlunos;
-	}
-
-	public UniformesAluno addUniformesAluno(UniformesAluno uniformesAluno) {
-		getUniformesAlunos().add(uniformesAluno);
-		uniformesAluno.setAtividadesAluno(this);
-
-		return uniformesAluno;
-	}
-
-	public UniformesAluno removeUniformesAluno(UniformesAluno uniformesAluno) {
-		getUniformesAlunos().remove(uniformesAluno);
-		uniformesAluno.setAtividadesAluno(null);
-
-		return uniformesAluno;
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
 }

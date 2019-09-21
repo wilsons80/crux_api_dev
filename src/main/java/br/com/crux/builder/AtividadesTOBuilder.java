@@ -6,11 +6,11 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.entity.Atividade;
-import br.com.crux.to.AtividadeTO;
+import br.com.crux.entity.Atividades;
+import br.com.crux.to.AtividadesTO;
 
 @Component
-public class AtividadeTOBuilder {
+public class AtividadesTOBuilder {
 
 	@Autowired
 	private UnidadeTOBuilder unidadeBuilder;
@@ -19,8 +19,8 @@ public class AtividadeTOBuilder {
 	@Autowired
 	private PlanosAcaoTOBuilder planosAcaoBuilder;
 
-	public Atividade build(AtividadeTO p) {
-		Atividade retorno = new Atividade();
+	public Atividades build(AtividadesTO p) {
+		Atividades retorno = new Atividades();
 
 		retorno.setId(p.getId());
 		retorno.setDescricao(p.getDescricao());
@@ -54,8 +54,8 @@ public class AtividadeTOBuilder {
 		return retorno;
 	}
 
-	public AtividadeTO buildTO(Atividade p) {
-		AtividadeTO retorno = new AtividadeTO();
+	public AtividadesTO buildTO(Atividades p) {
+		AtividadesTO retorno = new AtividadesTO();
 		
 		retorno.setId(p.getId());
 		retorno.setDescricao(p.getDescricao());
@@ -89,7 +89,7 @@ public class AtividadeTOBuilder {
 		return retorno;
 	}
 
-	public List<AtividadeTO> buildAll(List<Atividade> dtos) {
+	public List<AtividadesTO> buildAll(List<Atividades> dtos) {
 		return dtos.stream().map(dto -> buildTO(dto)).collect(Collectors.toList());
 	}
 

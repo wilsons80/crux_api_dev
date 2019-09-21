@@ -13,13 +13,13 @@ import br.com.crux.dao.repository.AtividadeRepository;
 import br.com.crux.dao.repository.PlanosAcaoRepository;
 import br.com.crux.dao.repository.ProjetoRepository;
 import br.com.crux.dao.repository.UnidadeRepository;
-import br.com.crux.entity.Atividade;
+import br.com.crux.entity.Atividades;
 import br.com.crux.entity.PlanosAcao;
 import br.com.crux.entity.Projeto;
 import br.com.crux.entity.Unidade;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosAtividadeRule;
-import br.com.crux.to.AtividadeTO;
+import br.com.crux.to.AtividadesTO;
 import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
@@ -39,7 +39,7 @@ public class CadastrarAtividadeCmd {
 	@Autowired private CamposObrigatoriosAtividadeRule camposObrigatoriosRule;
 	
 	
-	public void cadastrar(AtividadeTO to) {
+	public void cadastrar(AtividadesTO to) {
 		
 		if(Objects.isNull(to.getUnidade())) {
 			throw new NotFoundException("Unidade não informada.");
@@ -68,7 +68,7 @@ public class CadastrarAtividadeCmd {
 		}
 		
 				
-		Atividade entity = new Atividade();
+		Atividades entity = new Atividades();
 
 		entity.setDescricao(to.getDescricao());
 		entity.setDescricaoLocalExecucao(to.getDescricaoLocalExecucao());

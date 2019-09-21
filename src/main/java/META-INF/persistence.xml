@@ -9,8 +9,8 @@
 		<class>br.com.crux.entity.Aluno</class>
 		<class>br.com.crux.entity.AlunosTrabalhando</class>
 		<class>br.com.crux.entity.Arquivo</class>
-		<class>br.com.crux.entity.Atendimento</class>
-		<class>br.com.crux.entity.Atividade</class>
+		<class>br.com.crux.entity.Atendimentos</class>
+		<class>br.com.crux.entity.Atividades</class>
 		<class>br.com.crux.entity.AtividadesAluno</class>
 		<class>br.com.crux.entity.Avaliacoe</class>
 		<class>br.com.crux.entity.AvaliacoesAluno</class>

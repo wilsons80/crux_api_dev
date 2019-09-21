@@ -5,7 +5,7 @@ public class DocumentosAtividadeTO {
 	private Long id;
 	private String descricao;
 	private String observacao;
-	private AtividadeTO atividade;
+	private AtividadesTO atividade;
 	private Long usuarioAlteracao;
 
 	public DocumentosAtividadeTO() {
@@ -35,11 +35,11 @@ public class DocumentosAtividadeTO {
 		this.observacao = observacao;
 	}
 
-	public AtividadeTO getAtividade() {
+	public AtividadesTO getAtividade() {
 		return atividade;
 	}
 
-	public void setAtividade(AtividadeTO atividade) {
+	public void setAtividade(AtividadesTO atividade) {
 		this.atividade = atividade;
 	}
 

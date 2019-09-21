@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import br.com.crux.infra.adapter.LocalDateTimeAdapter;
 
-public class AtividadeTO {
+public class AtividadesTO {
 
 	private Long id;
 	private String descricao;
@@ -45,7 +45,7 @@ public class AtividadeTO {
 	
 	private Long usuarioAlteracao;
 
-	public AtividadeTO() {
+	public AtividadesTO() {
 	}
 
 	public Long getId() {

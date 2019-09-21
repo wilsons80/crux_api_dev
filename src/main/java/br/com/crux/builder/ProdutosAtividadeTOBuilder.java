@@ -12,7 +12,7 @@ import br.com.crux.to.ProdutosAtividadeTO;
 @Component
 public class ProdutosAtividadeTOBuilder {
 
-	@Autowired private AtividadeTOBuilder atividadeBuilder;
+	@Autowired private AtividadesTOBuilder atividadeBuilder;
 	@Autowired private ProdutoTOBuilder produtoBuilder;
 
 	public ProdutosAtividade build(ProdutosAtividadeTO p) {

@@ -10,10 +10,10 @@ import br.com.crux.builder.PlanosAcaoTOBuilder;
 import br.com.crux.builder.ProjetoTOBuilder;
 import br.com.crux.builder.UnidadeTOBuilder;
 import br.com.crux.dao.repository.AtividadeRepository;
-import br.com.crux.entity.Atividade;
+import br.com.crux.entity.Atividades;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosAtividadeRule;
-import br.com.crux.to.AtividadeTO;
+import br.com.crux.to.AtividadesTO;
 import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
@@ -29,8 +29,8 @@ public class AlterarAtividadeCmd {
 	@Autowired private CamposObrigatoriosAtividadeRule camposObrigatoriosRule;
 	
 	
-	public void alterar(AtividadeTO to) {
-		Optional<Atividade> entityOptional = repository.findById(to.getId());
+	public void alterar(AtividadesTO to) {
+		Optional<Atividades> entityOptional = repository.findById(to.getId());
 		if(!entityOptional.isPresent()) {
 			throw new NotFoundException("Atividade informado não existe.");
 		}
@@ -48,7 +48,7 @@ public class AlterarAtividadeCmd {
 		
 		camposObrigatoriosRule.verificar(to.getDataInicio(), to.getDescricao(), to.getUnidade().getIdUnidade(), to.getProjeto().getId(), to.getPlanosAcao().getId());
 		
-		Atividade entity = entityOptional.get();
+		Atividades entity = entityOptional.get();
 
 		entity.setId(to.getId());
 		entity.setDescricao(to.getDescricao());

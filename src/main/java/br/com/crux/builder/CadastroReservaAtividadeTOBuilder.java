@@ -12,7 +12,7 @@ import br.com.crux.to.CadastroReservaAtividadeTO;
 @Component
 public class CadastroReservaAtividadeTOBuilder {
 
-	@Autowired private AtividadeTOBuilder atividadeBuilder;
+	@Autowired private AtividadesTOBuilder atividadeBuilder;
 	@Autowired private PessoaFisicaTOBuilder pessoaFisicaBuilder;
 
 	

@@ -14,7 +14,7 @@ import br.com.crux.to.DocumentosAtividadeTO;
 public class DocumentosAtividadeTOBuilder {
 	
 	@Autowired
-	private AtividadeTOBuilder atividadeTOBuilder;
+	private AtividadesTOBuilder atividadeTOBuilder;
 	
 
 	public DocumentosAtividade build(DocumentosAtividadeTO param) {

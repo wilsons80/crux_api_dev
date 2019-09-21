@@ -14,7 +14,7 @@ public interface AcaoRepository extends JpaRepository<Acoes, Long>{
 	
 	
 	@Query(value = "SELECT acao FROM Acoes acao "
-			+ " inner join Atividade ati on ati = acao.atividade"
+			+ " inner join Atividades ati on ati = acao.atividade"
 			+ " inner join Unidade uni on ati.unidade = uni"
 			+ " where uni.idUnidade = ?1")
 	public Optional<List<Acoes>> findByUnidade(Long idUnidade);

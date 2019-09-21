@@ -6,12 +6,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.builder.AtividadeTOBuilder;
+import br.com.crux.builder.AtividadesTOBuilder;
 import br.com.crux.builder.ProdutoTOBuilder;
 import br.com.crux.dao.repository.AtividadeRepository;
 import br.com.crux.dao.repository.ProdutoRepository;
 import br.com.crux.dao.repository.ProdutosAtividadeRepository;
-import br.com.crux.entity.Atividade;
+import br.com.crux.entity.Atividades;
 import br.com.crux.entity.Produto;
 import br.com.crux.entity.ProdutosAtividade;
 import br.com.crux.exception.NotFoundException;
@@ -29,7 +29,7 @@ public class CadastrarProdutosAtividadeCmd {
 	@Autowired private AtividadeRepository atividadeRepository;
 	@Autowired private ProdutoRepository produtoRepository;
 	
-	@Autowired private AtividadeTOBuilder atividadeBuilder;
+	@Autowired private AtividadesTOBuilder atividadeBuilder;
 	@Autowired private ProdutoTOBuilder produtoBuilder;
 	
 	@Autowired private CamposObrigatoriosProdutosAtividadeRule camposObrigatoriosRule;
@@ -52,7 +52,7 @@ public class CadastrarProdutosAtividadeCmd {
 			throw new NotFoundException("Produto informado não existe.");
 		}
 
-		Optional<Atividade> atividadeOptional = atividadeRepository.findById(to.getAtividade().getId());
+		Optional<Atividades> atividadeOptional = atividadeRepository.findById(to.getAtividade().getId());
 		if(!atividadeOptional.isPresent()) {
 			throw new NotFoundException("Atividade informado não existe.");
 		}		

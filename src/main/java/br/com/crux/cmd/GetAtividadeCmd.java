@@ -7,31 +7,31 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.builder.AtividadeTOBuilder;
+import br.com.crux.builder.AtividadesTOBuilder;
 import br.com.crux.dao.repository.AtividadeRepository;
-import br.com.crux.entity.Atividade;
+import br.com.crux.entity.Atividades;
 import br.com.crux.exception.NotFoundException;
-import br.com.crux.to.AtividadeTO;
+import br.com.crux.to.AtividadesTO;
 
 @Component
 public class GetAtividadeCmd {
 
 	@Autowired private AtividadeRepository repository;
-	@Autowired private AtividadeTOBuilder toBuilder;
+	@Autowired private AtividadesTOBuilder toBuilder;
 	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	
 	
-	public List<AtividadeTO> getAll() {
+	public List<AtividadesTO> getAll() {
 		Long idUnidade = getUnidadeLogadaCmd.get().getId();
-		Optional<List<Atividade>> entitys = repository.findByIdUnidade(idUnidade);
+		Optional<List<Atividades>> entitys = repository.findByIdUnidade(idUnidade);
 		if(entitys.isPresent()) {
 			return toBuilder.buildAll(entitys.get());
 		}
-		return new ArrayList<AtividadeTO>();
+		return new ArrayList<AtividadesTO>();
 	}
 	
-	public AtividadeTO getById(Long id) {
-		Optional<Atividade> entityOptional = repository.findById(id);
+	public AtividadesTO getById(Long id) {
+		Optional<Atividades> entityOptional = repository.findById(id);
 		if(!entityOptional.isPresent()) {
 			throw new NotFoundException("Atividade não encontrada.");
 		}

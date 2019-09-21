@@ -48,7 +48,7 @@ public class VulnerabilidadesFamiliar  {
 	@JoinColumn(name="id_solucao")
 	private Solucoes solucoe;
 
-	@JoinColumn(name="id_usuario_apl")
+	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
 
 	public VulnerabilidadesFamiliar() {

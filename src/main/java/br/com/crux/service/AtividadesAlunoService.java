@@ -13,43 +13,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.crux.cmd.AlterarAtividadeCmd;
-import br.com.crux.cmd.CadastrarAtividadeCmd;
-import br.com.crux.cmd.ExcluirAtividadeCmd;
-import br.com.crux.cmd.GetAtividadeCmd;
-import br.com.crux.to.AtividadesTO;
+import br.com.crux.cmd.AlterarAtividadesAlunoCmd;
+import br.com.crux.cmd.CadastrarAtividadesAlunoCmd;
+import br.com.crux.cmd.ExcluirAtividadesAlunoCmd;
+import br.com.crux.cmd.GetAtividadesAlunoCmd;
+import br.com.crux.to.AtividadesAlunoTO;
 
 @RestController
-@RequestMapping(value = "atividade")
-public class AtividadeService {
+@RequestMapping(value = "atividadesaluno")
+public class AtividadesAlunoService {
 	
 	@Autowired
-	private GetAtividadeCmd getCmd;
+	private GetAtividadesAlunoCmd getCmd;
 	@Autowired
-	private ExcluirAtividadeCmd  excluirCmd;
+	private ExcluirAtividadesAlunoCmd  excluirCmd;
 	@Autowired
-	private AlterarAtividadeCmd alterarCmd;
+	private AlterarAtividadesAlunoCmd alterarCmd;
 	@Autowired
-	private CadastrarAtividadeCmd cadastrarCmd;
+	private CadastrarAtividadesAlunoCmd cadastrarCmd;
 	
 	
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<AtividadesTO> getAll() {
+	public List<AtividadesAlunoTO> getAll() {
 		return getCmd.getAll();
 	}
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public AtividadesTO getById(@PathVariable(name = "id") Long id) {
+	public AtividadesAlunoTO getById(@PathVariable(name = "id") Long id) {
 		return getCmd.getById(id);
 	}
 	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void cadastrar(@RequestBody AtividadesTO param) {
+	public void cadastrar(@RequestBody AtividadesAlunoTO param) {
 		cadastrarCmd.cadastrar(param);
 	}
 	
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void alterar(@RequestBody AtividadesTO param) {
+	public void alterar(@RequestBody AtividadesAlunoTO param) {
 		alterarCmd.alterar(param);
 	}
 	
@@ -57,10 +57,5 @@ public class AtividadeService {
 	public void excluir(@PathVariable(name = "id") Long id) {
 		excluirCmd.excluir(id);
 	}
-	
-	
-	
-	
-	
 
 }

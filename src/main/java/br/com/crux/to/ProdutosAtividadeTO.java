@@ -17,7 +17,7 @@ public class ProdutosAtividadeTO {
 	private Long qtdProdutoVendida;
 	private FormaPagamento formaPagamento;
 
-	private AtividadeTO atividade;
+	private AtividadesTO atividade;
 	private ProdutoTO produto;
 
 	private Long usuarioAlteracao;
@@ -105,11 +105,11 @@ public class ProdutosAtividadeTO {
 		this.formaPagamento = formaPagamento;
 	}
 
-	public AtividadeTO getAtividade() {
+	public AtividadesTO getAtividade() {
 		return atividade;
 	}
 
-	public void setAtividade(AtividadeTO atividade) {
+	public void setAtividade(AtividadesTO atividade) {
 		this.atividade = atividade;
 	}
 

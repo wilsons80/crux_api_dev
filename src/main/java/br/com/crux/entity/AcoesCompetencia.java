@@ -29,7 +29,7 @@ public class AcoesCompetencia {
 	@Column(name = "id_acao_competencia", unique = true, nullable = false, precision = 10)
 	private Long id;
 
-	@Column(name = "ds_questionario")
+	@Column(name = "ds_acao_competencia")
 	private String descricao;
 
 	@Column(name = "ds_resultado_acao")
@@ -48,7 +48,7 @@ public class AcoesCompetencia {
 	@JoinColumn(name = "talentos_pf_id_talento_pf")
 	private TalentosPf talentosPf;
 
-	@Column(name = "id_usuario")
+	@Column(name = "id_usuario_apl")
 	private Long usuarioAlteracao;
 
 	public AcoesCompetencia() {

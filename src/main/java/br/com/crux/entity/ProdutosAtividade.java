@@ -38,7 +38,7 @@ public class ProdutosAtividade  {
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_atividade")
-	private Atividade atividade;
+	private Atividades atividade;
 	
 	@Column(name="dt_aquisicao")
 	private LocalDateTime dataAquisicao;
@@ -98,11 +98,11 @@ public class ProdutosAtividade  {
 		this.observacao = observacao;
 	}
 
-	public Atividade getAtividade() {
+	public Atividades getAtividade() {
 		return atividade;
 	}
 
-	public void setAtividade(Atividade atividade) {
+	public void setAtividade(Atividades atividade) {
 		this.atividade = atividade;
 	}
 

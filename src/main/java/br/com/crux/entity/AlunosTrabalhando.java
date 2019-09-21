@@ -1,111 +1,114 @@
 package br.com.crux.entity;
 
-import java.io.Serializable;
-import javax.persistence.*;
-
-import br.com.crux.infra.constantes.Constantes;
-
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import br.com.crux.infra.constantes.Constantes;
 
 /**
  * The persistent class for the alunos_trabalhando database table.
  * 
  */
 @Entity
-@Table(name="alunos_trabalhando")
-public class AlunosTrabalhando implements Serializable {
-	private static final long serialVersionUID = 1L;
+@Table(name = "alunos_trabalhando")
+public class AlunosTrabalhando {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_aluno_trabalhando")
 	@SequenceGenerator(name = "sq_id_aluno_trabalhando", sequenceName = "sq_id_aluno_trabalhando", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
-	@Column(name="id_aluno_trabalhando", unique=true, nullable=false, precision=10)
-	private Long idAlunoTrabalhando;
+	@Column(name = "id_aluno_trabalhando", unique = true, nullable = false, precision = 10)
+	private Long id;
 
-	@Column(name="ds_tipo_empreendimento")
-	private String dsTipoEmpreendimento;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_fim_aluno_trabalhando")
-	private Date dtFimAlunoTrabalhando;
+	@Column(name = "ds_tipo_empreendimento")
+	private String descTipoEmpreendimento;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_inicio_aluno_trabalhando")
-	private Date dtInicioAlunoTrabalhando;
+	@Column(name = "dt_fim_aluno_trabalhando")
+	private Date dataFimAlunoTrabalhando;
 
-	@Column(name="nm_empreendimento")
-	private String nmEmpreendimento;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "dt_inicio_aluno_trabalhando")
+	private Date dataInicioAlunoTrabalhando;
 
-	//bi-directional many-to-one association to AtividadesAluno
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_atividade_aluno")
-	private AtividadesAluno atividadesAluno;
+	@Column(name = "nm_empreendimento")
+	private String nomeEmpreendimento;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario")
-	private UsuariosSistema usuario;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_aluno")
+	private Aluno Aluno;
 
+	@Column(name = "id_usuario_apl")
+	private Long usuarioAlteracao;
 
 	public AlunosTrabalhando() {
 	}
 
-	public Long getIdAlunoTrabalhando() {
-		return this.idAlunoTrabalhando;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdAlunoTrabalhando(Long idAlunoTrabalhando) {
-		this.idAlunoTrabalhando = idAlunoTrabalhando;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getDsTipoEmpreendimento() {
-		return this.dsTipoEmpreendimento;
+	public String getDescTipoEmpreendimento() {
+		return descTipoEmpreendimento;
 	}
 
-	public void setDsTipoEmpreendimento(String dsTipoEmpreendimento) {
-		this.dsTipoEmpreendimento = dsTipoEmpreendimento;
+	public void setDescTipoEmpreendimento(String descTipoEmpreendimento) {
+		this.descTipoEmpreendimento = descTipoEmpreendimento;
 	}
 
-	public Date getDtFimAlunoTrabalhando() {
-		return this.dtFimAlunoTrabalhando;
+	public Date getDataFimAlunoTrabalhando() {
+		return dataFimAlunoTrabalhando;
 	}
 
-	public void setDtFimAlunoTrabalhando(Date dtFimAlunoTrabalhando) {
-		this.dtFimAlunoTrabalhando = dtFimAlunoTrabalhando;
+	public void setDataFimAlunoTrabalhando(Date dataFimAlunoTrabalhando) {
+		this.dataFimAlunoTrabalhando = dataFimAlunoTrabalhando;
 	}
 
-	public Date getDtInicioAlunoTrabalhando() {
-		return this.dtInicioAlunoTrabalhando;
+	public Date getDataInicioAlunoTrabalhando() {
+		return dataInicioAlunoTrabalhando;
 	}
 
-	public void setDtInicioAlunoTrabalhando(Date dtInicioAlunoTrabalhando) {
-		this.dtInicioAlunoTrabalhando = dtInicioAlunoTrabalhando;
+	public void setDataInicioAlunoTrabalhando(Date dataInicioAlunoTrabalhando) {
+		this.dataInicioAlunoTrabalhando = dataInicioAlunoTrabalhando;
 	}
 
-	public String getNmEmpreendimento() {
-		return this.nmEmpreendimento;
+	public String getNomeEmpreendimento() {
+		return nomeEmpreendimento;
 	}
 
-	public void setNmEmpreendimento(String nmEmpreendimento) {
-		this.nmEmpreendimento = nmEmpreendimento;
+	public void setNomeEmpreendimento(String nomeEmpreendimento) {
+		this.nomeEmpreendimento = nomeEmpreendimento;
 	}
 
-	public AtividadesAluno getAtividadesAluno() {
-		return this.atividadesAluno;
+	public Aluno getAluno() {
+		return Aluno;
 	}
 
-	public void setAtividadesAluno(AtividadesAluno atividadesAluno) {
-		this.atividadesAluno = atividadesAluno;
+	public void setAluno(Aluno aluno) {
+		Aluno = aluno;
 	}
 
-	public UsuariosSistema getUsuario() {
-		return this.usuario;
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
 	}
 
-	public void setUsuario(UsuariosSistema usuariosSistema1) {
-		this.usuario = usuariosSistema1;
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
 	}
-
 
 }

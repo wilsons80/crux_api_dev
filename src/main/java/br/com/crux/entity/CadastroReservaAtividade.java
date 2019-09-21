@@ -49,7 +49,7 @@ public class CadastroReservaAtividade {
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_atividade")
-	private Atividade atividade;
+	private Atividades atividade;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="pf_id_pessoa_fisica")
@@ -128,11 +128,11 @@ public class CadastroReservaAtividade {
 		this.dtAlteracaoAtividade = dtAlteracaoAtividade;
 	}
 
-	public Atividade getAtividade() {
+	public Atividades getAtividade() {
 		return atividade;
 	}
 
-	public void setAtividade(Atividade atividade) {
+	public void setAtividade(Atividades atividade) {
 		this.atividade = atividade;
 	}
 

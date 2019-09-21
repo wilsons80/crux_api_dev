@@ -13,7 +13,7 @@ import br.com.crux.to.AcaoTO;
 public class AcaoTOBuilder {
 
 	@Autowired
-	private AtividadeTOBuilder atividadeBuilder;
+	private AtividadesTOBuilder atividadeBuilder;
 
 	public Acoes build(AcaoTO p) {
 		Acoes retorno = new Acoes();

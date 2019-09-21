@@ -90,7 +90,7 @@ public class Aluno {
 	@Column(name="nr_matricula_aluno")
 	private String matriculaAluno;
 
-	@JoinColumn(name="id_usuario_apl")
+	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
 
 
