@@ -26,7 +26,7 @@
 		<class>br.com.crux.entity.ContatosEmpresa</class>
 		<class>br.com.crux.entity.CursosFormacaoPf</class>
 		<class>br.com.crux.entity.Departamentos</class>
-		<class>br.com.crux.entity.Diagnostico</class>
+		<class>br.com.crux.entity.Diagnosticos</class>
 		<class>br.com.crux.entity.DocumentosAtividade</class>
 		<class>br.com.crux.entity.Empresa</class>
 		<class>br.com.crux.entity.EncaminhaAluno</class>

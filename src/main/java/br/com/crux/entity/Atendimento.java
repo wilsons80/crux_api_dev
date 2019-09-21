@@ -36,7 +36,7 @@ public class Atendimento implements Serializable {
 	//bi-directional many-to-one association to Diagnostico
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="diagnosticos_id_diagnostico")
-	private Diagnostico diagnostico;
+	private Diagnosticos diagnostico;
 
 	//bi-directional many-to-one association to Familiare
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -106,11 +106,11 @@ public class Atendimento implements Serializable {
 		this.aluno = aluno;
 	}
 
-	public Diagnostico getDiagnostico() {
+	public Diagnosticos getDiagnostico() {
 		return this.diagnostico;
 	}
 
-	public void setDiagnostico(Diagnostico diagnostico) {
+	public void setDiagnostico(Diagnosticos diagnostico) {
 		this.diagnostico = diagnostico;
 	}
 

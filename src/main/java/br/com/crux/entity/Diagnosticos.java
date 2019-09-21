@@ -10,28 +10,23 @@ import javax.persistence.Table;
 
 import br.com.crux.infra.constantes.Constantes;
 
-
-/**
- * The persistent class for the situacoes_vulnerabilidades database table.
- * 
- */
 @Entity
-@Table(name="situacoes_vulnerabilidades")
-public class SituacoesVulnerabilidade {
+@Table(name = "diagnosticos")
+public class Diagnosticos {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_vulnerabilidade")
-	@SequenceGenerator(name = "sq_id_vulnerabilidade", sequenceName = "sq_id_vulnerabilidade", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
-	@Column(name="id_vulnerabilidade")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_diagnostico")
+	@SequenceGenerator(name = "sq_id_diagnostico", sequenceName = "sq_id_diagnostico", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
+	@Column(name = "id_diagnostico")
 	private Long id;
 
-	@Column(name="ds_situacao_vulnerabilidade")
+	@Column(name = "ds_diagnostico")
 	private String descricao;
 
-	@Column(name="id_usuario_apl")
+	@Column(name = "id_usuario_apl")
 	private Long usuarioAlteracao;
 
-	public SituacoesVulnerabilidade() {
+	public Diagnosticos() {
 	}
 
 	public Long getId() {
@@ -57,6 +52,5 @@ public class SituacoesVulnerabilidade {
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
-
 
 }
