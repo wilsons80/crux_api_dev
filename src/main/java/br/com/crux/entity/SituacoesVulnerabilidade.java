@@ -1,8 +1,11 @@
 package br.com.crux.entity;
 
-import java.io.Serializable;
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 /**
@@ -11,126 +14,45 @@ import java.util.List;
  */
 @Entity
 @Table(name="situacoes_vulnerabilidades")
-@NamedQuery(name="SituacoesVulnerabilidade.findAll", query="SELECT s FROM SituacoesVulnerabilidade s")
-public class SituacoesVulnerabilidade implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class SituacoesVulnerabilidade {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_vulnerabilidade")
-	private Long idVulnerabilidade;
+	private Long id;
 
 	@Column(name="ds_situacao_vulnerabilidade")
-	private String dsSituacaoVulnerabilidade;
+	private String descricao;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
-
-	//bi-directional many-to-one association to VulnerabilidadesAluno
-	@OneToMany(mappedBy="situacoesVulnerabilidade")
-	private List<VulnerabilidadesAluno> vulnerabilidadesAlunos;
-
-	//bi-directional many-to-one association to VulnerabilidadesFamiliar
-	@OneToMany(mappedBy="situacoesVulnerabilidade")
-	private List<VulnerabilidadesFamiliar> vulnerabilidadesFamiliars;
-
-	//bi-directional many-to-one association to VulnerabilidadesResponsavel
-	@OneToMany(mappedBy="situacoesVulnerabilidade")
-	private List<VulnerabilidadesResponsavel> vulnerabilidadesResponsavels;
+	@Column(name="id_usuario_apl")
+	private Long usuarioAlteracao;
 
 	public SituacoesVulnerabilidade() {
 	}
 
-	public Long getIdVulnerabilidade() {
-		return this.idVulnerabilidade;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdVulnerabilidade(Long idVulnerabilidade) {
-		this.idVulnerabilidade = idVulnerabilidade;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getDsSituacaoVulnerabilidade() {
-		return this.dsSituacaoVulnerabilidade;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDsSituacaoVulnerabilidade(String dsSituacaoVulnerabilidade) {
-		this.dsSituacaoVulnerabilidade = dsSituacaoVulnerabilidade;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
-	public List<VulnerabilidadesAluno> getVulnerabilidadesAlunos() {
-		return this.vulnerabilidadesAlunos;
-	}
-
-	public void setVulnerabilidadesAlunos(List<VulnerabilidadesAluno> vulnerabilidadesAlunos) {
-		this.vulnerabilidadesAlunos = vulnerabilidadesAlunos;
-	}
-
-	public VulnerabilidadesAluno addVulnerabilidadesAluno(VulnerabilidadesAluno vulnerabilidadesAluno) {
-		getVulnerabilidadesAlunos().add(vulnerabilidadesAluno);
-		vulnerabilidadesAluno.setSituacoesVulnerabilidade(this);
-
-		return vulnerabilidadesAluno;
-	}
-
-	public VulnerabilidadesAluno removeVulnerabilidadesAluno(VulnerabilidadesAluno vulnerabilidadesAluno) {
-		getVulnerabilidadesAlunos().remove(vulnerabilidadesAluno);
-		vulnerabilidadesAluno.setSituacoesVulnerabilidade(null);
-
-		return vulnerabilidadesAluno;
-	}
-
-	public List<VulnerabilidadesFamiliar> getVulnerabilidadesFamiliars() {
-		return this.vulnerabilidadesFamiliars;
-	}
-
-	public void setVulnerabilidadesFamiliars(List<VulnerabilidadesFamiliar> vulnerabilidadesFamiliars) {
-		this.vulnerabilidadesFamiliars = vulnerabilidadesFamiliars;
-	}
-
-	public VulnerabilidadesFamiliar addVulnerabilidadesFamiliar(VulnerabilidadesFamiliar vulnerabilidadesFamiliar) {
-		getVulnerabilidadesFamiliars().add(vulnerabilidadesFamiliar);
-		vulnerabilidadesFamiliar.setSituacoesVulnerabilidade(this);
-
-		return vulnerabilidadesFamiliar;
-	}
-
-	public VulnerabilidadesFamiliar removeVulnerabilidadesFamiliar(VulnerabilidadesFamiliar vulnerabilidadesFamiliar) {
-		getVulnerabilidadesFamiliars().remove(vulnerabilidadesFamiliar);
-		vulnerabilidadesFamiliar.setSituacoesVulnerabilidade(null);
-
-		return vulnerabilidadesFamiliar;
-	}
-
-	public List<VulnerabilidadesResponsavel> getVulnerabilidadesResponsavels() {
-		return this.vulnerabilidadesResponsavels;
-	}
-
-	public void setVulnerabilidadesResponsavels(List<VulnerabilidadesResponsavel> vulnerabilidadesResponsavels) {
-		this.vulnerabilidadesResponsavels = vulnerabilidadesResponsavels;
-	}
-
-	public VulnerabilidadesResponsavel addVulnerabilidadesResponsavel(VulnerabilidadesResponsavel vulnerabilidadesResponsavel) {
-		getVulnerabilidadesResponsavels().add(vulnerabilidadesResponsavel);
-		vulnerabilidadesResponsavel.setSituacoesVulnerabilidade(this);
-
-		return vulnerabilidadesResponsavel;
-	}
-
-	public VulnerabilidadesResponsavel removeVulnerabilidadesResponsavel(VulnerabilidadesResponsavel vulnerabilidadesResponsavel) {
-		getVulnerabilidadesResponsavels().remove(vulnerabilidadesResponsavel);
-		vulnerabilidadesResponsavel.setSituacoesVulnerabilidade(null);
-
-		return vulnerabilidadesResponsavel;
-	}
 
 }

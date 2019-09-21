@@ -47,7 +47,6 @@ public class AlterarAcaoCmd {
 		
 		Acoes entity = entityOptional.get();
 
-		entity.setId(to.getId());
 		entity.setNome(to.getNome());
 		entity.setDataFim(to.getDataFim());
 		entity.setDataInicio(to.getDataInicio());
