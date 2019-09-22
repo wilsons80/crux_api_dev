@@ -49,7 +49,7 @@
 		<class>br.com.crux.entity.Objetivo</class>
 		<class>br.com.crux.entity.ObjetosModulo</class>
 		<class>br.com.crux.entity.PagamentosFatura</class>
-		<class>br.com.crux.entity.Parametro</class>
+		<class>br.com.crux.entity.Parametros</class>
 		<class>br.com.crux.entity.Pedido</class>
 		<class>br.com.crux.entity.PerfisAcesso</class>
 		<class>br.com.crux.entity.Perspectiva</class>
@@ -75,5 +75,6 @@
 		<class>br.com.crux.entity.VulnerabilidadesAluno</class>
 		<class>br.com.crux.entity.VulnerabilidadesFamiliar</class>
 		<class>br.com.crux.entity.VulnerabilidadesResponsavel</class>
+		<class>br.com.crux.entity.ParticipantesAtendimentos</class>
 	</persistence-unit>
 </persistence>
