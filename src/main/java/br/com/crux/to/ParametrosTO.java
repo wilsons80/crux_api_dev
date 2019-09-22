@@ -5,9 +5,7 @@ public class ParametrosTO  {
 	private Long id;
 	private String codigo;
 	private String descricao;
-	private Long valor;
-	private String texto;
-	private Long usuarioAlteracao;
+	private String valor;
 
 	public ParametrosTO() {
 	}
@@ -36,29 +34,14 @@ public class ParametrosTO  {
 		this.descricao = descricao;
 	}
 
-	public Long getValor() {
+	public String getValor() {
 		return valor;
 	}
 
-	public void setValor(Long valor) {
+	public void setValor(String valor) {
 		this.valor = valor;
 	}
 
-	public String getTexto() {
-		return texto;
-	}
-
-	public void setTexto(String texto) {
-		this.texto = texto;
-	}
-
-	public Long getUsuarioAlteracao() {
-		return usuarioAlteracao;
-	}
-
-	public void setUsuarioAlteracao(Long usuarioAlteracao) {
-		this.usuarioAlteracao = usuarioAlteracao;
-	}
 	
 
 }

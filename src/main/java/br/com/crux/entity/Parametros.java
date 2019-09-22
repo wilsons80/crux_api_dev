@@ -27,11 +27,8 @@ public class Parametros  {
 	@Column(name="ds_parametro")
 	private String descricao;
 
-	@Column(name="nr_paramentro")
-	private Long valor;
-
-	@Column(name="tx_parametro")
-	private String texto;
+	@Column(name="vl_parametro")
+	private String valor;
 
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
@@ -63,20 +60,12 @@ public class Parametros  {
 		this.descricao = descricao;
 	}
 
-	public Long getValor() {
+	public String getValor() {
 		return valor;
 	}
 
-	public void setValor(Long valor) {
+	public void setValor(String valor) {
 		this.valor = valor;
-	}
-
-	public String getTexto() {
-		return texto;
-	}
-
-	public void setTexto(String texto) {
-		this.texto = texto;
 	}
 
 	public Long getUsuarioAlteracao() {
@@ -86,6 +75,6 @@ public class Parametros  {
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
-	
 
+	
 }
