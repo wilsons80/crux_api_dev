@@ -40,7 +40,7 @@ public class AlunosTrabalhando {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_aluno")
-	private Aluno Aluno;
+	private Aluno aluno;
 
 	@Column(name = "id_usuario_apl")
 	private Long usuarioAlteracao;
@@ -89,11 +89,11 @@ public class AlunosTrabalhando {
 	}
 
 	public Aluno getAluno() {
-		return Aluno;
+		return this.aluno;
 	}
 
 	public void setAluno(Aluno aluno) {
-		Aluno = aluno;
+		this.aluno = aluno;
 	}
 
 	public Long getUsuarioAlteracao() {

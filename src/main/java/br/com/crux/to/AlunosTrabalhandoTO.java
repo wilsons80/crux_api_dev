@@ -18,7 +18,7 @@ public class AlunosTrabalhandoTO {
 	private LocalDateTime dataInicioAlunoTrabalhando;
 
 	private String nomeEmpreendimento;
-	private AlunoTO Aluno;
+	private AlunoTO aluno;
 	private Long usuarioAlteracao;
 
 	public AlunosTrabalhandoTO() {
@@ -65,11 +65,11 @@ public class AlunosTrabalhandoTO {
 	}
 
 	public AlunoTO getAluno() {
-		return Aluno;
+		return this.aluno;
 	}
 
 	public void setAluno(AlunoTO aluno) {
-		Aluno = aluno;
+		this.aluno = aluno;
 	}
 
 	public Long getUsuarioAlteracao() {
