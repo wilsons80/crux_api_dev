@@ -1,6 +1,6 @@
 package br.com.crux.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,15 +12,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import br.com.crux.infra.constantes.Constantes;
 
-/**
- * The persistent class for the alunos_trabalhando database table.
- * 
- */
+
 @Entity
 @Table(name = "alunos_trabalhando")
 public class AlunosTrabalhando {
@@ -34,13 +29,11 @@ public class AlunosTrabalhando {
 	@Column(name = "ds_tipo_empreendimento")
 	private String descTipoEmpreendimento;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_fim_aluno_trabalhando")
-	private Date dataFimAlunoTrabalhando;
+	private LocalDateTime dataFimAlunoTrabalhando;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dt_inicio_aluno_trabalhando")
-	private Date dataInicioAlunoTrabalhando;
+	private LocalDateTime dataInicioAlunoTrabalhando;
 
 	@Column(name = "nm_empreendimento")
 	private String nomeEmpreendimento;
@@ -71,19 +64,19 @@ public class AlunosTrabalhando {
 		this.descTipoEmpreendimento = descTipoEmpreendimento;
 	}
 
-	public Date getDataFimAlunoTrabalhando() {
+	public LocalDateTime getDataFimAlunoTrabalhando() {
 		return dataFimAlunoTrabalhando;
 	}
 
-	public void setDataFimAlunoTrabalhando(Date dataFimAlunoTrabalhando) {
+	public void setDataFimAlunoTrabalhando(LocalDateTime dataFimAlunoTrabalhando) {
 		this.dataFimAlunoTrabalhando = dataFimAlunoTrabalhando;
 	}
 
-	public Date getDataInicioAlunoTrabalhando() {
+	public LocalDateTime getDataInicioAlunoTrabalhando() {
 		return dataInicioAlunoTrabalhando;
 	}
 
-	public void setDataInicioAlunoTrabalhando(Date dataInicioAlunoTrabalhando) {
+	public void setDataInicioAlunoTrabalhando(LocalDateTime dataInicioAlunoTrabalhando) {
 		this.dataInicioAlunoTrabalhando = dataInicioAlunoTrabalhando;
 	}
 
