@@ -20,12 +20,13 @@ import br.com.crux.to.UsuarioLogadoTO;
 public class AlterarAcaoCmd {
 
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
+
 	@Autowired private AcaoRepository repository;
+	@Autowired private CamposObrigatoriosAcaoRule camposObrigatoriosRule;
+
 	@Autowired private AtividadeRepository atividadeRepository;
-	
 	@Autowired private AtividadesTOBuilder atividadeBuilder;
 	
-	@Autowired private CamposObrigatoriosAcaoRule camposObrigatoriosRule;
 	
 	
 	public void alterar(AcaoTO to) {

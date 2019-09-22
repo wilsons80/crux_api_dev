@@ -1,95 +1,97 @@
 package br.com.crux.entity;
 
-import java.io.Serializable;
-import javax.persistence.*;
-import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import br.com.crux.infra.constantes.Constantes;
 
 
-/**
- * The persistent class for the uniformes_aluno database table.
- * 
- */
 @Entity
 @Table(name="uniformes_aluno")
-@NamedQuery(name="UniformesAluno.findAll", query="SELECT u FROM UniformesAluno u")
-public class UniformesAluno implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class UniformesAluno {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_uniforme_aluno")
+	@SequenceGenerator(name = "sq_id_uniforme_aluno", sequenceName = "sq_id_uniforme_aluno", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_uniforme_aluno")
-	private Long idUniformeAluno;
+	private Long id;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="dt_uniforme_entregue")
-	private Date dtUniformeEntregue;
+	private LocalDateTime dataUniformeEntregue;
 
 	@Column(name="nm_uniforme")
-	private String nmUniforme;
+	private String nomeUniforme;
 
 	@Column(name="qt_uniforme_entregue")
-	private BigDecimal qtUniformeEntregue;
+	private Long qtdUniformeEntregue;
 
-	//bi-directional many-to-one association to AtividadesAluno
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_atividade_aluno")
 	private AtividadesAluno atividadesAluno;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
+	@Column(name="id_usuario_apl")
+	private Long usuarioAlteracao;
 
 	public UniformesAluno() {
 	}
 
-	public Long getIdUniformeAluno() {
-		return this.idUniformeAluno;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdUniformeAluno(Long idUniformeAluno) {
-		this.idUniformeAluno = idUniformeAluno;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public Date getDtUniformeEntregue() {
-		return this.dtUniformeEntregue;
+	public LocalDateTime getDataUniformeEntregue() {
+		return dataUniformeEntregue;
 	}
 
-	public void setDtUniformeEntregue(Date dtUniformeEntregue) {
-		this.dtUniformeEntregue = dtUniformeEntregue;
+	public void setDataUniformeEntregue(LocalDateTime dataUniformeEntregue) {
+		this.dataUniformeEntregue = dataUniformeEntregue;
 	}
 
-	public String getNmUniforme() {
-		return this.nmUniforme;
+	public String getNomeUniforme() {
+		return nomeUniforme;
 	}
 
-	public void setNmUniforme(String nmUniforme) {
-		this.nmUniforme = nmUniforme;
+	public void setNomeUniforme(String nomeUniforme) {
+		this.nomeUniforme = nomeUniforme;
 	}
 
-	public BigDecimal getQtUniformeEntregue() {
-		return this.qtUniformeEntregue;
+	public Long getQtdUniformeEntregue() {
+		return qtdUniformeEntregue;
 	}
 
-	public void setQtUniformeEntregue(BigDecimal qtUniformeEntregue) {
-		this.qtUniformeEntregue = qtUniformeEntregue;
+	public void setQtdUniformeEntregue(Long qtdUniformeEntregue) {
+		this.qtdUniformeEntregue = qtdUniformeEntregue;
 	}
 
 	public AtividadesAluno getAtividadesAluno() {
-		return this.atividadesAluno;
+		return atividadesAluno;
 	}
 
 	public void setAtividadesAluno(AtividadesAluno atividadesAluno) {
 		this.atividadesAluno = atividadesAluno;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
 	}
+
 
 }

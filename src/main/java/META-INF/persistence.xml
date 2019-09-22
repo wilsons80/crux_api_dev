@@ -12,8 +12,8 @@
 		<class>br.com.crux.entity.Atendimentos</class>
 		<class>br.com.crux.entity.Atividades</class>
 		<class>br.com.crux.entity.AtividadesAluno</class>
-		<class>br.com.crux.entity.Avaliacoe</class>
-		<class>br.com.crux.entity.AvaliacoesAluno</class>
+		<class>br.com.crux.entity.Avaliacoes</class>
+		<class>br.com.crux.entity.AvaliacoesAlunos</class>
 		<class>br.com.crux.entity.CadastroReservaAtividade</class>
 		<class>br.com.crux.entity.Cargo</class>
 		<class>br.com.crux.entity.CausasEfeito</class>
