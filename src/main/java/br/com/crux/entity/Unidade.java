@@ -81,7 +81,8 @@ public class Unidade implements Serializable {
 	//@Column(name = "cs_situacao_imovel") 
 	@Column(name = "cs_situacao_imovel") 
 	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", parameters = {
-			@Parameter(name = "enumClass", value = "br.com.crux.enums.ClassificadorSituacaoImovel") }) 
+			@Parameter(name = "enumClass", value = "br.com.crux.enums.ClassificadorSituacaoImovel"),
+			@Parameter(name = "keyName", value = "tipo")}) 
 	private ClassificadorSituacaoImovel classificacaoSituacaoImovel;
 	
 	

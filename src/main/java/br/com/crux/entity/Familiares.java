@@ -40,7 +40,8 @@ public class Familiares {
 	//Classificador da situação do grau de parentesco (E = ESTREMECIDO; I = INTERROMPIDO; X = INEXISTENTE)
 	@Column(name="st_situacao_parentesco")
 	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", 
-	parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.SituacaoParentesco") }) 
+	parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.SituacaoParentesco"),
+			       @Parameter(name = "keyName", value = "tipo")}) 
 	private SituacaoParentesco situacaoParentesco;
 	
 	@Column(name="ds_outras_informacoes")

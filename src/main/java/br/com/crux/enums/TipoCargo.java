@@ -48,5 +48,15 @@ public enum TipoCargo {
 		}
 		return null;
 	}
+	
+	
+	public static TipoCargo getPorTipo(Integer tipo) {
+		try {
+			Integer valor = Integer.valueOf(tipo);
+			return getPorTipo(valor);
+		} catch (NumberFormatException e) {
+			return null;
+		}
+	}
 
 }

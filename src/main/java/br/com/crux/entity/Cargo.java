@@ -36,7 +36,8 @@ public class Cargo implements Serializable {
 
 	@Column(name="st_tipo_cargo")
 	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", 
-	           parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.TipoCargo") }) 
+	           parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.TipoCargo") ,
+	        		          @Parameter(name = "keyName", value = "tipo")}) 
 	private TipoCargo tipoCargo;	
 
 	@Column(name="id_usuario_apl")

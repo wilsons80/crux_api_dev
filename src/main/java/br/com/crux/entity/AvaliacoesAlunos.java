@@ -35,7 +35,8 @@ public class AvaliacoesAlunos {
 
 	@Column(name="nr_avaliacao")
 	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", parameters = {
-			@Parameter(name = "enumClass", value = "br.com.crux.enums.NotaAvaliacao") })
+			@Parameter(name = "enumClass", value = "br.com.crux.enums.NotaAvaliacao"),
+			@Parameter(name = "keyName", value = "tipo")})
 	private NotaAvaliacao notaAvaliacao;
 
 	@ManyToOne(fetch=FetchType.LAZY)

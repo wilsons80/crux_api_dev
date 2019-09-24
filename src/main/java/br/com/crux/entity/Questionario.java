@@ -31,7 +31,8 @@ public class Questionario {
 
 	@Column(name = "ds_tipo_questionario")
 	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", parameters = {
-			@Parameter(name = "enumClass", value = "br.com.crux.enums.TipoQuestionario") })
+			@Parameter(name = "enumClass", value = "br.com.crux.enums.TipoQuestionario"),
+			@Parameter(name = "keyName", value = "tipo")})
 	private TipoQuestionario tipoQuestionario;
 
 	@Column(name = "dt_fim_questionario")

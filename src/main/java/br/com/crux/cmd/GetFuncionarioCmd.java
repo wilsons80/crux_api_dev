@@ -24,12 +24,13 @@ public class GetFuncionarioCmd {
 	
 	public List<FuncionarioTO> getAllPorUnidadeLogada() {
 		AcessoUnidadeTO acessoUnidadeTO = getUnidadeLogadaCmd.get();
-		List<FuncionarioTO> lista = toBuilder.buildAll(repository.findAllByIdUnidade(acessoUnidadeTO.getId()).get());
 		
-		if(lista == null || lista.isEmpty()) {
+		Optional<List<Funcionario>> funcionariosOptional = repository.findAllByIdUnidade(acessoUnidadeTO.getId());
+		if(!funcionariosOptional.isPresent()) {
 			return new ArrayList<FuncionarioTO>();
 		}
 		
+		List<FuncionarioTO> lista = toBuilder.buildAll(funcionariosOptional.get());
 		return lista;
 	}
 	

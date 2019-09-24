@@ -51,7 +51,8 @@ public class ResponsaveisAluno  {
 
 	@Column(name="st_tipo_responsavel")
 	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", 
-	      parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.TipoResponsavel") }) 	
+	      parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.TipoResponsavel"),
+	    		         @Parameter(name = "keyName", value = "tipo")}) 	
 	private TipoResponsavel tipoResponsavel;
 
 	@ManyToOne(fetch=FetchType.LAZY)

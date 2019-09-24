@@ -61,7 +61,8 @@ public class ProdutosAtividade  {
 	
 	@Column(name="ds_forma_pagamento")
 	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", 
-    parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.FormaPagamento") }) 
+    parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.FormaPagamento"),
+    		       @Parameter(name = "keyName", value = "tipo")}) 
 	private FormaPagamento formaPagamento;
 
 	@ManyToOne(fetch=FetchType.LAZY)

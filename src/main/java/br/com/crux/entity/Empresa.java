@@ -56,7 +56,8 @@ public class Empresa implements Serializable {
 
 	@Column(name = "cs_tipo_empresa")
 	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", parameters = {
-			@Parameter(name = "enumClass", value = "br.com.crux.enums.TipoEmpresa") })
+			@Parameter(name = "enumClass", value = "br.com.crux.enums.TipoEmpresa"),
+			@Parameter(name = "keyName", value = "tipo")})
 	private TipoEmpresa tipoEmpresa;
 
 	@Column(name = "vl_icms")
@@ -67,7 +68,8 @@ public class Empresa implements Serializable {
 
 	@Column(name = "cs_categoria_empresa")
 	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", parameters = {
-			@Parameter(name = "enumClass", value = "br.com.crux.enums.CategoriaEmpresa") })
+			@Parameter(name = "enumClass", value = "br.com.crux.enums.CategoriaEmpresa"),
+			@Parameter(name = "keyName", value = "tipo")})
 	private CategoriaEmpresa categoriaEmpresa;
 
 	@Column(name = "ds_categoria_empresa")

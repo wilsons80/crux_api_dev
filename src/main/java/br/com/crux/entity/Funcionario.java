@@ -48,7 +48,8 @@ public class Funcionario implements Serializable {
 
 	@Column(name="st_tipo_funcionario")
 	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", 
-	parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.TipoFuncionario") }) 
+	parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.TipoFuncionario"),
+			       @Parameter(name = "keyName", value = "tipo")}) 
 	private TipoFuncionario tipoFuncionario;
 
 	@Column(name="vl_salario_pretendido")
@@ -72,7 +73,8 @@ public class Funcionario implements Serializable {
 
 	@Column(name="st_parecer_entrevistador")
 	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", 
-	parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.ParecerEntrevistador") }) 
+	parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.ParecerEntrevistador"),
+			       @Parameter(name = "keyName", value = "tipo")}) 
 	private ParecerEntrevistador parecerEntrevistador;
 	
 	//Descrição do parecer do entrevistador em relação ado candidato a funcionário  (Tipo =  D = CANDIDATO A VAGA DE FUNCIONÁRIO)
@@ -81,7 +83,8 @@ public class Funcionario implements Serializable {
 	
 	@Column(name="st_conclusao_parecer")
 	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", 
-	parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.ConclusaoParecer") }) 
+	parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.ConclusaoParecer"),
+			       @Parameter(name = "keyName", value = "tipo")}) 
 	private ConclusaoParecer conclusaoParecer;
 
 	@ManyToOne(fetch=FetchType.LAZY)
