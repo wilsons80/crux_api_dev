@@ -37,13 +37,15 @@ public class AtividadesTOBuilder {
 		retorno.setPeriodoAtividade(p.getPeriodoAtividade());
 		retorno.setHorarioFixo(p.getHorarioFixo());
 		retorno.setLocalExecucao(p.getLocalExecucao());
-		retorno.setSegunda(p.getSegunda());
-		retorno.setTerca(p.getTerca());
-		retorno.setQuarta(p.getQuarta());
-		retorno.setQuinta(p.getQuinta());
-		retorno.setSexta(p.getSexta());
-		retorno.setSabado(p.getSabado());
-		retorno.setDomingo(p.getDomingo());
+		
+		retorno.setSegunda(p.getSegunda() ? "S" : "N");
+		retorno.setTerca(p.getTerca()? "S" : "N");
+		retorno.setQuarta(p.getQuarta() ? "S" : "N");
+		retorno.setQuinta(p.getQuinta() ? "S" : "N");
+		retorno.setSexta(p.getSexta() ? "S" : "N");
+		retorno.setSabado(p.getSabado() ? "S" : "N");
+		retorno.setDomingo(p.getDomingo() ? "S" : "N");
+		
 		retorno.setObservacoes(p.getObservacoes());
 		retorno.setValorCustoAtividade(p.getValorCustoAtividade());
 		retorno.setUnidade(unidadeBuilder.build(p.getUnidade()));
@@ -72,13 +74,15 @@ public class AtividadesTOBuilder {
 		retorno.setPeriodoAtividade(p.getPeriodoAtividade());
 		retorno.setHorarioFixo(p.getHorarioFixo());
 		retorno.setLocalExecucao(p.getLocalExecucao());
-		retorno.setSegunda(p.getSegunda());
-		retorno.setTerca(p.getTerca());
-		retorno.setQuarta(p.getQuarta());
-		retorno.setQuinta(p.getQuinta());
-		retorno.setSexta(p.getSexta());
-		retorno.setSabado(p.getSabado());
-		retorno.setDomingo(p.getDomingo());
+		
+		retorno.setSegunda(p.getSegunda().equalsIgnoreCase("S") ? true : false);
+		retorno.setTerca(p.getTerca().equalsIgnoreCase("S") ? true : false);
+		retorno.setQuarta(p.getQuarta().equalsIgnoreCase("S") ? true : false);
+		retorno.setQuinta(p.getQuinta().equalsIgnoreCase("S") ? true : false);
+		retorno.setSexta(p.getSexta().equalsIgnoreCase("S") ? true : false);
+		retorno.setSabado(p.getSabado().equalsIgnoreCase("S") ? true : false);
+		retorno.setDomingo(p.getDomingo().equalsIgnoreCase("S") ? true : false);
+		
 		retorno.setObservacoes(p.getObservacoes());
 		retorno.setValorCustoAtividade(p.getValorCustoAtividade());
 		retorno.setUnidade(unidadeBuilder.buildTO(p.getUnidade()));

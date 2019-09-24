@@ -27,15 +27,17 @@ public class AtividadesTO {
 	private Long cargaHoraria;
 	private Long maximoParticipantes;
 	private Long periodoAtividade;
-	private String domingo;
 	private String horarioFixo;
 	private String localExecucao;
-	private String quarta;
-	private String quinta;
-	private String sabado;
-	private String segunda;
-	private String sexta;
-	private String terca;
+	
+	private Boolean segunda;
+	private Boolean terca;
+	private Boolean quarta;
+	private Boolean quinta;
+	private Boolean sexta;
+	private Boolean sabado;
+	private Boolean domingo;
+	
 	private String observacoes;
 	private Long valorCustoAtividade;
 	
@@ -152,11 +154,11 @@ public class AtividadesTO {
 		this.periodoAtividade = periodoAtividade;
 	}
 
-	public String getDomingo() {
+	public Boolean getDomingo() {
 		return domingo;
 	}
 
-	public void setDomingo(String domingo) {
+	public void setDomingo(Boolean domingo) {
 		this.domingo = domingo;
 	}
 
@@ -176,51 +178,51 @@ public class AtividadesTO {
 		this.localExecucao = localExecucao;
 	}
 
-	public String getQuarta() {
+	public Boolean getQuarta() {
 		return quarta;
 	}
 
-	public void setQuarta(String quarta) {
+	public void setQuarta(Boolean quarta) {
 		this.quarta = quarta;
 	}
 
-	public String getQuinta() {
+	public Boolean getQuinta() {
 		return quinta;
 	}
 
-	public void setQuinta(String quinta) {
+	public void setQuinta(Boolean quinta) {
 		this.quinta = quinta;
 	}
 
-	public String getSabado() {
+	public Boolean getSabado() {
 		return sabado;
 	}
 
-	public void setSabado(String sabado) {
+	public void setSabado(Boolean sabado) {
 		this.sabado = sabado;
 	}
 
-	public String getSegunda() {
+	public Boolean getSegunda() {
 		return segunda;
 	}
 
-	public void setSegunda(String segunda) {
+	public void setSegunda(Boolean segunda) {
 		this.segunda = segunda;
 	}
 
-	public String getSexta() {
+	public Boolean getSexta() {
 		return sexta;
 	}
 
-	public void setSexta(String sexta) {
+	public void setSexta(Boolean sexta) {
 		this.sexta = sexta;
 	}
 
-	public String getTerca() {
+	public Boolean getTerca() {
 		return terca;
 	}
 
-	public void setTerca(String terca) {
+	public void setTerca(Boolean terca) {
 		this.terca = terca;
 	}
 

@@ -11,9 +11,13 @@ import br.com.crux.exception.CamposObrigatoriosException;
 @Component
 public class CamposObrigatoriosAtividadeRule {
 
-	public void verificar(LocalDateTime dataInicio, String descricao,  Long idUnidade, Long idProjeto , Long idPlanoAcao) {
+	public void verificar(LocalDateTime dataInicio, LocalDateTime dataPrevisaoInicio, String descricao,  Long idUnidade, Long idProjeto , Long idPlanoAcao) {
 		if(Objects.isNull(dataInicio)) {
 			throw new CamposObrigatoriosException("Data de Início deve ser informada.");
+		}
+		
+		if(Objects.isNull(dataPrevisaoInicio)) {
+			throw new CamposObrigatoriosException("Data de Previsão Início deve ser informada.");
 		}
 		
 		if(StringUtils.isEmpty(descricao)) {
