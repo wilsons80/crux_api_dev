@@ -1,51 +1,51 @@
 package br.com.crux.service.exception;
 
-import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
-public class ApiError implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class ApiError{
 	
-	private int code;
-	private String msg;
-	private Date date;
+	private Integer codigo;
+	private String mensagem;	
+	private LocalDateTime date;
 	
 	public ApiError() {}
 	
-	public ApiError(int code, String msg, Date date) {
+	public ApiError(Integer code, String msg, LocalDateTime date) {
 		super();
-		this.code = code;
-		this.msg = msg;
 		this.date = date;
+		this.codigo = code;
+		this.mensagem = msg;
+	}
+	
+	public ApiError(Integer code, String msg) {
+		super();
+		this.date = LocalDateTime.now();
+		this.codigo = code;
+		this.mensagem = msg;
+	}	
+
+	public Integer getCodigo() {
+		return codigo;
 	}
 
-	public int getCode() {
-		return code;
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
 	}
 
-	public void setCode(int code) {
-		this.code = code;
+	public String getMensagem() {
+		return mensagem;
 	}
 
-	public String getMsg() {
-		return msg;
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
 	}
 
-	public void setMsg(String msg) {
-		this.msg = msg;
-	}
-
-	public Date getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
-	
-	
 	
 }

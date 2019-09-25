@@ -3,7 +3,6 @@ package br.com.crux.security;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.FilterChain;
@@ -39,45 +38,37 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 		
 		String jwt = request.getHeader(HttpHeaders.AUTHORIZATION);
 		
-		if(jwt == null || !jwt.startsWith(SecurityContantes.JWT_PROVIDER)) {
-			ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED.value(), SecurityContantes.JWT_INVALID_MSG, new Date());
-			PrintWriter writer = response.getWriter();
-			
-			ObjectMapper mapper = new ObjectMapper();
-			String apiErrorString = mapper.writeValueAsString(apiError);
-			
-			writer.write(apiErrorString);
-			
-			response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
-			response.setStatus(HttpStatus.UNAUTHORIZED.value());
-			
-			return;
-		}
-		
-		jwt = jwt.replace(SecurityContantes.JWT_PROVIDER, "");
-		
 		try {
-			//Valida o token informado
-			Claims claims = new JwtManager().validaToken(jwt);
-			if( claims == null ) {
-				throw new TokenInvalidoException("Token de acesso inválido.");
+			if(jwt == null || !jwt.startsWith(SecurityContantes.JWT_PROVIDER)) {
+				
+				throw new TokenInvalidoException("Token ausente na requisição.");
+				
+			} else {
+				
+				jwt = jwt.replace(SecurityContantes.JWT_PROVIDER, "");
+				
+				//Valida o token informado
+				Claims claims = new JwtManager().validaToken(jwt);
+				if( claims == null ) {
+					throw new TokenInvalidoException("Token de acesso inválido.");
+				}
+				
+				String username = claims.getSubject();
+				
+				@SuppressWarnings("unchecked")
+				List<String> roles = (List<String>) claims.get(SecurityContantes.JWT_ROLE_KEY);
+				
+				List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
+				roles.forEach(role -> {
+					grantedAuthorities.add(new SimpleGrantedAuthority(role));
+				});
+				
+				Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, grantedAuthorities);
+				SecurityContextHolder.getContext().setAuthentication(authentication);
 			}
 			
-			String username = claims.getSubject();
-			
-			@SuppressWarnings("unchecked")
-			List<String> roles = (List<String>) claims.get(SecurityContantes.JWT_ROLE_KEY);
-			
-			List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-			roles.forEach(role -> {
-				grantedAuthorities.add(new SimpleGrantedAuthority(role));
-			});
-			
-			Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, grantedAuthorities);
-			SecurityContextHolder.getContext().setAuthentication(authentication);
-						
 		} catch (Exception e) {
-			ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED.value(), e.getMessage(), new Date());
+			ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED.value(), SecurityContantes.JWT_INVALID_MSG);
 			PrintWriter writer = response.getWriter();
 			
 			ObjectMapper mapper = new ObjectMapper();
