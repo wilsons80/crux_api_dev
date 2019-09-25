@@ -37,9 +37,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-	      .anyRequest().authenticated()
-	      .and().formLogin()
-	      .loginPage("/login").permitAll()
+	        .anyRequest()
+	        .authenticated()
+	    .and()
+	      .formLogin()
+	      .loginPage("/login")
+	      .permitAll()
 		.and()
 		  .logout()
 		  .logoutSuccessHandler(logoutSuccessHandler())
@@ -47,7 +50,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	    .and()
 	    	.cors()
 	    .and()
-		  .csrf().disable().authorizeRequests().anyRequest().authenticated();
+		  .csrf()
+		  .disable()
+		  .authorizeRequests()
+		  .anyRequest()
+		  .authenticated();
 		
 		http.addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
@@ -62,5 +69,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public LogoutSuccessHandler logoutSuccessHandler() {
 	    return new CustomLogoutSuccessHandler();
 	}	
+	
 	
 }

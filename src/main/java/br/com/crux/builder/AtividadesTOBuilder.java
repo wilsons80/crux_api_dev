@@ -1,6 +1,7 @@
 package br.com.crux.builder;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,13 +76,13 @@ public class AtividadesTOBuilder {
 		retorno.setHorarioFixo(p.getHorarioFixo());
 		retorno.setLocalExecucao(p.getLocalExecucao());
 		
-		retorno.setSegunda(p.getSegunda().equalsIgnoreCase("S") ? true : false);
-		retorno.setTerca(p.getTerca().equalsIgnoreCase("S") ? true : false);
-		retorno.setQuarta(p.getQuarta().equalsIgnoreCase("S") ? true : false);
-		retorno.setQuinta(p.getQuinta().equalsIgnoreCase("S") ? true : false);
-		retorno.setSexta(p.getSexta().equalsIgnoreCase("S") ? true : false);
-		retorno.setSabado(p.getSabado().equalsIgnoreCase("S") ? true : false);
-		retorno.setDomingo(p.getDomingo().equalsIgnoreCase("S") ? true : false);
+		retorno.setSegunda(Objects.nonNull(p.getSegunda()) && p.getSegunda().equalsIgnoreCase("S") ? true : false);
+		retorno.setTerca(Objects.nonNull(p.getTerca()) && p.getTerca().equalsIgnoreCase("S") ? true : false);
+		retorno.setQuarta(Objects.nonNull(p.getQuarta()) && p.getQuarta().equalsIgnoreCase("S") ? true : false);
+		retorno.setQuinta(Objects.nonNull(p.getQuinta()) && p.getQuinta().equalsIgnoreCase("S") ? true : false);
+		retorno.setSexta(Objects.nonNull(p.getSexta()) && p.getSexta().equalsIgnoreCase("S") ? true : false);
+		retorno.setSabado(Objects.nonNull(p.getSabado()) && p.getSabado().equalsIgnoreCase("S") ? true : false);
+		retorno.setDomingo(Objects.nonNull(p.getDomingo()) && p.getDomingo().equalsIgnoreCase("S") ? true : false);
 		
 		retorno.setObservacoes(p.getObservacoes());
 		retorno.setValorCustoAtividade(p.getValorCustoAtividade());
