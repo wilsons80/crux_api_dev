@@ -1,7 +1,6 @@
 package br.com.crux.to;
 
 import br.com.crux.enums.CategoriaEmpresa;
-import br.com.crux.enums.TipoEmpresa;
 
 public class EmpresaTO {
 
@@ -13,7 +12,7 @@ public class EmpresaTO {
 	private String inscricaoEstadual;
 	private String inscricaoMunicipal;
 	private String ativa;
-	private TipoEmpresa tipoEmpresa;
+	private String tipoEmpresa;
 	private Double valorIcms;
 	private String descricaoTipoEmpresa;
 	private CategoriaEmpresa categoriaEmpresa;
@@ -96,11 +95,11 @@ public class EmpresaTO {
 		this.ativa = ativa;
 	}
 
-	public TipoEmpresa getTipoEmpresa() {
+	public String getTipoEmpresa() {
 		return tipoEmpresa;
 	}
 
-	public void setTipoEmpresa(TipoEmpresa tipoEmpresa) {
+	public void setTipoEmpresa(String tipoEmpresa) {
 		this.tipoEmpresa = tipoEmpresa;
 	}
 

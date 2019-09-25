@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.dao.repository.EmpresaRepository;
 import br.com.crux.entity.Empresa;
+import br.com.crux.enums.TipoEmpresa;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosEmpresaRule;
 import br.com.crux.to.EmpresaTO;
@@ -27,7 +28,9 @@ public class AlterarEmpresaCmd {
 			throw new NotFoundException("Empresa informada não existe.");
 		}
 		
-		camposObrigatoriosRule.verificar(to.getCodigo(), to.getNomeRazaoSocial(), to.getTipoEmpresa(), to.getTelefone(), to.getEndereco());
+		TipoEmpresa tipoEmpresa = TipoEmpresa.getPorTipo(to.getTipoEmpresa());
+		
+		camposObrigatoriosRule.verificar(to.getCodigo(), to.getNomeRazaoSocial(), tipoEmpresa, to.getTelefone(), to.getEndereco());
 		
 		Empresa entity = entityOptional.get();
 		
@@ -38,7 +41,7 @@ public class AlterarEmpresaCmd {
 		entity.setInscricaoEstadual(to.getInscricaoEstadual());
 		entity.setInscricaoMunicipal(to.getInscricaoMunicipal());
 		entity.setAtiva(to.getAtiva());
-		entity.setTipoEmpresa(to.getTipoEmpresa());
+		entity.setTipoEmpresa(tipoEmpresa);
 		entity.setValorIcms(to.getValorIcms());
 		entity.setDescricaoCategoriaEmpresa(to.getDescricaoCategoriaEmpresa());
 		entity.setDescricaoTipoEmpresa(to.getDescricaoTipoEmpresa());
