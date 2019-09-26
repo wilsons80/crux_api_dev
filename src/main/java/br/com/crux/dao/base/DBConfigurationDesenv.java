@@ -25,10 +25,9 @@ public class DBConfigurationDesenv {
         String password = dbUri.getUserInfo().split(":")[1];
         String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
 
-        System.out.println("=====================================================================================================================================");
+        System.out.println("========================================================================================================================================================");
         System.out.println("DESENVOLVIMENTO: Criando conexção na URL: " + dbUrl);
-        System.out.println("=====================================================================================================================================");
-        
+        System.out.println("========================================================================================================================================================");        
         
         BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setUrl(dbUrl);
