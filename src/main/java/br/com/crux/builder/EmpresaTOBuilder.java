@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.entity.Empresa;
+import br.com.crux.enums.TipoEmpresa;
 import br.com.crux.to.EmpresaTO;
 
 
@@ -23,7 +24,7 @@ public class EmpresaTOBuilder {
 		retorno.setInscricaoEstadual(p.getInscricaoEstadual());
 		retorno.setInscricaoMunicipal(p.getInscricaoMunicipal());
 		retorno.setAtiva(p.getAtiva());
-		retorno.setTipoEmpresa(p.getTipoEmpresa());
+		retorno.setTipoEmpresa(TipoEmpresa.getPorTipo(p.getTipoEmpresa()));
 		retorno.setValorIcms(p.getValorIcms());
 		retorno.setDescricaoCategoriaEmpresa(p.getDescricaoCategoriaEmpresa());
 		retorno.setDescricaoTipoEmpresa(p.getDescricaoTipoEmpresa());
@@ -54,7 +55,7 @@ public class EmpresaTOBuilder {
 		retorno.setInscricaoEstadual(p.getInscricaoEstadual());
 		retorno.setInscricaoMunicipal(p.getInscricaoMunicipal());
 		retorno.setAtiva(p.getAtiva());
-		retorno.setTipoEmpresa(p.getTipoEmpresa());
+		retorno.setTipoEmpresa(p.getTipoEmpresa().getTipo());
 		retorno.setValorIcms(p.getValorIcms());
 		retorno.setDescricaoCategoriaEmpresa(p.getDescricaoCategoriaEmpresa());
 		retorno.setDescricaoTipoEmpresa(p.getDescricaoTipoEmpresa());
