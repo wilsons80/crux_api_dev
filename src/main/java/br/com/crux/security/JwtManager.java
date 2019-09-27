@@ -2,30 +2,40 @@ package br.com.crux.security;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.cmd.GetTimeTokenExpiredCmd;
 import br.com.crux.infra.constantes.SecurityContantes;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
 public class JwtManager {
+	
+	@Autowired
+	private GetTimeTokenExpiredCmd getTimeTokenExpiredCmd;
 
 	public String createToken(String username, List<String> roles) {
 		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.MINUTE, SecurityContantes.JWT_EXP_MINUTOS);
+
+		JwtBuilder token = Jwts.builder()
+  							   .setSubject(username)
+							   .claim(SecurityContantes.JWT_ROLE_KEY, roles)
+							   .signWith(SignatureAlgorithm.HS512, SecurityContantes.API_KEY.getBytes());
+				 
+		Integer time = getTimeTokenExpiredCmd.getTimeExpieredToken();
+		if( Objects.nonNull(time)  && time > 0 ) {
+			calendar.add(Calendar.MINUTE, time);
+			token.setExpiration(calendar.getTime());
+		}
 		
-		String jwt = Jwts.builder()
-						 .setSubject(username)
-						 .setExpiration(calendar.getTime())
-						 .claim(SecurityContantes.JWT_ROLE_KEY, roles)
-						 .signWith(SignatureAlgorithm.HS512, SecurityContantes.API_KEY.getBytes())
-						 .compact();
-		
-		return jwt;
+		return token.compact();
 	}
 	
 	public Claims validaToken(String jwt) throws JwtException {

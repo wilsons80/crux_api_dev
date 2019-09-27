@@ -10,15 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.crux.cmd.GetParametrosCmd;
+import br.com.crux.cmd.GetTimeTokenExpiredCmd;
 import br.com.crux.to.ParametrosTO;
 
 @RestController
 @RequestMapping(value = "parametros")
 public class ParametrosService {
 	
-	@Autowired
-	private GetParametrosCmd getCmd;
+	@Autowired private GetParametrosCmd getCmd;
 	
+	@Autowired private GetTimeTokenExpiredCmd getTimeTokenExpiredCmd;
 	
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<ParametrosTO> getAll() {
@@ -33,6 +34,11 @@ public class ParametrosService {
 	@GetMapping(path = "/codigo/{codigo}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ParametrosTO getByCodigo(@PathVariable(name = "codigo") String codigo) {
 		return getCmd.getByCodigo(codigo);
+	}
+	
+	@GetMapping(path = "/expiredToken")
+	public Integer getTimeExpiredToken() {
+		return getTimeTokenExpiredCmd.getTimeExpieredToken();
 	}
 	
 }
