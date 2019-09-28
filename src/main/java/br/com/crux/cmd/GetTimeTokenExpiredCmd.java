@@ -16,7 +16,7 @@ public class GetTimeTokenExpiredCmd {
 
 	public Integer getTimeExpieredToken() {
 		ParametrosTO param = getParametrosCmd.getByCodigo("EXPIRED_JWT_TIME");
-		if( Objects.isNull(param.getValor()) ) {
+		if( Objects.nonNull(param.getValor()) ) {
 			return Integer.valueOf(param.getValor());
 		}
 		return null;
