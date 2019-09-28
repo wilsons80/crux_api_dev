@@ -22,7 +22,7 @@ public class EncaminhaAlunosTOBuilder {
 		retorno.setDescricao(p.getDescricao());
 		retorno.setDataEncaminhaAluno(p.getDataEncaminhaAluno());
 		retorno.setAluno(alunoBuilder.build(p.getAluno()));
-		retorno.setEntidadesSociai(entidadesSociaisBuilder.build(p.getEntidadesSociai()));
+		retorno.setEntidadesSociai(entidadesSociaisBuilder.build(p.getEntidadesSociais()));
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
 		return retorno;
@@ -35,7 +35,7 @@ public class EncaminhaAlunosTOBuilder {
 		retorno.setDescricao(p.getDescricao());
 		retorno.setDataEncaminhaAluno(p.getDataEncaminhaAluno());
 		retorno.setAluno(alunoBuilder.buildTO(p.getAluno()));
-		retorno.setEntidadesSociai(entidadesSociaisBuilder.buildTO(p.getEntidadesSociai()));
+		retorno.setEntidadesSociais(entidadesSociaisBuilder.buildTO(p.getEntidadesSociai()));
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
 

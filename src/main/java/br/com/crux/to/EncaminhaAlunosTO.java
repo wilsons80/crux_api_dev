@@ -16,7 +16,7 @@ public class EncaminhaAlunosTO  {
 	private LocalDateTime dataEncaminhaAluno;
 	
 	private AlunoTO aluno;
-	private EntidadesSociaisTO entidadesSociai;
+	private EntidadesSociaisTO entidadesSociais;
 	private Long usuarioAlteracao;
 
 	public EncaminhaAlunosTO() {
@@ -54,12 +54,12 @@ public class EncaminhaAlunosTO  {
 		this.aluno = aluno;
 	}
 
-	public EntidadesSociaisTO getEntidadesSociai() {
-		return entidadesSociai;
+	public EntidadesSociaisTO getEntidadesSociais() {
+		return entidadesSociais;
 	}
 
-	public void setEntidadesSociai(EntidadesSociaisTO entidadesSociai) {
-		this.entidadesSociai = entidadesSociai;
+	public void setEntidadesSociais(EntidadesSociaisTO entidadesSociai) {
+		this.entidadesSociais = entidadesSociai;
 	}
 
 	public Long getUsuarioAlteracao() {

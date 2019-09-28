@@ -20,7 +20,7 @@ import br.com.crux.cmd.GetCursosFormacaoPFCmd;
 import br.com.crux.to.CursosFormacaoPfTO;
 
 @RestController
-@RequestMapping(value = "cusrosformacaopf")
+@RequestMapping(value = "cursoformacaopf")
 public class CursosFormacaoPFService {
 	
 	@Autowired
