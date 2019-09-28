@@ -32,14 +32,14 @@ public class CadastrarVulnerabilidadesAlunoCmd {
 		if(Objects.isNull(to.getSituacoesVulnerabilidade())) {
 			throw new NotFoundException("Vulnerabilidade não informada.");
 		}
-		if(Objects.isNull(to.getSolucoe())) {
+		if(Objects.isNull(to.getSolucoes())) {
 			throw new NotFoundException("Solução não informada.");
 		}
 		if(Objects.isNull(to.getAluno())) {
 			throw new NotFoundException("Aluno não informado.");
 		}
 		
-		camposObrigatoriosRule.verificar(to.getDataIdentificacao(), to.getSituacoesVulnerabilidade().getId(), to.getSolucoe().getId(), to.getAluno().getId());
+		camposObrigatoriosRule.verificar(to.getDataIdentificacao(), to.getSituacoesVulnerabilidade().getId(), to.getSolucoes().getId(), to.getAluno().getId());
 		
 		VulnerabilidadesAluno entity = new VulnerabilidadesAluno();
 
@@ -47,7 +47,7 @@ public class CadastrarVulnerabilidadesAlunoCmd {
 		entity.setDataSolucao(to.getDataSolucao());
 		
 		entity.setSituacoesVulnerabilidade(situacoesVulnerabilidadeTOBuilder.build(to.getSituacoesVulnerabilidade()));
-		entity.setSolucoe(solucoesTOBuilder.build(to.getSolucoe()));
+		entity.setSolucoe(solucoesTOBuilder.build(to.getSolucoes()));
 		entity.setAluno(alunoTOBuilder.build(to.getAluno()));
 		
 		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();

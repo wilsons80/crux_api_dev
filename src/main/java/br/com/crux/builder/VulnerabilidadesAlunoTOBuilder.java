@@ -24,7 +24,7 @@ public class VulnerabilidadesAlunoTOBuilder {
 		retorno.setDataSolucao(p.getDataSolucao());
 		
 		retorno.setAluno(alunoBuilder.build(p.getAluno()));
-		retorno.setSolucoe(solucaoBuilder.build(p.getSolucoe()));
+		retorno.setSolucoe(solucaoBuilder.build(p.getSolucoes()));
 		retorno.setSituacoesVulnerabilidade(situacaoVulnerabilidadeBuilder.build(p.getSituacoesVulnerabilidade()));
 		
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
@@ -40,7 +40,7 @@ public class VulnerabilidadesAlunoTOBuilder {
 		retorno.setDataSolucao(p.getDataSolucao());
 		
 		retorno.setAluno(alunoBuilder.buildTO(p.getAluno()));
-		retorno.setSolucoe(solucaoBuilder.buildTO(p.getSolucoe()));
+		retorno.setSolucoes(solucaoBuilder.buildTO(p.getSolucoe()));
 		retorno.setSituacoesVulnerabilidade(situacaoVulnerabilidadeBuilder.buildTO(p.getSituacoesVulnerabilidade()));
 		
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
