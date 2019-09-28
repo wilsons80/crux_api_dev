@@ -1,5 +1,7 @@
 package br.com.crux.cmd;
 
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,16 +15,10 @@ public class GetTimeTokenExpiredCmd {
 	
 
 	public Integer getTimeExpieredToken() {
-		ParametrosTO paramExpiredJWT = getParametrosCmd.getByCodigo("EXPIRED_JWT");
-		
-		if( Boolean.valueOf(paramExpiredJWT.getValor()) == Boolean.TRUE ) {
-			
-			ParametrosTO paramExpiredJWTTime = getParametrosCmd.getByCodigo("EXPIRED_JWT_TIME");
-			Integer time = Integer.valueOf(paramExpiredJWTTime.getValor());
-			
-			return time;
+		ParametrosTO param = getParametrosCmd.getByCodigo("EXPIRED_JWT_TIME");
+		if( Objects.isNull(param.getValor()) ) {
+			return Integer.valueOf(param.getValor());
 		}
-		
 		return null;
 	}
 	

@@ -18,7 +18,7 @@ public class VulnerabilidadesFamiliarTO  {
 	
 	private FamiliaresTO familiar;
 	private SituacoesVulnerabilidadeTO situacoesVulnerabilidade;
-	private SolucoesTO solucoe;
+	private SolucoesTO solucoes;
 	private Long usuarioAlteracao;
 
 	public VulnerabilidadesFamiliarTO() {
@@ -64,12 +64,12 @@ public class VulnerabilidadesFamiliarTO  {
 		this.situacoesVulnerabilidade = situacoesVulnerabilidade;
 	}
 
-	public SolucoesTO getSolucoe() {
-		return solucoe;
+	public SolucoesTO getSolucoes() {
+		return solucoes;
 	}
 
-	public void setSolucoe(SolucoesTO solucoe) {
-		this.solucoe = solucoe;
+	public void setSolucoes(SolucoesTO solucoe) {
+		this.solucoes = solucoe;
 	}
 
 	public Long getUsuarioAlteracao() {

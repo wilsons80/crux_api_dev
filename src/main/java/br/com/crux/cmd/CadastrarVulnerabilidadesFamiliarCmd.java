@@ -32,14 +32,14 @@ public class CadastrarVulnerabilidadesFamiliarCmd {
 		if(Objects.isNull(to.getSituacoesVulnerabilidade())) {
 			throw new NotFoundException("Vulnerabilidade não informada.");
 		}
-		if(Objects.isNull(to.getSolucoe())) {
+		if(Objects.isNull(to.getSolucoes())) {
 			throw new NotFoundException("Solução não informada.");
 		}
 		if(Objects.isNull(to.getFamiliar())) {
 			throw new NotFoundException("Familiar não informado.");
 		}
 		
-		camposObrigatoriosRule.verificar(to.getDataIdentificacao(), to.getSituacoesVulnerabilidade().getId(), to.getSolucoe().getId(), to.getFamiliar().getId());
+		camposObrigatoriosRule.verificar(to.getDataIdentificacao(), to.getSituacoesVulnerabilidade().getId(), to.getSolucoes().getId(), to.getFamiliar().getId());
 		
 		VulnerabilidadesFamiliar entity = new VulnerabilidadesFamiliar();
 
@@ -47,7 +47,7 @@ public class CadastrarVulnerabilidadesFamiliarCmd {
 		entity.setDataSolucao(to.getDataSolucao());
 		
 		entity.setSituacoesVulnerabilidade(situacoesVulnerabilidadeTOBuilder.build(to.getSituacoesVulnerabilidade()));
-		entity.setSolucoe(solucoesTOBuilder.build(to.getSolucoe()));
+		entity.setSolucoe(solucoesTOBuilder.build(to.getSolucoes()));
 		entity.setFamiliar(familiaresTOBuilder.build(to.getFamiliar()));
 		
 		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
