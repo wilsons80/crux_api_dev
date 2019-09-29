@@ -45,14 +45,14 @@ public class CadastrarAtendimentosCmd {
 		if(Objects.isNull(to.getAluno())) {
 			throw new NotFoundException("Aluno não informado.");
 		}
-		if(Objects.isNull(to.getSolucoe())) {
+		if(Objects.isNull(to.getSolucoes())) {
 			throw new NotFoundException("Solução não informada.");
 		}
 		if(Objects.isNull(to.getDiagnostico())) {
 			throw new NotFoundException("Diagnóstico não informado.");
 		}
 		
-		camposObrigatoriosRule.verificar(to.getDataAtendimento(), to.getSolucoe().getId(), to.getAluno().getId(), to.getDiagnostico().getId());
+		camposObrigatoriosRule.verificar(to.getDataAtendimento(), to.getSolucoes().getId(), to.getAluno().getId(), to.getDiagnostico().getId());
 		
 		Optional<Aluno> alunoOptional = alunoRepository.findById(to.getAluno().getId());
 		if(!alunoOptional.isPresent()) {
@@ -76,7 +76,7 @@ public class CadastrarAtendimentosCmd {
 		entity.setDataAtendimento(to.getDataAtendimento());
 		entity.setAluno(alunoBuilder.build(to.getAluno()));
 		entity.setDiagnostico(diagnosticoBuilder.build(to.getDiagnostico()));
-		entity.setSolucoe(solucoesBuilder.build(to.getSolucoe()));
+		entity.setSolucoe(solucoesBuilder.build(to.getSolucoes()));
 		
 		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		entity.setUsuarioAlteracao(usuarioLogado.getIdUsuario());

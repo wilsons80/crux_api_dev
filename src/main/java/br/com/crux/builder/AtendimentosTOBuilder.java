@@ -25,7 +25,7 @@ public class AtendimentosTOBuilder {
 		retorno.setDataAtendimento(p.getDataAtendimento());
 		retorno.setAluno(alunoBuilder.build(p.getAluno()));
 		retorno.setDiagnostico(diagnosticoBuilder.build(p.getDiagnostico()));
-		retorno.setSolucoe(solucoesBuilder.build(p.getSolucoe()));
+		retorno.setSolucoe(solucoesBuilder.build(p.getSolucoes()));
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
 		return retorno;
@@ -40,7 +40,7 @@ public class AtendimentosTOBuilder {
 		retorno.setDataAtendimento(p.getDataAtendimento());
 		retorno.setAluno(alunoBuilder.buildTO(p.getAluno()));
 		retorno.setDiagnostico(diagnosticoBuilder.buildTO(p.getDiagnostico()));
-		retorno.setSolucoe(solucoesBuilder.buildTO(p.getSolucoe()));
+		retorno.setSolucoes(solucoesBuilder.buildTO(p.getSolucoe()));
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
 		return retorno;

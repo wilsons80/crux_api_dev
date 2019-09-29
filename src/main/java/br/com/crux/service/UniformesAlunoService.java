@@ -20,7 +20,7 @@ import br.com.crux.cmd.GetUniformesAlunoCmd;
 import br.com.crux.to.UniformesAlunoTO;
 
 @RestController
-@RequestMapping(value = "uniformesaluno")
+@RequestMapping(value = "uniformealuno")
 public class UniformesAlunoService {
 	
 	@Autowired

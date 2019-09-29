@@ -16,7 +16,7 @@ public class AtendimentosTO {
 	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime dataAtendimento;
 	
-	private SolucoesTO solucoe;
+	private SolucoesTO solucoes;
 	private AlunoTO aluno;
 	private DiagnosticosTO diagnostico;
 	private Long usuarioAlteracao;
@@ -56,12 +56,12 @@ public class AtendimentosTO {
 		this.dataAtendimento = dataAtendimento;
 	}
 
-	public SolucoesTO getSolucoe() {
-		return solucoe;
+	public SolucoesTO getSolucoes() {
+		return solucoes;
 	}
 
-	public void setSolucoe(SolucoesTO solucoe) {
-		this.solucoe = solucoe;
+	public void setSolucoes(SolucoesTO solucoe) {
+		this.solucoes = solucoe;
 	}
 
 	public AlunoTO getAluno() {
