@@ -30,8 +30,7 @@ public class AlterarDiagnosticosCmd {
 		
 		camposObrigatoriosRule.verificar(to.getDescricao());
 		
-		Diagnosticos entity = new Diagnosticos();
-
+		Diagnosticos entity = entityOptional.get();
 		entity.setDescricao(to.getDescricao());
 		
 		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
