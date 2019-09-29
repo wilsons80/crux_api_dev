@@ -25,9 +25,9 @@ public class CamposObrigatoriosFuncionarioRule {
 		if(Objects.isNull(idUnidade)) {
 			throw new CamposObrigatoriosException("Unidade deve ser informada.");
 		}
-		if(Objects.isNull(idPessoaFisica)) {
-			throw new CamposObrigatoriosException("Pessoa Física deve ser informada.");
-		}
+//		if(Objects.isNull(idPessoaFisica)) {
+//			throw new CamposObrigatoriosException("Pessoa Física deve ser informada.");
+//		}
 		
 		if(Objects.isNull(idEmpresaFuncionario)) {
 			throw new CamposObrigatoriosException("Empresa do funcionário deve ser informada.");

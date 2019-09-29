@@ -1,6 +1,7 @@
 package br.com.crux.builder;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +29,28 @@ public class FuncionarioTOBuilder {
 		retorno.setDataDemissao(p.getDataDemissao());
 		retorno.setTipoFuncionario(p.getTipoFuncionario());
 		retorno.setSalarioPretendido(p.getSalarioPretendido());
-		retorno.setCargo(cargoTOBuilder.build(p.getCargo()));
-		retorno.setPessoasFisica(pessoaFisicaTOBuilder.build(p.getPessoasFisica()));
-		retorno.setUnidade(unidadeBuilder.build(p.getUnidade()));
+		
+		Optional.ofNullable(p.getCargo()).ifPresent(cargo -> {
+			retorno.setCargo(cargoTOBuilder.build(cargo));
+		});
+		
+		Optional.ofNullable(p.getPessoasFisica()).ifPresent(pf -> {
+			retorno.setPessoasFisica(pessoaFisicaTOBuilder.build(pf));
+		});
+
+		Optional.ofNullable(p.getUnidade()).ifPresent(u -> {
+			retorno.setUnidade(unidadeBuilder.build(u));
+		});
+		
 		retorno.setDtHrEntrevista(p.getDtHrEntrevista());
 		retorno.setParecerEntrevistador(p.getParecerEntrevistador());
 		retorno.setDescricaoParecerEntrevistador(p.getDescricaoParecerEntrevistador());
 		retorno.setConclusaoParecer(p.getConclusaoParecer());
-		retorno.setEmpresaFuncionario(empresaTOBuilder.build(p.getEmpresaFuncionario()));
+		
+		Optional.ofNullable(p.getEmpresaFuncionario()).ifPresent(ef -> {
+			retorno.setEmpresaFuncionario(empresaTOBuilder.build(ef));
+		});
+		
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 		retorno.setFuncionarioEntrevistador(getFuncionarioEntrevistador(p.getFuncionarioEntrevistador()));
 		
@@ -52,17 +67,33 @@ public class FuncionarioTOBuilder {
 		retorno.setDataDemissao(p.getDataDemissao());
 		retorno.setTipoFuncionario(p.getTipoFuncionario());
 		retorno.setSalarioPretendido(p.getSalarioPretendido());
-		retorno.setCargo(cargoTOBuilder.buildTO(p.getCargo()));
-		retorno.setPessoasFisica(pessoaFisicaTOBuilder.buildTO(p.getPessoasFisica()));
-		retorno.setUnidade(unidadeBuilder.buildTO(p.getUnidade()));
+		
+		Optional.ofNullable(p.getCargo()).ifPresent(cargo -> {
+			retorno.setCargo(cargoTOBuilder.buildTO(cargo));
+		});
+		
+		Optional.ofNullable(p.getPessoasFisica()).ifPresent(pf -> {
+			retorno.setPessoasFisica(pessoaFisicaTOBuilder.buildTO(pf));
+		});
+
+		Optional.ofNullable(p.getUnidade()).ifPresent(u -> {
+			retorno.setUnidade(unidadeBuilder.buildTO(u));
+		});
+		
 		retorno.setDtHrEntrevista(p.getDtHrEntrevista());
 		retorno.setParecerEntrevistador(p.getParecerEntrevistador());
 		retorno.setDescricaoParecerEntrevistador(p.getDescricaoParecerEntrevistador());
 		retorno.setConclusaoParecer(p.getConclusaoParecer());
-		retorno.setEmpresaFuncionario(empresaTOBuilder.buildTO(p.getEmpresaFuncionario()));
-		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
-		retorno.setFuncionarioEntrevistador(getFuncionarioEntrevistador(p.getFuncionarioEntrevistador()));
 
+		Optional.ofNullable(p.getEmpresaFuncionario()).ifPresent(ef -> {
+			retorno.setEmpresaFuncionario(empresaTOBuilder.buildTO(ef));
+		});
+		
+		Optional.ofNullable(p.getFuncionarioEntrevistador()).ifPresent(fe -> {
+			retorno.setFuncionarioEntrevistador(getFuncionarioEntrevistador(fe));
+		});
+		
+		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 		
 		return retorno;
 	}
@@ -76,14 +107,28 @@ public class FuncionarioTOBuilder {
 		retorno.setDataDemissao(p.getDataDemissao());
 		retorno.setTipoFuncionario(p.getTipoFuncionario());
 		retorno.setSalarioPretendido(p.getSalarioPretendido());
-		retorno.setCargo(cargoTOBuilder.buildTO(p.getCargo()));
-		retorno.setPessoasFisica(pessoaFisicaTOBuilder.buildTO(p.getPessoasFisica()));
-		retorno.setUnidade(unidadeBuilder.buildTO(p.getUnidade()));
+		
+		Optional.ofNullable(p.getCargo()).ifPresent(cargo -> {
+			retorno.setCargo(cargoTOBuilder.buildTO(cargo));
+		});
+		
+		Optional.ofNullable(p.getPessoasFisica()).ifPresent(pf -> {
+			retorno.setPessoasFisica(pessoaFisicaTOBuilder.buildTO(pf));
+		});
+
+		Optional.ofNullable(p.getUnidade()).ifPresent(u -> {
+			retorno.setUnidade(unidadeBuilder.buildTO(u));
+		});
+		
 		retorno.setDtHrEntrevista(p.getDtHrEntrevista());
 		retorno.setParecerEntrevistador(p.getParecerEntrevistador());
 		retorno.setDescricaoParecerEntrevistador(p.getDescricaoParecerEntrevistador());
 		retorno.setConclusaoParecer(p.getConclusaoParecer());
-		retorno.setEmpresaFuncionario(empresaTOBuilder.buildTO(p.getEmpresaFuncionario()));
+		
+		Optional.ofNullable(p.getEmpresaFuncionario()).ifPresent(ef -> {
+			retorno.setEmpresaFuncionario(empresaTOBuilder.buildTO(ef));
+		});
+		
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 		
 		
@@ -99,14 +144,28 @@ public class FuncionarioTOBuilder {
 		retorno.setDataDemissao(p.getDataDemissao());
 		retorno.setTipoFuncionario(p.getTipoFuncionario());
 		retorno.setSalarioPretendido(p.getSalarioPretendido());
-		retorno.setCargo(cargoTOBuilder.build(p.getCargo()));
-		retorno.setPessoasFisica(pessoaFisicaTOBuilder.build(p.getPessoasFisica()));
-		retorno.setUnidade(unidadeBuilder.build(p.getUnidade()));
+		
+		Optional.ofNullable(p.getCargo()).ifPresent(cargo -> {
+			retorno.setCargo(cargoTOBuilder.build(cargo));
+		});
+		
+		Optional.ofNullable(p.getPessoasFisica()).ifPresent(pf -> {
+			retorno.setPessoasFisica(pessoaFisicaTOBuilder.build(pf));
+		});
+
+		Optional.ofNullable(p.getUnidade()).ifPresent(u -> {
+			retorno.setUnidade(unidadeBuilder.build(u));
+		});
+		
 		retorno.setDtHrEntrevista(p.getDtHrEntrevista());
 		retorno.setParecerEntrevistador(p.getParecerEntrevistador());
 		retorno.setDescricaoParecerEntrevistador(p.getDescricaoParecerEntrevistador());
 		retorno.setConclusaoParecer(p.getConclusaoParecer());
-		retorno.setEmpresaFuncionario(empresaTOBuilder.build(p.getEmpresaFuncionario()));
+		
+		Optional.ofNullable(p.getEmpresaFuncionario()).ifPresent(ef -> {
+			retorno.setEmpresaFuncionario(empresaTOBuilder.build(ef));
+		});
+		
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 		
 		

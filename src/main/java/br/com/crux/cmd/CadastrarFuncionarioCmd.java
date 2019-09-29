@@ -1,6 +1,7 @@
 package br.com.crux.cmd;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,63 +23,94 @@ import br.com.crux.to.UsuarioLogadoTO;
 @Component
 public class CadastrarFuncionarioCmd {
 
-	@Autowired private FuncionarioRepository repository;
-	@Autowired private FuncionarioTOBuilder funcionarioTOBuilder;
-	@Autowired private CamposObrigatoriosFuncionarioRule camposObrigatoriosRule;
-	@Autowired private CamposObrigatoriosPessoaFisicaRule camposObrigatoriosPessoaFisicaRule;
-	@Autowired private CamposObrigatoriosCargosRule camposObrigatoriosCargosRule;
-	
-	@Autowired private CargosTOBuilder cargoTOBuilder;
-	@Autowired private PessoaFisicaTOBuilder pessoaFisicaTOBuilder; 
-	@Autowired private UnidadeTOBuilder unidadeBuilder;
-	@Autowired private EmpresaTOBuilder empresaTOBuilder;
+	@Autowired
+	private FuncionarioRepository repository;
+	@Autowired
+	private FuncionarioTOBuilder funcionarioTOBuilder;
+	@Autowired
+	private CamposObrigatoriosFuncionarioRule camposObrigatoriosRule;
+	@Autowired
+	private CamposObrigatoriosPessoaFisicaRule camposObrigatoriosPessoaFisicaRule;
+	@Autowired
+	private CamposObrigatoriosCargosRule camposObrigatoriosCargosRule;
 
-	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
-	
+	@Autowired
+	private CargosTOBuilder cargoTOBuilder;
+	@Autowired
+	private UnidadeTOBuilder unidadeBuilder;
+	@Autowired
+	private EmpresaTOBuilder empresaTOBuilder;
+	@Autowired
+	private CadastrarPessaoFisicaCmd cadastrarPessaoFisicaCmd;
+
+	@Autowired
+	private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
+
 	public void cadastrar(FuncionarioTO to) {
-		if(Objects.isNull(to.getUnidade())) {
+		if (Objects.isNull(to.getUnidade())) {
 			throw new NotFoundException("UnidAtividadeade não informada.");
 		}
-		
-		if(Objects.isNull(to.getPessoasFisica())) {
+
+		if (Objects.isNull(to.getPessoasFisica())) {
 			throw new NotFoundException("Pessoa Física não informada.");
 		}
-		
-		if(Objects.isNull(to.getEmpresaFuncionario())) {
+
+		if (Objects.isNull(to.getEmpresaFuncionario())) {
 			throw new NotFoundException("Empresa do Funcionário não informada.");
 		}
-		
-		if(Objects.isNull(to.getCargo())) {
+
+		if (Objects.isNull(to.getCargo())) {
 			throw new NotFoundException("Cargo não informado.");
-		}	
-		
-		camposObrigatoriosCargosRule.verificar(to.getCargo().getCodigo(), to.getCargo().getNome(), to.getCargo().getTipoCargo());
-		camposObrigatoriosPessoaFisicaRule.verificar(to.getPessoasFisica().getNome(), to.getPessoasFisica().getCpf(), to.getPessoasFisica().getEndereco(), to.getPessoasFisica().getCelular());
-		camposObrigatoriosRule.verificar(to.getMatricula(), to.getDataAdmissao(), to.getCargo().getId(), to.getPessoasFisica().getId(), to.getUnidade().getIdUnidade(), to.getEmpresaFuncionario().getId());
-		
+		}
+
+		camposObrigatoriosCargosRule.verificar(to.getCargo().getCodigo(), to.getCargo().getNome(),
+				to.getCargo().getTipoCargo());
+		camposObrigatoriosPessoaFisicaRule.verificar(to.getPessoasFisica().getNome(), to.getPessoasFisica().getCpf(),
+				to.getPessoasFisica().getEndereco(), to.getPessoasFisica().getCelular());
+		camposObrigatoriosRule.verificar(to.getMatricula(), to.getDataAdmissao(), to.getCargo().getId(),
+				to.getPessoasFisica().getId(), to.getUnidade().getIdUnidade(), to.getEmpresaFuncionario().getId());
+
 		Funcionario entity = new Funcionario();
-		
+
 		entity.setId(to.getId());
 		entity.setMatricula(to.getMatricula());
 		entity.setDataAdmissao(to.getDataAdmissao());
 		entity.setDataDemissao(to.getDataDemissao());
 		entity.setTipoFuncionario(to.getTipoFuncionario());
 		entity.setSalarioPretendido(to.getSalarioPretendido());
-		entity.setCargo(cargoTOBuilder.build(to.getCargo()));
-		entity.setPessoasFisica(pessoaFisicaTOBuilder.build(to.getPessoasFisica()));
-		entity.setUnidade(unidadeBuilder.build(to.getUnidade()));
+
+		Optional.ofNullable(to.getCargo()).ifPresent(cargo -> {
+			entity.setCargo(cargoTOBuilder.build(cargo));
+		});
+
+		Optional.ofNullable(to.getPessoasFisica()).ifPresent(pf -> {
+			entity.setPessoasFisica(cadastrarPessaoFisicaCmd.cadastrar(to.getPessoasFisica()));
+		});
+
+		Optional.ofNullable(to.getUnidade()).ifPresent(u -> {
+			entity.setUnidade(unidadeBuilder.build(u));
+		});
+
 		entity.setDtHrEntrevista(to.getDtHrEntrevista());
 		entity.setParecerEntrevistador(to.getParecerEntrevistador());
 		entity.setDescricaoParecerEntrevistador(to.getDescricaoParecerEntrevistador());
 		entity.setConclusaoParecer(to.getConclusaoParecer());
-		entity.setEmpresaFuncionario(empresaTOBuilder.build(to.getEmpresaFuncionario()));
+
+		Optional.ofNullable(to.getEmpresaFuncionario()).ifPresent(ef -> {
+			entity.setEmpresaFuncionario(empresaTOBuilder.build(ef));
+		});
+
+		Optional.ofNullable(to.getFuncionarioEntrevistador()).ifPresent(fe -> {
+			entity.setFuncionarioEntrevistador(
+					funcionarioTOBuilder.getFuncionarioEntrevistador(to.getFuncionarioEntrevistador()));
+		});
+
 		entity.setUsuarioAlteracao(to.getUsuarioAlteracao());
-		entity.setFuncionarioEntrevistador(funcionarioTOBuilder.getFuncionarioEntrevistador(to.getFuncionarioEntrevistador()));
-		
+
 		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		entity.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
-		
+
 		repository.save(entity);
-		
+
 	}
 }

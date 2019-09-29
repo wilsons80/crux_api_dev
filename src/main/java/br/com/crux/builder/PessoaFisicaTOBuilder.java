@@ -1,6 +1,7 @@
 package br.com.crux.builder;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,8 +85,16 @@ public class PessoaFisicaTOBuilder {
 		retorno.setValorOutrosBenerficiosSoc(p.getValorOutrosBenerficiosSoc());
 		retorno.setValorRenda(p.getValorRenda());
 		retorno.setIdArquivo(p.getIdArquivo());
-		retorno.setCondicoesMoradia(condicoesMoradiaTOBuilder.build(p.getCondicoesMoradia()));
-		retorno.setGrausInstrucao(grausInstrucaoTOBuilder.build(p.getGrausInstrucao()));
+		
+		Optional.ofNullable(p.getCondicoesMoradia()).ifPresent(cm -> {
+			retorno.setCondicoesMoradia(condicoesMoradiaTOBuilder.build(cm));
+		});
+		
+		
+		Optional.ofNullable(p.getGrausInstrucao()).ifPresent(gi -> {
+			retorno.setGrausInstrucao(grausInstrucaoTOBuilder.build(gi));
+		});
+		
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 		
 		
@@ -158,8 +167,17 @@ public class PessoaFisicaTOBuilder {
 		retorno.setValorOutrosBenerficiosSoc(p.getValorOutrosBenerficiosSoc());
 		retorno.setValorRenda(p.getValorRenda());
 		retorno.setIdArquivo(p.getIdArquivo());
-		retorno.setCondicoesMoradia(condicoesMoradiaTOBuilder.buildTO(p.getCondicoesMoradia()));
-		retorno.setGrausInstrucao(grausInstrucaoTOBuilder.buildTO(p.getGrausInstrucao()));
+		
+		Optional.ofNullable(p.getCondicoesMoradia()).ifPresent(cm -> {
+			retorno.setCondicoesMoradia(condicoesMoradiaTOBuilder.buildTO(cm));
+		});
+		
+		
+		Optional.ofNullable(p.getGrausInstrucao()).ifPresent(gi -> {
+			retorno.setGrausInstrucao(grausInstrucaoTOBuilder.buildTO(gi));
+		});
+		
+		
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 		
 		return retorno;

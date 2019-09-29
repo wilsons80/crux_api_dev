@@ -71,6 +71,9 @@ public class AlterarFuncionarioCmd {
 		entity.setDataDemissao(to.getDataDemissao());
 		entity.setTipoFuncionario(to.getTipoFuncionario());
 		entity.setSalarioPretendido(to.getSalarioPretendido());
+		
+		
+		
 		entity.setCargo(cargoTOBuilder.build(to.getCargo()));
 		entity.setPessoasFisica(pessoaFisicaTOBuilder.build(to.getPessoasFisica()));
 		entity.setUnidade(unidadeBuilder.build(to.getUnidade()));
