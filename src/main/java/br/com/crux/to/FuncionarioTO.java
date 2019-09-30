@@ -20,7 +20,7 @@ public class FuncionarioTO {
 	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime dataDemissao;
 
-	private TipoFuncionario tipoFuncionario;
+	private String tipoFuncionario;
 	private Double salarioPretendido;
 	private CargoTO cargo;
 
@@ -29,9 +29,9 @@ public class FuncionarioTO {
 	private UnidadeTO unidade;
 	private Date dtHrEntrevista;
 
-	private ParecerEntrevistador parecerEntrevistador;
+	private String parecerEntrevistador;
 	private String descricaoParecerEntrevistador;
-	private ConclusaoParecer conclusaoParecer;
+	private String conclusaoParecer;
 	private FuncionarioTO funcionarioEntrevistador;
 
 	private EmpresaTO empresaFuncionario;
@@ -73,11 +73,11 @@ public class FuncionarioTO {
 		this.dataDemissao = dataDemissao;
 	}
 
-	public TipoFuncionario getTipoFuncionario() {
+	public String getTipoFuncionario() {
 		return tipoFuncionario;
 	}
 
-	public void setTipoFuncionario(TipoFuncionario tipoFuncionario) {
+	public void setTipoFuncionario(String tipoFuncionario) {
 		this.tipoFuncionario = tipoFuncionario;
 	}
 
@@ -121,11 +121,11 @@ public class FuncionarioTO {
 		this.dtHrEntrevista = dtHrEntrevista;
 	}
 
-	public ParecerEntrevistador getParecerEntrevistador() {
+	public String getParecerEntrevistador() {
 		return parecerEntrevistador;
 	}
 
-	public void setParecerEntrevistador(ParecerEntrevistador parecerEntrevistador) {
+	public void setParecerEntrevistador(String parecerEntrevistador) {
 		this.parecerEntrevistador = parecerEntrevistador;
 	}
 
@@ -137,11 +137,11 @@ public class FuncionarioTO {
 		this.descricaoParecerEntrevistador = descricaoParecerEntrevistador;
 	}
 
-	public ConclusaoParecer getConclusaoParecer() {
+	public String getConclusaoParecer() {
 		return conclusaoParecer;
 	}
 
-	public void setConclusaoParecer(ConclusaoParecer conclusaoParecer) {
+	public void setConclusaoParecer(String conclusaoParecer) {
 		this.conclusaoParecer = conclusaoParecer;
 	}
 

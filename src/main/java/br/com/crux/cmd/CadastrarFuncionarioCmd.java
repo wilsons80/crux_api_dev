@@ -13,6 +13,9 @@ import br.com.crux.builder.PessoaFisicaTOBuilder;
 import br.com.crux.builder.UnidadeTOBuilder;
 import br.com.crux.dao.repository.FuncionarioRepository;
 import br.com.crux.entity.Funcionario;
+import br.com.crux.enums.ConclusaoParecer;
+import br.com.crux.enums.ParecerEntrevistador;
+import br.com.crux.enums.TipoFuncionario;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosCargosRule;
 import br.com.crux.rule.CamposObrigatoriosFuncionarioRule;
@@ -76,7 +79,7 @@ public class CadastrarFuncionarioCmd {
 		entity.setMatricula(to.getMatricula());
 		entity.setDataAdmissao(to.getDataAdmissao());
 		entity.setDataDemissao(to.getDataDemissao());
-		entity.setTipoFuncionario(to.getTipoFuncionario());
+		entity.setTipoFuncionario(TipoFuncionario.valueOf(to.getTipoFuncionario()));
 		entity.setSalarioPretendido(to.getSalarioPretendido());
 
 		Optional.ofNullable(to.getCargo()).ifPresent(cargo -> {
@@ -92,9 +95,20 @@ public class CadastrarFuncionarioCmd {
 		});
 
 		entity.setDtHrEntrevista(to.getDtHrEntrevista());
-		entity.setParecerEntrevistador(to.getParecerEntrevistador());
+		
+		Optional.ofNullable(to.getParecerEntrevistador()).ifPresent(u -> {
+			entity.setParecerEntrevistador(ParecerEntrevistador.getPorTipo(to.getParecerEntrevistador()));
+		});
+
+		
 		entity.setDescricaoParecerEntrevistador(to.getDescricaoParecerEntrevistador());
-		entity.setConclusaoParecer(to.getConclusaoParecer());
+		
+		Optional.ofNullable(to.getConclusaoParecer()).ifPresent(u -> {
+			entity.setConclusaoParecer(ConclusaoParecer.getPorTipo(to.getConclusaoParecer()));
+		});
+
+		
+		
 
 		Optional.ofNullable(to.getEmpresaFuncionario()).ifPresent(ef -> {
 			entity.setEmpresaFuncionario(empresaTOBuilder.build(ef));

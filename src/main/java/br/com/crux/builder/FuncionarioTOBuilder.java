@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.entity.Funcionario;
+import br.com.crux.enums.ConclusaoParecer;
+import br.com.crux.enums.ParecerEntrevistador;
+import br.com.crux.enums.TipoFuncionario;
 import br.com.crux.to.FuncionarioTO;
 
 
@@ -27,7 +30,11 @@ public class FuncionarioTOBuilder {
 		retorno.setMatricula(p.getMatricula());
 		retorno.setDataAdmissao(p.getDataAdmissao());
 		retorno.setDataDemissao(p.getDataDemissao());
-		retorno.setTipoFuncionario(p.getTipoFuncionario());
+		
+		Optional.ofNullable(p.getTipoFuncionario()).ifPresent(tf -> {
+			retorno.setTipoFuncionario(TipoFuncionario.getPorTipo(p.getTipoFuncionario()));
+		});
+		
 		retorno.setSalarioPretendido(p.getSalarioPretendido());
 		
 		Optional.ofNullable(p.getCargo()).ifPresent(cargo -> {
@@ -43,16 +50,29 @@ public class FuncionarioTOBuilder {
 		});
 		
 		retorno.setDtHrEntrevista(p.getDtHrEntrevista());
-		retorno.setParecerEntrevistador(p.getParecerEntrevistador());
+		
+		Optional.ofNullable(p.getParecerEntrevistador()).ifPresent(pe -> {
+			retorno.setParecerEntrevistador(ParecerEntrevistador.getPorTipo(pe));
+		});
+		
 		retorno.setDescricaoParecerEntrevistador(p.getDescricaoParecerEntrevistador());
-		retorno.setConclusaoParecer(p.getConclusaoParecer());
+		
+		Optional.ofNullable(p.getConclusaoParecer()).ifPresent(cp -> {
+			retorno.setConclusaoParecer(ConclusaoParecer.getPorTipo(cp));
+		});
+		
 		
 		Optional.ofNullable(p.getEmpresaFuncionario()).ifPresent(ef -> {
 			retorno.setEmpresaFuncionario(empresaTOBuilder.build(ef));
 		});
 		
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
-		retorno.setFuncionarioEntrevistador(getFuncionarioEntrevistador(p.getFuncionarioEntrevistador()));
+	
+		Optional.ofNullable(p.getFuncionarioEntrevistador()).ifPresent(fe -> {
+			retorno.setFuncionarioEntrevistador(getFuncionarioEntrevistador(fe));
+		});
+	
+		
 		
 		return retorno;
 	}
@@ -65,7 +85,11 @@ public class FuncionarioTOBuilder {
 		retorno.setMatricula(p.getMatricula());
 		retorno.setDataAdmissao(p.getDataAdmissao());
 		retorno.setDataDemissao(p.getDataDemissao());
-		retorno.setTipoFuncionario(p.getTipoFuncionario());
+	
+		Optional.ofNullable(p.getTipoFuncionario()).ifPresent(tf -> {
+			retorno.setTipoFuncionario(tf.getTipo());
+		});
+		
 		retorno.setSalarioPretendido(p.getSalarioPretendido());
 		
 		Optional.ofNullable(p.getCargo()).ifPresent(cargo -> {
@@ -81,9 +105,19 @@ public class FuncionarioTOBuilder {
 		});
 		
 		retorno.setDtHrEntrevista(p.getDtHrEntrevista());
-		retorno.setParecerEntrevistador(p.getParecerEntrevistador());
+		
+
+		Optional.ofNullable(p.getParecerEntrevistador()).ifPresent(pe -> {
+			retorno.setParecerEntrevistador(pe.getTipo());
+		});
+		
+		Optional.ofNullable(p.getConclusaoParecer()).ifPresent(cp -> {
+			retorno.setConclusaoParecer(cp.getTipo());
+		});
+
+		
 		retorno.setDescricaoParecerEntrevistador(p.getDescricaoParecerEntrevistador());
-		retorno.setConclusaoParecer(p.getConclusaoParecer());
+		
 
 		Optional.ofNullable(p.getEmpresaFuncionario()).ifPresent(ef -> {
 			retorno.setEmpresaFuncionario(empresaTOBuilder.buildTO(ef));
@@ -105,8 +139,14 @@ public class FuncionarioTOBuilder {
 		retorno.setMatricula(p.getMatricula());
 		retorno.setDataAdmissao(p.getDataAdmissao());
 		retorno.setDataDemissao(p.getDataDemissao());
-		retorno.setTipoFuncionario(p.getTipoFuncionario());
-		retorno.setSalarioPretendido(p.getSalarioPretendido());
+		
+		Optional.ofNullable(p.getTipoFuncionario()).ifPresent(tf -> {
+			retorno.setTipoFuncionario(tf.getTipo());
+		});
+		
+		Optional.ofNullable(p.getTipoFuncionario()).ifPresent(tf -> {
+			retorno.setTipoFuncionario(tf.getTipo());
+		});		retorno.setSalarioPretendido(p.getSalarioPretendido());
 		
 		Optional.ofNullable(p.getCargo()).ifPresent(cargo -> {
 			retorno.setCargo(cargoTOBuilder.buildTO(cargo));
@@ -121,9 +161,16 @@ public class FuncionarioTOBuilder {
 		});
 		
 		retorno.setDtHrEntrevista(p.getDtHrEntrevista());
-		retorno.setParecerEntrevistador(p.getParecerEntrevistador());
+		
+		Optional.ofNullable(p.getParecerEntrevistador()).ifPresent(pe -> {
+			retorno.setParecerEntrevistador(pe.getTipo());
+		});
+		
 		retorno.setDescricaoParecerEntrevistador(p.getDescricaoParecerEntrevistador());
-		retorno.setConclusaoParecer(p.getConclusaoParecer());
+
+		Optional.ofNullable(p.getConclusaoParecer()).ifPresent(cp -> {
+			retorno.setConclusaoParecer(cp.getTipo());
+		});
 		
 		Optional.ofNullable(p.getEmpresaFuncionario()).ifPresent(ef -> {
 			retorno.setEmpresaFuncionario(empresaTOBuilder.buildTO(ef));
@@ -142,7 +189,7 @@ public class FuncionarioTOBuilder {
 		retorno.setMatricula(p.getMatricula());
 		retorno.setDataAdmissao(p.getDataAdmissao());
 		retorno.setDataDemissao(p.getDataDemissao());
-		retorno.setTipoFuncionario(p.getTipoFuncionario());
+		retorno.setTipoFuncionario(TipoFuncionario.getPorTipo(p.getTipoFuncionario()));
 		retorno.setSalarioPretendido(p.getSalarioPretendido());
 		
 		Optional.ofNullable(p.getCargo()).ifPresent(cargo -> {
@@ -158,9 +205,18 @@ public class FuncionarioTOBuilder {
 		});
 		
 		retorno.setDtHrEntrevista(p.getDtHrEntrevista());
-		retorno.setParecerEntrevistador(p.getParecerEntrevistador());
+		
+		Optional.ofNullable(p.getParecerEntrevistador()).ifPresent(pe -> {
+			retorno.setParecerEntrevistador(ParecerEntrevistador.getPorTipo(pe));
+		});
+		
 		retorno.setDescricaoParecerEntrevistador(p.getDescricaoParecerEntrevistador());
-		retorno.setConclusaoParecer(p.getConclusaoParecer());
+		
+		Optional.ofNullable(p.getConclusaoParecer()).ifPresent(cp -> {
+			retorno.setConclusaoParecer(ConclusaoParecer.getPorTipo(cp));
+		});
+		
+		
 		
 		Optional.ofNullable(p.getEmpresaFuncionario()).ifPresent(ef -> {
 			retorno.setEmpresaFuncionario(empresaTOBuilder.build(ef));
