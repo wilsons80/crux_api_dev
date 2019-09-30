@@ -79,7 +79,12 @@ public class CadastrarFuncionarioCmd {
 		entity.setMatricula(to.getMatricula());
 		entity.setDataAdmissao(to.getDataAdmissao());
 		entity.setDataDemissao(to.getDataDemissao());
-		entity.setTipoFuncionario(TipoFuncionario.valueOf(to.getTipoFuncionario()));
+
+		Optional.ofNullable(to.getTipoFuncionario()).ifPresent(tp -> {
+			entity.setTipoFuncionario(TipoFuncionario.valueOf(to.getTipoFuncionario()));
+		});
+		
+		
 		entity.setSalarioPretendido(to.getSalarioPretendido());
 
 		Optional.ofNullable(to.getCargo()).ifPresent(cargo -> {
