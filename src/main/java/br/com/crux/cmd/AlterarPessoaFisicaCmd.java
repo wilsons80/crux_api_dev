@@ -13,18 +13,19 @@ import br.com.crux.to.PessoaFisicaTO;
 @Component
 public class AlterarPessoaFisicaCmd {
 
-	@Autowired
-	private PessoaFisicaRepository repository;
-	@Autowired
-	private CamposObrigatoriosPessoaFisicaRule camposObrigatoriosPessoaFisicaRule;
-	@Autowired
-	private PessoaFisicaTOBuilder pessoaFisicaTOBuilder;
+	@Autowired private PessoaFisicaRepository repository;
+	@Autowired private CamposObrigatoriosPessoaFisicaRule camposObrigatoriosPessoaFisicaRule;
+	@Autowired private PessoaFisicaTOBuilder pessoaFisicaTOBuilder;
 
 	public PessoaFisica alterar(PessoaFisicaTO to) {
+		
 		PessoaFisica pessoaFisica = repository.findById(to.getId())
 				.orElseThrow(() -> new NotFoundException("Pessoa Física não encontrada."));
-		camposObrigatoriosPessoaFisicaRule.verificar(to.getNome(), to.getCpf(), to.getEndereco(), to.getCelular());
+		
+		camposObrigatoriosPessoaFisicaRule.verificar(to);
+		
 		pessoaFisica = pessoaFisicaTOBuilder.build(to);
+		
 		return repository.save(pessoaFisica);
 	}
 }
