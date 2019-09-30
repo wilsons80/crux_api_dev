@@ -1,30 +1,30 @@
 package br.com.crux.rule;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.exception.CamposObrigatoriosException;
+import br.com.crux.to.AlunoTO;
 
 @Component
 public class CamposObrigatoriosAlunoRule {
 
-	public void verificar(LocalDateTime dataCadastro, String matricula,  Long idUnidade, Long idPessoaFisica) {
-		if(Objects.isNull(dataCadastro)) {
+	public void verificar(AlunoTO to) {
+		if(Objects.isNull(to.getDataCadastro())) {
 			throw new CamposObrigatoriosException("Data de Cadastro deve ser informada.");
 		}
 		
-		if(StringUtils.isEmpty(matricula)) {
+		if(StringUtils.isEmpty(to.getMatriculaAluno())) {
 			throw new CamposObrigatoriosException("Matricula deve ser informada.");
 		}
 
-		if(Objects.isNull(idUnidade)) {
+		if (Objects.isNull(to.getUnidade())) {
 			throw new CamposObrigatoriosException("Unidade deve ser informada.");
 		}
 
-		if(Objects.isNull(idPessoaFisica)) {
+		if(Objects.isNull(to.getPessoaFisica())) {
 			throw new CamposObrigatoriosException("Pessoa Fícisa deve ser informada.");
 		}		
 	}
