@@ -16,11 +16,13 @@ public class CadastrarFuncionarioCmd {
 	@Autowired private FuncionarioTOBuilder funcionarioTOBuilder;
 	@Autowired private CamposObrigatoriosFuncionarioRule camposObrigatoriosFuncionarioRule;
 	@Autowired private CadastrarPessoaFisicaCmd cadastrarPessoaFisicaCmd;
-
+	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
+	
 	public FuncionarioTO cadastrar(FuncionarioTO to) {
 
 		camposObrigatoriosFuncionarioRule.verificar(to);
 
+		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 		Funcionario entity = funcionarioTOBuilder.build(to);
 		
 		entity.setPessoasFisica(cadastrarPessoaFisicaCmd.cadastrar(to.getPessoasFisica()));

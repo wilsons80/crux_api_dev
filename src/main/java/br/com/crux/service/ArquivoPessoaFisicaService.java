@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import br.com.crux.cmd.ArquivoPessoaFisicaCmd;
 
 @RestController
-@RequestMapping(value = "arquivo")
+@RequestMapping(value = "arquivopessoafisica")
 public class ArquivoPessoaFisicaService {
 
 	@Autowired

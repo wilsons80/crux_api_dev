@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.cmd.GetUsuarioLogadoCmd;
 import br.com.crux.entity.Funcionario;
 import br.com.crux.enums.ConclusaoParecer;
 import br.com.crux.enums.ParecerEntrevistador;
@@ -21,8 +20,7 @@ public class FuncionarioTOBuilder {
 	@Autowired private PessoaFisicaTOBuilder pessoaFisicaTOBuilder;
 	@Autowired private UnidadeTOBuilder unidadeBuilder;
 	@Autowired private EmpresaTOBuilder empresaTOBuilder;
-	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
-
+	
 	public Funcionario build(FuncionarioTO to) {
 
 		Funcionario retorno = new Funcionario();
@@ -70,7 +68,8 @@ public class FuncionarioTOBuilder {
 			retorno.setFuncionarioEntrevistador(getFuncionarioEntrevistador(to.getFuncionarioEntrevistador()));
 		});
 
-		retorno.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
+		retorno.setUsuarioAlteracao(to.getUsuarioAlteracao());
+
 
 		return retorno;
 	}

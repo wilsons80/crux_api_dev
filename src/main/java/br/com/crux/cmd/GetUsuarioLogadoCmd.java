@@ -28,13 +28,10 @@ public class GetUsuarioLogadoCmd {
 		
 		UsuarioLogadoTO usuarioLogado = (UsuarioLogadoTO) UsuarioLocals.get(username);
 		if(usuarioLogado == null) {
-			throw new NotFoundException("Erro ao recuperar o usuário logado." + username);
+			throw new NotFoundException("Erro ao recuperar o usuário logado.");
 		}
 
 		return usuarioLogado;
 	}
-
-	
-	
 	
 }

@@ -17,6 +17,7 @@ public class AlterarFuncionarioCmd {
 	@Autowired private AlterarPessoaFisicaCmd alterarPessoaFisicaCmd;
 	@Autowired private CamposObrigatoriosFuncionarioRule camposObrigatoriosFuncionarioRule;
 	@Autowired private FuncionarioTOBuilder funcionarioTOBuilder;
+	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 
 	public FuncionarioTO alterar(FuncionarioTO to) {
 		
@@ -24,6 +25,7 @@ public class AlterarFuncionarioCmd {
 
 		Funcionario funcionario = repository.findById(to.getId()).orElseThrow((() -> new NotFoundException("Funcionario informado não existe.")));
 
+		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 		funcionario = funcionarioTOBuilder.build(to);
 		
 		funcionario.setPessoasFisica(alterarPessoaFisicaCmd.alterar(to.getPessoasFisica()));

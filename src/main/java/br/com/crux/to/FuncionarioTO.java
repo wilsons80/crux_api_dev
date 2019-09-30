@@ -5,9 +5,6 @@ import java.util.Date;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import br.com.crux.enums.ConclusaoParecer;
-import br.com.crux.enums.ParecerEntrevistador;
-import br.com.crux.enums.TipoFuncionario;
 import br.com.crux.infra.adapter.LocalDateTimeAdapter;
 
 public class FuncionarioTO {

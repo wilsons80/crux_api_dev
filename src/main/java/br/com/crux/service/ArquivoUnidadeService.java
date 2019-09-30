@@ -13,8 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import br.com.crux.cmd.ArquivoCmd;
 
 @RestController
-@RequestMapping(value = "arquivo")
-public class ArquivoService {
+@RequestMapping(value = "arquivounidade")
+public class ArquivoUnidadeService {
 
 	@Autowired
 	private ArquivoCmd arquivoCmd;
