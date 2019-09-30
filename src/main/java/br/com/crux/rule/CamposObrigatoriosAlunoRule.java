@@ -12,10 +12,6 @@ import br.com.crux.to.AlunoTO;
 public class CamposObrigatoriosAlunoRule {
 
 	public void verificar(AlunoTO to) {
-		if(Objects.isNull(to.getDataCadastro())) {
-			throw new CamposObrigatoriosException("Data de Cadastro deve ser informada.");
-		}
-		
 		if(StringUtils.isEmpty(to.getMatriculaAluno())) {
 			throw new CamposObrigatoriosException("Matricula deve ser informada.");
 		}
