@@ -44,13 +44,13 @@ public class AlunoService {
 	}
 	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void cadastrar(@RequestBody AlunoTO param) {
-		cadastrarCmd.cadastrar(param);
+	public AlunoTO cadastrar(@RequestBody AlunoTO param) {
+		return cadastrarCmd.cadastrar(param);
 	}
 	
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void alterar(@RequestBody AlunoTO param) {
-		alterarCmd.alterar(param);
+	public AlunoTO alterar(@RequestBody AlunoTO param) {
+		return alterarCmd.alterar(param);
 	}
 	
 	@DeleteMapping(path = "/{id}")

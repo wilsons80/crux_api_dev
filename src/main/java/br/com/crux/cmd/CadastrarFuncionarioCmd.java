@@ -19,14 +19,12 @@ public class CadastrarFuncionarioCmd {
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 
 	public FuncionarioTO cadastrar(FuncionarioTO to) {
-
 		camposObrigatoriosFuncionarioRule.verificar(to);
 
 		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 		Funcionario entity = funcionarioTOBuilder.build(to);
 
 		entity.setPessoasFisica(cadastrarPessoaFisicaCmd.cadastrar(to.getPessoasFisica()));
-
 		Funcionario funcionario = repository.save(entity);
 
 		return funcionarioTOBuilder.buildTO(funcionario);
