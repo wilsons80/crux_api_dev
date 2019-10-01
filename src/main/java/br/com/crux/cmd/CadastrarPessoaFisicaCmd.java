@@ -12,12 +12,9 @@ import br.com.crux.to.PessoaFisicaTO;
 @Component
 public class CadastrarPessoaFisicaCmd {
 
-	@Autowired
-	private PessoaFisicaRepository repository;
-	@Autowired
-	private CamposObrigatoriosPessoaFisicaRule camposObrigatoriosPessoaFisicaRule;
-	@Autowired
-	private PessoaFisicaTOBuilder pessoaFisicaTOBuilder;
+	@Autowired private PessoaFisicaRepository repository;
+	@Autowired private CamposObrigatoriosPessoaFisicaRule camposObrigatoriosPessoaFisicaRule;
+	@Autowired private PessoaFisicaTOBuilder pessoaFisicaTOBuilder;
 
 	public PessoaFisica cadastrar(PessoaFisicaTO to) {
 		camposObrigatoriosPessoaFisicaRule.verificar(to);

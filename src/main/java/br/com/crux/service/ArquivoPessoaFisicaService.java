@@ -20,7 +20,7 @@ public class ArquivoPessoaFisicaService {
 	private ArquivoPessoaFisicaCmd arquivoPessoaFisicaCmd;
 	
 	@PostMapping(path = "/{idPessoaFisica}")
-	public void gravar(@RequestParam(name = "file") MultipartFile file, @PathVariable(name = "idUsuario") Long idPessoaFisica ) {
+	public void gravar(@RequestParam(name = "file") MultipartFile file, @PathVariable(name = "idPessoaFisica") Long idPessoaFisica ) {
 		arquivoPessoaFisicaCmd.salvar(file, idPessoaFisica);
 	}
 	
@@ -29,9 +29,9 @@ public class ArquivoPessoaFisicaService {
 		//arquivoPessoaFisicaCmd.salvar(file);
 	}
 	
-	@GetMapping(path = "/{idUsuario}")
-	public byte[] getPorAluno(@PathVariable(name = "idUsuario") Long idPessoaFisica) {
-		return arquivoPessoaFisicaCmd.getArquivo(idPessoaFisica);
+	@GetMapping(path = "/{idPessoaFisica}")
+	public byte[] getPorAluno(@PathVariable(name = "idPessoaFisica") Long idPessoaFisica) {
+		return arquivoPessoaFisicaCmd.getPorPessoa(idPessoaFisica);
 	}	
 	
 }
