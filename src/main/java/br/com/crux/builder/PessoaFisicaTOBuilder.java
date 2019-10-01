@@ -78,7 +78,9 @@ public class PessoaFisicaTOBuilder {
 		retorno.setUfNascimento(p.getUfNascimento());
 		retorno.setStatusAtendidoOrgaoRede(p.getStatusAtendidoOrgaoRede());
 		
-		retorno.setAutorizaEmail(p.getAutorizaEmail().equals("true") ? "S" :"N");
+		Optional.ofNullable(p.getAutorizaEmail()).ifPresent(autoriza -> {
+			retorno.setAutorizaEmail(autoriza.equals("true") ? "S" :"N");
+		});
 		
 		retorno.setBeneficiarioBolsaFamilia(p.getBeneficiarioBolsaFamilia());
 		retorno.setObservacoes(p.getObservacoes());

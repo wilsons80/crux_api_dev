@@ -1,12 +1,18 @@
 package br.com.crux.dao.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.crux.entity.Arquivo;
 
 @Repository
-public interface ArquivoRepository extends JpaRepository<Arquivo, Long>{
-	
+public interface ArquivoRepository extends JpaRepository<Arquivo, Long> {
+
+	@Query(value = "SELECT a FROM Arquivo a inner join PessoaFisica pf on pf.idArquivo = a.idArquivo"
+			+ " where pf.id = ?1")
+	public Optional<Arquivo> findByIdPessoaFisica(Long idPessoaFisica);
 
 }
