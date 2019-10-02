@@ -2,6 +2,8 @@ package br.com.crux.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,6 +46,7 @@ public class FuncionarioService {
 	}
 
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional
 	public FuncionarioTO alterar(@RequestBody FuncionarioTO param) {
 		return alterarCmd.alterar(param);
 	}

@@ -1,6 +1,7 @@
 package br.com.crux.builder;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
@@ -27,6 +28,11 @@ public class CargosTOBuilder {
 	
 	public CargoTO buildTO(Cargo param) {
 		CargoTO retorno = new CargoTO();
+		
+
+		if(Objects.isNull(param)) {
+			return retorno;
+		}
 		
 		retorno.setId(param.getId());
 		retorno.setCodigo(param.getCodigo());

@@ -1,6 +1,7 @@
 package br.com.crux.builder;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
@@ -14,6 +15,10 @@ public class GrausInstrucaoTOBuilder {
 
 	public GrausInstrucao build(GrausInstrucaoTO p) {
 		GrausInstrucao retorno = new GrausInstrucao();
+		
+		if(Objects.isNull(p)) {
+			return retorno;
+		}
 
 		retorno.setId(p.getId());
 		retorno.setDescricao(p.getDescricao());
@@ -25,6 +30,9 @@ public class GrausInstrucaoTOBuilder {
 	public GrausInstrucaoTO buildTO(GrausInstrucao p) {
 		GrausInstrucaoTO retorno = new GrausInstrucaoTO();
 		
+		if(Objects.isNull(p)) {
+			return retorno;
+		}
 		retorno.setId(p.getId());
 		retorno.setDescricao(p.getDescricao());
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());

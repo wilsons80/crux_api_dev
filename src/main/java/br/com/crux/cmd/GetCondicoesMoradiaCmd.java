@@ -28,12 +28,17 @@ public class GetCondicoesMoradiaCmd {
 		return toBuilder.buildAll(entitys);
 	}
 	
-	public CondicoesMoradiaTO getById(Long id) {
+	public CondicoesMoradiaTO getTOById(Long id) {
 		Optional<CondicoesMoradia> entityOptional = repository.findById(id);
 		if(!entityOptional.isPresent()) {
 			throw new NotFoundException("Condição de moradia não encontrada.");
 		}
 		return toBuilder.buildTO(entityOptional.get());
+	}
+
+	public CondicoesMoradia getById(Long id) {
+		return repository.findById(id).orElse(null);
+		
 	}
 			
 }

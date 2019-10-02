@@ -30,11 +30,8 @@ public class GetObjetivoCmd {
 	}
 	
 	public ObjetivoTO getById(Long id) {
-		Optional<Objetivo> entityOptional = objetivoRepository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Objetivo não encontrado");
-		}
-		return objetivoTOBuilder.buildTO(entityOptional.get());
+		Objetivo entityOptional = objetivoRepository.findById(id).orElseThrow(()-> new NotFoundException("Objetivo não encontrado") ) ;
+		return objetivoTOBuilder.buildTO(entityOptional);
 	}
 			
 }

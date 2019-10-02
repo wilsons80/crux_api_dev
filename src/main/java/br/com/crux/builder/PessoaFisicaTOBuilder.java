@@ -8,7 +8,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.cmd.GetCondicoesMoradiaCmd;
 import br.com.crux.cmd.GetGrausInstrucaoCmd;
+import br.com.crux.entity.CondicoesMoradia;
 import br.com.crux.entity.GrausInstrucao;
 import br.com.crux.entity.PessoaFisica;
 import br.com.crux.to.PessoaFisicaTO;
@@ -19,6 +21,7 @@ public class PessoaFisicaTOBuilder {
 	@Autowired private GrausInstrucaoTOBuilder grausInstrucaoTOBuilder;
 	@Autowired private CondicoesMoradiaTOBuilder condicoesMoradiaTOBuilder;
 	@Autowired private GetGrausInstrucaoCmd getGrausInstrucaoCmd;
+	@Autowired private GetCondicoesMoradiaCmd getCondicoesMoradiaCmd;
 
 	public PessoaFisica build(PessoaFisicaTO p) {
 		PessoaFisica retorno = new PessoaFisica();
@@ -90,16 +93,19 @@ public class PessoaFisicaTOBuilder {
 		retorno.setValorRenda(p.getValorRenda());
 		retorno.setIdArquivo(p.getIdArquivo());
 
-		Optional.ofNullable(p.getCondicoesMoradia()).ifPresent(cm -> {
-			retorno.setCondicoesMoradia(condicoesMoradiaTOBuilder.build(cm));
+		Optional.ofNullable(p.getGrausInstrucao()).ifPresent(grau -> {
+			if (Objects.nonNull(grau.getId())) {
+				GrausInstrucao grauInstrucao = getGrausInstrucaoCmd.getById(grau.getId());
+				retorno.setGrausInstrucao(grauInstrucao);
+			}
+
 		});
 
-		
-		Optional.ofNullable(p.getGrausInstrucao()).ifPresent(grau -> {
-		    if(Objects.nonNull(grau.getId())) {
-		    	GrausInstrucao grauInstrucao = getGrausInstrucaoCmd.getById(grau.getId());
-				retorno.setGrausInstrucao(grauInstrucao);	
-		    }
+		Optional.ofNullable(p.getCondicoesMoradia()).ifPresent(condicoes -> {
+			if (Objects.nonNull(condicoes.getId())) {
+				CondicoesMoradia condicoesMoradia = getCondicoesMoradiaCmd.getById(condicoes.getId());
+				retorno.setCondicoesMoradia(condicoesMoradia);
+			}
 			
 		});
 
@@ -110,6 +116,10 @@ public class PessoaFisicaTOBuilder {
 
 	public PessoaFisicaTO buildTO(PessoaFisica p) {
 		PessoaFisicaTO retorno = new PessoaFisicaTO();
+
+		if (Objects.isNull(p)) {
+			return retorno;
+		}
 
 		retorno.setId(p.getId());
 		retorno.setNome(p.getNome());
@@ -174,13 +184,9 @@ public class PessoaFisicaTOBuilder {
 		retorno.setValorRenda(p.getValorRenda());
 		retorno.setIdArquivo(p.getIdArquivo());
 
-		Optional.ofNullable(p.getCondicoesMoradia()).ifPresent(cm -> {
-			retorno.setCondicoesMoradia(condicoesMoradiaTOBuilder.buildTO(cm));
-		});
+		retorno.setCondicoesMoradia(condicoesMoradiaTOBuilder.buildTO(p.getCondicoesMoradia()));
 
-		Optional.ofNullable(p.getGrausInstrucao()).ifPresent(gi -> {
-			retorno.setGrausInstrucao(grausInstrucaoTOBuilder.buildTO(gi));
-		});
+		retorno.setGrausInstrucao(grausInstrucaoTOBuilder.buildTO(p.getGrausInstrucao()));
 
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 

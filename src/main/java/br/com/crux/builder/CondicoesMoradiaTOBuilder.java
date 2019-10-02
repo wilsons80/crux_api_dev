@@ -1,6 +1,7 @@
 package br.com.crux.builder;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
@@ -13,7 +14,7 @@ public class CondicoesMoradiaTOBuilder {
 
 	public CondicoesMoradia build(CondicoesMoradiaTO p) {
 		CondicoesMoradia retorno = new CondicoesMoradia();
-
+		
 		retorno.setId(p.getId());
 		retorno.setDescricao(p.getDescricao());
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
@@ -23,7 +24,11 @@ public class CondicoesMoradiaTOBuilder {
 
 	public CondicoesMoradiaTO buildTO(CondicoesMoradia p) {
 		CondicoesMoradiaTO retorno = new CondicoesMoradiaTO();
-		
+
+		if (Objects.isNull(p)) {
+			return retorno;
+		}
+
 		retorno.setId(p.getId());
 		retorno.setDescricao(p.getDescricao());
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
