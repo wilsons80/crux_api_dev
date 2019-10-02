@@ -29,12 +29,16 @@ public class GetEmpresaCmd {
 		return entitys;
 	}
 	
-	public EmpresaTO getById(Long id) {
+	public EmpresaTO getTOById(Long id) {
 		Optional<Empresa> entityOptional = repository.findById(id);
 		if(!entityOptional.isPresent()) {
 			throw new NotFoundException("Empresa não encontrada.");
 		}
 		return toBuilder.buildTO(entityOptional.get());
+	}
+	
+	public Empresa getById(Long id) {
+		return repository.findById(id).orElse(null);
 	}
 			
 }

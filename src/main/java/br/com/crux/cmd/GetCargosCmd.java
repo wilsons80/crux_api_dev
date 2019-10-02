@@ -29,12 +29,17 @@ public class GetCargosCmd {
 		return entitys;
 	}
 	
-	public CargoTO getById(Long id) {
+	public CargoTO getTOById(Long id) {
 		Optional<Cargo> entityOptional = repository.findById(id);
 		if(!entityOptional.isPresent()) {
 			throw new NotFoundException("Cargo não encontrado");
 		}
 		return toBuilder.buildTO(entityOptional.get());
+	}
+	
+	public Cargo getById(Long id) {
+		return repository.findById(id).orElse(null);
+		
 	}
 			
 }

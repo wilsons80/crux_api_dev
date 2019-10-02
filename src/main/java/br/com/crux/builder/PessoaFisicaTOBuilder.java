@@ -7,18 +7,17 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.cmd.GetGrausInstrucaoCmd;
+import br.com.crux.entity.GrausInstrucao;
 import br.com.crux.entity.PessoaFisica;
 import br.com.crux.to.PessoaFisicaTO;
 
-
 @Component
 public class PessoaFisicaTOBuilder {
-	
-	@Autowired
-	private GrausInstrucaoTOBuilder grausInstrucaoTOBuilder;
-	@Autowired
-	private CondicoesMoradiaTOBuilder condicoesMoradiaTOBuilder;
-	
+
+	@Autowired private GrausInstrucaoTOBuilder grausInstrucaoTOBuilder;
+	@Autowired private CondicoesMoradiaTOBuilder condicoesMoradiaTOBuilder;
+	@Autowired private GetGrausInstrucaoCmd getGrausInstrucaoCmd;
 
 	public PessoaFisica build(PessoaFisicaTO p) {
 		PessoaFisica retorno = new PessoaFisica();
@@ -77,11 +76,11 @@ public class PessoaFisicaTOBuilder {
 		retorno.setUfEndereco(p.getUfEndereco());
 		retorno.setUfNascimento(p.getUfNascimento());
 		retorno.setStatusAtendidoOrgaoRede(p.getStatusAtendidoOrgaoRede());
-		
+
 		Optional.ofNullable(p.getAutorizaEmail()).ifPresent(autoriza -> {
-			retorno.setAutorizaEmail(autoriza.equals("true") ? "S" :"N");
+			retorno.setAutorizaEmail(autoriza.equals("true") ? "S" : "N");
 		});
-		
+
 		retorno.setBeneficiarioBolsaFamilia(p.getBeneficiarioBolsaFamilia());
 		retorno.setObservacoes(p.getObservacoes());
 		retorno.setValorAluguel(p.getValorAluguel());
@@ -89,26 +88,24 @@ public class PessoaFisicaTOBuilder {
 		retorno.setValorOutrosBenerficiosSoc(p.getValorOutrosBenerficiosSoc());
 		retorno.setValorRenda(p.getValorRenda());
 		retorno.setIdArquivo(p.getIdArquivo());
-		
+
 		Optional.ofNullable(p.getCondicoesMoradia()).ifPresent(cm -> {
 			retorno.setCondicoesMoradia(condicoesMoradiaTOBuilder.build(cm));
 		});
-		
-		
+
 		Optional.ofNullable(p.getGrausInstrucao()).ifPresent(gi -> {
-			retorno.setGrausInstrucao(grausInstrucaoTOBuilder.build(gi));
+			GrausInstrucao grauInstrucao = getGrausInstrucaoCmd.getById(gi.getId());
+			retorno.setGrausInstrucao(grauInstrucao);
 		});
-		
+
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
-		
-		
+
 		return retorno;
 	}
 
-	
 	public PessoaFisicaTO buildTO(PessoaFisica p) {
 		PessoaFisicaTO retorno = new PessoaFisicaTO();
-		
+
 		retorno.setId(p.getId());
 		retorno.setNome(p.getNome());
 		retorno.setOrgaoCi(p.getOrgaoCi());
@@ -171,25 +168,21 @@ public class PessoaFisicaTOBuilder {
 		retorno.setValorOutrosBenerficiosSoc(p.getValorOutrosBenerficiosSoc());
 		retorno.setValorRenda(p.getValorRenda());
 		retorno.setIdArquivo(p.getIdArquivo());
-		
+
 		Optional.ofNullable(p.getCondicoesMoradia()).ifPresent(cm -> {
 			retorno.setCondicoesMoradia(condicoesMoradiaTOBuilder.buildTO(cm));
 		});
-		
-		
+
 		Optional.ofNullable(p.getGrausInstrucao()).ifPresent(gi -> {
 			retorno.setGrausInstrucao(grausInstrucaoTOBuilder.buildTO(gi));
 		});
-		
-		
+
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
-		
+
 		return retorno;
 	}
-	
-	
-	
-	public List<PessoaFisicaTO> buildAll(List<PessoaFisica> dtos){
+
+	public List<PessoaFisicaTO> buildAll(List<PessoaFisica> dtos) {
 		return dtos.stream().map(dto -> buildTO(dto)).collect(Collectors.toList());
 	}
 

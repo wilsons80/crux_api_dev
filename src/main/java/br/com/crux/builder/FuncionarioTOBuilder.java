@@ -1,13 +1,20 @@
 package br.com.crux.builder;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.cmd.GetCargosCmd;
+import br.com.crux.cmd.GetEmpresaCmd;
+import br.com.crux.cmd.GetUnidadeCmd;
+import br.com.crux.entity.Cargo;
+import br.com.crux.entity.Empresa;
 import br.com.crux.entity.Funcionario;
+import br.com.crux.entity.Unidade;
 import br.com.crux.enums.ConclusaoParecer;
 import br.com.crux.enums.ParecerEntrevistador;
 import br.com.crux.enums.TipoFuncionario;
@@ -20,7 +27,10 @@ public class FuncionarioTOBuilder {
 	@Autowired private PessoaFisicaTOBuilder pessoaFisicaTOBuilder;
 	@Autowired private UnidadeTOBuilder unidadeBuilder;
 	@Autowired private EmpresaTOBuilder empresaTOBuilder;
-	
+	@Autowired private GetUnidadeCmd getUnidadeCmd;
+	@Autowired private GetCargosCmd getCargosCmd;
+	@Autowired private GetEmpresaCmd getEmpresaCmd;
+
 	public Funcionario build(FuncionarioTO to) {
 
 		Funcionario retorno = new Funcionario();
@@ -31,13 +41,14 @@ public class FuncionarioTOBuilder {
 		retorno.setDataDemissao(to.getDataDemissao());
 
 		Optional.ofNullable(to.getTipoFuncionario()).ifPresent(tp -> {
-			retorno.setTipoFuncionario(TipoFuncionario.valueOf(to.getTipoFuncionario()));
+			retorno.setTipoFuncionario(TipoFuncionario.getPorTipo(to.getTipoFuncionario()));
 		});
 
 		retorno.setSalarioPretendido(to.getSalarioPretendido());
 
-		Optional.ofNullable(to.getCargo()).ifPresent(cargo -> {
-			retorno.setCargo(cargoTOBuilder.build(cargo));
+		Optional.ofNullable(to.getCargo()).ifPresent(c -> {
+			Cargo cargo = getCargosCmd.getById(c.getId());
+			retorno.setCargo(cargo);
 		});
 
 		Optional.ofNullable(to.getPessoasFisica()).ifPresent(pf -> {
@@ -45,7 +56,8 @@ public class FuncionarioTOBuilder {
 		});
 
 		Optional.ofNullable(to.getUnidade()).ifPresent(u -> {
-			retorno.setUnidade(unidadeBuilder.build(u));
+			Unidade unidade = getUnidadeCmd.getById(u.getIdUnidade());
+			retorno.setUnidade(unidade);
 		});
 
 		retorno.setDtHrEntrevista(to.getDtHrEntrevista());
@@ -61,7 +73,8 @@ public class FuncionarioTOBuilder {
 		});
 
 		Optional.ofNullable(to.getEmpresaFuncionario()).ifPresent(ef -> {
-			retorno.setEmpresaFuncionario(empresaTOBuilder.build(ef));
+			Empresa empresa = getEmpresaCmd.getById(ef.getId());
+			retorno.setEmpresaFuncionario(empresa);
 		});
 
 		Optional.ofNullable(to.getFuncionarioEntrevistador()).ifPresent(fe -> {
@@ -69,7 +82,6 @@ public class FuncionarioTOBuilder {
 		});
 
 		retorno.setUsuarioAlteracao(to.getUsuarioAlteracao());
-
 
 		return retorno;
 	}

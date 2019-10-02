@@ -83,11 +83,14 @@ public class GetUnidadeCmd {
 		return Arrays.asList(ClassificadorSituacaoImovel.values());
 	}
 	
-	
 
 	public Unidade getBySigla(String sigla) {
 		Optional<Unidade> unidade = unidadeRepository.findBySiglaUnidade(sigla);
 		return unidade.orElse(null);
+	}
+
+	public Unidade getById(Long id) {
+		return unidadeRepository.findById(id).orElse(null);
 	}
 	
 	

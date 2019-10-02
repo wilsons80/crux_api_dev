@@ -29,12 +29,16 @@ public class GetGrausInstrucaoCmd {
 		return entitys;
 	}
 	
-	public GrausInstrucaoTO getById(Long id) {
+	public GrausInstrucaoTO getTOById(Long id) {
 		Optional<GrausInstrucao> entityOptional = repository.findById(id);
 		if(!entityOptional.isPresent()) {
 			throw new NotFoundException("Graus de Instrução não encontrado");
 		}
 		return toBuilder.buildTO(entityOptional.get());
+	}
+
+	public GrausInstrucao getById(Long id) {
+		return repository.findById(id).orElse(null);
 	}
 			
 }
