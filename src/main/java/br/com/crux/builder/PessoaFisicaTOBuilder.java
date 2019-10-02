@@ -1,6 +1,7 @@
 package br.com.crux.builder;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -93,9 +94,13 @@ public class PessoaFisicaTOBuilder {
 			retorno.setCondicoesMoradia(condicoesMoradiaTOBuilder.build(cm));
 		});
 
-		Optional.ofNullable(p.getGrausInstrucao().getId()).ifPresent(idGrausInstrucao -> {
-			GrausInstrucao grauInstrucao = getGrausInstrucaoCmd.getById(idGrausInstrucao);
-			retorno.setGrausInstrucao(grauInstrucao);
+		
+		Optional.ofNullable(p.getGrausInstrucao()).ifPresent(grau -> {
+		    if(Objects.nonNull(grau.getId())) {
+		    	GrausInstrucao grauInstrucao = getGrausInstrucaoCmd.getById(grau.getId());
+				retorno.setGrausInstrucao(grauInstrucao);	
+		    }
+			
 		});
 
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
