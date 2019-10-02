@@ -93,8 +93,8 @@ public class PessoaFisicaTOBuilder {
 			retorno.setCondicoesMoradia(condicoesMoradiaTOBuilder.build(cm));
 		});
 
-		Optional.ofNullable(p.getGrausInstrucao()).ifPresent(gi -> {
-			GrausInstrucao grauInstrucao = getGrausInstrucaoCmd.getById(gi.getId());
+		Optional.ofNullable(p.getGrausInstrucao().getId()).ifPresent(idGrausInstrucao -> {
+			GrausInstrucao grauInstrucao = getGrausInstrucaoCmd.getById(idGrausInstrucao);
 			retorno.setGrausInstrucao(grauInstrucao);
 		});
 
