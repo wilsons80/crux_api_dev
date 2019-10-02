@@ -25,8 +25,6 @@ public class AlterarArquivoPessoaFisicaCmd {
 		}else {
 			salvarArquivoPessoaFisicaCmd.salvar(file, idPessoaFisica);
 		}
-			
-			
 	}
 
 }
