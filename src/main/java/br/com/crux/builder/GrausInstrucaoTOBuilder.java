@@ -16,10 +16,6 @@ public class GrausInstrucaoTOBuilder {
 	public GrausInstrucao build(GrausInstrucaoTO p) {
 		GrausInstrucao retorno = new GrausInstrucao();
 		
-		if(Objects.isNull(p)) {
-			return retorno;
-		}
-
 		retorno.setId(p.getId());
 		retorno.setDescricao(p.getDescricao());
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());

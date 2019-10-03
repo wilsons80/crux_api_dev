@@ -1,7 +1,6 @@
 package br.com.crux.to;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -24,7 +23,9 @@ public class FuncionarioTO {
 	private PessoaFisicaTO pessoasFisica;
 
 	private UnidadeTO unidade;
-	private Date dtHrEntrevista;
+	
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+	private LocalDateTime dtHrEntrevista;
 
 	private String parecerEntrevistador;
 	private String descricaoParecerEntrevistador;
@@ -110,11 +111,11 @@ public class FuncionarioTO {
 		this.unidade = unidade;
 	}
 
-	public Date getDtHrEntrevista() {
+	public LocalDateTime getDtHrEntrevista() {
 		return dtHrEntrevista;
 	}
 
-	public void setDtHrEntrevista(Date dtHrEntrevista) {
+	public void setDtHrEntrevista(LocalDateTime dtHrEntrevista) {
 		this.dtHrEntrevista = dtHrEntrevista;
 	}
 
