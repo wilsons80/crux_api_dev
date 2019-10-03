@@ -35,7 +35,7 @@ public class GetUsuarioAutenticadoCmd implements UserDetailsService{
 		user.getUsuariosUnidades().forEach(unidades -> roles.add(new SimpleGrantedAuthority("ROLE_" + unidades.getUnidade().getSiglaUnidade().replaceAll(" ", "_").toUpperCase())));
 		List<GrantedAuthority> authorities = roles;
 		
-		User userSpring = new User(user.getUsername(), user.getDsSenha(), authorities);
+		User userSpring = new User(user.getUsername(), user.getSenha(), authorities);
 		
 		return userSpring;
 	}

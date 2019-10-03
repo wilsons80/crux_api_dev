@@ -30,7 +30,7 @@ public class TrocarSenhaCmd {
 		}
 		UsuariosSistema usuariosSistema = getUsuarioSistemaCmd.get(authentication.getName());
 		
-		validarTrocaSenhaRule.validar(usuariosSistema.getDsSenha(), trocaSenhaTO.getSenhaAtual(), trocaSenhaTO.getSenhaNova());
+		validarTrocaSenhaRule.validar(usuariosSistema.getSenha(), trocaSenhaTO.getSenhaAtual(), trocaSenhaTO.getSenhaNova());
 		
 		String senhaEncode = customPasswordEncoder.encode(trocaSenhaTO.getSenhaNova());
 		acessoDao.trocarSenha(authentication.getName(), senhaEncode);
