@@ -2,7 +2,6 @@ package br.com.crux.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,8 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
@@ -67,9 +64,8 @@ public class Funcionario implements Serializable {
 	@JoinColumn(name="id_unidade")
 	private Unidade unidade;
 
-	@Temporal(TemporalType.TIME)
 	@Column(name="dt_hr_entrevista")
-	private Date dtHrEntrevista;
+	private LocalDateTime dtHrEntrevista;
 
 	@Column(name="st_parecer_entrevistador")
 	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", 
@@ -193,12 +189,12 @@ public class Funcionario implements Serializable {
 	}
 
 
-	public Date getDtHrEntrevista() {
+	public LocalDateTime getDtHrEntrevista() {
 		return dtHrEntrevista;
 	}
 
 
-	public void setDtHrEntrevista(Date dtHrEntrevista) {
+	public void setDtHrEntrevista(LocalDateTime dtHrEntrevista) {
 		this.dtHrEntrevista = dtHrEntrevista;
 	}
 

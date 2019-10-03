@@ -1,6 +1,7 @@
 package br.com.crux.builder;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -88,6 +89,10 @@ public class FuncionarioTOBuilder {
 	public FuncionarioTO buildTO(Funcionario p) {
 		FuncionarioTO retorno = new FuncionarioTO();
 
+		if (Objects.isNull(p)) {
+			return retorno;
+		}
+
 		retorno.setId(p.getId());
 		retorno.setMatricula(p.getMatricula());
 		retorno.setDataAdmissao(p.getDataAdmissao());
@@ -127,9 +132,7 @@ public class FuncionarioTOBuilder {
 			retorno.setEmpresaFuncionario(empresaTOBuilder.buildTO(ef));
 		});
 
-		Optional.ofNullable(p.getFuncionarioEntrevistador()).ifPresent(fe -> {
-			retorno.setFuncionarioEntrevistador(getFuncionarioEntrevistador(fe));
-		});
+		retorno.setFuncionarioEntrevistador(getFuncionarioEntrevistador(p.getFuncionarioEntrevistador()));
 
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
@@ -138,6 +141,10 @@ public class FuncionarioTOBuilder {
 
 	private FuncionarioTO getFuncionarioEntrevistador(Funcionario p) {
 		FuncionarioTO retorno = new FuncionarioTO();
+
+		if (Objects.isNull(p)) {
+			return retorno;
+		}
 
 		retorno.setId(p.getId());
 		retorno.setMatricula(p.getMatricula());
@@ -208,7 +215,6 @@ public class FuncionarioTOBuilder {
 			retorno.setEmpresaFuncionario(empresaTOBuilder.build(empresa));
 		});
 
-
 		retorno.setDtHrEntrevista(p.getDtHrEntrevista());
 
 		Optional.ofNullable(p.getParecerEntrevistador()).ifPresent(pe -> {
@@ -220,7 +226,6 @@ public class FuncionarioTOBuilder {
 		Optional.ofNullable(p.getConclusaoParecer()).ifPresent(cp -> {
 			retorno.setConclusaoParecer(ConclusaoParecer.getPorTipo(cp));
 		});
-
 
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
