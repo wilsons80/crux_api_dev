@@ -1,0 +1,32 @@
+package br.com.crux.cmd;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import br.com.crux.builder.UsuariosSistemaTOBuilder;
+import br.com.crux.dao.repository.UsuarioSistemaRepository;
+import br.com.crux.entity.UsuariosSistema;
+import br.com.crux.rule.CamposObrigatoriosUsuariosSistemaRule;
+import br.com.crux.to.UsuariosSistemaTO;
+
+@Component
+public class CadastrarUsuariosSistemaCmd {
+
+	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
+	@Autowired private UsuarioSistemaRepository repository;
+	@Autowired private CamposObrigatoriosUsuariosSistemaRule camposObrigatoriosRule;
+	@Autowired private UsuariosSistemaTOBuilder toBuilder;
+	@Autowired private AlterarPessoaFisicaCmd alterarPessoaFisicaCmd;
+	
+	
+	public UsuariosSistemaTO cadastrar(UsuariosSistemaTO to) {
+		camposObrigatoriosRule.verificar(to);
+		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
+		
+		UsuariosSistema usuarioSistema = toBuilder.build(to);
+		usuarioSistema.setPessoaFisica(alterarPessoaFisicaCmd.alterar(to.getPessoaFisica()));
+		
+		UsuariosSistema usuarioSalvo = repository.save(usuarioSistema);
+		return toBuilder.buildTO(usuarioSalvo);
+	}
+}
