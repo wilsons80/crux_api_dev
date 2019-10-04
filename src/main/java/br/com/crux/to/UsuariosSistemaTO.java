@@ -10,8 +10,8 @@ public class UsuariosSistemaTO {
 	
 	
 	private Long idUsuario;
-	private String username;
-	private String senha;
+	private String nomeUsuario;
+	private String senhaUsuario;
 	private String descFimVigenciaUsuario;
 	
 	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
@@ -40,20 +40,20 @@ public class UsuariosSistemaTO {
 		this.idUsuario = idUsuario;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getNomeUsuario() {
+		return nomeUsuario;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setNomeUsuario(String username) {
+		this.nomeUsuario = username;
 	}
 
-	public String getSenha() {
-		return senha;
+	public String getSenhaUsuario() {
+		return senhaUsuario;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setSenhaUsuario(String senha) {
+		this.senhaUsuario = senha;
 	}
 
 	public String getDescFimVigenciaUsuario() {

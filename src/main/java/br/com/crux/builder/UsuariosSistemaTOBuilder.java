@@ -20,9 +20,9 @@ public class UsuariosSistemaTOBuilder {
 		UsuariosSistema retorno = new UsuariosSistema();
 
 		retorno.setIdUsuario(p.getIdUsuario());
-		retorno.setUsername(p.getUsername());
+		retorno.setUsername(p.getNomeUsuario());
 		retorno.setDescFimVigenciaUsuario(p.getDescFimVigenciaUsuario());
-		retorno.setSenha(p.getSenha());
+		retorno.setSenha(p.getSenhaUsuario());
 		retorno.setDataFimVigencia(p.getDataFimVigencia());
 		retorno.setDataInicioVigencia(p.getDataInicioVigencia());
 		retorno.setDataUltimoAcesso(p.getDataUltimoAcesso());
@@ -39,9 +39,9 @@ public class UsuariosSistemaTOBuilder {
 		UsuariosSistemaTO retorno = new UsuariosSistemaTO();
 		
 		retorno.setIdUsuario(p.getIdUsuario());
-		retorno.setUsername(p.getUsername());
+		retorno.setNomeUsuario(p.getUsername());
 		retorno.setDescFimVigenciaUsuario(p.getDescFimVigenciaUsuario());
-		retorno.setSenha(p.getSenha());
+		retorno.setSenhaUsuario(p.getSenha());
 		retorno.setDataFimVigencia(p.getDataFimVigencia());
 		retorno.setDataInicioVigencia(p.getDataInicioVigencia());
 		retorno.setDataUltimoAcesso(p.getDataUltimoAcesso());

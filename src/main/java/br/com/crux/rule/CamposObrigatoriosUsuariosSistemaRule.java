@@ -12,11 +12,11 @@ import br.com.crux.to.UsuariosSistemaTO;
 public class CamposObrigatoriosUsuariosSistemaRule {
 
 	public void verificar(UsuariosSistemaTO to) {
-		if(StringUtils.isEmpty(to.getUsername())) {
+		if(StringUtils.isEmpty(to.getNomeUsuario())) {
 			throw new CamposObrigatoriosException("Username deve ser informado.");
 		}
 
-		if (Objects.isNull(to.getSenha())) {
+		if (Objects.isNull(to.getSenhaUsuario())) {
 			throw new CamposObrigatoriosException("Senha deve ser informada.");
 		}
 
