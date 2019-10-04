@@ -78,7 +78,9 @@ public class FuncionarioTOBuilder {
 		});
 
 		Optional.ofNullable(to.getFuncionarioEntrevistador()).ifPresent(fe -> {
-			retorno.setFuncionarioEntrevistador(getFuncionarioEntrevistador(to.getFuncionarioEntrevistador()));
+			if(Objects.nonNull(fe.getId())) {
+				retorno.setFuncionarioEntrevistador(getFuncionarioEntrevistador(to.getFuncionarioEntrevistador()));	
+			}
 		});
 
 		retorno.setUsuarioAlteracao(to.getUsuarioAlteracao());
