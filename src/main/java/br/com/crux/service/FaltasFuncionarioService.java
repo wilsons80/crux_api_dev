@@ -43,6 +43,11 @@ public class FaltasFuncionarioService {
 		return getCmd.getById(id);
 	}
 	
+	@GetMapping(path = "/funcionario/{idFuncionario}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<FaltasFuncionarioTO> getPorFuncionario(@PathVariable(name = "idFuncionario") Long idFuncionario) {
+		return getCmd.getPorFuncionario(idFuncionario);
+	}
+	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void cadastrar(@RequestBody FaltasFuncionarioTO param) {
 		cadastrarCmd.cadastrar(param);

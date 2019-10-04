@@ -1,11 +1,13 @@
 package br.com.crux.builder;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
 import br.com.crux.entity.Questionario;
+import br.com.crux.enums.TipoQuestionario;
 import br.com.crux.to.QuestionariosTO;
 
 @Component
@@ -18,7 +20,12 @@ public class QuestionariosTOBuilder {
 		retorno.setDescricao(p.getDescricao());
 		retorno.setDataInicio(p.getDataInicio());
 		retorno.setDataFim(p.getDataFim());
-		retorno.setTipoQuestionario(p.getTipoQuestionario());
+		
+		Optional.ofNullable(p.getTipoQuestionario()).ifPresent(tq -> {
+			retorno.setTipoQuestionario(TipoQuestionario.getPorTipo(tq));
+		});
+		
+		
 		
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
@@ -32,7 +39,12 @@ public class QuestionariosTOBuilder {
 		retorno.setDescricao(p.getDescricao());
 		retorno.setDataInicio(p.getDataInicio());
 		retorno.setDataFim(p.getDataFim());
-		retorno.setTipoQuestionario(p.getTipoQuestionario());
+		
+		Optional.ofNullable(p.getTipoQuestionario()).ifPresent(tq -> {
+			retorno.setTipoQuestionario(p.getTipoQuestionario().getTipo());
+		});
+		
+		
 		
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 

@@ -4,14 +4,13 @@ import java.time.LocalDateTime;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import br.com.crux.enums.TipoQuestionario;
 import br.com.crux.infra.adapter.LocalDateTimeAdapter;
 
 public class QuestionariosTO {
 
 	private Long id;
 	private String descricao;
-	private TipoQuestionario tipoQuestionario;
+	private String tipoQuestionario;
 	
 	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime dataFim;
@@ -39,11 +38,11 @@ public class QuestionariosTO {
 		this.descricao = descricao;
 	}
 
-	public TipoQuestionario getTipoQuestionario() {
+	public String getTipoQuestionario() {
 		return tipoQuestionario;
 	}
 
-	public void setTipoQuestionario(TipoQuestionario tipoQuestionario) {
+	public void setTipoQuestionario(String tipoQuestionario) {
 		this.tipoQuestionario = tipoQuestionario;
 	}
 
