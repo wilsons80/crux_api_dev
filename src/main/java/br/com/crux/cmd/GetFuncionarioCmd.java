@@ -40,7 +40,11 @@ public class GetFuncionarioCmd {
 	}
 
 	public Funcionario getById(Long id) {
-		return repository.findById(id).orElseThrow(() -> null);
+		Optional<Funcionario> funcionario = repository.findById(id);
+		if(!funcionario.isPresent()) {
+			return null;
+		}
+		return funcionario.get();
 		
 	}
 			
