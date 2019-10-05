@@ -40,7 +40,7 @@ public class GetAlunoCmd {
 			
 	
 	public List<AlunoTO> getAlunosByNome(String nome) {
-		Optional<List<Aluno>> entitys = repository.findAlunosByNome(nome);
+		Optional<List<Aluno>> entitys = repository.findAlunosByNome(nome.toUpperCase());
 		if(entitys.isPresent()) {
 			return toBuilder.buildAll(entitys.get());
 		}
