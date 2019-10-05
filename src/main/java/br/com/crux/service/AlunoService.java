@@ -38,6 +38,11 @@ public class AlunoService {
 		return getCmd.getAll();
 	}
 	
+	@GetMapping(path = "/nome/{nome}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<AlunoTO> getAlunosByNomel(@PathVariable(name = "nome") String nome) {
+		return getCmd.getAlunosByNome(nome);
+	}
+	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public AlunoTO getById(@PathVariable(name = "id") Long id) {
 		return getCmd.getById(id);

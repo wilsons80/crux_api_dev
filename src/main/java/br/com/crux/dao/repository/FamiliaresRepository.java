@@ -19,5 +19,10 @@ public interface FamiliaresRepository extends JpaRepository<Familiares, Long>{
 			+ " where uni.idUnidade = ?1")
 	public Optional<List<Familiares>> findByUnidade(Long idUnidade);
 
+
+	@Query(value = "SELECT f FROM Familiares f "
+			+ " inner join Aluno aluno on aluno = f.aluno"
+			+ " where aluno.id = ?1")
+	public Optional<List<Familiares>> findByFamiliaresPorAluno(Long idAluno);
 	
 }

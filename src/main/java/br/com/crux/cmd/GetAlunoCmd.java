@@ -38,4 +38,13 @@ public class GetAlunoCmd {
 		return toBuilder.buildTO(entityOptional.get());
 	}
 			
+	
+	public List<AlunoTO> getAlunosByNome(String nome) {
+		Optional<List<Aluno>> entitys = repository.findAlunosByNome(nome);
+		if(entitys.isPresent()) {
+			return toBuilder.buildAll(entitys.get());
+		}
+		return new ArrayList<AlunoTO>();
+	}
+	
 }
