@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import br.com.crux.infra.constantes.Constantes;
+import br.com.crux.infra.dao.SimNaoConverter;
 
 @Entity
 @Table(name="usuarios_sistema")
@@ -49,21 +51,20 @@ public class UsuariosSistema {
 	private Long qtdAcessoNegado;
 
 	@Column(name="st_ativo")
-	private String stAtivo;
+	@Convert(converter = SimNaoConverter.class)
+	private Boolean stAtivo;
 
 	@Column(name="st_troca_senha")
-	private String stTrocaSenha;
+	@Convert(converter = SimNaoConverter.class)
+	private Boolean stTrocaSenha;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_pessoa_fisica")
 	private PessoaFisica pessoaFisica;
 
-	//bi-directional many-to-one association to UsuariosGrupo
 	@OneToMany(mappedBy="usuariosSistema")
 	private List<UsuariosGrupo> usuariosGrupos;
 
-
-	//bi-directional many-to-one association to UsuariosUnidade
 	@OneToMany(mappedBy="usuariosSistema")
 	private List<UsuariosUnidade> usuariosUnidades;
 
@@ -138,19 +139,19 @@ public class UsuariosSistema {
 		this.qtdAcessoNegado = qtdAcessoNegado;
 	}
 
-	public String getStAtivo() {
+	public Boolean getStAtivo() {
 		return stAtivo;
 	}
 
-	public void setStAtivo(String stAtivo) {
+	public void setStAtivo(Boolean stAtivo) {
 		this.stAtivo = stAtivo;
 	}
 
-	public String getStTrocaSenha() {
+	public Boolean getStTrocaSenha() {
 		return stTrocaSenha;
 	}
 
-	public void setStTrocaSenha(String stTrocaSenha) {
+	public void setStTrocaSenha(Boolean stTrocaSenha) {
 		this.stTrocaSenha = stTrocaSenha;
 	}
 

@@ -2,11 +2,13 @@ package br.com.crux.cmd;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.exception.UsuarioSemAcessoException;
 import br.com.crux.security.UsuarioLocals;
 import br.com.crux.to.LoginTO;
 import br.com.crux.to.TrocaSenhaTO;
@@ -23,12 +25,19 @@ public class AutenticadorCmd {
 	
 	
 	public UsuarioLogadoTO autenticar(LoginTO user) {
-		UsernamePasswordAuthenticationToken userAuth = new UsernamePasswordAuthenticationToken(user.getUserName(),user.getSenha());
-		Authentication auth = authManager.authenticate(userAuth);
-		SecurityContextHolder.getContext().setAuthentication(auth);
-
-		UsuarioLogadoTO usuarioLogadoTO = saveUsuarioLogadoCmd.save(auth);
-		UsuarioLocals.set(auth.getName(), usuarioLogadoTO);
+		UsuarioLogadoTO usuarioLogadoTO;
+		try {
+			UsernamePasswordAuthenticationToken userAuth = new UsernamePasswordAuthenticationToken(user.getUserName(),user.getSenha());
+			Authentication auth = authManager.authenticate(userAuth);
+			SecurityContextHolder.getContext().setAuthentication(auth);
+			
+			usuarioLogadoTO = saveUsuarioLogadoCmd.save(auth);
+			UsuarioLocals.set(auth.getName(), usuarioLogadoTO);
+			
+		} catch (BadCredentialsException e) {
+			throw new UsuarioSemAcessoException("Usuário/Senha inválidos.");
+		}
+		
 		return usuarioLogadoTO;
 	}
 
