@@ -34,12 +34,14 @@ public class GetFuncionarioCmd {
 		return lista;
 	}
 	
-	public FuncionarioTO getById(Long id) {
-		Optional<Funcionario> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Funcionario não encontrado.");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+	public FuncionarioTO getTOById(Long id) {
+		Funcionario entity = repository.findById(id).orElseThrow(() -> new NotFoundException("Funcionario não encontrado."));
+		return toBuilder.buildTO(entity);
+	}
+
+	public Funcionario getById(Long id) {
+		return repository.findById(id).orElseThrow(() -> null);
+		
 	}
 			
 }
