@@ -43,6 +43,11 @@ public class TalentosPFService {
 		return getCmd.getTOById(id);
 	}
 	
+	@GetMapping(path = "/pessoa/{idPessoa}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<TalentosPfTO> getByIdPessoaFisica(@PathVariable(name = "idPessoa") Long id) {
+		return getCmd.getByIdPessoaFisica(id);
+	}
+	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void cadastrar(@RequestBody TalentosPfTO param) {
 		cadastrarCmd.cadastrar(param);

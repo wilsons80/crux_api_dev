@@ -38,5 +38,10 @@ public class GetTalentosPFCmd {
 	public TalentosPf getById(Long id) {
 		return repository.findById(id).orElseGet(null);
 	}
+
+	public List<TalentosPfTO> getByIdPessoaFisica(Long id) {
+		List<TalentosPf> lista = repository.getByIdPessoaFisica(id).orElseThrow(() -> new NotFoundException("Talentos do Funcionario não encontrado."));
+		return toBuilder.buildAll(lista);
+	}
 	
 }
