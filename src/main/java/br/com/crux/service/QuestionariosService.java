@@ -17,7 +17,7 @@ import br.com.crux.cmd.AlterarQuestionariosCmd;
 import br.com.crux.cmd.CadastrarQuestionariosCmd;
 import br.com.crux.cmd.ExcluirQuestionariosCmd;
 import br.com.crux.cmd.GetQuestionariosCmd;
-import br.com.crux.to.QuestionariosTO;
+import br.com.crux.to.QuestionarioTO;
 
 @RestController
 @RequestMapping(value = "questionarios")
@@ -34,22 +34,22 @@ public class QuestionariosService {
 	
 	
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<QuestionariosTO> getAll() {
+	public List<QuestionarioTO> getAll() {
 		return getCmd.getAll();
 	}
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public QuestionariosTO getById(@PathVariable(name = "id") Long id) {
-		return getCmd.getById(id);
+	public QuestionarioTO getById(@PathVariable(name = "id") Long id) {
+		return getCmd.getTOById(id);
 	}
 	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void cadastrar(@RequestBody QuestionariosTO param) {
+	public void cadastrar(@RequestBody QuestionarioTO param) {
 		cadastrarCmd.cadastrar(param);
 	}
 	
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void alterar(@RequestBody QuestionariosTO param) {
+	public void alterar(@RequestBody QuestionarioTO param) {
 		alterarCmd.alterar(param);
 	}
 	

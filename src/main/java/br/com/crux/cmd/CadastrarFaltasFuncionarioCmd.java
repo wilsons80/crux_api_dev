@@ -23,6 +23,7 @@ public class CadastrarFaltasFuncionarioCmd {
 		camposObrigatoriosCargosRule.verificar(to);
 
 		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
+		
 		FaltasFuncionario faltasFuncionario = faltasFuncionarioTOBuilder.build(to);
 
 		repository.save(faltasFuncionario);

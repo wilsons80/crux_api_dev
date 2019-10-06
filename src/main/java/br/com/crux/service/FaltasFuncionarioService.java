@@ -40,7 +40,7 @@ public class FaltasFuncionarioService {
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public FaltasFuncionarioTO getById(@PathVariable(name = "id") Long id) {
-		return getCmd.getById(id);
+		return getCmd.getTOById(id);
 	}
 	
 	@GetMapping(path = "/funcionario/{idFuncionario}", produces = MediaType.APPLICATION_JSON_VALUE)

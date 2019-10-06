@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.entity.Questionario;
 import br.com.crux.enums.TipoQuestionario;
-import br.com.crux.to.QuestionariosTO;
+import br.com.crux.to.QuestionarioTO;
 
 @Component
 public class QuestionariosTOBuilder {
 
-	public Questionario build(QuestionariosTO p) {
+	public Questionario build(QuestionarioTO p) {
 		Questionario retorno = new Questionario();
 
 		retorno.setId(p.getId());
@@ -32,8 +32,8 @@ public class QuestionariosTOBuilder {
 		return retorno;
 	}
 
-	public QuestionariosTO buildTO(Questionario p) {
-		QuestionariosTO retorno = new QuestionariosTO();
+	public QuestionarioTO buildTO(Questionario p) {
+		QuestionarioTO retorno = new QuestionarioTO();
 		
 		retorno.setId(p.getId());
 		retorno.setDescricao(p.getDescricao());
@@ -51,7 +51,7 @@ public class QuestionariosTOBuilder {
 		return retorno;
 	}
 
-	public List<QuestionariosTO> buildAll(List<Questionario> dtos) {
+	public List<QuestionarioTO> buildAll(List<Questionario> dtos) {
 		return dtos.stream().map(dto -> buildTO(dto)).collect(Collectors.toList());
 	}
 

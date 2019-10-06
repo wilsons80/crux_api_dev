@@ -9,7 +9,7 @@ import br.com.crux.dao.repository.QuestionariosRepository;
 import br.com.crux.entity.Questionario;
 import br.com.crux.enums.TipoQuestionario;
 import br.com.crux.rule.CamposObrigatoriosQuestionariosRule;
-import br.com.crux.to.QuestionariosTO;
+import br.com.crux.to.QuestionarioTO;
 import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
@@ -20,7 +20,7 @@ public class CadastrarQuestionariosCmd {
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	@Autowired private CamposObrigatoriosQuestionariosRule camposObrigatoriosRule;
 
-	public void cadastrar(QuestionariosTO to) {
+	public void cadastrar(QuestionarioTO to) {
 		camposObrigatoriosRule.verificar(to.getDescricao());
 
 		Questionario entity = new Questionario();

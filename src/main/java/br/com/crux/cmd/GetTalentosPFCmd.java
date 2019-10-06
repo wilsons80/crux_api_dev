@@ -30,12 +30,13 @@ public class GetTalentosPFCmd {
 		return lista;
 	}
 	
-	public TalentosPfTO getById(Long id) {
-		Optional<TalentosPf> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Talentos do Funcionario não encontrado.");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+	public TalentosPfTO getTOById(Long id) {
+		TalentosPf entity = repository.findById(id).orElseThrow(() -> new NotFoundException("Talentos do Funcionario não encontrado."));
+		return toBuilder.buildTO(entity);
 	}
 			
+	public TalentosPf getById(Long id) {
+		return repository.findById(id).orElseGet(null);
+	}
+	
 }

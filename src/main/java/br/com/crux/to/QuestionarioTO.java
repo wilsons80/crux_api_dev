@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import br.com.crux.infra.adapter.LocalDateTimeAdapter;
 
-public class QuestionariosTO {
+public class QuestionarioTO {
 
 	private Long id;
 	private String descricao;
@@ -19,7 +19,7 @@ public class QuestionariosTO {
 	
 	private Long usuarioAlteracao;
 
-	public QuestionariosTO() {
+	public QuestionarioTO() {
 	}
 
 	public Long getId() {

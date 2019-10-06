@@ -10,7 +10,7 @@ import br.com.crux.entity.Questionario;
 import br.com.crux.enums.TipoQuestionario;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosQuestionariosRule;
-import br.com.crux.to.QuestionariosTO;
+import br.com.crux.to.QuestionarioTO;
 import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
@@ -22,7 +22,7 @@ public class AlterarQuestionariosCmd {
 	@Autowired private CamposObrigatoriosQuestionariosRule camposObrigatoriosRule;
 	
 	
-	public void alterar(QuestionariosTO to) {
+	public void alterar(QuestionarioTO to) {
 		Optional<Questionario> entityOptional = repository.findById(to.getId());
 		if(!entityOptional.isPresent()) {
 			throw new NotFoundException("Questionario informado não existe.");

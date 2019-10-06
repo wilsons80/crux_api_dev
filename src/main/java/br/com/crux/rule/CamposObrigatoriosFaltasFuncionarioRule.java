@@ -11,30 +11,26 @@ import br.com.crux.to.FaltasFuncionarioTO;
 @Component
 public class CamposObrigatoriosFaltasFuncionarioRule {
 
-	public void verificar(String descricao, Long idFuncionarioFaltou, Long idFuncionarioCadastro) {
-		if(StringUtils.isEmpty(descricao)) {
+	public void verificar(FaltasFuncionarioTO to) {
+		if (StringUtils.isEmpty(to.getDescricao())) {
 			throw new CamposObrigatoriosException("Descrição deve ser informada.");
 		}
-		if(Objects.isNull(idFuncionarioCadastro)) {
+
+		if (Objects.isNull(to.getFuncionarioFaltou()) || Objects.isNull(to.getFuncionarioFaltou().getId())) {
+			throw new CamposObrigatoriosException("Funcionário que faltou deve ser informado.");
+		}
+
+		if (Objects.isNull(to.getFuncionarioCadastrouFalta()) || Objects.isNull(to.getFuncionarioCadastrouFalta().getId())) {
 			throw new CamposObrigatoriosException("Funcionário do cadastro deve ser informado.");
 		}
-		if(Objects.isNull(idFuncionarioFaltou)) {
-			throw new CamposObrigatoriosException("Funcionário que faltou deve ser informado.");
-		}
+
 	}
 
-	public void verificar(FaltasFuncionarioTO to) {
-		if(StringUtils.isEmpty(to.getDescricao())) {
-			throw new CamposObrigatoriosException("Descrição deve ser informada.");
+	public void verificarID(FaltasFuncionarioTO to) {
+		if (Objects.isNull(to.getId())) {
+			throw new CamposObrigatoriosException("Id não informado.");
 		}
-		
-		if(Objects.isNull(to.getFuncionarioFaltou()) || Objects.isNull(to.getFuncionarioFaltou().getId())) {
-			throw new CamposObrigatoriosException("Funcionário que faltou deve ser informado.");
-		}
-		
-		if(Objects.isNull(to.getFuncionarioCadastrouFalta()) || Objects.isNull(to.getFuncionarioCadastrouFalta().getId())) {
-		throw new CamposObrigatoriosException("Funcionário do cadastro deve ser informado.");
+
 	}
-		
-	}
+
 }
