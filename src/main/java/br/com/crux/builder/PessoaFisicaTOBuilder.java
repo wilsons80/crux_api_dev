@@ -30,8 +30,7 @@ public class PessoaFisicaTOBuilder {
 		retorno.setNome(p.getNome());
 		retorno.setOrgaoCi(p.getOrgaoCi());
 		retorno.setClassificadorMotivoNaoTrab(p.getClassificadorMotivoNaoTrab());
-		retorno.setDescricaoAlunoAtendidoOrgaoRede(p.getDescricaoAlunoAtendidoOrgaoRede());
-		retorno.setDescricaoFamiliaAtendidoOrgaoRede(p.getDescricaoFamiliaAtendidoOrgaoRede());
+		retorno.setDescricaoPessoaFisicaAtendidoOrgaoRede(p.getDescricaoPessoaFisicaAtendidoOrgaoRede());
 		retorno.setBairro(p.getBairro());
 		retorno.setCidadeNaturalidade(p.getCidadeNaturalidade());
 		retorno.setCondicaoMoradia(p.getCondicaoMoradia());
@@ -53,7 +52,6 @@ public class PessoaFisicaTOBuilder {
 		retorno.setProfissao(p.getProfissao());
 		retorno.setRedeApSocRelev(p.getRedeApSocRelev());
 		retorno.setRedeApoioSocial(p.getRedeApoioSocial());
-		retorno.setRedeApoioSocial1(p.getRedeApoioSocial1());
 		retorno.setRegiaoEscola(p.getRegiaoEscola());
 		retorno.setSerieEscola(p.getSerieEscola());
 		retorno.setSexo(p.getSexo());
@@ -125,8 +123,7 @@ public class PessoaFisicaTOBuilder {
 		retorno.setNome(p.getNome());
 		retorno.setOrgaoCi(p.getOrgaoCi());
 		retorno.setClassificadorMotivoNaoTrab(p.getClassificadorMotivoNaoTrab());
-		retorno.setDescricaoAlunoAtendidoOrgaoRede(p.getDescricaoAlunoAtendidoOrgaoRede());
-		retorno.setDescricaoFamiliaAtendidoOrgaoRede(p.getDescricaoFamiliaAtendidoOrgaoRede());
+		retorno.setDescricaoPessoaFisicaAtendidoOrgaoRede(p.getDescricaoPessoaFisicaAtendidoOrgaoRede());
 		retorno.setBairro(p.getBairro());
 		retorno.setCidadeNaturalidade(p.getCidadeNaturalidade());
 		retorno.setCondicaoMoradia(p.getCondicaoMoradia());
@@ -148,7 +145,6 @@ public class PessoaFisicaTOBuilder {
 		retorno.setProfissao(p.getProfissao());
 		retorno.setRedeApSocRelev(p.getRedeApSocRelev());
 		retorno.setRedeApoioSocial(p.getRedeApoioSocial());
-		retorno.setRedeApoioSocial1(p.getRedeApoioSocial1());
 		retorno.setRegiaoEscola(p.getRegiaoEscola());
 		retorno.setSerieEscola(p.getSerieEscola());
 		retorno.setSexo(p.getSexo());
