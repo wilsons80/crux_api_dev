@@ -20,7 +20,7 @@ import br.com.crux.cmd.GetFamiliaresCmd;
 import br.com.crux.to.FamiliaresTO;
 
 @RestController
-@RequestMapping(value = "familiares")
+@RequestMapping(value = "familiar")
 public class FamiliaresService {
 	
 	@Autowired
