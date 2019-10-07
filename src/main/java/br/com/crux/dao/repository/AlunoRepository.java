@@ -18,5 +18,10 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long>{
 			+ " where uni.idUnidade = ?1")
 	public Optional<List<Aluno>> findByUnidade(Long idUnidade);
 
+
+	@Query(value = "SELECT a FROM Aluno a "
+			+ " inner join PessoaFisica pf on a.pessoasFisica = pf"
+			+ " where Upper(pf.nome) like %?1%")
+	public Optional<List<Aluno>> findAlunosByNome(String nome);
 	
 }

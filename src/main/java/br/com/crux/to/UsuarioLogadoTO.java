@@ -7,6 +7,7 @@ public class UsuarioLogadoTO {
 	private Long   idUsuario;
 	private String username;
 	private String nomeUsuario;
+	private Boolean trocarSenha;
 	private String token;
 	private AcessoUnidadeTO unidadeLogada;
 
@@ -61,13 +62,12 @@ public class UsuarioLogadoTO {
 		this.unidadeLogada = unidadeLogada;
 	}
 
-	@Override
-	public String toString() {
-		return "UsuarioLogadoTO [idUsuario=" + idUsuario + ", username=" + username + ", nomeUsuario=" + nomeUsuario + ", token=" + token + ", unidadeLogada=" + unidadeLogada + ", unidades=" + unidades + "]";
+	public Boolean getTrocarSenha() {
+		return trocarSenha;
 	}
 
-	
-
-	
+	public void setTrocarSenha(Boolean trocarSenha) {
+		this.trocarSenha = trocarSenha;
+	}
 	
 }

@@ -30,12 +30,13 @@ public class GetProgramaCmd {
 		return new ArrayList<ProgramaTO>();
 	}
 	
-	public ProgramaTO getById(Long id) {
-		Optional<Programa> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Programa não encontrado.");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+	public ProgramaTO getTOById(Long id) {
+		Programa entity = repository.findById(id).orElseThrow(() -> new NotFoundException("Programa não encontrado."));
+		return toBuilder.buildTO(entity);
+	}
+	
+	public Programa getById(Long id) {
+		return repository.findById(id).orElseGet(null);
 	}
 			
 }

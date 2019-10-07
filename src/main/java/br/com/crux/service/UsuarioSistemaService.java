@@ -13,49 +13,46 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.crux.cmd.AlterarQuestionariosCmd;
-import br.com.crux.cmd.CadastrarQuestionariosCmd;
-import br.com.crux.cmd.ExcluirQuestionariosCmd;
-import br.com.crux.cmd.GetQuestionariosCmd;
-import br.com.crux.to.QuestionarioTO;
+import br.com.crux.cmd.AlterarUsuariosSistemaCmd;
+import br.com.crux.cmd.CadastrarUsuariosSistemaCmd;
+import br.com.crux.cmd.ExcluirUsuarioSistemaCmd;
+import br.com.crux.cmd.GetUsuarioSistemaCmd;
+import br.com.crux.cmd.GetUsuariosPorUnidadeCmd;
+import br.com.crux.to.UsuariosSistemaTO;
 
 @RestController
-@RequestMapping(value = "questionarios")
-public class QuestionariosService {
+@RequestMapping(value = "usuariosistema")
+public class UsuarioSistemaService {
+
+	@Autowired GetUsuariosPorUnidadeCmd getUsuariosPorUnidadeCmd;
 	
-	@Autowired
-	private GetQuestionariosCmd getCmd;
-	@Autowired
-	private ExcluirQuestionariosCmd  excluirCmd;
-	@Autowired
-	private AlterarQuestionariosCmd alterarCmd;
-	@Autowired
-	private CadastrarQuestionariosCmd cadastrarCmd;
-	
+	@Autowired private GetUsuarioSistemaCmd getCmd;
+	@Autowired private ExcluirUsuarioSistemaCmd  excluirCmd;
+	@Autowired private AlterarUsuariosSistemaCmd alterarCmd;
+	@Autowired private CadastrarUsuariosSistemaCmd cadastrarCmd;	
 	
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<QuestionarioTO> getAll() {
+	public List<UsuariosSistemaTO> getAll() {
 		return getCmd.getAll();
 	}
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public QuestionarioTO getById(@PathVariable(name = "id") Long id) {
-		return getCmd.getTOById(id);
+	public UsuariosSistemaTO getById(@PathVariable(name = "id") Long id) {
+		return getCmd.getById(id);
 	}
 	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void cadastrar(@RequestBody QuestionarioTO param) {
-		cadastrarCmd.cadastrar(param);
+	public UsuariosSistemaTO cadastrar(@RequestBody UsuariosSistemaTO param) {
+		return cadastrarCmd.cadastrar(param);
 	}
 	
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void alterar(@RequestBody QuestionarioTO param) {
-		alterarCmd.alterar(param);
+	public UsuariosSistemaTO alterar(@RequestBody UsuariosSistemaTO param) {
+		return alterarCmd.alterar(param);
 	}
 	
 	@DeleteMapping(path = "/{id}")
 	public void excluir(@PathVariable(name = "id") Long id) {
 		excluirCmd.excluir(id);
-	}
-
+	}	
 }

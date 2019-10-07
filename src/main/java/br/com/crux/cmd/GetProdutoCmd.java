@@ -2,7 +2,6 @@ package br.com.crux.cmd;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,22 +17,22 @@ public class GetProdutoCmd {
 
 	@Autowired private ProdutoRepository repository;
 	@Autowired private ProdutoTOBuilder toBuilder;
-	
-	
+
 	public List<ProdutoTO> getAll() {
 		List<ProdutoTO> entitys = toBuilder.buildAll(repository.findAll());
-		if(entitys == null || entitys.isEmpty()) {
+		if (entitys == null || entitys.isEmpty()) {
 			return new ArrayList<ProdutoTO>();
 		}
 		return entitys;
 	}
-	
-	public ProdutoTO getById(Long id) {
-		Optional<Produto> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Produto não encontrado.");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+
+	public ProdutoTO getTOById(Long id) {
+		Produto entity = repository.findById(id).orElseThrow(() -> new NotFoundException("Produto não encontrado."));
+		return toBuilder.buildTO(entity);
 	}
-			
+
+	public Produto getById(Long id) {
+		return repository.findById(id).orElseGet(null);
+	}
+
 }

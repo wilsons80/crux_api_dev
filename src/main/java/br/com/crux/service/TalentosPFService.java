@@ -40,7 +40,12 @@ public class TalentosPFService {
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public TalentosPfTO getById(@PathVariable(name = "id") Long id) {
-		return getCmd.getById(id);
+		return getCmd.getTOById(id);
+	}
+	
+	@GetMapping(path = "/pessoa/{idPessoa}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<TalentosPfTO> getByIdPessoaFisica(@PathVariable(name = "idPessoa") Long id) {
+		return getCmd.getByIdPessoaFisica(id);
 	}
 	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -7,9 +7,10 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.dao.repository.QuestionariosRepository;
 import br.com.crux.entity.Questionario;
+import br.com.crux.enums.TipoQuestionario;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosQuestionariosRule;
-import br.com.crux.to.QuestionariosTO;
+import br.com.crux.to.QuestionarioTO;
 import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
@@ -21,7 +22,7 @@ public class AlterarQuestionariosCmd {
 	@Autowired private CamposObrigatoriosQuestionariosRule camposObrigatoriosRule;
 	
 	
-	public void alterar(QuestionariosTO to) {
+	public void alterar(QuestionarioTO to) {
 		Optional<Questionario> entityOptional = repository.findById(to.getId());
 		if(!entityOptional.isPresent()) {
 			throw new NotFoundException("Questionario informado não existe.");
@@ -31,7 +32,12 @@ public class AlterarQuestionariosCmd {
 		
 		Questionario entity = entityOptional.get();
 		entity.setDescricao(to.getDescricao());
-		entity.setTipoQuestionario(to.getTipoQuestionario());
+		
+		Optional.ofNullable(to.getTipoQuestionario()).ifPresent(tq -> {
+			entity.setTipoQuestionario(TipoQuestionario.getPorTipo(to.getTipoQuestionario()));
+		});
+		
+		
 		entity.setDataInicio(to.getDataInicio());
 		entity.setDataFim(to.getDataFim());
 		

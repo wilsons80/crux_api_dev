@@ -20,6 +20,13 @@ public class GetFamiliaresCmd {
 	@Autowired private FamiliaresTOBuilder toBuilder;
 	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	
+	public List<FamiliaresTO> getFamiliaresPorAluno(Long idAluno) {
+		Optional<List<Familiares>> listaRetorno = repository.findByFamiliaresPorAluno(idAluno);
+		if(listaRetorno.isPresent()) {
+			return toBuilder.buildAll(listaRetorno.get());
+		}
+		return new ArrayList<FamiliaresTO>();
+	}
 	
 	public List<FamiliaresTO> getAll() {
 		Long idUnidade = getUnidadeLogadaCmd.get().getId();

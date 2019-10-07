@@ -1,11 +1,17 @@
 package br.com.crux.builder;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.cmd.GetPessoaFisicaCmd;
+import br.com.crux.cmd.GetQuestionariosCmd;
+import br.com.crux.entity.PessoaFisica;
+import br.com.crux.entity.Questionario;
 import br.com.crux.entity.TalentosPf;
 import br.com.crux.to.TalentosPfTO;
 
@@ -14,6 +20,8 @@ public class TalentosPFTOBuilder {
 
 	@Autowired private PessoaFisicaTOBuilder pessoaFisicaBuilder;
 	@Autowired private QuestionariosTOBuilder questionariosTOBuilder;
+	@Autowired private GetPessoaFisicaCmd getPessoaFisicaCmd;
+	@Autowired private GetQuestionariosCmd getQuestionariosCmd;
 
 	public TalentosPf build(TalentosPfTO p) {
 		TalentosPf retorno = new TalentosPf();
@@ -23,16 +31,33 @@ public class TalentosPFTOBuilder {
 		retorno.setDataRespostaTalento(p.getDataRespostaTalento());
 		retorno.setNrNotaCompetencia(p.getNrNotaCompetencia());
 		retorno.setObservacao(p.getObservacao());
-		retorno.setPessoasFisica(pessoaFisicaBuilder.build(p.getPessoasFisica()));
-		retorno.setQuestionario(questionariosTOBuilder.build(p.getQuestionario()));
-		retorno.setUsuariosAlteracao(p.getUsuariosAlteracao());
+
+		Optional.ofNullable(p.getPessoasFisica()).ifPresent(pf -> {
+			if (Objects.nonNull(pf.getId())) {
+				PessoaFisica pessoa = getPessoaFisicaCmd.getById(pf.getId());
+				retorno.setPessoasFisica(pessoa);
+			}
+		});
+
+		Optional.ofNullable(p.getQuestionario()).ifPresent(q -> {
+			if (Objects.nonNull(q.getId())) {
+				Questionario questionario = getQuestionariosCmd.getById(q.getId());
+				retorno.setQuestionario(questionario);
+			}
+		});
+
+		retorno.setUsuariosAlteracao(p.getUsuarioAlteracao());
 
 		return retorno;
 	}
 
 	public TalentosPfTO buildTO(TalentosPf p) {
 		TalentosPfTO retorno = new TalentosPfTO();
-		
+
+		if (Objects.isNull(p)) {
+			return retorno;
+		}
+
 		retorno.setId(p.getId());
 		retorno.setRespostaTalento(p.getRespostaTalento());
 		retorno.setDataRespostaTalento(p.getDataRespostaTalento());
@@ -40,8 +65,7 @@ public class TalentosPFTOBuilder {
 		retorno.setObservacao(p.getObservacao());
 		retorno.setPessoasFisica(pessoaFisicaBuilder.buildTO(p.getPessoasFisica()));
 		retorno.setQuestionario(questionariosTOBuilder.buildTO(p.getQuestionario()));
-		retorno.setUsuariosAlteracao(p.getUsuariosAlteracao());
-
+		retorno.setUsuarioAlteracao(p.getUsuariosAlteracao());
 
 		return retorno;
 	}

@@ -1,7 +1,9 @@
 package br.com.crux.cmd;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.dao.repository.UsuarioSistemaRepository;
 import br.com.crux.entity.UsuariosSistema;
+import br.com.crux.exception.UsuarioSemAcessoException;
 
 
 @Component
@@ -27,9 +30,16 @@ public class GetUsuarioAutenticadoCmd implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<UsuariosSistema> result = usuarioSistemaRepository.findByUsername(username);
 		
-		if(!result.isPresent()) throw new UsernameNotFoundException("Não existe usuário com username = " + username);
+		if(!result.isPresent()) throw new UsernameNotFoundException("Usuário não existe.");
 		
 		UsuariosSistema user = result.get();
+		
+		if (user.getStAtivo() == Boolean.FALSE 
+			|| 
+			Objects.nonNull(user.getDataFimVigencia()) && user.getDataFimVigencia().isAfter(LocalDateTime.now()) ) {
+			
+			throw new UsuarioSemAcessoException("Usuário inativo.");
+		}
 		
 		List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
 		user.getUsuariosUnidades().forEach(unidades -> roles.add(new SimpleGrantedAuthority("ROLE_" + unidades.getUnidade().getSiglaUnidade().replaceAll(" ", "_").toUpperCase())));

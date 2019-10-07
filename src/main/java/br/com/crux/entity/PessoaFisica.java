@@ -43,10 +43,7 @@ public class PessoaFisica  {
 	private String classificadorMotivoNaoTrab;
 
 	@Column(name = "ds_atendido_orgao_rede")
-	private String descricaoAlunoAtendidoOrgaoRede;
-
-	@Column(name = "ds_atendido_orgao_rede_1")
-	private String descricaoFamiliaAtendidoOrgaoRede;
+	private String descricaoPessoaFisicaAtendidoOrgaoRede;
 
 	@Column(name = "ds_bairro")
 	private String bairro;
@@ -110,9 +107,6 @@ public class PessoaFisica  {
 
 	@Column(name = "ds_rede_apoio_social")
 	private String redeApoioSocial;
-
-	@Column(name = "ds_rede_apoio_social_1")
-	private String redeApoioSocial1;
 
 	@Column(name = "ds_regiao_escola")
 	private String regiaoEscola;
@@ -264,20 +258,12 @@ public class PessoaFisica  {
 		this.classificadorMotivoNaoTrab = classificadorMotivoNaoTrab;
 	}
 
-	public String getDescricaoAlunoAtendidoOrgaoRede() {
-		return descricaoAlunoAtendidoOrgaoRede;
+	public String getDescricaoPessoaFisicaAtendidoOrgaoRede() {
+		return descricaoPessoaFisicaAtendidoOrgaoRede;
 	}
 
-	public void setDescricaoAlunoAtendidoOrgaoRede(String descricaoAlunoAtendidoOrgaoRede) {
-		this.descricaoAlunoAtendidoOrgaoRede = descricaoAlunoAtendidoOrgaoRede;
-	}
-
-	public String getDescricaoFamiliaAtendidoOrgaoRede() {
-		return descricaoFamiliaAtendidoOrgaoRede;
-	}
-
-	public void setDescricaoFamiliaAtendidoOrgaoRede(String descricaoFamiliaAtendidoOrgaoRede) {
-		this.descricaoFamiliaAtendidoOrgaoRede = descricaoFamiliaAtendidoOrgaoRede;
+	public void setDescricaoPessoaFisicaAtendidoOrgaoRede(String descricaoAlunoAtendidoOrgaoRede) {
+		this.descricaoPessoaFisicaAtendidoOrgaoRede = descricaoAlunoAtendidoOrgaoRede;
 	}
 
 	public String getBairro() {
@@ -446,14 +432,6 @@ public class PessoaFisica  {
 
 	public void setRedeApoioSocial(String redeApoioSocial) {
 		this.redeApoioSocial = redeApoioSocial;
-	}
-
-	public String getRedeApoioSocial1() {
-		return redeApoioSocial1;
-	}
-
-	public void setRedeApoioSocial1(String redeApoioSocial1) {
-		this.redeApoioSocial1 = redeApoioSocial1;
 	}
 
 	public String getRegiaoEscola() {

@@ -11,6 +11,7 @@ import br.com.crux.builder.FuncionarioTOBuilder;
 import br.com.crux.dao.repository.FuncionarioRepository;
 import br.com.crux.entity.Funcionario;
 import br.com.crux.exception.NotFoundException;
+import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.to.AcessoUnidadeTO;
 import br.com.crux.to.FuncionarioTO;
 
@@ -34,12 +35,15 @@ public class GetFuncionarioCmd {
 		return lista;
 	}
 	
-	public FuncionarioTO getById(Long id) {
-		Optional<Funcionario> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Funcionario não encontrado.");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+	public FuncionarioTO getTOById(Long id) {
+		Funcionario entity = repository.findById(id).orElseThrow(() -> new NotFoundException("Funcionário não encontrado."));
+		return toBuilder.buildTO(entity);
+	}
+
+	public Funcionario getById(Long id) {
+		Long idPresente = Optional.ofNullable(id).orElseThrow(() -> new ParametroNaoInformadoException("Parâmetro ID ausente."));
+		return repository.findById(idPresente).orElseGet(null);
+		
 	}
 			
 }

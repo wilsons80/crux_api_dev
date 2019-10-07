@@ -1,6 +1,7 @@
 package br.com.crux.builder;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,15 @@ public class UsuariosSistemaTOBuilder {
 		retorno.setDataInicioVigencia(p.getDataInicioVigencia());
 		retorno.setDataUltimoAcesso(p.getDataUltimoAcesso());
 		retorno.setQtdAcessoNegado(p.getQtdAcessoNegado());
-		retorno.setStAtivo(p.getStAtivo());
-		retorno.setStTrocaSenha(p.getStTrocaSenha());
+
+		Optional.ofNullable(p.getStAtivo()).ifPresent(valor -> {
+			retorno.setStAtivo(valor);
+		});
+		
+		Optional.ofNullable(p.getStTrocaSenha()).ifPresent(valor -> {
+			retorno.setStTrocaSenha(valor);
+		});
+		
 		retorno.setPessoaFisica(pessoaFisicaTOBuilder.build(p.getPessoaFisica()));
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
@@ -46,8 +54,15 @@ public class UsuariosSistemaTOBuilder {
 		retorno.setDataInicioVigencia(p.getDataInicioVigencia());
 		retorno.setDataUltimoAcesso(p.getDataUltimoAcesso());
 		retorno.setQtdAcessoNegado(p.getQtdAcessoNegado());
-		retorno.setStAtivo(p.getStAtivo());
-		retorno.setStTrocaSenha(p.getStTrocaSenha());
+		
+		Optional.ofNullable(p.getStAtivo()).ifPresent(valor -> {
+			retorno.setStAtivo(valor);
+		});
+		
+		Optional.ofNullable(p.getStTrocaSenha()).ifPresent(valor -> {
+			retorno.setStTrocaSenha(valor);
+		});
+		
 		retorno.setPessoaFisica(pessoaFisicaTOBuilder.buildTO(p.getPessoaFisica()));
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 

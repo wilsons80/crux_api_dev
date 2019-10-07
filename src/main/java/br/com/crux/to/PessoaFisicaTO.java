@@ -8,8 +8,7 @@ public class PessoaFisicaTO {
 	private String nome;
 	private String orgaoCi;
 	private String classificadorMotivoNaoTrab;
-	private String descricaoAlunoAtendidoOrgaoRede;
-	private String descricaoFamiliaAtendidoOrgaoRede;
+	private String descricaoPessoaFisicaAtendidoOrgaoRede;
 	private String bairro;
 	private String cidadeNaturalidade;
 	private String condicaoMoradia;
@@ -31,7 +30,6 @@ public class PessoaFisicaTO {
 	private String profissao;
 	private String redeApSocRelev;
 	private String redeApoioSocial;
-	private String redeApoioSocial1;
 	private String regiaoEscola;
 	private String serieEscola;
 	private String sexo;
@@ -109,20 +107,12 @@ public class PessoaFisicaTO {
 		this.classificadorMotivoNaoTrab = classificadorMotivoNaoTrab;
 	}
 
-	public String getDescricaoAlunoAtendidoOrgaoRede() {
-		return descricaoAlunoAtendidoOrgaoRede;
+	public String getDescricaoPessoaFisicaAtendidoOrgaoRede() {
+		return descricaoPessoaFisicaAtendidoOrgaoRede;
 	}
 
-	public void setDescricaoAlunoAtendidoOrgaoRede(String descricaoAlunoAtendidoOrgaoRede) {
-		this.descricaoAlunoAtendidoOrgaoRede = descricaoAlunoAtendidoOrgaoRede;
-	}
-
-	public String getDescricaoFamiliaAtendidoOrgaoRede() {
-		return descricaoFamiliaAtendidoOrgaoRede;
-	}
-
-	public void setDescricaoFamiliaAtendidoOrgaoRede(String descricaoFamiliaAtendidoOrgaoRede) {
-		this.descricaoFamiliaAtendidoOrgaoRede = descricaoFamiliaAtendidoOrgaoRede;
+	public void setDescricaoPessoaFisicaAtendidoOrgaoRede(String descricaoAlunoAtendidoOrgaoRede) {
+		this.descricaoPessoaFisicaAtendidoOrgaoRede = descricaoAlunoAtendidoOrgaoRede;
 	}
 
 	public String getBairro() {
@@ -291,14 +281,6 @@ public class PessoaFisicaTO {
 
 	public void setRedeApoioSocial(String redeApoioSocial) {
 		this.redeApoioSocial = redeApoioSocial;
-	}
-
-	public String getRedeApoioSocial1() {
-		return redeApoioSocial1;
-	}
-
-	public void setRedeApoioSocial1(String redeApoioSocial1) {
-		this.redeApoioSocial1 = redeApoioSocial1;
 	}
 
 	public String getRegiaoEscola() {

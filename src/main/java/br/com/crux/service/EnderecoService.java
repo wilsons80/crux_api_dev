@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.crux.cmd.GetEstadosCmd;
-import br.com.crux.enums.Estados;
 
 @RestController
 @RequestMapping(value = "endereco")
@@ -18,9 +17,8 @@ public class EnderecoService {
 	@Autowired
 	private GetEstadosCmd getEstadosCmd;
 	
-	
 	@GetMapping(path = "/estados", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Estados> getAllEstados() {
+	public List<String> getAllEstados() {
 		return getEstadosCmd.getAllEstados();
 	}
 	

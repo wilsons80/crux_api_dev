@@ -2,7 +2,6 @@ package br.com.crux.cmd;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,24 +17,24 @@ public class GetAcoesCompetenciaCmd {
 
 	@Autowired private AcoesCompetenciaRepository repository;
 	@Autowired private AcoesCompetenciaTOBuilder toBuilder;
-	
-	
+
 	public List<AcoesCompetenciaTO> getAllPorUnidadeLogada() {
 		List<AcoesCompetenciaTO> lista = toBuilder.buildAll(repository.findAll());
-		
-		if(lista == null || lista.isEmpty()) {
+
+		if (lista == null || lista.isEmpty()) {
 			return new ArrayList<AcoesCompetenciaTO>();
 		}
-		
+
 		return lista;
 	}
-	
-	public AcoesCompetenciaTO getById(Long id) {
-		Optional<AcoesCompetencia> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Ações das competências do talento do Funcionario não encontrado.");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+
+	public AcoesCompetenciaTO getTOById(Long id) {
+		AcoesCompetencia entity = repository.findById(id).orElseThrow(() -> new NotFoundException("Ações das competências do talento do Funcionario não encontrado."));
+		return toBuilder.buildTO(entity);
 	}
-			
+
+	public List<AcoesCompetencia> getPorPessoa(Long id) {
+		return repository.getPorPessoa(id).orElseThrow(() -> new NotFoundException("Ações das competências do talento do Funcionario não encontrado."));
+	}
+
 }

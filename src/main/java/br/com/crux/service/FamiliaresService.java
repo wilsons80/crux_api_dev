@@ -37,7 +37,12 @@ public class FamiliaresService {
 	public List<FamiliaresTO> getAll() {
 		return getCmd.getAll();
 	}
-	
+
+	@GetMapping(path = "/aluno/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<FamiliaresTO> getFamiliaresPorAluno(@PathVariable(name = "id") Long id) {
+		return getCmd.getFamiliaresPorAluno(id);
+	}
+		
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public FamiliaresTO getById(@PathVariable(name = "id") Long id) {
 		return getCmd.getById(id);

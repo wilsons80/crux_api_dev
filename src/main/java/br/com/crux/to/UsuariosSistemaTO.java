@@ -22,8 +22,8 @@ public class UsuariosSistemaTO {
 	private LocalDateTime dataUltimoAcesso;
 	
 	private Long qtdAcessoNegado;
-	private String stAtivo;
-	private String stTrocaSenha;
+	private Boolean stAtivo;
+	private Boolean stTrocaSenha;
 	
 	private PessoaFisicaTO pessoaFisica;
 	private Long usuarioAlteracao;
@@ -96,19 +96,19 @@ public class UsuariosSistemaTO {
 		this.qtdAcessoNegado = qtdAcessoNegado;
 	}
 
-	public String getStAtivo() {
+	public Boolean getStAtivo() {
 		return stAtivo;
 	}
 
-	public void setStAtivo(String stAtivo) {
+	public void setStAtivo(Boolean stAtivo) {
 		this.stAtivo = stAtivo;
 	}
 
-	public String getStTrocaSenha() {
+	public Boolean getStTrocaSenha() {
 		return stTrocaSenha;
 	}
 
-	public void setStTrocaSenha(String stTrocaSenha) {
+	public void setStTrocaSenha(Boolean stTrocaSenha) {
 		this.stTrocaSenha = stTrocaSenha;
 	}
 

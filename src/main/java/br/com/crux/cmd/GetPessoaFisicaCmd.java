@@ -2,7 +2,6 @@ package br.com.crux.cmd;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,21 +17,22 @@ public class GetPessoaFisicaCmd {
 
 	@Autowired private PessoaFisicaRepository repository;
 	@Autowired private PessoaFisicaTOBuilder toBuilder;
-	
+
 	public List<PessoaFisicaTO> getAll() {
 		List<PessoaFisica> entitys = repository.findAll();
-		if(entitys == null || entitys.isEmpty()) {
+		if (entitys == null || entitys.isEmpty()) {
 			return new ArrayList<PessoaFisicaTO>();
 		}
 		return toBuilder.buildAll(entitys);
 	}
-	
-	public PessoaFisicaTO getById(Long id) {
-		Optional<PessoaFisica> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Pessoa física não encontrado.");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+
+	public PessoaFisicaTO getTOById(Long id) {
+		PessoaFisica entity = repository.findById(id).orElseThrow(() -> new NotFoundException("Pessoa física não encontrado."));
+		return toBuilder.buildTO(entity);
 	}
-			
+
+	public PessoaFisica getById(Long id) {
+		return repository.findById(id).orElseGet(null);
+	}
+
 }

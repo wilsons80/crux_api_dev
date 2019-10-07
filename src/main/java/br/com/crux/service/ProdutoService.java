@@ -40,7 +40,7 @@ public class ProdutoService {
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ProdutoTO getById(@PathVariable(name = "id") Long id) {
-		return getCmd.getById(id);
+		return getCmd.getTOById(id);
 	}
 	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
