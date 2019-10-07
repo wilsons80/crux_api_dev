@@ -1,31 +1,31 @@
 package br.com.crux.rule;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import org.springframework.stereotype.Component;
 
 import br.com.crux.exception.CamposObrigatoriosException;
+import br.com.crux.to.ColaboradoresProgramaTO;
 
 @Component
 public class CamposObrigatoriosColaboradoresProgramaRule {
 
-	public void verificar(LocalDateTime dataInicio, Long idFuncionario, Long idPrograma , Long idCargo) {
-		if(Objects.isNull(dataInicio)) {
+	public void verificar(ColaboradoresProgramaTO to) {
+		if (Objects.isNull(to.getDataInicio())) {
 			throw new CamposObrigatoriosException("Data de Início deve ser informada.");
 		}
 
-		if(Objects.isNull(idFuncionario)) {
+		if (Objects.isNull(to.getFuncionario())) {
 			throw new CamposObrigatoriosException("Funcionário deve ser informado.");
 		}
-		
-		if(Objects.isNull(idPrograma)) {
+
+		if (Objects.isNull(to.getPrograma())) {
 			throw new CamposObrigatoriosException("Programa deve ser informado.");
 		}
 
-		if(Objects.isNull(idCargo)) {
+		if (Objects.isNull(to.getCargo())) {
 			throw new CamposObrigatoriosException("Cargo deve ser informado.");
 		}
-		
+
 	}
 }

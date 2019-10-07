@@ -17,6 +17,7 @@ import br.com.crux.cmd.AlterarAcoesCompetenciaCmd;
 import br.com.crux.cmd.CadastrarAcoesCompetenciaCmd;
 import br.com.crux.cmd.ExcluirAcoesCompetenciaCmd;
 import br.com.crux.cmd.GetAcoesCompetenciaCmd;
+import br.com.crux.entity.AcoesCompetencia;
 import br.com.crux.to.AcoesCompetenciaTO;
 
 @RestController
@@ -40,7 +41,12 @@ public class AcoesCompetenciaService {
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public AcoesCompetenciaTO getById(@PathVariable(name = "id") Long id) {
-		return getCmd.getById(id);
+		return getCmd.getTOById(id);
+	}
+	
+	@GetMapping(path = "/pessoa/{idPessoa}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<AcoesCompetencia> getPorPessoa(@PathVariable(name = "idPessoa") Long idPessoa) {
+		return getCmd.getPorPessoa(idPessoa);
 	}
 	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)

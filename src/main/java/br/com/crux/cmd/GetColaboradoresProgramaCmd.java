@@ -35,11 +35,13 @@ public class GetColaboradoresProgramaCmd {
 	}
 	
 	public ColaboradoresProgramaTO getById(Long id) {
-		Optional<ColaboradoresPrograma> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Colaborador do Programa não encontrado.");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+		ColaboradoresPrograma entity = repository.findById(id).orElseThrow(() -> new NotFoundException("Colaborador do Programa não encontrado.") );
+		return toBuilder.buildTO(entity);
+	}
+
+	public List<ColaboradoresProgramaTO> getPorPrograma(Long id) {
+		List<ColaboradoresPrograma> lista = repository.getPorPrograma(id).orElseThrow(() -> new NotFoundException("Colaborador do Programa não encontrado."));
+		return toBuilder.buildAll(lista);
 	}
 			
 }

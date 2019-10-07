@@ -30,12 +30,13 @@ public class GetProjetoCmd {
 		return new ArrayList<ProjetoTO>();
 	}
 	
-	public ProjetoTO getById(Long id) {
-		Optional<Projeto> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Projeto não encontrado.");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+	public ProjetoTO getTOById(Long id) {
+		Projeto entity = repository.findById(id).orElseThrow(()-> new NotFoundException("Projeto não encontrado.") );
+		return toBuilder.buildTO(entity);
+	}
+
+	public Projeto getById(Long id) {
+		return repository.findById(id).orElseGet(null);
 	}
 			
 }

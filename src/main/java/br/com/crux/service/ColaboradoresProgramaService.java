@@ -42,6 +42,11 @@ public class ColaboradoresProgramaService {
 	public ColaboradoresProgramaTO getById(@PathVariable(name = "id") Long id) {
 		return getCmd.getById(id);
 	}
+
+	@GetMapping(path = "/funcionario/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<ColaboradoresProgramaTO> getPorPrograma(@PathVariable(name = "id") Long id) {
+		return getCmd.getPorPrograma(id);
+	}
 	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void cadastrar(@RequestBody ColaboradoresProgramaTO to) {

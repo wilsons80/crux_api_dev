@@ -2,7 +2,6 @@ package br.com.crux.cmd;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,28 +17,23 @@ public class GetCargosCmd {
 
 	@Autowired private CargoRepository repository;
 	@Autowired private CargosTOBuilder toBuilder;
-	
-	
-	
+
 	public List<CargoTO> getAll() {
 		List<CargoTO> entitys = toBuilder.buildAll(repository.findAll());
-		if(entitys == null || entitys.isEmpty()) {
+		if (entitys == null || entitys.isEmpty()) {
 			return new ArrayList<CargoTO>();
 		}
 		return entitys;
 	}
-	
+
 	public CargoTO getTOById(Long id) {
-		Optional<Cargo> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Cargo não encontrado");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+		Cargo entity = repository.findById(id).orElseThrow(() -> new NotFoundException("Cargo não encontrado"));
+		return toBuilder.buildTO(entity);
 	}
-	
+
 	public Cargo getById(Long id) {
 		return repository.findById(id).orElse(null);
-		
+
 	}
-			
+
 }
