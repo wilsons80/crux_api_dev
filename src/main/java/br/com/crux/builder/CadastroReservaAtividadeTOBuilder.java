@@ -1,12 +1,18 @@
 package br.com.crux.builder;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.cmd.GetAtividadeCmd;
+import br.com.crux.cmd.GetPessoaFisicaCmd;
+import br.com.crux.entity.Atividades;
 import br.com.crux.entity.CadastroReservaAtividade;
+import br.com.crux.entity.PessoaFisica;
 import br.com.crux.to.CadastroReservaAtividadeTO;
 
 @Component
@@ -14,6 +20,8 @@ public class CadastroReservaAtividadeTOBuilder {
 
 	@Autowired private AtividadesTOBuilder atividadeBuilder;
 	@Autowired private PessoaFisicaTOBuilder pessoaFisicaBuilder;
+	@Autowired private GetAtividadeCmd getAtividadeCmd;
+	@Autowired private GetPessoaFisicaCmd getPessoaFisicaCmd;
 
 	
 	public CadastroReservaAtividade build(CadastroReservaAtividadeTO p) {
@@ -27,8 +35,15 @@ public class CadastroReservaAtividadeTOBuilder {
 		retorno.setDataCadastroAtividade(p.getDataCadastroAtividade());
 		retorno.setDtAlteracaoAtividade(p.getDtAlteracaoAtividade());
 		
-		retorno.setAtividade(atividadeBuilder.build(p.getAtividade()));
-		retorno.setPessoasFisica(pessoaFisicaBuilder.build(p.getPessoasFisica()));
+		Optional.ofNullable(p.getAtividade()).ifPresent(atividade -> {
+			Atividades atv = getAtividadeCmd.getById(atividade.getId());
+			retorno.setAtividade(atv);
+		});
+		
+		Optional.ofNullable(p.getPessoasFisica()).ifPresent(pessoa -> {
+			PessoaFisica pf = getPessoaFisicaCmd.getById(pessoa.getId());
+			retorno.setPessoasFisica(pf);
+		});
 		
 		retorno.setUsuarioCadastro(p.getUsuarioCadastro());
 		retorno.setUsuarioUltimaAlteracao(p.getUsuarioUltimaAlteracao());
@@ -39,6 +54,10 @@ public class CadastroReservaAtividadeTOBuilder {
 
 	public CadastroReservaAtividadeTO buildTO(CadastroReservaAtividade p) {
 		CadastroReservaAtividadeTO retorno = new CadastroReservaAtividadeTO();
+		
+		if(Objects.isNull(p)) {
+			return retorno;
+		}
 		
 		retorno.setId(p.getId());
 		retorno.setDescricaoCadastroReserva(p.getDescricaoCadastroReserva());

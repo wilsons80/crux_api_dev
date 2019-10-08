@@ -11,6 +11,7 @@ import br.com.crux.builder.AtividadesTOBuilder;
 import br.com.crux.dao.repository.AtividadeRepository;
 import br.com.crux.entity.Atividades;
 import br.com.crux.exception.NotFoundException;
+import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.to.AtividadesTO;
 
 @Component
@@ -30,12 +31,15 @@ public class GetAtividadeCmd {
 		return new ArrayList<AtividadesTO>();
 	}
 	
-	public AtividadesTO getById(Long id) {
-		Optional<Atividades> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Atividade não encontrada.");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+	public AtividadesTO getTOById(Long id) {
+		Long idPresente = Optional.ofNullable(id).orElseThrow(() -> new ParametroNaoInformadoException("Parâmetro ID ausente."));
+		Atividades entity = repository.findById(idPresente).orElseThrow(()-> new NotFoundException("Atividade não encontrada."));
+		return toBuilder.buildTO(entity);
+	}
+
+	public Atividades getById(Long id) {
+		Long idPresente = Optional.ofNullable(id).orElseThrow(() -> new ParametroNaoInformadoException("Parâmetro ID ausente."));
+		return repository.findById(idPresente).orElseThrow(()-> new NotFoundException("Atividade não encontrada."));
 	}
 			
 }

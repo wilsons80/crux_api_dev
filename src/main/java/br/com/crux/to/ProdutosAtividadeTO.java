@@ -2,8 +2,6 @@ package br.com.crux.to;
 
 import java.time.LocalDateTime;
 
-import br.com.crux.enums.FormaPagamento;
-
 public class ProdutosAtividadeTO {
 
 	private Long id;
@@ -15,7 +13,7 @@ public class ProdutosAtividadeTO {
 	private String descricaoOrigemProduto;
 	private Long qtdProduto;
 	private Long qtdProdutoVendida;
-	private FormaPagamento formaPagamento;
+	private String formaPagamento;
 
 	private AtividadesTO atividade;
 	private ProdutoTO produto;
@@ -97,11 +95,11 @@ public class ProdutosAtividadeTO {
 		this.qtdProdutoVendida = qtdProdutoVendida;
 	}
 
-	public FormaPagamento getFormaPagamento() {
+	public String getFormaPagamento() {
 		return formaPagamento;
 	}
 
-	public void setFormaPagamento(FormaPagamento formaPagamento) {
+	public void setFormaPagamento(String formaPagamento) {
 		this.formaPagamento = formaPagamento;
 	}
 

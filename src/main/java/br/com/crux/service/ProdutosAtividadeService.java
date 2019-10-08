@@ -40,7 +40,12 @@ public class ProdutosAtividadeService {
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ProdutosAtividadeTO getById(@PathVariable(name = "id") Long id) {
-		return getCmd.getById(id);
+		return getCmd.getTOById(id);
+	}
+
+	@GetMapping(path = "/atividade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<ProdutosAtividadeTO> getPorAtividade(@PathVariable(name = "id") Long id) {
+		return getCmd.getPorAtividade(id);
 	}
 	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)

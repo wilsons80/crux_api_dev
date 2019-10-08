@@ -43,6 +43,11 @@ public class CadastroReservaAtividadeService {
 		return getCmd.getById(id);
 	}
 	
+	@GetMapping(path = "/atividade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<CadastroReservaAtividadeTO> getPorAtividade(@PathVariable(name = "id") Long id) {
+		return getCmd.getPorAtividade(id);
+	}
+	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void cadastrar(@RequestBody CadastroReservaAtividadeTO param) {
 		cadastrarCmd.cadastrar(param);

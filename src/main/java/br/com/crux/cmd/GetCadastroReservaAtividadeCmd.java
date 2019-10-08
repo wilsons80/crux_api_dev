@@ -30,11 +30,13 @@ public class GetCadastroReservaAtividadeCmd {
 	}
 	
 	public CadastroReservaAtividadeTO getById(Long id) {
-		Optional<CadastroReservaAtividade> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Cadastro Reserva Atividade não encontrado.");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+		CadastroReservaAtividade entity = repository.findById(id).orElseThrow(() -> new NotFoundException("Cadastro Reserva Atividade não encontrado."));
+		return toBuilder.buildTO(entity);
+	}
+
+	public List<CadastroReservaAtividadeTO> getPorAtividade(Long id) {
+		List<CadastroReservaAtividade> entity = repository.getPorAtividade(id).orElseThrow(() -> new NotFoundException("Cadastro Reserva Atividade não encontrado."));
+		return toBuilder.buildAll(entity);
 	}
 			
 }

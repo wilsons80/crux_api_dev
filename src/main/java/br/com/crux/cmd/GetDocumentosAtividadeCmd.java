@@ -31,12 +31,14 @@ public class GetDocumentosAtividadeCmd {
 		return new ArrayList<DocumentosAtividadeTO>();
 	}
 	
-	public DocumentosAtividadeTO getById(Long id) {
-		Optional<DocumentosAtividade> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Documento da Atividade não encontrada.");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+	public DocumentosAtividadeTO getTOById(Long id) {
+		DocumentosAtividade entity = repository.findById(id).orElseThrow(() -> new NotFoundException("Documento da Atividade não encontrado."));
+		return toBuilder.buildTO(entity);
+	}
+
+	public List<DocumentosAtividadeTO> getPorAtividade(Long id) {
+		List<DocumentosAtividade> lista = repository.getPorAtividade(id).orElseThrow(() -> new NotFoundException("Documento da Atividade não encontrado."));
+		return toBuilder.buildAll(lista);
 	}
 			
 }
