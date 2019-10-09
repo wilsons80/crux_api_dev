@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import br.com.crux.enums.SituacaoParentesco;
 import br.com.crux.infra.adapter.LocalDateTimeAdapter;
 
 
@@ -16,7 +15,7 @@ public class FamiliaresTO {
 
 	private Long               id;
 	private String             descGrauParentesco;
-	private SituacaoParentesco situacaoParentesco;
+	private String             situacaoParentesco;
 	private String             descOutrasInformacoes;
 	private String             descDesligamento;
 	private PessoaFisicaTO     pessoasFisica;
@@ -56,11 +55,11 @@ public class FamiliaresTO {
 		this.descGrauParentesco = descGrauParentesco;
 	}
 
-	public SituacaoParentesco getSituacaoParentesco() {
+	public String getSituacaoParentesco() {
 		return situacaoParentesco;
 	}
 
-	public void setSituacaoParentesco(SituacaoParentesco situacaoParentesco) {
+	public void setSituacaoParentesco(String situacaoParentesco) {
 		this.situacaoParentesco = situacaoParentesco;
 	}
 

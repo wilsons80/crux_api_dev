@@ -1,12 +1,15 @@
 package br.com.crux.builder;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.entity.Familiares;
+import br.com.crux.enums.SituacaoParentesco;
 import br.com.crux.to.FamiliaresTO;
 
 @Component
@@ -20,7 +23,12 @@ public class FamiliaresTOBuilder {
 
 		retorno.setId(p.getId());
 		retorno.setDescGrauParentesco(p.getDescGrauParentesco());
-		retorno.setSituacaoParentesco(p.getSituacaoParentesco());
+		
+		if( StringUtils.isNoneEmpty(p.getSituacaoParentesco())) {
+			SituacaoParentesco porTipo = SituacaoParentesco.getPorTipo(p.getSituacaoParentesco());
+			retorno.setSituacaoParentesco(porTipo);
+		}
+		
 		retorno.setDescOutrasInformacoes(p.getDescOutrasInformacoes());
 		retorno.setDescDesligamento(p.getDescDesligamento());
 		retorno.setPessoasFisica(pessoaFisicaBuilder.build(p.getPessoasFisica()));
@@ -37,7 +45,13 @@ public class FamiliaresTOBuilder {
 		
 		retorno.setId(p.getId());
 		retorno.setDescGrauParentesco(p.getDescGrauParentesco());
-		retorno.setSituacaoParentesco(p.getSituacaoParentesco());
+		
+		if(Objects.nonNull(p.getSituacaoParentesco())) {
+			SituacaoParentesco porTipo = SituacaoParentesco.getPorTipo(p.getSituacaoParentesco().getTipo());
+			
+			retorno.setSituacaoParentesco(porTipo.getTipo());
+		}
+		
 		retorno.setDescOutrasInformacoes(p.getDescOutrasInformacoes());
 		retorno.setDescDesligamento(p.getDescDesligamento());
 		retorno.setPessoasFisica(pessoaFisicaBuilder.buildTO(p.getPessoasFisica()));
