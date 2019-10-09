@@ -45,8 +45,6 @@ public class CadastroReservaAtividadeTOBuilder {
 			retorno.setPessoasFisica(pf);
 		});
 		
-		retorno.setUsuarioCadastro(p.getUsuarioCadastro());
-		retorno.setUsuarioUltimaAlteracao(p.getUsuarioUltimaAlteracao());
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
 		return retorno;
@@ -70,8 +68,6 @@ public class CadastroReservaAtividadeTOBuilder {
 		retorno.setAtividade(atividadeBuilder.buildTO(p.getAtividade()));
 		retorno.setPessoasFisica(pessoaFisicaBuilder.buildTO(p.getPessoasFisica()));
 		
-		retorno.setUsuarioCadastro(p.getUsuarioCadastro());
-		retorno.setUsuarioUltimaAlteracao(p.getUsuarioUltimaAlteracao());
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
 		return retorno;

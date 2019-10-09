@@ -15,51 +15,29 @@ import javax.persistence.Table;
 
 import br.com.crux.infra.constantes.Constantes;
 
-
 @Entity
-@Table(name="cadastro_reserva_atividades")
+@Table(name = "cadastro_reserva_atividades")
 public class CadastroReservaAtividade {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_cadastro_reserva")
-	@SequenceGenerator(name = "sq_id_cadastro_reserva", sequenceName = "sq_id_cadastro_reserva", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
-	@Column(name="id_cadastro_reserva")
-	private Long id;
+	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_cadastro_reserva") @SequenceGenerator(name = "sq_id_cadastro_reserva", sequenceName = "sq_id_cadastro_reserva", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1) @Column(name = "id_cadastro_reserva") private Long id;
 
-	@Column(name="dt_cadastro_reserva")
-	private LocalDateTime dataCadastroReserva;
-	
-	@Column(name="ds_cadastro_reserva")
-	private String descricaoCadastroReserva;
+	@Column(name = "dt_cadastro_reserva") private LocalDateTime dataCadastroReserva;
 
-	@Column(name="dt_cancelamento_cadastro")
-	private LocalDateTime dataCancelamentoCadastro;
+	@Column(name = "ds_cadastro_reserva") private String descricaoCadastroReserva;
 
-	@Column(name="us_cadastro_id_usuario")
-	private Long usuarioCadastro;	
-	
-	@Column(name="dt_cadastro_atividade")
-	private LocalDateTime dataCadastroAtividade;
+	@Column(name = "dt_cancelamento_cadastro") private LocalDateTime dataCancelamentoCadastro;
 
-	@Column(name="ds_cancelamento_cadastro")
-	private String descricaoCancelamentoCadastro;
+	@Column(name = "dt_cadastro_atividade") private LocalDateTime dataCadastroAtividade;
 
-	@Column(name="dt_alteracao_atividade")
-	private LocalDateTime dtAlteracaoAtividade;
+	@Column(name = "ds_cancelamento_cadastro") private String descricaoCancelamentoCadastro;
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_atividade")
-	private Atividades atividade;
+	@Column(name = "dt_alteracao_atividade") private LocalDateTime dtAlteracaoAtividade;
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="pf_id_pessoa_fisica")
-	private PessoaFisica pessoasFisica;
+	@ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "id_atividade") private Atividades atividade;
 
-	@Column(name="us_alteraca_id_usuario")
-	private Long usuarioUltimaAlteracao;
+	@ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "pf_id_pessoa_fisica") private PessoaFisica pessoasFisica;
 
-	@Column(name="id_usuario_apl")
-	private Long usuarioAlteracao;
+	@Column(name = "id_usuario_apl") private Long usuarioAlteracao;
 
 	public CadastroReservaAtividade() {
 	}
@@ -94,14 +72,6 @@ public class CadastroReservaAtividade {
 
 	public void setDataCancelamentoCadastro(LocalDateTime dataCancelamentoCadastro) {
 		this.dataCancelamentoCadastro = dataCancelamentoCadastro;
-	}
-
-	public Long getUsuarioCadastro() {
-		return usuarioCadastro;
-	}
-
-	public void setUsuarioCadastro(Long usuarioCadastro) {
-		this.usuarioCadastro = usuarioCadastro;
 	}
 
 	public LocalDateTime getDataCadastroAtividade() {
@@ -144,14 +114,6 @@ public class CadastroReservaAtividade {
 		this.pessoasFisica = pessoasFisica;
 	}
 
-	public Long getUsuarioUltimaAlteracao() {
-		return usuarioUltimaAlteracao;
-	}
-
-	public void setUsuarioUltimaAlteracao(Long usuarioUltimaAlteracao) {
-		this.usuarioUltimaAlteracao = usuarioUltimaAlteracao;
-	}
-
 	public Long getUsuarioAlteracao() {
 		return usuarioAlteracao;
 	}
@@ -160,5 +122,4 @@ public class CadastroReservaAtividade {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
-	
 }

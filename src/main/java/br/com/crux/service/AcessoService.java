@@ -69,10 +69,9 @@ public class AcessoService {
 	
 	
 	//Retorna os acesso do módulo acessado no menu
-	@GetMapping(path = "/unidade/{idUnidade}/modulo/{idModulo}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<PerfilAcessoTO> getPerfilAcesso(@PathVariable(name = "idUnidade") Long idUnidade, 
-			                                          @PathVariable(name = "modulo") Long idModulo) {
-		return getPerfilAcessoCmd.getPerfilAcesso(idUnidade, idModulo);
+	@GetMapping(path = "/modulo/{nome}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<PerfilAcessoTO> getPerfilAcesso(@PathVariable(name = "nome") String nomeModulo) {
+		return getPerfilAcessoCmd.getPerfilAcesso(nomeModulo);
 	}
 
 }

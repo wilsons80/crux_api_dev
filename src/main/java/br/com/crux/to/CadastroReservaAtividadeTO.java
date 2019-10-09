@@ -16,8 +16,6 @@ public class CadastroReservaAtividadeTO {
 	private AtividadesTO atividade;
 	private PessoaFisicaTO pessoasFisica;
 
-	private Long usuarioCadastro;
-	private Long usuarioUltimaAlteracao;
 	private Long usuarioAlteracao;
 
 	public CadastroReservaAtividadeTO() {
@@ -93,22 +91,6 @@ public class CadastroReservaAtividadeTO {
 
 	public void setPessoasFisica(PessoaFisicaTO pessoasFisica) {
 		this.pessoasFisica = pessoasFisica;
-	}
-
-	public Long getUsuarioCadastro() {
-		return usuarioCadastro;
-	}
-
-	public void setUsuarioCadastro(Long usuarioCadastro) {
-		this.usuarioCadastro = usuarioCadastro;
-	}
-
-	public Long getUsuarioUltimaAlteracao() {
-		return usuarioUltimaAlteracao;
-	}
-
-	public void setUsuarioUltimaAlteracao(Long usuarioUltimaAlteracao) {
-		this.usuarioUltimaAlteracao = usuarioUltimaAlteracao;
 	}
 
 	public Long getUsuarioAlteracao() {
