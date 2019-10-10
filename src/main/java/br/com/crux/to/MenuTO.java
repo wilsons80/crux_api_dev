@@ -2,43 +2,26 @@ package br.com.crux.to;
 
 public class MenuTO {
 	
-	private Long idModuloPai;
-	private String nomeModuloPai;
-	private Long idModuloFilho;
-	private String nomeModuloFilho;
-	private String nivel;
+	private Long idModulo;
+	private String nomeModulo;
+	
+	public MenuTO() {
+	}
+	
+	public Long getIdModulo() {
+		return idModulo;
+	}
+	public void setIdModulo(Long idModulo) {
+		this.idModulo = idModulo;
+	}
+	public String getNomeModulo() {
+		return nomeModulo;
+	}
+	public void setNomeModulo(String nomeModulo) {
+		this.nomeModulo = nomeModulo;
+	}
 	
 	
-	public Long getIdModuloPai() {
-		return idModuloPai;
-	}
-	public void setIdModuloPai(Long idModuloPai) {
-		this.idModuloPai = idModuloPai;
-	}
-	public String getNomeModuloPai() {
-		return nomeModuloPai;
-	}
-	public void setNomeModuloPai(String nomeModuloPai) {
-		this.nomeModuloPai = nomeModuloPai;
-	}
-	public Long getIdModuloFilho() {
-		return idModuloFilho;
-	}
-	public void setIdModuloFilho(Long idModuloFilho) {
-		this.idModuloFilho = idModuloFilho;
-	}
-	public String getNomeModuloFilho() {
-		return nomeModuloFilho;
-	}
-	public void setNomeModuloFilho(String nomeModuloFilho) {
-		this.nomeModuloFilho = nomeModuloFilho;
-	}
-	public String getNivel() {
-		return nivel;
-	}
-	public void setNivel(String nivel) {
-		this.nivel = nivel;
-	}
 	
 
 	

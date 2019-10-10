@@ -16,11 +16,8 @@ public class MenuTOBuilder {
 	public MenuTO buildTO(MenuDTO dto) {
 		MenuTO to = new MenuTO();
 		
-		to.setIdModuloPai(dto.getIdModuloPai());
-		to.setNomeModuloPai(dto.getNomeModuloPai());
-		to.setIdModuloFilho(dto.getIdModuloFilho());
-		to.setNomeModuloFilho(dto.getNomeModuloFilho());
-		to.setNivel(dto.getNivel());
+		to.setIdModulo(dto.getIdModulo());
+		to.setNomeModulo(dto.getNomeModulo());
 		
 		return to;
 	}
