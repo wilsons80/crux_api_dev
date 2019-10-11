@@ -16,7 +16,7 @@ public class CadastrarUsuariosSistemaCmd {
 	@Autowired private UsuarioSistemaRepository repository;
 	@Autowired private CamposObrigatoriosUsuariosSistemaRule camposObrigatoriosRule;
 	@Autowired private UsuariosSistemaTOBuilder toBuilder;
-	@Autowired private AlterarPessoaFisicaCmd alterarPessoaFisicaCmd;
+	@Autowired private CadastrarPessoaFisicaCmd cadastrarPessoaFisicaCmd;
 	
 	
 	public UsuariosSistemaTO cadastrar(UsuariosSistemaTO to) {
@@ -24,7 +24,7 @@ public class CadastrarUsuariosSistemaCmd {
 		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 		
 		UsuariosSistema usuarioSistema = toBuilder.build(to);
-		usuarioSistema.setPessoaFisica(alterarPessoaFisicaCmd.alterar(to.getPessoaFisica()));
+		usuarioSistema.setPessoaFisica(cadastrarPessoaFisicaCmd.cadastrar(to.getPessoaFisica()));
 		
 		UsuariosSistema usuarioSalvo = repository.save(usuarioSistema);
 		return toBuilder.buildTO(usuarioSalvo);
