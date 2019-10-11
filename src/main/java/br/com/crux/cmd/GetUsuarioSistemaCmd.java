@@ -43,11 +43,12 @@ public class GetUsuarioSistemaCmd {
 		return new ArrayList<UsuariosSistemaTO>();
 	}
 	
-	public UsuariosSistemaTO getById(Long id) {
-		Optional<UsuariosSistema> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Usuário não encontrado.");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+	public UsuariosSistemaTO getTOById(Long id) {
+		UsuariosSistema entity = repository.findById(id).orElseThrow(() ->  new NotFoundException("Usuário não encontrado."));
+		return toBuilder.buildTO(entity);
+	}	
+
+	public UsuariosSistema getById(Long id) {
+		return repository.findById(id).orElseGet(null);
 	}	
 }

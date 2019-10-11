@@ -1,6 +1,7 @@
 package br.com.crux.to;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -97,7 +98,7 @@ public class UsuariosSistemaTO {
 	}
 
 	public Boolean getStAtivo() {
-		return stAtivo;
+		return Optional.ofNullable(stAtivo).orElse(false);
 	}
 
 	public void setStAtivo(Boolean stAtivo) {
@@ -105,7 +106,7 @@ public class UsuariosSistemaTO {
 	}
 
 	public Boolean getStTrocaSenha() {
-		return stTrocaSenha;
+		return Optional.ofNullable(stTrocaSenha).orElse(false);
 	}
 
 	public void setStTrocaSenha(Boolean stTrocaSenha) {

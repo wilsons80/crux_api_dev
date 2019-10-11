@@ -16,9 +16,11 @@ public interface UsuarioSistemaRepository extends JpaRepository<UsuariosSistema,
 	public Optional<UsuariosSistema> findByUsername(String username);
 
 	
-	
 	@Query(value = "SELECT u FROM UsuariosSistema u "
 			+ " inner join UsuariosUnidade uni on uni.usuariosSistema = u"
 			+ " where uni.unidade.idUnidade = ?1")
 	public Optional<List<UsuariosSistema>> findByUnidade(Long idUnidade);
+
+
+	
 }

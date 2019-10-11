@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.entity.UsuariosSistema;
+import br.com.crux.security.CustomPasswordEncoder;
 import br.com.crux.to.UsuariosSistemaTO;
 
 
@@ -15,6 +16,7 @@ import br.com.crux.to.UsuariosSistemaTO;
 public class UsuariosSistemaTOBuilder {
 	
 	@Autowired private PessoaFisicaTOBuilder pessoaFisicaTOBuilder;
+	@Autowired private CustomPasswordEncoder customPasswordEncoder;
 	
 
 	public UsuariosSistema build(UsuariosSistemaTO p) {
@@ -23,7 +25,11 @@ public class UsuariosSistemaTOBuilder {
 		retorno.setIdUsuario(p.getIdUsuario());
 		retorno.setUsername(p.getNomeUsuario());
 		retorno.setDescFimVigenciaUsuario(p.getDescFimVigenciaUsuario());
-		retorno.setSenha(p.getSenhaUsuario());
+		
+		Optional.ofNullable(p.getSenhaUsuario()).ifPresent(senha -> {
+			retorno.setSenha(customPasswordEncoder.encode(senha));
+		});
+		
 		retorno.setDataFimVigencia(p.getDataFimVigencia());
 		retorno.setDataInicioVigencia(p.getDataInicioVigencia());
 		retorno.setDataUltimoAcesso(p.getDataUltimoAcesso());

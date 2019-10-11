@@ -12,10 +12,5 @@ import br.com.crux.entity.UsuariosSistema;
 @Repository
 public interface UsuariosGrupoRepository extends JpaRepository<UsuariosGrupo, Long> {
 
-	//@Modifying
-	//@Query("DELETE FROM UsuariosGrupo WHERE id = ?1")
-	//public int deleteByIdUsuarioGrupo(Long idUsuarioGrupo);
-	
-	
 	public Optional<UsuariosGrupo> findByGruposModuloAndUsuariosSistema(GruposModulo grupoModulo, UsuariosSistema usuario);
 }
