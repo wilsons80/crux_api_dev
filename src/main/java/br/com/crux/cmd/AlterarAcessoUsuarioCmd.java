@@ -1,6 +1,5 @@
 package br.com.crux.cmd;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,8 +10,6 @@ import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.dao.repository.UsuarioSistemaRepository;
 import br.com.crux.dao.repository.UsuariosGrupoRepository;
 import br.com.crux.entity.GruposModulo;
-import br.com.crux.entity.Modulo;
-import br.com.crux.entity.Unidade;
 import br.com.crux.entity.UsuariosGrupo;
 import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
@@ -29,44 +26,32 @@ public class AlterarAcessoUsuarioCmd {
 	@Autowired private UsuarioSistemaRepository usuarioSistemaRepository;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	@Autowired private GrupoModuloRepository grupoModuloRepository;
-	
+
 	public void alterar(CadastroAcessoTO acessoTO) {
-		
-		Optional<Unidade> unidade = unidadeRepository.findById(acessoTO.getIdUnidade());
-		if(!unidade.isPresent()) {
-			throw new NotFoundException("Unidade informada não existe.");
-		}
-		
-		Optional<Modulo> modulo = moduloRepository.findById(acessoTO.getIdModulo());
-		if(!modulo.isPresent()) {
-			throw new NotFoundException("Modulo informado não existe.");
-		}
-		
-		Optional<UsuariosSistema> usuario = usuarioSistemaRepository.findById(acessoTO.getIdUsuario());
-		if(!usuario.isPresent()) {
-			throw new NotFoundException("Usuario informado não existe.");
-		}
 
-		Optional<GruposModulo> gruposModulo = grupoModuloRepository.findById(acessoTO.getIdGrupoModulo());
-		if(!gruposModulo.isPresent()) {
-			throw new NotFoundException("Não existe o tipo de perfil cadastrado para essa unidade.");
-		}
+		unidadeRepository.findById(acessoTO.getIdUnidade()).orElseThrow(() -> new NotFoundException("Unidade informada não existe."));
 
-		
+		moduloRepository.findById(acessoTO.getIdModulo()).orElseThrow(() -> new NotFoundException("Modulo informado não existe."));
+
+		usuarioSistemaRepository.findById(acessoTO.getIdUsuario()).orElseThrow(() -> new NotFoundException("Usuario informado não existe."));
+
+		GruposModulo gruposModulo = grupoModuloRepository
+				.findById(acessoTO.getIdGrupoModulo())
+				.orElseThrow(() -> new NotFoundException("Não existe o tipo de perfil cadastrado para essa unidade."));
+
 		UsuarioLogadoTO usuarioLogadoTO = getUsuarioLogadoCmd.getUsuarioLogado();
-		Optional<UsuariosSistema> usuarioLogado = usuarioSistemaRepository.findById(usuarioLogadoTO.getIdUsuario());
-		if(!usuario.isPresent()) {
-			throw new NotFoundException("Usuario logado não existe.");
-		}		
+		UsuariosSistema usuarioLogado = usuarioSistemaRepository
+				.findById(usuarioLogadoTO.getIdUsuario())
+				.orElseThrow(() -> new NotFoundException("Usuario logado não existe."));
+
+		UsuariosGrupo usuarioGrupo = usuariosGrupoRepository
+				.getPorModulo(gruposModulo.getModulo().getIdModulo())
+				.orElseThrow(() -> new PerfilAcessoCadastradoException("Usuário grupo não encontrado."));
 		
-		Optional<UsuariosGrupo> usuarioGrupo = usuariosGrupoRepository.findByGruposModuloAndUsuariosSistema(gruposModulo.get(), usuarioLogado.get());
-		if(usuarioGrupo.isPresent()) {
-			throw new PerfilAcessoCadastradoException("Usuário já possui esse perfil cadastrado.");
-		}
-		
-		usuarioGrupo.get().setGruposModulo(gruposModulo.get());
-		usuarioGrupo.get().setIdUsuarioApl(usuarioLogado.get().getIdUsuario());
-		usuariosGrupoRepository.save(usuarioGrupo.get());
-		
+
+		usuarioGrupo.setGruposModulo(gruposModulo);
+		usuarioGrupo.setIdUsuarioApl(usuarioLogado.getIdUsuario());
+		usuariosGrupoRepository.save(usuarioGrupo);
+
 	}
 }

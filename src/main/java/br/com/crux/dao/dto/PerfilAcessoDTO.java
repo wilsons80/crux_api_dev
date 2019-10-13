@@ -19,8 +19,8 @@ public class PerfilAcessoDTO {
 	public PerfilAcessoDTO(Object[] colunas) {
 		this.idModulo   = (colunas[0] != null) ? ((BigDecimal) colunas[0]).longValue() : null;
 		this.nomeModulo = (String) colunas[1];
-		this.altera     = StringUtils.isEmpty((String) colunas[2]) ? "N" : "S";
-		this.consulta   = StringUtils.isEmpty((String) colunas[3]) ? "N" : "S";
+		this.consulta   = StringUtils.isEmpty((String) colunas[2]) ? "N" : "S";
+		this.altera     = StringUtils.isEmpty((String) colunas[3]) ? "N" : "S";
 		this.deleta     = StringUtils.isEmpty((String) colunas[4]) ? "N" : "S";
 		this.insere     = StringUtils.isEmpty((String) colunas[5]) ? "N" : "S";
 	}

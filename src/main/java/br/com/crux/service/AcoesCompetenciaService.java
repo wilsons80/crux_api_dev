@@ -45,7 +45,7 @@ public class AcoesCompetenciaService {
 	}
 	
 	@GetMapping(path = "/pessoa/{idPessoa}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<AcoesCompetencia> getPorPessoa(@PathVariable(name = "idPessoa") Long idPessoa) {
+	public List<AcoesCompetenciaTO> getPorPessoa(@PathVariable(name = "idPessoa") Long idPessoa) {
 		return getCmd.getPorPessoa(idPessoa);
 	}
 	

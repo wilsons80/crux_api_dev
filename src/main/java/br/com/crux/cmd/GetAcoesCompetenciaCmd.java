@@ -33,8 +33,9 @@ public class GetAcoesCompetenciaCmd {
 		return toBuilder.buildTO(entity);
 	}
 
-	public List<AcoesCompetencia> getPorPessoa(Long id) {
-		return repository.getPorPessoa(id).orElseThrow(() -> new NotFoundException("Ações das competências do talento do Funcionario não encontrado."));
+	public List<AcoesCompetenciaTO> getPorPessoa(Long id) {
+		List<AcoesCompetencia> lista = repository.getPorPessoa(id).orElseThrow(() -> new NotFoundException("Ações das competências do talento do Funcionario não encontrado."));
+		return toBuilder.buildAll(lista);
 	}
 
 }
