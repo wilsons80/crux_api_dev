@@ -16,30 +16,23 @@ import br.com.crux.to.UsuarioLogadoTO;
 @Component
 public class AlterarUnidadeCmd {
 
-	@Autowired
-	private UnidadeRepository unidadeRepository;
-	@Autowired
-	private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
-	@Autowired
-	private ValidarCadastroUnidadeRule validarCadastroUnidadeRule;
-	@Autowired
-	private UnidadeTOBuilder cadastroUnidadeBuilder;
-	@Autowired
-	private GetUnidadeCmd getUnidadeCmd;
-	
-	
-	public void alterar(UnidadeTO to) {
+	@Autowired private UnidadeRepository unidadeRepository;
+	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
+	@Autowired private ValidarCadastroUnidadeRule validarCadastroUnidadeRule;
+	@Autowired private UnidadeTOBuilder unidadeTOBuilder;
+	@Autowired private GetUnidadeCmd getUnidadeCmd;
+
+	public UnidadeTO alterar(UnidadeTO to) {
 		validarCadastroUnidadeRule.validar(to.getNomeUnidade(), to.getNomeUnidade());
-		
-		Optional<UnidadeTO> unidadeApagar = getUnidadeCmd.getUnidadeUsuarioLogadoComAcesso(to.getIdUnidade());
-		if(!unidadeApagar.isPresent()) {
-			throw new NotFoundException("Usuário não tem permissão para alterar essa unidade.");
-		}
-		
+
+		Unidade unidade = Optional.ofNullable(getUnidadeCmd.getById(to.getIdUnidade())).orElseThrow(() -> new NotFoundException("Unidade não encontrada."));
+
 		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		to.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
-		
-		Unidade unidade = cadastroUnidadeBuilder.build(to);
-		unidadeRepository.save(unidade);
+
+		unidade = unidadeTOBuilder.build(to);
+		Unidade retorno = unidadeRepository.save(unidade);
+		return unidadeTOBuilder.buildTO(retorno);
+
 	}
 }

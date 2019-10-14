@@ -16,6 +16,7 @@ import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.Unidade;
 import br.com.crux.enums.ClassificadorSituacaoImovel;
 import br.com.crux.enums.TipoUnidade;
+import br.com.crux.exception.NotFoundException;
 import br.com.crux.exception.SemAcessoUnidadeException;
 import br.com.crux.to.AcessoUnidadeTO;
 import br.com.crux.to.UnidadeTO;
@@ -91,6 +92,11 @@ public class GetUnidadeCmd {
 
 	public Unidade getById(Long id) {
 		return unidadeRepository.findById(id).orElse(null);
+	}
+	
+	public UnidadeTO getTOById(Long id) {
+		Unidade unidade = unidadeRepository.findById(id).orElseThrow(() -> new NotFoundException("Unidade não encontrada"));
+		return unidadeBuilder.buildTO(unidade);
 	}
 	
 	

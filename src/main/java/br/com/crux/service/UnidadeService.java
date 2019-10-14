@@ -51,13 +51,13 @@ public class UnidadeService {
 	}
 
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void cadastrar(@RequestBody UnidadeTO unidade) {
-		cadastrarUnidadeCmd.cadastrar(unidade);
+	public UnidadeTO cadastrar(@RequestBody UnidadeTO unidade) {
+		return cadastrarUnidadeCmd.cadastrar(unidade);
 	}
 	
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void alterar(@RequestBody UnidadeTO unidade) {
-		alterarUnidadeCmd.alterar(unidade);
+	public UnidadeTO alterar(@RequestBody UnidadeTO unidade) {
+		return alterarUnidadeCmd.alterar(unidade);
 	}
 	
 	@DeleteMapping(path = "/{unidade}")
@@ -66,8 +66,13 @@ public class UnidadeService {
 	}
 	
 	@GetMapping(path = "/logada/{idUnidade}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public UnidadeTO getUnidade(@PathVariable(name = "idUnidade") Long idUnidade) {
+	public UnidadeTO getUnidadeSetandoLogada(@PathVariable(name = "idUnidade") Long idUnidade) {
 		return getUnidadeCmd.getUnidadeUsuarioLogadoComAcesso(idUnidade).get();
+	}
+
+	@GetMapping(path = "/{idUnidade}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public UnidadeTO getById(@PathVariable(name = "idUnidade") Long idUnidade) {
+		return getUnidadeCmd.getTOById(idUnidade);
 	}
 
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)

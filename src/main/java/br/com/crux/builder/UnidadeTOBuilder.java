@@ -2,12 +2,13 @@ package br.com.crux.builder;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
 import br.com.crux.entity.Unidade;
-import br.com.crux.enums.TipoUnidade;
+import br.com.crux.enums.ClassificadorSituacaoImovel;
 import br.com.crux.to.UnidadeTO;
 
 @Component
@@ -31,8 +32,10 @@ public class UnidadeTOBuilder {
 		unidade.setBairro(to.getBairro());
 		unidade.setUf(to.getUf());
 		unidade.setCelular(to.getCelular());
-		unidade.setTipoUnidade(to.getTipoUnidade().getTipo());
-		unidade.setClassificacaoSituacaoImovel(to.getClassificacaoSituacaoImovel());
+		unidade.setTipoUnidade(to.getTipoUnidade());
+		Optional.ofNullable(to.getClassificacaoSituacaoImovel()).ifPresent(classificador -> {
+			unidade.setClassificacaoSituacaoImovel(ClassificadorSituacaoImovel.getPorTipo(classificador));
+		});
 
 		unidade.setNomeFantasia(to.getNomeFantasia());
 		unidade.setCnpj(to.getCnpj());
@@ -41,7 +44,7 @@ public class UnidadeTOBuilder {
 		unidade.setHomePage(to.getHomePage());
 		unidade.setCidade(to.getCidade());
 
-		//unidade.setArquivo(to.getArquivo());
+		unidade.setIdArquivo(to.getArquivo());
 
 		return unidade;
 	}
@@ -68,8 +71,10 @@ public class UnidadeTOBuilder {
 		unidade.setBairro(to.getBairro());
 		unidade.setUf(to.getUf());
 		unidade.setCelular(to.getCelular());
-		unidade.setTipoUnidade(TipoUnidade.getPorTipo(to.getTipoUnidade()));
-		unidade.setClassificacaoSituacaoImovel(to.getClassificacaoSituacaoImovel());
+		unidade.setTipoUnidade(to.getTipoUnidade());
+		Optional.ofNullable(to.getClassificacaoSituacaoImovel()).ifPresent(classificador -> {
+			unidade.setClassificacaoSituacaoImovel(classificador.getTipo());
+		});
 
 		unidade.setNomeFantasia(to.getNomeFantasia());
 		unidade.setCnpj(to.getCnpj());
@@ -78,7 +83,7 @@ public class UnidadeTOBuilder {
 		unidade.setHomePage(to.getHomePage());
 		unidade.setCidade(to.getCidade());
 
-		//unidade.setArquivo(to.getArquivo());
+		unidade.setArquivo(to.getIdArquivo());
 
 		return unidade;
 	}

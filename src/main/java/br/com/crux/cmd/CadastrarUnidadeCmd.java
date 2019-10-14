@@ -13,22 +13,20 @@ import br.com.crux.to.UsuarioLogadoTO;
 @Component
 public class CadastrarUnidadeCmd {
 
-	@Autowired
-	private UnidadeRepository unidadeRepository;
-	@Autowired
-	private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
-	@Autowired
-	private ValidarCadastroUnidadeRule validarCadastroUnidadeRule;
-	@Autowired
-	private UnidadeTOBuilder cadastroUnidadeBuilder;
-	
-	public void cadastrar(UnidadeTO to) {
+	@Autowired private UnidadeRepository unidadeRepository;
+	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
+	@Autowired private ValidarCadastroUnidadeRule validarCadastroUnidadeRule;
+	@Autowired private UnidadeTOBuilder unidadeTOBuilder;
+
+	public UnidadeTO cadastrar(UnidadeTO to) {
 		validarCadastroUnidadeRule.validar(to.getNomeUnidade(), to.getNomeUnidade());
-		
+
 		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		to.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
-		Unidade unidade = cadastroUnidadeBuilder.build(to);
+		Unidade unidade = unidadeTOBuilder.build(to);
+
+		Unidade retorno = unidadeRepository.save(unidade);
 		
-		unidadeRepository.save(unidade);
+		return unidadeTOBuilder.buildTO(retorno);
 	}
 }
