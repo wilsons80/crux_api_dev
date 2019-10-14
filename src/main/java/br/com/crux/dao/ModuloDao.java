@@ -23,6 +23,7 @@ public class ModuloDao extends BaseDao{
 		sql.append("       m.nm_modulo                                 ");
 		sql.append("  from modulos m                                   ");
 		sql.append(" where 1 = 1                                       ");
+		sql.append("   and m.modulo_pai is not null                    ");
 		sql.append("   and exists (                                    ");
 		sql.append("                select 1                           ");
 		sql.append("                  from grupos_modulos gm           ");
@@ -40,5 +41,6 @@ public class ModuloDao extends BaseDao{
 		
 		return retorno;
 	}
+
 
 }

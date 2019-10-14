@@ -25,7 +25,7 @@ public class UsuariosSistemaTO {
 	private Long qtdAcessoNegado;
 	private Boolean stAtivo;
 	private Boolean stTrocaSenha;
-	
+	private Boolean stAdmin;
 	private PessoaFisicaTO pessoaFisica;
 	private Long usuarioAlteracao;
 	
@@ -128,7 +128,13 @@ public class UsuariosSistemaTO {
 	public void setUsuarioAlteracao(Long usuariosAlteracao) {
 		this.usuarioAlteracao = usuariosAlteracao;
 	}
-	
-	
+
+	public Boolean getStAdmin() {
+		return stAdmin;
+	}
+
+	public void setStAdmin(Boolean stAdmin) {
+		this.stAdmin = stAdmin;
+	}
 	
 }

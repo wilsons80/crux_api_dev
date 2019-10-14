@@ -71,6 +71,9 @@ public class UsuariosSistema {
 	@Column(name = "id_usuario_apl")
 	private Long usuarioAlteracao;
 	
+	@Column(name="st_admin")
+	@Convert(converter = SimNaoConverter.class)
+	private Boolean admin;
 	
 	public UsuariosSistema() {
 	}
@@ -187,7 +190,12 @@ public class UsuariosSistema {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
+	public Boolean getAdmin() {
+		return admin;
+	}
 
-	
+	public void setAdmin(Boolean admin) {
+		this.admin = admin;
+	}
 
 }

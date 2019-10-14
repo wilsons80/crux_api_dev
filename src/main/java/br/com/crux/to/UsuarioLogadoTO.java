@@ -8,6 +8,7 @@ public class UsuarioLogadoTO {
 	private String username;
 	private String nomeUsuario;
 	private Boolean trocarSenha;
+	private Boolean admin;
 	private String token;
 	private AcessoUnidadeTO unidadeLogada;
 
@@ -68,6 +69,14 @@ public class UsuarioLogadoTO {
 
 	public void setTrocarSenha(Boolean trocarSenha) {
 		this.trocarSenha = trocarSenha;
+	}
+
+	public Boolean getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Boolean admin) {
+		this.admin = admin;
 	}
 	
 }

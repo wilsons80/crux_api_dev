@@ -56,6 +56,7 @@ public class SaveUsuarioLogadoCmd {
 		usuarioLogadoTO.setNomeUsuario(usuariosSistema.getPessoaFisica().getNome());
 		usuarioLogadoTO.setUsername(username);
 		usuarioLogadoTO.setTrocarSenha(usuariosSistema.getStTrocaSenha());
+		usuarioLogadoTO.setAdmin(usuariosSistema.getAdmin());
 		
 		List<AcessoUnidadeTO> unidades = new ArrayList<>();
 		authorities.stream().forEach( autho -> {
