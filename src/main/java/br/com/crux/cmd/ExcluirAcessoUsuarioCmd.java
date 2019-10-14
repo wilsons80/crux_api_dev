@@ -34,7 +34,7 @@ public class ExcluirAcessoUsuarioCmd {
 
 		if(!usuariosGrupos.isPresent()) {
 			// Significa que existe permissão com modulo pai sem modulo filho.
-			Optional<List<UsuariosGrupo>> modulosPai = usuariosGrupoRepository.getModulosPai(usuario.getIdUsuario(), modulo);
+			Optional<List<UsuariosGrupo>> modulosPai = usuariosGrupoRepository.getModulosPai(usuario.getIdUsuario(), modulo.getModuloPai());
 			
 			//Apaga a permissão do módulo pai.
 			if(modulosPai.isPresent()) {
