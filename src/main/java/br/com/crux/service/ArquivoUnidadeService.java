@@ -1,5 +1,7 @@
 package br.com.crux.service;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +33,7 @@ public class ArquivoUnidadeService {
 	
 	
 	@PutMapping(path = "/unidade/{idUnidade}")
+	@Transactional
 	public void alterarComIdUnidade(@PathVariable(name = "idUnidade") Long idUnidade, @RequestParam(name = "file") MultipartFile file) {
 		arquivoCmd.alterar(file,idUnidade);
 	}
