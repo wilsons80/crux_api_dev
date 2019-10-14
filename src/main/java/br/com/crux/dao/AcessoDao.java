@@ -13,15 +13,12 @@ import br.com.crux.dao.base.BaseDao;
 import br.com.crux.dao.dto.PerfilAcessoDTO;
 import br.com.crux.dao.dto.PerfilAcessoUsuarioDTO;
 import br.com.crux.dao.repository.TrocarSenhaRepository;
-import br.com.crux.dao.repository.UsuariosGrupoRepository;
 
 @Component
 public class AcessoDao extends BaseDao{
 	
 	@Autowired 
 	private TrocarSenhaRepository trocarSenhaRepository;
-	@Autowired
-	private UsuariosGrupoRepository excluirAcessoRepository;
 	
 	public void trocarSenha(String username, String senha) {
 		trocarSenhaRepository.updateSenha(username, senha);
@@ -124,10 +121,6 @@ public class AcessoDao extends BaseDao{
 		
 		return retorno;
 		
-	}
-
-	public void excluir(Long idUsuarioGrupo) {
-		excluirAcessoRepository.deleteById(idUsuarioGrupo);		
 	}
 
 }

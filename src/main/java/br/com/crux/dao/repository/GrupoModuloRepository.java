@@ -8,9 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.crux.entity.GruposModulo;
+import br.com.crux.entity.Unidade;
 
 @Repository
 public interface GrupoModuloRepository extends JpaRepository<GruposModulo, Long>{
+	
+	
+	public Optional<List<GruposModulo>> findByUnidade(Unidade unidade);
+
 	
 	@Query(" SELECT grupo "
 			+ " FROM GruposModulo grupo "

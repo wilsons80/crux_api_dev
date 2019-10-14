@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.crux.entity.GruposModulo;
+import br.com.crux.entity.Modulo;
 import br.com.crux.entity.UsuariosGrupo;
 import br.com.crux.entity.UsuariosSistema;
 
@@ -22,6 +23,13 @@ public interface UsuariosGrupoRepository extends JpaRepository<UsuariosGrupo, Lo
 			+ " where m.idModulo = ?1")
 	public Optional<UsuariosGrupo> getPorModulo(Long idModulo);
 	
+	@Query(value = "SELECT ug FROM UsuariosGrupo ug "
+			+ " inner join UsuariosSistema us on us = ug.usuariosSistema"
+			+ " inner join GruposModulo gm on gm = ug.gruposModulo"
+			+ " inner join Modulo m on m = gm.modulo"
+			+ "   where ug.idUsuarioGrupo  = ?1")
+	public Optional<UsuariosGrupo> getById(Long idUsuarioGrupo);
+
 	
 	@Query(value = "SELECT ug FROM UsuariosGrupo ug "
 			+ " inner join UsuariosSistema us on us = ug.usuariosSistema"
@@ -32,5 +40,23 @@ public interface UsuariosGrupoRepository extends JpaRepository<UsuariosGrupo, Lo
 	public Optional<List<UsuariosGrupo>> getPermissoes(Long idUsuario, Long idModulo);
 	
 	
+	@Query(value = "SELECT ug FROM UsuariosGrupo ug "
+			+ " inner join UsuariosSistema us on us = ug.usuariosSistema"
+			+ " inner join GruposModulo gm on gm = ug.gruposModulo"
+			+ " inner join Modulo m on m = gm.modulo "
+			+ "   where us.idUsuario  = ?1 "
+			+ "     and exists ( select mp from Modulo mp "
+			+ "                    where mp.idModulo = ?2 "
+			+ "                      and mp = m.moduloPai)")
+	public Optional<List<UsuariosGrupo>> getModulosFilhosComMesmoModuloPai(Long idUsuario, Long idModuloPai);
+
+	
+	@Query(value = "SELECT ug FROM UsuariosGrupo ug "
+			+ " inner join UsuariosSistema us on us = ug.usuariosSistema"
+			+ " inner join GruposModulo gm on gm = ug.gruposModulo"
+			+ " inner join Modulo m on m = gm.modulo "
+			+ "   where us.idUsuario  = ?1 "
+			+ "     and m = ?2 ")
+	public Optional<List<UsuariosGrupo>> getModulosPai(Long idUsuario, Modulo moduloPai);
 	
 }

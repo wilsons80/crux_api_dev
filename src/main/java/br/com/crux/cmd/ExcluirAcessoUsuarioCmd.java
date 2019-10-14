@@ -1,24 +1,46 @@
 package br.com.crux.cmd;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.dao.AcessoDao;
+import br.com.crux.dao.repository.UsuariosGrupoRepository;
+import br.com.crux.entity.Modulo;
+import br.com.crux.entity.UsuariosGrupo;
+import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.ParametroNaoInformadoException;
 
 @Component
 public class ExcluirAcessoUsuarioCmd {
 
-	@Autowired
-	private AcessoDao acessoDao;
-	
-	
+	@Autowired private UsuariosGrupoRepository usuariosGrupoRepository;
+
 	public void excluir(Long idUsuarioGrupo) {
 		if(Objects.isNull(idUsuarioGrupo)) {
 			throw new ParametroNaoInformadoException("Erro ao excluir o acesso do usuário. Parâmetro 'usuarioGrupo' ausente.");
 		}
-		acessoDao.excluir(idUsuarioGrupo);
+		Optional<UsuariosGrupo> usuarioGrupo = usuariosGrupoRepository.getById(idUsuarioGrupo);
+		usuariosGrupoRepository.deleteById(idUsuarioGrupo);
+
+		UsuariosSistema usuario = usuarioGrupo.get().getUsuariosSistema();
+		Modulo modulo = usuarioGrupo.get().getGruposModulo().getModulo();
+		
+		// Busco outras permissões de módulos filhos com o mesmo módulo pai
+		Optional<List<UsuariosGrupo>> usuariosGrupos = usuariosGrupoRepository.getModulosFilhosComMesmoModuloPai(usuario.getIdUsuario(),
+				                                                                                                 modulo.getModuloPai().getIdModulo());
+
+		if(!usuariosGrupos.isPresent()) {
+			// Significa que existe permissão com modulo pai sem modulo filho.
+			Optional<List<UsuariosGrupo>> modulosPai = usuariosGrupoRepository.getModulosPai(usuario.getIdUsuario(), modulo);
+			
+			//Apaga a permissão do módulo pai.
+			if(modulosPai.isPresent()) {
+				modulosPai.get().stream().forEach( mp -> usuariosGrupoRepository.deleteById(mp.getIdUsuarioGrupo()));
+			}
+		}
+		
 	}
 }
