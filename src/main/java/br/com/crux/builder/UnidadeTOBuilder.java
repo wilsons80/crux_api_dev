@@ -44,7 +44,7 @@ public class UnidadeTOBuilder {
 		unidade.setHomePage(to.getHomePage());
 		unidade.setCidade(to.getCidade());
 
-		//unidade.setArquivo(to.getArquivo());
+		unidade.setIdArquivo(to.getArquivo());
 
 		return unidade;
 	}
@@ -83,7 +83,7 @@ public class UnidadeTOBuilder {
 		unidade.setHomePage(to.getHomePage());
 		unidade.setCidade(to.getCidade());
 
-		//unidade.setArquivo(to.getArquivo());
+		unidade.setArquivo(to.getIdArquivo());
 
 		return unidade;
 	}
