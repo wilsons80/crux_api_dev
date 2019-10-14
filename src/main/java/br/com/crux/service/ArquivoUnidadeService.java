@@ -24,6 +24,17 @@ public class ArquivoUnidadeService {
 		arquivoCmd.salvar(file);
 	}
 	
+	@PostMapping(path = "/unidade/{idUnidade}")
+	public void gravarComIdUnidade(@PathVariable(name = "idUnidade") Long idUnidade ,@RequestParam(name = "file") MultipartFile file ) {
+		arquivoCmd.salvarComIdUnidade(file, idUnidade);
+	}
+	
+	
+	@PutMapping(path = "/unidade/{idUnidade}")
+	public void alterarComIdUnidade(@PathVariable(name = "idUnidade") Long idUnidade, @RequestParam(name = "file") MultipartFile file) {
+		arquivoCmd.alterar(file,idUnidade);
+	}
+	
 	@PutMapping(path = "")
 	public void alterar(@RequestParam(name = "file") MultipartFile file) {
 		arquivoCmd.salvar(file);

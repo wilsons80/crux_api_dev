@@ -2,13 +2,10 @@ package br.com.crux.to;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import br.com.crux.enums.ClassificadorSituacaoImovel;
-import br.com.crux.enums.TipoUnidade;
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UnidadeTO {
 
-	private Long   idUnidade;
+	private Long idUnidade;
 	private String siglaUnidade;
 	private String nomeUnidade;
 	private String endereco;
@@ -24,8 +21,8 @@ public class UnidadeTO {
 	private String bairro;
 	private String uf;
 	private String celular;
-	private TipoUnidade tipoUnidade;
-	private ClassificadorSituacaoImovel classificacaoSituacaoImovel;
+	private String tipoUnidade;
+	private String classificacaoSituacaoImovel;
 	private String nomeFantasia;
 	private String cnpj;
 	private String inscricaoEstadual;
@@ -33,20 +30,16 @@ public class UnidadeTO {
 	private String homePage;
 	private String cidade;
 
-	
 	public UnidadeTO() {
 	}
 
-	
 	public Long getIdUnidade() {
 		return idUnidade;
 	}
 
-
 	public void setIdUnidade(Long idUnidade) {
 		this.idUnidade = idUnidade;
 	}
-
 
 	public String getSiglaUnidade() {
 		return siglaUnidade;
@@ -168,22 +161,22 @@ public class UnidadeTO {
 		this.celular = celular;
 	}
 
-	public TipoUnidade getTipoUnidade() {
+	public String getTipoUnidade() {
 		return tipoUnidade;
 	}
 
-	public void setTipoUnidade(TipoUnidade tipoUnidade) {
+	public void setTipoUnidade(String tipoUnidade) {
 		this.tipoUnidade = tipoUnidade;
 	}
 
-	public ClassificadorSituacaoImovel getClassificacaoSituacaoImovel() {
+	public String getClassificacaoSituacaoImovel() {
 		return classificacaoSituacaoImovel;
 	}
 
-	public void setClassificacaoSituacaoImovel(ClassificadorSituacaoImovel classificacaoSituacaoImovel) {
+	public void setClassificacaoSituacaoImovel(String classificacaoSituacaoImovel) {
 		this.classificacaoSituacaoImovel = classificacaoSituacaoImovel;
 	}
-	
+
 	public String getNomeFantasia() {
 		return nomeFantasia;
 	}
@@ -231,7 +224,5 @@ public class UnidadeTO {
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
-
-
 
 }
