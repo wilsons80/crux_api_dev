@@ -1,13 +1,23 @@
 package br.com.crux.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import br.com.crux.infra.constantes.Constantes;
-
-import java.util.List;
+import br.com.crux.infra.dao.SimNaoConverter;
 
 
 /**
@@ -26,16 +36,20 @@ public class PerfisAcesso implements Serializable {
 	private Long idPerfilAcesso;
 
 	@Column(name="cs_altera")
-	private String csAltera;
+	@Convert(converter = SimNaoConverter.class)
+	private Boolean altera;
 
 	@Column(name="cs_consulta")
-	private String csConsulta;
+	@Convert(converter = SimNaoConverter.class)
+	private Boolean consulta;
 
 	@Column(name="cs_deleta")
-	private String csDeleta;
+	@Convert(converter = SimNaoConverter.class)
+	private Boolean deleta;
 
 	@Column(name="cs_insere")
-	private String csInsere;
+	@Convert(converter = SimNaoConverter.class)
+	private Boolean insere;
 
 	@Column(name="nm_perfil_acesso")
 	private String nmPerfilAcesso;
@@ -60,36 +74,36 @@ public class PerfisAcesso implements Serializable {
 		this.idPerfilAcesso = idPerfilAcesso;
 	}
 
-	public String getCsAltera() {
-		return StringUtils.isEmpty(this.csAltera) ? "N" : this.csAltera;
+	public Boolean getAltera() {
+		return this.altera;
 	}
 
-	public void setCsAltera(String csAltera) {
-		this.csAltera = csAltera;
+	public void setAltera(Boolean csAltera) {
+		this.altera = csAltera;
 	}
 
-	public String getCsConsulta() {
-		return StringUtils.isEmpty(this.csConsulta) ? "N" : this.csConsulta;
+	public Boolean getConsulta() {
+		return this.consulta;
 	}
 
-	public void setCsConsulta(String csConsulta) {
-		this.csConsulta = csConsulta;
+	public void setConsulta(Boolean csConsulta) {
+		this.consulta = csConsulta;
 	}
 
-	public String getCsDeleta() {
-		return StringUtils.isEmpty(this.csDeleta) ? "N" : this.csDeleta;
+	public Boolean getDeleta() {
+		return this.deleta;
 	}
 
-	public void setCsDeleta(String csDeleta) {
-		this.csDeleta = csDeleta;
+	public void setDeleta(Boolean csDeleta) {
+		this.deleta = csDeleta;
 	}
 
-	public String getCsInsere() {
-		return StringUtils.isEmpty(this.csInsere) ? "N" : this.csInsere;
+	public Boolean getInsere() {
+		return this.insere;
 	}
 
-	public void setCsInsere(String csInsere) {
-		this.csInsere = csInsere;
+	public void setInsere(Boolean csInsere) {
+		this.insere = csInsere;
 	}
 
 	public String getNmPerfilAcesso() {

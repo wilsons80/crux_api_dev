@@ -8,10 +8,10 @@ public class PerfilAcessoDTO {
 
 	private Long idModulo;
 	private String nomeModulo;
-	private String altera;
-	private String consulta;
-	private String deleta;
-	private String insere;
+	private Boolean altera;
+	private Boolean consulta;
+	private Boolean deleta;
+	private Boolean insere;
 
 	public PerfilAcessoDTO() {
 	}
@@ -19,10 +19,10 @@ public class PerfilAcessoDTO {
 	public PerfilAcessoDTO(Object[] colunas) {
 		this.idModulo   = (colunas[0] != null) ? ((BigDecimal) colunas[0]).longValue() : null;
 		this.nomeModulo = (String) colunas[1];
-		this.consulta   = StringUtils.isEmpty((String) colunas[2]) ? "N" : "S";
-		this.altera     = StringUtils.isEmpty((String) colunas[3]) ? "N" : "S";
-		this.deleta     = StringUtils.isEmpty((String) colunas[4]) ? "N" : "S";
-		this.insere     = StringUtils.isEmpty((String) colunas[5]) ? "N" : "S";
+		this.consulta   = StringUtils.isEmpty((String) colunas[2]) ? false : true;
+		this.altera     = StringUtils.isEmpty((String) colunas[3]) ? false : true;
+		this.deleta     = StringUtils.isEmpty((String) colunas[4]) ? false : true;
+		this.insere     = StringUtils.isEmpty((String) colunas[5]) ? false : true;
 	}
 
 	public Long getIdModulo() {
@@ -41,35 +41,35 @@ public class PerfilAcessoDTO {
 		this.nomeModulo = nomeModulo;
 	}
 
-	public String getAltera() {
+	public Boolean getAltera() {
 		return altera;
 	}
 
-	public void setAltera(String altera) {
+	public void setAltera(Boolean altera) {
 		this.altera = altera;
 	}
 
-	public String getConsulta() {
+	public Boolean getConsulta() {
 		return consulta;
 	}
 
-	public void setConsulta(String consulta) {
+	public void setConsulta(Boolean consulta) {
 		this.consulta = consulta;
 	}
 
-	public String getDeleta() {
+	public Boolean getDeleta() {
 		return deleta;
 	}
 
-	public void setDeleta(String deleta) {
+	public void setDeleta(Boolean deleta) {
 		this.deleta = deleta;
 	}
 
-	public String getInsere() {
+	public Boolean getInsere() {
 		return insere;
 	}
 
-	public void setInsere(String insere) {
+	public void setInsere(Boolean insere) {
 		this.insere = insere;
 	}
 

@@ -29,6 +29,10 @@ public class Modulo implements Serializable {
 	@Column(name="nm_modulo")
 	private String nmModulo;
 
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="modulo_pai")
+	private Modulo moduloPai;
+
 	//bi-directional many-to-one association to GruposModulo
 	@OneToMany(mappedBy="modulo")
 	private List<GruposModulo> gruposModulos;
@@ -79,6 +83,14 @@ public class Modulo implements Serializable {
 
 	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
 		this.usuariosSistema = usuariosSistema;
+	}
+
+	public Modulo getModuloPai() {
+		return moduloPai;
+	}
+
+	public void setModuloPai(Modulo moduloPai) {
+		this.moduloPai = moduloPai;
 	}
 
 }

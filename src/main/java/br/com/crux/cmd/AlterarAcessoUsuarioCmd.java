@@ -13,7 +13,7 @@ import br.com.crux.entity.GruposModulo;
 import br.com.crux.entity.UsuariosGrupo;
 import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
-import br.com.crux.exception.PerfilAcessoCadastradoException;
+import br.com.crux.exception.PerfilAcessoException;
 import br.com.crux.to.CadastroAcessoTO;
 import br.com.crux.to.UsuarioLogadoTO;
 
@@ -46,7 +46,7 @@ public class AlterarAcessoUsuarioCmd {
 
 		UsuariosGrupo usuarioGrupo = usuariosGrupoRepository
 				.getPorModulo(gruposModulo.getModulo().getIdModulo())
-				.orElseThrow(() -> new PerfilAcessoCadastradoException("Usuário grupo não encontrado."));
+				.orElseThrow(() -> new PerfilAcessoException("Usuário grupo não encontrado."));
 		
 
 		usuarioGrupo.setGruposModulo(gruposModulo);

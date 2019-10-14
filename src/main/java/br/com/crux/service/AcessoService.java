@@ -45,12 +45,12 @@ public class AcessoService {
 		alterarAcessoUsuarioCmd.alterar(acesso);
 	}
 	
-	@DeleteMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(path = "/{id}")
 	public void excluir(@PathVariable(name = "id") Long idUsuarioGrupo) {
 		excluirAcessoUsuarioCmd.excluir(idUsuarioGrupo);
 	}
 	
-	//Usado na tela de cadastro de acesso para um usuário específico
+	//Usado na tela de CADASTRO de acesso para um usuário específico
 	@GetMapping(path = "/perfil/unidade/{idUnidade}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<PerfilAcessoUsuarioTO> getPerfilAcessoDoUsuario(@PathVariable(name = "idUnidade") Long idUnidade, 
 			                                                    @RequestParam(name = "usuario", required = false) Long idUsuario, 
@@ -59,7 +59,7 @@ public class AcessoService {
 	}
 	
 
-	//Usado na tela de consulta de acesso para um usuário específico
+	//Usado na tela de CONSULTA de acesso para um usuário específico
 	@GetMapping(path = "/perfil/unidadelogada", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<PerfilAcessoUsuarioTO> getPerfilAcessoDoUsuarioNaUnidadeLogada( @RequestParam(name = "usuario", required = false) Long idUsuario, 
 			                                                                    @RequestParam(name = "modulo", required = false) Long idModulo) {
