@@ -34,7 +34,7 @@ public class ArquivoPessoaFisicaService {
 	}
 	
 	@GetMapping(path = "/{idPessoaFisica}")
-	public byte[] getPorAluno(@PathVariable(name = "idPessoaFisica") Long idPessoaFisica) {
+	public byte[] getPorPessoa(@PathVariable(name = "idPessoaFisica") Long idPessoaFisica) {
 		return arquivoPessoaFisicaCmd.getPorPessoa(idPessoaFisica);
 	}	
 	
