@@ -11,6 +11,7 @@ public class UsuarioLogadoTO {
 	private Boolean admin;
 	private String token;
 	private AcessoUnidadeTO unidadeLogada;
+	private Long idPessoaFisica;
 
 	private List<AcessoUnidadeTO> unidades;
 	
@@ -77,6 +78,14 @@ public class UsuarioLogadoTO {
 
 	public void setAdmin(Boolean admin) {
 		this.admin = admin;
+	}
+
+	public Long getIdPessoaFisica() {
+		return idPessoaFisica;
+	}
+
+	public void setIdPessoaFisica(Long idPessoaFisica) {
+		this.idPessoaFisica = idPessoaFisica;
 	}
 	
 }

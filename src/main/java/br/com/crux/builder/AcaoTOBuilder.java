@@ -1,19 +1,23 @@
 package br.com.crux.builder;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.cmd.GetAtividadeCmd;
 import br.com.crux.entity.Acoes;
+import br.com.crux.entity.Atividades;
 import br.com.crux.to.AcaoTO;
 
 @Component
 public class AcaoTOBuilder {
 
-	@Autowired
-	private AtividadesTOBuilder atividadeBuilder;
+	@Autowired private AtividadesTOBuilder atividadeBuilder;
+	@Autowired private GetAtividadeCmd getAtividadeCmd;
 
 	public Acoes build(AcaoTO p) {
 		Acoes retorno = new Acoes();
@@ -24,8 +28,12 @@ public class AcaoTOBuilder {
 		retorno.setDataFim(p.getDataFim());
 		retorno.setDataPrevisaoInicio(p.getDataPrevisaoInicio());
 		retorno.setDataPrevisaoFim(p.getDataPrevisaoFim());
-		retorno.setAtividade(atividadeBuilder.build(p.getAtividade()));
 		
+		Optional.ofNullable(p.getAtividade()).ifPresent(atv -> {
+			Atividades atividade = getAtividadeCmd.getById(atv.getId());
+			retorno.setAtividade(atividade);
+		});
+
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
 		return retorno;
@@ -34,6 +42,10 @@ public class AcaoTOBuilder {
 	public AcaoTO buildTO(Acoes p) {
 		AcaoTO retorno = new AcaoTO();
 		
+		if(Objects.isNull(p)) {
+			return retorno;
+		}
+
 		retorno.setId(p.getId());
 		retorno.setNome(p.getNome());
 		retorno.setDataInicio(p.getDataInicio());
@@ -41,7 +53,7 @@ public class AcaoTOBuilder {
 		retorno.setDataPrevisaoInicio(p.getDataPrevisaoInicio());
 		retorno.setDataPrevisaoFim(p.getDataPrevisaoFim());
 		retorno.setAtividade(atividadeBuilder.buildTO(p.getAtividade()));
-		
+
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
 		return retorno;
