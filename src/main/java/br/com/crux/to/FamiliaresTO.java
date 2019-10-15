@@ -20,7 +20,7 @@ public class FamiliaresTO {
 	private String             descDesligamento;
 	private PessoaFisicaTO     pessoasFisica;
 	private AlunoTO            aluno;
-	private Long               usuariosSistema;
+	private Long               usuarioAlteracao;
 	
 	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime      dataCadastro;
@@ -31,6 +31,7 @@ public class FamiliaresTO {
 	private Boolean tutelaAluno;
 	private Boolean responsavelFinanceiroPeloAluno;
 
+	private ResponsaveisAlunoTO responsavel;
 	
 	public FamiliaresTO() {
 	}
@@ -107,12 +108,12 @@ public class FamiliaresTO {
 		this.aluno = aluno;
 	}
 
-	public Long getUsuariosSistema() {
-		return usuariosSistema;
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
 	}
 
-	public void setUsuariosSistema(Long usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
+	public void setUsuarioAlteracao(Long usuariosSistema) {
+		this.usuarioAlteracao = usuariosSistema;
 	}
 
 	public Boolean getTransportaAluno() {
@@ -138,6 +139,15 @@ public class FamiliaresTO {
 	public void setResponsavelFinanceiroPeloAluno(Boolean responsavelFinanceiroPeloAluno) {
 		this.responsavelFinanceiroPeloAluno = responsavelFinanceiroPeloAluno;
 	}
+
+	public ResponsaveisAlunoTO getResponsavel() {
+		return responsavel;
+	}
+
+	public void setResponsavel(ResponsaveisAlunoTO responsavel) {
+		this.responsavel = responsavel;
+	}
+	
 	
 	
 }

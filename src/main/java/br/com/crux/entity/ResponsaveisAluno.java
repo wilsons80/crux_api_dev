@@ -4,12 +4,9 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -54,14 +51,6 @@ public class ResponsaveisAluno  {
 	      parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.TipoResponsavel"),
 	    		         @Parameter(name = "keyName", value = "tipo")}) 	
 	private TipoResponsavel tipoResponsavel;
-
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_aluno")
-	private Aluno aluno;
-
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_familiar")
-	private Familiares familiar;
 
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
@@ -123,22 +112,6 @@ public class ResponsaveisAluno  {
 
 	public void setTipoResponsavel(TipoResponsavel tipoResponsavel) {
 		this.tipoResponsavel = tipoResponsavel;
-	}
-
-	public Aluno getAluno() {
-		return aluno;
-	}
-
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
-	}
-
-	public Familiares getFamiliar() {
-		return familiar;
-	}
-
-	public void setFamiliar(Familiares familiar) {
-		this.familiar = familiar;
 	}
 
 	public Long getUsuarioAlteracao() {

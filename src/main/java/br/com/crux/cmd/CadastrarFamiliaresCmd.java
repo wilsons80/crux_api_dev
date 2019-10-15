@@ -8,7 +8,6 @@ import br.com.crux.dao.repository.FamiliaresRepository;
 import br.com.crux.entity.Familiares;
 import br.com.crux.rule.CamposObrigatoriosFamiliaresRule;
 import br.com.crux.to.FamiliaresTO;
-import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class CadastrarFamiliaresCmd {
@@ -18,15 +17,21 @@ public class CadastrarFamiliaresCmd {
 	@Autowired private FamiliaresRepository repository;
 	@Autowired private CamposObrigatoriosFamiliaresRule camposObrigatoriosRule;
 	@Autowired private FamiliaresTOBuilder familiaresTOBuilder;
+	@Autowired private CadastrarPessoaFisicaCmd cadastrarPessoaFisicaCmd;
 	
-	public void cadastrar(FamiliaresTO to) {
+	@Autowired private CadastrarResponsaveisAlunoCmd cadastrarResponsaveisAlunoCmd;
+	
+	public FamiliaresTO cadastrar(FamiliaresTO to) {
 		camposObrigatoriosRule.verificar(to);
 		
+		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 		Familiares entity = familiaresTOBuilder.build(to);
-		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
-		entity.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
 		
-		repository.save(entity);
+		entity.setPessoasFisica(cadastrarPessoaFisicaCmd.cadastrar(to.getPessoasFisica()));
+		entity.setResponsavel(cadastrarResponsaveisAlunoCmd.cadastrar(to.getResponsavel()));
+		
+		Familiares familiar = repository.save(entity);
+		return familiaresTOBuilder.buildTO(familiar);
 		
 	}
 }

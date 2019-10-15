@@ -1,74 +1,38 @@
 package br.com.crux.cmd;
 
-import java.util.Objects;
-import java.util.Optional;
-
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.builder.AlunoTOBuilder;
-import br.com.crux.builder.FamiliaresTOBuilder;
-import br.com.crux.dao.repository.AlunoRepository;
-import br.com.crux.dao.repository.FamiliaresRepository;
 import br.com.crux.dao.repository.ResponsaveisAlunoRepository;
-import br.com.crux.entity.Aluno;
-import br.com.crux.entity.Familiares;
 import br.com.crux.entity.ResponsaveisAluno;
-import br.com.crux.exception.NotFoundException;
+import br.com.crux.enums.TipoResponsavel;
 import br.com.crux.rule.CamposObrigatoriosResponsaveisAlunoRule;
 import br.com.crux.to.ResponsaveisAlunoTO;
-import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class CadastrarResponsaveisAlunoCmd {
 
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
-	
 	@Autowired private ResponsaveisAlunoRepository repository;
 	@Autowired private CamposObrigatoriosResponsaveisAlunoRule camposObrigatoriosRule;
 
-	@Autowired private AlunoRepository alunoRepository;
-	@Autowired private AlunoTOBuilder alunoBuilder;
-	@Autowired private FamiliaresRepository familiarRepository;
-	@Autowired private FamiliaresTOBuilder familiarBuilder;
-	
-	
-	public void cadastrar(ResponsaveisAlunoTO to) {
-		
-		if(Objects.isNull(to.getAluno())) {
-			throw new NotFoundException("Aluno não informado.");
-		}
-		if(Objects.isNull(to.getFamiliar())) {
-			throw new NotFoundException("Familiar não informado.");
-		}
-		
-		camposObrigatoriosRule.verificar(to.getAluno().getId(), to.getFamiliar().getId());
-		
-		Optional<Aluno> alunoOptional = alunoRepository.findById(to.getAluno().getId());
-		if(!alunoOptional.isPresent()) {
-			throw new NotFoundException("Aluno informado não existe.");
-		}
-		Optional<Familiares> familarOptional = familiarRepository.findById(to.getFamiliar().getId());
-		if(!familarOptional.isPresent()) {
-			throw new NotFoundException("Familiar do aluno informado não existe.");
-		}
+	public ResponsaveisAluno cadastrar(ResponsaveisAlunoTO to) {
+		camposObrigatoriosRule.verificar(to);
 		
 		ResponsaveisAluno entity = new ResponsaveisAluno();
-
 		entity.setDescDesligamento(to.getDescDesligamento());
 		entity.setDescGrauParentesco(to.getDescGrauParentesco());
 		entity.setDataDesvinculacao(to.getDataDesvinculacao());
 		entity.setDataVinculacao(to.getDataVinculacao());
 		entity.setMesmoEnderResponsavel(to.getMesmoEnderResponsavel());
-		entity.setTipoResponsavel(to.getTipoResponsavel());
-		entity.setAluno(alunoBuilder.build(to.getAluno()));
-		entity.setFamiliar(familiarBuilder.build(to.getFamiliar()));
-
-		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
-		entity.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
+		entity.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 		
-		repository.save(entity);
-
+		if(StringUtils.isNotEmpty(to.getTipoResponsavel())) {
+			entity.setTipoResponsavel(TipoResponsavel.getPorTipo(to.getTipoResponsavel()));
+		}
 		
+		return repository.save(entity);
+	
 	}
 }

@@ -15,8 +15,9 @@ import br.com.crux.to.FamiliaresTO;
 @Component
 public class FamiliaresTOBuilder {
 
-	@Autowired private  AlunoTOBuilder alunoBuilder;
-	@Autowired private  PessoaFisicaTOBuilder pessoaFisicaBuilder;
+	@Autowired private AlunoTOBuilder alunoBuilder;
+	@Autowired private PessoaFisicaTOBuilder pessoaFisicaBuilder;
+	@Autowired private ResponsaveisAlunoTOBuilder responsaveisAlunoTOBuilder;
 
 	public Familiares build(FamiliaresTO p) {
 		Familiares retorno = new Familiares();
@@ -33,13 +34,13 @@ public class FamiliaresTOBuilder {
 		retorno.setDescDesligamento(p.getDescDesligamento());
 		retorno.setPessoasFisica(pessoaFisicaBuilder.build(p.getPessoasFisica()));
 		retorno.setAluno(alunoBuilder.build(p.getAluno()));
-		retorno.setUsuarioAlteracao(p.getUsuariosSistema());
+		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 		retorno.setDataCadastro(p.getDataCadastro());
 		retorno.setDataDesligamento(p.getDataDesligamento());
 		retorno.setTransportaAluno(p.getTransportaAluno());
 		retorno.setTutelaAluno(p.getTutelaAluno());
 		retorno.setResponsavelFinanceiroPeloAluno(p.getResponsavelFinanceiroPeloAluno());
-
+		retorno.setResponsavel(responsaveisAlunoTOBuilder.build(p.getResponsavel()));
 		
 		return retorno;
 	}
@@ -60,12 +61,13 @@ public class FamiliaresTOBuilder {
 		retorno.setDescDesligamento(p.getDescDesligamento());
 		retorno.setPessoasFisica(pessoaFisicaBuilder.buildTO(p.getPessoasFisica()));
 		retorno.setAluno(alunoBuilder.buildTO(p.getAluno()));
-		retorno.setUsuariosSistema(p.getUsuarioAlteracao());
+		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 		retorno.setDataCadastro(p.getDataCadastro());
 		retorno.setDataDesligamento(p.getDataDesligamento());
 		retorno.setTransportaAluno(p.getTransportaAluno());
 		retorno.setTutelaAluno(p.getTutelaAluno());
 		retorno.setResponsavelFinanceiroPeloAluno(p.getResponsavelFinanceiroPeloAluno());
+		retorno.setResponsavel(responsaveisAlunoTOBuilder.buildTO(p.getResponsavel()));
 
 		return retorno;
 	}

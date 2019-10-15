@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import br.com.crux.enums.TipoResponsavel;
 import br.com.crux.infra.adapter.LocalDateTimeAdapter;
 
 public class ResponsaveisAlunoTO {
@@ -19,9 +18,7 @@ public class ResponsaveisAlunoTO {
 	private LocalDateTime dataVinculacao;
 
 	private String mesmoEnderResponsavel;
-	private TipoResponsavel tipoResponsavel;
-	private AlunoTO aluno;
-	private FamiliaresTO familiar;
+	private String tipoResponsavel;
 	private Long usuarioAlteracao;
 
 	public ResponsaveisAlunoTO() {
@@ -75,28 +72,12 @@ public class ResponsaveisAlunoTO {
 		this.mesmoEnderResponsavel = mesmoEnderResponsavel;
 	}
 
-	public TipoResponsavel getTipoResponsavel() {
+	public String getTipoResponsavel() {
 		return tipoResponsavel;
 	}
 
-	public void setTipoResponsavel(TipoResponsavel tipoResponsavel) {
+	public void setTipoResponsavel(String tipoResponsavel) {
 		this.tipoResponsavel = tipoResponsavel;
-	}
-
-	public AlunoTO getAluno() {
-		return aluno;
-	}
-
-	public void setAluno(AlunoTO aluno) {
-		this.aluno = aluno;
-	}
-
-	public FamiliaresTO getFamiliar() {
-		return familiar;
-	}
-
-	public void setFamiliar(FamiliaresTO familiar) {
-		this.familiar = familiar;
 	}
 
 	public Long getUsuarioAlteracao() {
