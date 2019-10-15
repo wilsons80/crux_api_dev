@@ -11,12 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
 import br.com.crux.enums.SituacaoParentesco;
+import br.com.crux.infra.constantes.Constantes;
 import br.com.crux.infra.dao.SimNaoConverter;
 
 
@@ -29,7 +31,8 @@ import br.com.crux.infra.dao.SimNaoConverter;
 public class Familiares {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_familiar")
+	@SequenceGenerator(name = "sq_id_familiar", sequenceName = "sq_id_familiar", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_familiar")
 	private Long id;
 	
