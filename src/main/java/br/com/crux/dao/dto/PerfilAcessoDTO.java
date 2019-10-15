@@ -19,10 +19,10 @@ public class PerfilAcessoDTO {
 	public PerfilAcessoDTO(Object[] colunas) {
 		this.idModulo   = (colunas[0] != null) ? ((BigDecimal) colunas[0]).longValue() : null;
 		this.nomeModulo = (String) colunas[1];
-		this.consulta   = StringUtils.isEmpty((String) colunas[2]) ? false : true;
-		this.altera     = StringUtils.isEmpty((String) colunas[3]) ? false : true;
-		this.deleta     = StringUtils.isEmpty((String) colunas[4]) ? false : true;
-		this.insere     = StringUtils.isEmpty((String) colunas[5]) ? false : true;
+		this.consulta   = StringUtils.isEmpty((String) colunas[2]) || colunas[2].equals("N")  ? false : true;
+		this.altera     = StringUtils.isEmpty((String) colunas[3]) || colunas[3].equals("N")  ? false : true;
+		this.deleta     = StringUtils.isEmpty((String) colunas[4]) || colunas[4].equals("N")  ? false : true;
+		this.insere     = StringUtils.isEmpty((String) colunas[5]) || colunas[5].equals("N")  ? false : true;
 	}
 
 	public Long getIdModulo() {
