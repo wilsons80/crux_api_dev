@@ -2,13 +2,26 @@ package br.com.crux.to;
 
 import java.time.LocalDateTime;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import br.com.crux.infra.adapter.LocalDateTimeAdapter;
+
 public class AcaoTO {
 
 	private Long id;
+	
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class) 
 	private LocalDateTime dataFim;
+	
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class) 
 	private LocalDateTime dataInicio;
+	
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class) 
 	private LocalDateTime dataPrevisaoFim;
+	
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class) 
 	private LocalDateTime dataPrevisaoInicio;
+	
 	private String nome;
 	private AtividadesTO atividade;
 	private Long usuarioAlteracao;

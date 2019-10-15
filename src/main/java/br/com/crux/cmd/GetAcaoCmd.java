@@ -30,12 +30,13 @@ public class GetAcaoCmd {
 		return new ArrayList<AcaoTO>();
 	}
 	
-	public AcaoTO getById(Long id) {
-		Optional<Acoes> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Acao não encontrada.");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+	public AcaoTO getByTOId(Long id) {
+		Acoes entity = repository.findById(id).orElseThrow(() -> new NotFoundException("Acao não encontrada."));
+		return toBuilder.buildTO(entity);
+	}
+
+	public Acoes getById(Long id) {
+		return repository.findById(id).orElse(null);
 	}
 			
 }

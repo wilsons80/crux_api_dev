@@ -22,37 +22,32 @@ import br.com.crux.to.AcaoTO;
 @RestController
 @RequestMapping(value = "acao")
 public class AcaoService {
-	
-	@Autowired
-	private GetAcaoCmd getCmd;
-	@Autowired
-	private ExcluirAcaoCmd  excluirCmd;
-	@Autowired
-	private AlterarAcaoCmd alterarCmd;
-	@Autowired
-	private CadastrarAcaoCmd cadastrarCmd;
-	
-	
+
+	@Autowired private GetAcaoCmd getCmd;
+	@Autowired private ExcluirAcaoCmd excluirCmd;
+	@Autowired private AlterarAcaoCmd alterarCmd;
+	@Autowired private CadastrarAcaoCmd cadastrarCmd;
+
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<AcaoTO> getAll() {
 		return getCmd.getAll();
 	}
-	
+
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public AcaoTO getById(@PathVariable(name = "id") Long id) {
-		return getCmd.getById(id);
+		return getCmd.getByTOId(id);
 	}
-	
+
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void cadastrar(@RequestBody AcaoTO param) {
 		cadastrarCmd.cadastrar(param);
 	}
-	
+
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void alterar(@RequestBody AcaoTO param) {
 		alterarCmd.alterar(param);
 	}
-	
+
 	@DeleteMapping(path = "/{id}")
 	public void excluir(@PathVariable(name = "id") Long id) {
 		excluirCmd.excluir(id);
