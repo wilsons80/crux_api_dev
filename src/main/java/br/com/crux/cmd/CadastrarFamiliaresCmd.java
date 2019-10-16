@@ -28,10 +28,10 @@ public class CadastrarFamiliaresCmd {
 		Familiares entity = familiaresTOBuilder.build(to);
 		
 		entity.setPessoasFisica(cadastrarPessoaFisicaCmd.cadastrar(to.getPessoasFisica()));
-		entity.setResponsavel(cadastrarResponsaveisAlunoCmd.cadastrar(to.getResponsavel()));
+		FamiliaresTO familiarTOSalvo = familiaresTOBuilder.buildTO(repository.save(entity));
 		
-		Familiares familiar = repository.save(entity);
-		return familiaresTOBuilder.buildTO(familiar);
+		cadastrarResponsaveisAlunoCmd.cadastrar(to.getResponsaveis(), familiarTOSalvo);
 		
+		return familiarTOSalvo;
 	}
 }

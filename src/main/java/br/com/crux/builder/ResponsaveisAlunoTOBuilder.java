@@ -5,16 +5,22 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.entity.ResponsaveisAluno;
 import br.com.crux.enums.TipoResponsavel;
+import br.com.crux.to.FamiliaresTO;
 import br.com.crux.to.ResponsaveisAlunoTO;
 
 @Component
 public class ResponsaveisAlunoTOBuilder {
 
-	public ResponsaveisAluno build(ResponsaveisAlunoTO p) {
+	@Autowired private AlunoTOBuilder alunoTOBuilder;
+	@Autowired private FamiliaresTOBuilder familiaresTOBuilder;
+
+	
+	public ResponsaveisAluno build(ResponsaveisAlunoTO p, FamiliaresTO familiarTO) {
 		ResponsaveisAluno retorno = new ResponsaveisAluno();
 
 		retorno.setId(p.getId());
@@ -23,6 +29,9 @@ public class ResponsaveisAlunoTOBuilder {
 		retorno.setDataDesvinculacao(p.getDataDesvinculacao());
 		retorno.setDataVinculacao(p.getDataVinculacao());
 		retorno.setMesmoEnderResponsavel(p.getMesmoEnderResponsavel());
+		retorno.setAluno(alunoTOBuilder.build(familiarTO.getAluno()));
+		retorno.setFamiliar(familiaresTOBuilder.build(familiarTO));
+
 		
 		if( StringUtils.isNoneEmpty(p.getTipoResponsavel())) {
 			TipoResponsavel porTipo = TipoResponsavel.getPorTipo(p.getTipoResponsavel());

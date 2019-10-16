@@ -29,9 +29,7 @@ public class GetFamiliaresCmd {
 	}
 	
 	public List<FamiliaresTO> getAll() {
-		Long idUnidade = getUnidadeLogadaCmd.get().getId();
-		
-		Optional<List<Familiares>> listaRetorno = repository.findByUnidade(idUnidade);
+		Optional<List<Familiares>> listaRetorno = repository.findByUnidade(getUnidadeLogadaCmd.get().getId());
 		if(listaRetorno.isPresent()) {
 			return toBuilder.buildAll(listaRetorno.get());
 		}

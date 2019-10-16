@@ -1,6 +1,7 @@
 package br.com.crux.to;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -31,7 +32,7 @@ public class FamiliaresTO {
 	private Boolean tutelaAluno;
 	private Boolean responsavelFinanceiroPeloAluno;
 
-	private ResponsaveisAlunoTO responsavel;
+	private List<ResponsaveisAlunoTO> responsaveis;
 	
 	public FamiliaresTO() {
 	}
@@ -140,12 +141,12 @@ public class FamiliaresTO {
 		this.responsavelFinanceiroPeloAluno = responsavelFinanceiroPeloAluno;
 	}
 
-	public ResponsaveisAlunoTO getResponsavel() {
-		return responsavel;
+	public List<ResponsaveisAlunoTO> getResponsaveis() {
+		return responsaveis;
 	}
 
-	public void setResponsavel(ResponsaveisAlunoTO responsavel) {
-		this.responsavel = responsavel;
+	public void setResponsaveis(List<ResponsaveisAlunoTO> responsavel) {
+		this.responsaveis = responsavel;
 	}
 	
 	

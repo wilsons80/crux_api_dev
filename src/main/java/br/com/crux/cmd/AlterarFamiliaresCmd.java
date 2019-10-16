@@ -30,9 +30,10 @@ public class AlterarFamiliaresCmd {
 		familiar = familiaresTOBuilder.build(to);
 		
 		familiar.setPessoasFisica(alterarPessoaFisicaCmd.alterar(to.getPessoasFisica()));
-		familiar.setResponsavel(alterarResponsaveisAlunoCmd.alterar(to.getResponsavel()));
+		alterarResponsaveisAlunoCmd.alterar(to.getResponsaveis(), to);
 		
 		Familiares familiarSalvo = repository.save(familiar);
 		return familiaresTOBuilder.buildTO(familiarSalvo);
 	}
+	
 }

@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.cmd.GetResponsaveisAlunoCmd;
 import br.com.crux.entity.Familiares;
 import br.com.crux.enums.SituacaoParentesco;
 import br.com.crux.to.FamiliaresTO;
@@ -17,8 +18,9 @@ public class FamiliaresTOBuilder {
 
 	@Autowired private AlunoTOBuilder alunoBuilder;
 	@Autowired private PessoaFisicaTOBuilder pessoaFisicaBuilder;
-	@Autowired private ResponsaveisAlunoTOBuilder responsaveisAlunoTOBuilder;
-
+	@Autowired private GetResponsaveisAlunoCmd getResponsaveisAlunoCmd;
+	
+	
 	public Familiares build(FamiliaresTO p) {
 		Familiares retorno = new Familiares();
 
@@ -40,7 +42,8 @@ public class FamiliaresTOBuilder {
 		retorno.setTransportaAluno(p.getTransportaAluno());
 		retorno.setTutelaAluno(p.getTutelaAluno());
 		retorno.setResponsavelFinanceiroPeloAluno(p.getResponsavelFinanceiroPeloAluno());
-		retorno.setResponsavel(responsaveisAlunoTOBuilder.build(p.getResponsavel()));
+		
+
 		
 		return retorno;
 	}
@@ -53,7 +56,6 @@ public class FamiliaresTOBuilder {
 		
 		if(Objects.nonNull(p.getSituacaoParentesco())) {
 			SituacaoParentesco porTipo = SituacaoParentesco.getPorTipo(p.getSituacaoParentesco().getTipo());
-			
 			retorno.setSituacaoParentesco(porTipo.getTipo());
 		}
 		
@@ -67,8 +69,11 @@ public class FamiliaresTOBuilder {
 		retorno.setTransportaAluno(p.getTransportaAluno());
 		retorno.setTutelaAluno(p.getTutelaAluno());
 		retorno.setResponsavelFinanceiroPeloAluno(p.getResponsavelFinanceiroPeloAluno());
-		retorno.setResponsavel(responsaveisAlunoTOBuilder.buildTO(p.getResponsavel()));
 
+		if(Objects.nonNull(p.getId())) {
+			retorno.setResponsaveis(getResponsaveisAlunoCmd.getAllByFamiliar(p.getId()));
+		}
+		
 		return retorno;
 	}
 

@@ -81,10 +81,6 @@ public class Familiares {
 	@Convert(converter = SimNaoConverter.class)
 	private Boolean responsavelFinanceiroPeloAluno;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_responsavel_aluno")
-	private ResponsaveisAluno responsavel;
-	
 	public Familiares() {
 	}
 
@@ -190,14 +186,6 @@ public class Familiares {
 
 	public void setResponsavelFinanceiroPeloAluno(Boolean responsavelFinanceiroPeloAluno) {
 		this.responsavelFinanceiroPeloAluno = responsavelFinanceiroPeloAluno;
-	}
-
-	public ResponsaveisAluno getResponsavel() {
-		return responsavel;
-	}
-
-	public void setResponsavel(ResponsaveisAluno responsavel) {
-		this.responsavel = responsavel;
 	}
 	
 }

@@ -19,6 +19,8 @@ public class ResponsaveisAlunoTO {
 
 	private String mesmoEnderResponsavel;
 	private String tipoResponsavel;
+	private AlunoTO aluno;
+	private FamiliaresTO familiar;
 	private Long usuarioAlteracao;
 
 	public ResponsaveisAlunoTO() {
@@ -78,6 +80,22 @@ public class ResponsaveisAlunoTO {
 
 	public void setTipoResponsavel(String tipoResponsavel) {
 		this.tipoResponsavel = tipoResponsavel;
+	}
+
+	public AlunoTO getAluno() {
+		return aluno;
+	}
+
+	public void setAluno(AlunoTO aluno) {
+		this.aluno = aluno;
+	}
+
+	public FamiliaresTO getFamiliar() {
+		return familiar;
+	}
+
+	public void setFamiliar(FamiliaresTO familiar) {
+		this.familiar = familiar;
 	}
 
 	public Long getUsuarioAlteracao() {
