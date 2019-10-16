@@ -20,7 +20,7 @@ public class ResponsaveisAlunoTO {
 	private String mesmoEnderResponsavel;
 	private String tipoResponsavel;
 	private AlunoTO aluno;
-	private FamiliaresTO familiar;
+	private FamiliarResponsavelTO familiar;
 	private Long usuarioAlteracao;
 
 	public ResponsaveisAlunoTO() {
@@ -90,11 +90,11 @@ public class ResponsaveisAlunoTO {
 		this.aluno = aluno;
 	}
 
-	public FamiliaresTO getFamiliar() {
+	public FamiliarResponsavelTO getFamiliar() {
 		return familiar;
 	}
 
-	public void setFamiliar(FamiliaresTO familiar) {
+	public void setFamiliar(FamiliarResponsavelTO familiar) {
 		this.familiar = familiar;
 	}
 
