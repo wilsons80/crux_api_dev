@@ -1,5 +1,7 @@
 package br.com.crux.cmd;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +19,13 @@ public class GetResponsavelFamiliarVigenteCmd {
 	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	@Autowired private ResponsaveisAlunoTOBuilder responsaveisAlunoTOBuilder;
 	
-	public ResponsaveisAlunoTO isResponsavelVigente(Long idAluno) {
-		Optional<ResponsaveisAluno> responsavelVigente = responsaveisAlunoRepository.findResponsavelVigente(idAluno, getUnidadeLogadaCmd.get().getId());
+	public List<ResponsaveisAlunoTO> getAllResponsaveisVigentes(Long idAluno) {
+		Optional<List<ResponsaveisAluno>> responsavelVigente = responsaveisAlunoRepository.findAllResponsaveisVigentes(idAluno, getUnidadeLogadaCmd.get().getId());
 		if(responsavelVigente.isPresent()) {
-			return responsaveisAlunoTOBuilder.buildTO(responsavelVigente.get());
+			List<ResponsaveisAluno> list = responsavelVigente.get();
+			return responsaveisAlunoTOBuilder.buildAll(list);
 		}
-		return null;
+		return new ArrayList<ResponsaveisAlunoTO>();
 	}
 	
 }
