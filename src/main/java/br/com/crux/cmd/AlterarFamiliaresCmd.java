@@ -14,7 +14,6 @@ import br.com.crux.to.FamiliaresTO;
 public class AlterarFamiliaresCmd {
 
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
-	
 	@Autowired private FamiliaresRepository repository;
 	@Autowired private CamposObrigatoriosFamiliaresRule camposObrigatoriosRule;
 	@Autowired private FamiliaresTOBuilder familiaresTOBuilder;
