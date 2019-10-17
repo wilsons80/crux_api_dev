@@ -56,7 +56,9 @@ public class ResponsaveisAlunoTOBuilder {
 		retorno.setDataVinculacao(p.getDataVinculacao());
 		retorno.setMesmoEnderResponsavel(p.getMesmoEnderResponsavel());
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
-
+		retorno.setAluno(alunoTOBuilder.buildTO(p.getAluno()));
+		retorno.setFamiliar(familiaresTOBuilder.buildResponsavalTO(p.getFamiliar()));
+		
 		if(Objects.nonNull(p.getTipoResponsavel())) {
 			TipoResponsavel porTipo = TipoResponsavel.getPorTipo(p.getTipoResponsavel().getTipo());
 			retorno.setTipoResponsavel(porTipo.getTipo());

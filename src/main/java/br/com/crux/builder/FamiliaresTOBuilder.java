@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import br.com.crux.cmd.GetResponsaveisAlunoCmd;
 import br.com.crux.entity.Familiares;
 import br.com.crux.enums.SituacaoParentesco;
+import br.com.crux.to.FamiliarResponsavelTO;
 import br.com.crux.to.FamiliaresTO;
 
 @Component
@@ -74,6 +75,32 @@ public class FamiliaresTOBuilder {
 			retorno.setResponsaveis(getResponsaveisAlunoCmd.getAllByFamiliar(p.getId()));
 		}
 		
+		return retorno;
+	}
+	
+	
+	public FamiliarResponsavelTO buildResponsavalTO(Familiares p) {
+		FamiliarResponsavelTO retorno = new FamiliarResponsavelTO();
+		
+		retorno.setId(p.getId());
+		retorno.setDescGrauParentesco(p.getDescGrauParentesco());
+		
+		if(Objects.nonNull(p.getSituacaoParentesco())) {
+			SituacaoParentesco porTipo = SituacaoParentesco.getPorTipo(p.getSituacaoParentesco().getTipo());
+			retorno.setSituacaoParentesco(porTipo.getTipo());
+		}
+		
+		retorno.setDescOutrasInformacoes(p.getDescOutrasInformacoes());
+		retorno.setDescDesligamento(p.getDescDesligamento());
+		retorno.setPessoasFisica(pessoaFisicaBuilder.buildTO(p.getPessoasFisica()));
+		retorno.setAluno(alunoBuilder.buildTO(p.getAluno()));
+		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
+		retorno.setDataCadastro(p.getDataCadastro());
+		retorno.setDataDesligamento(p.getDataDesligamento());
+		retorno.setTransportaAluno(p.getTransportaAluno());
+		retorno.setTutelaAluno(p.getTutelaAluno());
+		retorno.setResponsavelFinanceiroPeloAluno(p.getResponsavelFinanceiroPeloAluno());
+
 		return retorno;
 	}
 

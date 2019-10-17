@@ -1,7 +1,6 @@
 package br.com.crux.to;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
