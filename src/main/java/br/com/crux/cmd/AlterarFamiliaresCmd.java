@@ -20,9 +20,9 @@ public class AlterarFamiliaresCmd {
 	@Autowired private AlterarPessoaFisicaCmd alterarPessoaFisicaCmd;
 	@Autowired private AlterarResponsaveisAlunoCmd alterarResponsaveisAlunoCmd;
 	
-	
 	public FamiliaresTO alterar(FamiliaresTO to) {
 		camposObrigatoriosRule.verificar(to);
+		
 		Familiares familiar = repository.findById(to.getId()).orElseThrow(() -> new NotFoundException("Familiar informado não existe."));
 		
 		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());

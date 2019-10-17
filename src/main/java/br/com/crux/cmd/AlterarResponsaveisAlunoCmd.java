@@ -18,7 +18,7 @@ public class AlterarResponsaveisAlunoCmd {
 	@Autowired private ResponsaveisAlunoTOBuilder responsaveisAlunoTOBuilder;
 	@Autowired private ResponsaveisAlunoRepository repository;
 	@Autowired private CamposObrigatoriosResponsaveisAlunoRule camposObrigatoriosRule;
-
+	
 	public void alterar(List<ResponsaveisAlunoTO> responsaveisTO, FamiliaresTO familiarTO) {
 		responsaveisTO.stream().forEach(respondavelTO -> {
 			camposObrigatoriosRule.verificar(respondavelTO);

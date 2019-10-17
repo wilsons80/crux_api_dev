@@ -17,7 +17,9 @@ import br.com.crux.cmd.AlterarFamiliaresCmd;
 import br.com.crux.cmd.CadastrarFamiliaresCmd;
 import br.com.crux.cmd.ExcluirFamiliaresCmd;
 import br.com.crux.cmd.GetFamiliaresCmd;
+import br.com.crux.cmd.GetResponsavelFamiliarVigenteCmd;
 import br.com.crux.to.FamiliaresTO;
+import br.com.crux.to.ResponsaveisAlunoTO;
 
 @RestController
 @RequestMapping(value = "familiar")
@@ -31,6 +33,8 @@ public class FamiliaresService {
 	private AlterarFamiliaresCmd alterarCmd;
 	@Autowired
 	private CadastrarFamiliaresCmd cadastrarCmd;
+	@Autowired
+	private GetResponsavelFamiliarVigenteCmd getResponsavelFamiliarVigenteCmd;
 	
 	
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -46,6 +50,11 @@ public class FamiliaresService {
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public FamiliaresTO getById(@PathVariable(name = "id") Long id) {
 		return getCmd.getById(id);
+	}
+
+	@GetMapping(path = "/{idaluno}/responsavelvigente", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponsaveisAlunoTO getResponsavelVigente(@PathVariable(name = "idaluno") Long idAluno) {
+		return getResponsavelFamiliarVigenteCmd.isResponsavelVigente(idAluno);
 	}
 	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)

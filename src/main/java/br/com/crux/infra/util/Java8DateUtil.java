@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Objects;
 
 public class Java8DateUtil {
 
@@ -63,5 +64,16 @@ public class Java8DateUtil {
 		return getLocalDate(dt);
 	}
 
+	public static boolean isVigente(LocalDate inicio, LocalDate fim) {
+		LocalDate hoje = LocalDate.now();
+
+		if (hoje.equals(inicio)) {return true;}
+		if (hoje.equals(fim)) {return true;}
+		if (hoje.isBefore(inicio)) {return false;}
+		if (Objects.isNull(fim)) {return true;}     
+		if (hoje.isAfter(inicio) && hoje.isBefore(fim)) {return true;}
+		
+		return false;
+	}
 
 }

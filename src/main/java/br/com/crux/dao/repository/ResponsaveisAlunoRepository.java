@@ -28,7 +28,7 @@ public interface ResponsaveisAlunoRepository extends JpaRepository<ResponsaveisA
 			  + " inner join Unidade uni on a.unidade = uni  "
 			  + " where uni.idUnidade     = ?1                   "
 			  + "   and a.id              = ?2                   "
-			  + "   and ra.dataVinculacao    ")
+			  + "   and Java8DateUtil.isVigente(ra.dataVinculacao, ra.dataDesvinculacao) = true ")
 	public Optional<ResponsaveisAluno> findResponsavelVigente(Long idAluno, Long idUnidade);
 	
 }
