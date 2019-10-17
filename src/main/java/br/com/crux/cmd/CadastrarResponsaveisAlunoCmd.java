@@ -18,12 +18,14 @@ public class CadastrarResponsaveisAlunoCmd {
 	@Autowired private ResponsaveisAlunoTOBuilder responsaveisAlunoTOBuilder;
 	@Autowired private ResponsaveisAlunoRepository repository;
 	@Autowired private CamposObrigatoriosResponsaveisAlunoRule camposObrigatoriosRule;
-	
+	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 
 	public void cadastrar(List<ResponsaveisAlunoTO> responsaveisTO, FamiliaresTO familiarTO) {
 		
 		responsaveisTO.stream().forEach(respondavelTO -> {
 			camposObrigatoriosRule.verificar(respondavelTO);
+			
+			respondavelTO.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 			ResponsaveisAluno entity = responsaveisAlunoTOBuilder.build(respondavelTO, familiarTO);
 			repository.save(entity);
 		});
