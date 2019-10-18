@@ -29,6 +29,8 @@ public class UnidadeTO {
 	private String inscricaoMunicipal;
 	private String homePage;
 	private String cidade;
+	private InstituicaoTO instituicao;
+	
 
 	public UnidadeTO() {
 	}
@@ -225,4 +227,13 @@ public class UnidadeTO {
 		this.cidade = cidade;
 	}
 
+	public InstituicaoTO getInstituicao() {
+		return instituicao;
+	}
+
+	public void setInstituicao(InstituicaoTO instituicao) {
+		this.instituicao = instituicao;
+	}
+
+	
 }

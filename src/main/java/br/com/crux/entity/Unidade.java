@@ -1,12 +1,13 @@
 package br.com.crux.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -18,8 +19,7 @@ import br.com.crux.infra.constantes.Constantes;
 
 @Entity
 @Table(name = "unidades")
-public class Unidade implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Unidade{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_unidade")
@@ -104,6 +104,9 @@ public class Unidade implements Serializable {
 	@Column(name = "nm_cidade")
 	private String cidade;
 	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_instituicao", nullable = true)
+	private Instituicao instituicao;
 	
 	public Unidade() {
 	}
@@ -298,6 +301,14 @@ public class Unidade implements Serializable {
 
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
+	}
+
+	public Instituicao getInstituicao() {
+		return instituicao;
+	}
+
+	public void setInstituicao(Instituicao instituicao) {
+		this.instituicao = instituicao;
 	}
 
 
