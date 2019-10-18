@@ -1,5 +1,7 @@
 package br.com.crux.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,6 +32,17 @@ public class InstituicaoService {
 	@Autowired
 	private AlterarInstituicaoCmd alterarCmd;
 	
+	
+	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<InstituicaoTO> getAll() {
+		return getCmd.getAll();
+	}
+
+	@GetMapping(path = "/{idUnidade}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public InstituicaoTO getById(@PathVariable(name = "idUnidade") Long idUnidade) {
+		return getCmd.getTOById(idUnidade);
+	}
+	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public InstituicaoTO cadastrar(@RequestBody InstituicaoTO to) {
 		return cadastrarCmd.cadastrar(to);
@@ -46,10 +59,4 @@ public class InstituicaoService {
 	}
 	
 
-	@GetMapping(path = "/{idUnidade}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public InstituicaoTO getById(@PathVariable(name = "idUnidade") Long idUnidade) {
-		return getCmd.getTOById(idUnidade);
-	}
-
-	
 }
