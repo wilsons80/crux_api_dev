@@ -45,7 +45,7 @@ public class AlunoService {
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public AlunoTO getById(@PathVariable(name = "id") Long id) {
-		return getCmd.getById(id);
+		return getCmd.getTOById(id);
 	}
 	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
