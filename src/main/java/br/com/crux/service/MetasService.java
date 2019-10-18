@@ -22,41 +22,35 @@ import br.com.crux.to.MetasTO;
 @RestController
 @RequestMapping(value = "metas")
 public class MetasService {
-	
-	@Autowired
-	private GetMetasCmd getMetasCmd;
-	@Autowired
-	private ExcluirMetasCmd  excluirMetasCmd;
-	@Autowired
-	private AlterarMetasCmd alterarMetasCmd;
-	@Autowired
-	private CadastrarMetasCmd cadastrarMetasCmd;
-	
-	
+
+	@Autowired private GetMetasCmd getMetasCmd;
+	@Autowired private ExcluirMetasCmd excluirMetasCmd;
+	@Autowired private AlterarMetasCmd alterarMetasCmd;
+	@Autowired private CadastrarMetasCmd cadastrarMetasCmd;
+
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<MetasTO> getAll() {
 		return getMetasCmd.getAll();
 	}
-	
+
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public MetasTO getById(@PathVariable(name = "id") Long id) {
 		return getMetasCmd.getById(id);
 	}
-	
+
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void cadastrar(@RequestBody MetasTO to) {
 		cadastrarMetasCmd.cadastrar(to);
 	}
-	
+
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void alterar(@RequestBody MetasTO to) {
 		alterarMetasCmd.alterar(to);
 	}
-	
+
 	@DeleteMapping(path = "/{id}")
 	public void excluir(@PathVariable(name = "id") Long id) {
 		excluirMetasCmd.excluir(id);
 	}
-	
 
 }

@@ -1,52 +1,33 @@
 package br.com.crux.cmd;
 
-import java.util.Objects;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.builder.IndicadoresTOBuilder;
+import br.com.crux.builder.MetasTOBuilder;
 import br.com.crux.dao.repository.MetasRepository;
 import br.com.crux.entity.Metas;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosMetasRule;
 import br.com.crux.to.MetasTO;
-import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class AlterarMetasCmd {
 
 	@Autowired private MetasRepository metasRepository;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
-	@Autowired private IndicadoresTOBuilder indicadoresTOBuilder;
+	@Autowired private MetasTOBuilder metasTOBuilder;
 	@Autowired private CamposObrigatoriosMetasRule camposObrigatoriosRule;
-	
-	
+
 	public void alterar(MetasTO to) {
-		Optional<Metas> entityOptional = metasRepository.findById(to.getId());
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Meta informada não existe.");
-		}
-		
-		if(Objects.isNull(to.getIndicadores())) {
-			throw new NotFoundException("Indicador não informado.");
-		}
-		
-		camposObrigatoriosRule.verificar(to.getNome(), to.getDataInicio(), to.getIndicadores().getIdIndicador());
-		
-		Metas entityUpdate = entityOptional.get();
+		Metas entity = metasRepository.findById(to.getId()).orElseThrow(() -> new NotFoundException("Meta informada não existe."));
 
-		entityUpdate.setDescricao(to.getNome());
-		entityUpdate.setDataInicio(to.getDataInicio());
-		entityUpdate.setDataFim(to.getDataFim());
+		camposObrigatoriosRule.verificar(to);
 
-		entityUpdate.setIndicadores(indicadoresTOBuilder.build(to.getIndicadores()));
-		
-		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
-		entityUpdate.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
-		
-		metasRepository.save(entityUpdate);
-		
+		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
+
+		entity = metasTOBuilder.build(to);
+
+		metasRepository.save(entity);
+
 	}
 }

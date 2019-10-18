@@ -29,12 +29,15 @@ public class GetIndicadoresCmd {
 		return new ArrayList<IndicadoresTO>();
 	}
 	
-	public IndicadoresTO getById(Long id) {
-		Optional<Indicadores> entityOptional = indicadoresRepository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Indicador não encontrado");
-		}
-		return indicadoresTOBuilder.buildTO(entityOptional.get());
+	public IndicadoresTO getTOById(Long id) {
+		Indicadores entity = indicadoresRepository.findById(id).orElseThrow(() -> new NotFoundException("Indicador não encontrado"));
+	
+		return indicadoresTOBuilder.buildTO(entity);
+	}
+
+	public Indicadores getById(Long id) {
+		return indicadoresRepository.findById(id).orElseGet(null);
+		
 	}
 			
 }

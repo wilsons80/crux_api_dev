@@ -29,12 +29,15 @@ public class GetPlanosAcaoCmd {
 		return new ArrayList<PlanosAcaoTO>();
 	}
 	
-	public PlanosAcaoTO getById(Long id) {
-		Optional<PlanosAcao> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Planos de Acao não encontrado.");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+	public PlanosAcaoTO getTOById(Long id) {
+		PlanosAcao entity = repository.findById(id).orElseThrow(() -> new NotFoundException("Planos de Acao não encontrado."));
+		
+		return toBuilder.buildTO(entity);
+	}
+	
+	public PlanosAcao getById(Long id) {
+		return repository.findById(id).orElseGet(null);
+		
 	}
 			
 }

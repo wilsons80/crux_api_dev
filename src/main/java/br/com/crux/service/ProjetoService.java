@@ -22,41 +22,35 @@ import br.com.crux.to.ProjetoTO;
 @RestController
 @RequestMapping(value = "projeto")
 public class ProjetoService {
-	
-	@Autowired
-	private GetProjetoCmd getCmd;
-	@Autowired
-	private ExcluirProjetoCmd  excluirCmd;
-	@Autowired
-	private AlterarProjetoCmd alterarCmd;
-	@Autowired
-	private CadastrarProjetoCmd cadastrarCmd;
-	
-	
+
+	@Autowired private GetProjetoCmd getCmd;
+	@Autowired private ExcluirProjetoCmd excluirCmd;
+	@Autowired private AlterarProjetoCmd alterarCmd;
+	@Autowired private CadastrarProjetoCmd cadastrarCmd;
+
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<ProjetoTO> getAll() {
 		return getCmd.getAll();
 	}
-	
+
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ProjetoTO getById(@PathVariable(name = "id") Long id) {
 		return getCmd.getTOById(id);
 	}
-	
+
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void cadastrar(@RequestBody ProjetoTO to) {
 		cadastrarCmd.cadastrar(to);
 	}
-	
+
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void alterar(@RequestBody ProjetoTO to) {
 		alterarCmd.alterar(to);
 	}
-	
+
 	@DeleteMapping(path = "/{id}")
 	public void excluir(@PathVariable(name = "id") Long id) {
 		excluirCmd.excluir(id);
 	}
-	
 
 }

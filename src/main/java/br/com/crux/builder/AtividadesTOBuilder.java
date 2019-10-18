@@ -2,23 +2,30 @@ package br.com.crux.builder;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.cmd.GetPlanosAcaoCmd;
+import br.com.crux.cmd.GetProjetoCmd;
+import br.com.crux.cmd.GetUnidadeCmd;
 import br.com.crux.entity.Atividades;
+import br.com.crux.entity.PlanosAcao;
+import br.com.crux.entity.Projeto;
+import br.com.crux.entity.Unidade;
 import br.com.crux.to.AtividadesTO;
 
 @Component
 public class AtividadesTOBuilder {
 
-	@Autowired
-	private UnidadeTOBuilder unidadeBuilder;
-	@Autowired
-	private ProjetoTOBuilder projetoBuilder;
-	@Autowired
-	private PlanosAcaoTOBuilder planosAcaoBuilder;
+	@Autowired private UnidadeTOBuilder unidadeBuilder;
+	@Autowired private ProjetoTOBuilder projetoBuilder;
+	@Autowired private PlanosAcaoTOBuilder planosAcaoBuilder;
+	@Autowired private GetUnidadeCmd getUnidadeCmd;
+	@Autowired private GetProjetoCmd getProjetoCmd;
+	@Autowired private GetPlanosAcaoCmd getPlanosAcaoCmd;
 
 	public Atividades build(AtividadesTO p) {
 		Atividades retorno = new Atividades();
@@ -38,20 +45,33 @@ public class AtividadesTOBuilder {
 		retorno.setPeriodoAtividade(p.getPeriodoAtividade());
 		retorno.setHorarioFixo(p.getHorarioFixo());
 		retorno.setLocalExecucao(p.getLocalExecucao());
-		
-		retorno.setSegunda(p.getSegunda() ? "S" : "N");
-		retorno.setTerca(p.getTerca()? "S" : "N");
-		retorno.setQuarta(p.getQuarta() ? "S" : "N");
-		retorno.setQuinta(p.getQuinta() ? "S" : "N");
-		retorno.setSexta(p.getSexta() ? "S" : "N");
-		retorno.setSabado(p.getSabado() ? "S" : "N");
-		retorno.setDomingo(p.getDomingo() ? "S" : "N");
-		
+
+		retorno.setSegunda(Objects.isNull(p.getSegunda()) || p.getSegunda() ? "S" : "N");
+		retorno.setTerca(Objects.isNull(p.getTerca())   || p.getTerca() ? "S" : "N");
+		retorno.setQuarta(Objects.isNull(p.getQuarta())  || p.getQuarta() ? "S" : "N");
+		retorno.setQuinta(Objects.isNull(p.getQuinta())  || p.getQuinta() ? "S" : "N");
+		retorno.setSexta(Objects.isNull(p.getSexta())   || p.getSexta() ? "S" : "N");
+		retorno.setSabado(Objects.isNull(p.getSabado())  || p.getSabado() ? "S" : "N");
+		retorno.setDomingo(Objects.isNull(p.getDomingo()) || p.getDomingo() ? "S" : "N");
+
 		retorno.setObservacoes(p.getObservacoes());
 		retorno.setValorCustoAtividade(p.getValorCustoAtividade());
-		retorno.setUnidade(unidadeBuilder.build(p.getUnidade()));
-		retorno.setProjeto(projetoBuilder.build(p.getProjeto()));
-		retorno.setPlanosAcao(planosAcaoBuilder.build(p.getPlanosAcao()));
+
+		Optional.ofNullable(p.getUnidade()).ifPresent(u -> {
+			Unidade unidade = getUnidadeCmd.getById(u.getIdUnidade());
+			retorno.setUnidade(unidade);
+		});
+
+		Optional.ofNullable(p.getProjeto()).ifPresent(pj -> {
+			Projeto projeto = getProjetoCmd.getById(pj.getId());
+			retorno.setProjeto(projeto);
+		});
+
+		Optional.ofNullable(p.getPlanosAcao()).ifPresent(pa -> {
+			PlanosAcao planos = getPlanosAcaoCmd.getById(pa.getId());
+			retorno.setPlanosAcao(planos);
+		});
+
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
 		return retorno;
@@ -60,6 +80,11 @@ public class AtividadesTOBuilder {
 	public AtividadesTO buildTO(Atividades p) {
 		AtividadesTO retorno = new AtividadesTO();
 		
+		if(Objects.isNull(p)) {
+			return retorno;
+		}
+		
+
 		retorno.setId(p.getId());
 		retorno.setDescricao(p.getDescricao());
 		retorno.setDescricaoLocalExecucao(p.getDescricaoLocalExecucao());
@@ -75,7 +100,7 @@ public class AtividadesTOBuilder {
 		retorno.setPeriodoAtividade(p.getPeriodoAtividade());
 		retorno.setHorarioFixo(p.getHorarioFixo());
 		retorno.setLocalExecucao(p.getLocalExecucao());
-		
+
 		retorno.setSegunda(Objects.nonNull(p.getSegunda()) && p.getSegunda().equalsIgnoreCase("S") ? true : false);
 		retorno.setTerca(Objects.nonNull(p.getTerca()) && p.getTerca().equalsIgnoreCase("S") ? true : false);
 		retorno.setQuarta(Objects.nonNull(p.getQuarta()) && p.getQuarta().equalsIgnoreCase("S") ? true : false);
@@ -83,7 +108,7 @@ public class AtividadesTOBuilder {
 		retorno.setSexta(Objects.nonNull(p.getSexta()) && p.getSexta().equalsIgnoreCase("S") ? true : false);
 		retorno.setSabado(Objects.nonNull(p.getSabado()) && p.getSabado().equalsIgnoreCase("S") ? true : false);
 		retorno.setDomingo(Objects.nonNull(p.getDomingo()) && p.getDomingo().equalsIgnoreCase("S") ? true : false);
-		
+
 		retorno.setObservacoes(p.getObservacoes());
 		retorno.setValorCustoAtividade(p.getValorCustoAtividade());
 		retorno.setUnidade(unidadeBuilder.buildTO(p.getUnidade()));

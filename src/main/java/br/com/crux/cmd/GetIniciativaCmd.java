@@ -29,12 +29,13 @@ public class GetIniciativaCmd {
 		return new ArrayList<IniciativaTO>();
 	}
 	
-	public IniciativaTO getById(Long id) {
-		Optional<Iniciativa> entityOptional = iniciativaRepository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Iniciativa não encontrado");
-		}
-		return iniciativaTOBuilder.buildTO(entityOptional.get());
+	public IniciativaTO getTOById(Long id) {
+		Iniciativa entity = iniciativaRepository.findById(id).orElseThrow(() -> new NotFoundException("Iniciativa não encontrado"));
+		return iniciativaTOBuilder.buildTO(entity);
+	}
+
+	public Iniciativa getById(Long id) {
+		return iniciativaRepository.findById(id).orElseGet(null);
 	}
 			
 }

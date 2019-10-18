@@ -22,41 +22,35 @@ import br.com.crux.to.ObjetivoTO;
 @RestController
 @RequestMapping(value = "objetivo")
 public class ObjetivoService {
-	
-	@Autowired
-	private GetObjetivoCmd getObjetivoCmd;
-	@Autowired
-	private ExcluirObjetivoCmd  excluirObjetivoCmd;
-	@Autowired
-	private AlterarObjetivoCmd alterarObjetivoCmd;
-	@Autowired
-	private CadastrarObjetivoCmd cadastrarObjetivoCmd;
-	
-	
+
+	@Autowired private GetObjetivoCmd getObjetivoCmd;
+	@Autowired private ExcluirObjetivoCmd excluirObjetivoCmd;
+	@Autowired private AlterarObjetivoCmd alterarObjetivoCmd;
+	@Autowired private CadastrarObjetivoCmd cadastrarObjetivoCmd;
+
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<ObjetivoTO> getAll() {
 		return getObjetivoCmd.getAll();
 	}
-	
+
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ObjetivoTO getById(@PathVariable(name = "id") Long idDepartamento) {
-		return getObjetivoCmd.getById(idDepartamento);
+		return getObjetivoCmd.getTOById(idDepartamento);
 	}
-	
+
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void cadastrar(@RequestBody ObjetivoTO to) {
 		cadastrarObjetivoCmd.cadastrar(to);
 	}
-	
+
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void alterar(@RequestBody ObjetivoTO to) {
 		alterarObjetivoCmd.alterar(to);
 	}
-	
+
 	@DeleteMapping(path = "/{id}")
 	public void excluir(@PathVariable(name = "id") Long id) {
 		excluirObjetivoCmd.excluir(id);
 	}
-	
 
 }
