@@ -99,5 +99,12 @@ public class GetUnidadeCmd {
 		return unidadeBuilder.buildTO(unidade);
 	}
 	
+	public List<UnidadeTO> getAllUnidadesByInstituicao(Long idInstituicao) {
+		Optional<List<Unidade>> instituicoes = unidadeRepository.findAllInstituicao(idInstituicao);
+		if(instituicoes.isPresent()) {
+			return unidadeBuilder.buildAllTO(instituicoes.get());
+		}
+		return null;
+	}
 	
 }

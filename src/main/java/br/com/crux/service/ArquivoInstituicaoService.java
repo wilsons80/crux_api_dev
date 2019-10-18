@@ -15,8 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import br.com.crux.cmd.ArquivoCmd;
 
 @RestController
-@RequestMapping(value = "arquivounidade")
-public class ArquivoUnidadeService {
+@RequestMapping(value = "arquivoinstituicao")
+public class ArquivoInstituicaoService {
 
 	@Autowired
 	private ArquivoCmd arquivoCmd;
@@ -26,16 +26,16 @@ public class ArquivoUnidadeService {
 		arquivoCmd.salvar(file);
 	}
 	
-	@PostMapping(path = "/unidade/{idUnidade}")
-	public void gravarComIdUnidade(@PathVariable(name = "idUnidade") Long idUnidade ,@RequestParam(name = "file") MultipartFile file ) {
-		arquivoCmd.salvarComIdUnidade(file, idUnidade);
+	@PostMapping(path = "/instituicao/{id}")
+	public void gravarComIdInstituicao(@PathVariable(name = "id") Long id ,@RequestParam(name = "file") MultipartFile file ) {
+		arquivoCmd.salvarComIdInstituicao(file, id);
 	}
 	
 	
-	@PutMapping(path = "/unidade/{idUnidade}")
+	@PutMapping(path = "/instituicao/{id}")
 	@Transactional
-	public void alterarComIdUnidade(@PathVariable(name = "idUnidade") Long idUnidade, @RequestParam(name = "file") MultipartFile file) {
-		arquivoCmd.alterarArquivoUnidade(file,idUnidade);
+	public void alterarComIdInstituicao(@PathVariable(name = "id") Long id, @RequestParam(name = "file") MultipartFile file) {
+		arquivoCmd.alterarArquivoInstituicao(file,id);
 	}
 	
 	@PutMapping(path = "")
@@ -43,9 +43,9 @@ public class ArquivoUnidadeService {
 		arquivoCmd.salvar(file);
 	}
 	
-	@GetMapping(path = "/{idUnidade}")
-	public byte[] getPorUnidade(@PathVariable(name = "idUnidade") Long idUnidade) {
-		return arquivoCmd.getArquivoPorUnidade(idUnidade);
+	@GetMapping(path = "/{id}")
+	public byte[] getPorUnidade(@PathVariable(name = "id") Long id) {
+		return arquivoCmd.getArquivoPorInstituicao(id);
 	}	
 	
 }

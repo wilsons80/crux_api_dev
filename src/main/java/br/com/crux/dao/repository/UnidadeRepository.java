@@ -19,6 +19,12 @@ public interface UnidadeRepository extends JpaRepository<Unidade, Long>{
 			     + " where uu.usuariosSistema.idUsuario = ?1")
 	public Optional<List<Unidade>> findAllUnidadesDoUsuarioLogado(Long idUsuarioLogado);
 
+	@Query(value = "SELECT u "
+		     + "  FROM Unidade u inner join Instituicao i "
+		     + "    on u.instituicao = i "
+		     + " where i.id = ?1")
+	public Optional<List<Unidade>> findAllInstituicao(Long idInstituicao);
+	
 
 	@Query(value = "SELECT u "
 		     + "  FROM Unidade u inner join UsuariosUnidade uu on uu.unidade = u "

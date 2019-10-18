@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.entity.Unidade;
@@ -13,6 +14,8 @@ import br.com.crux.to.UnidadeTO;
 
 @Component
 public class UnidadeTOBuilder {
+	
+	@Autowired private InstituicaoTOBuilder instituicaoTOBuilder;
 
 	public Unidade build(UnidadeTO to) {
 		Unidade unidade = new Unidade();
@@ -43,7 +46,8 @@ public class UnidadeTOBuilder {
 		unidade.setInscricaoMunicipal(to.getInscricaoMunicipal());
 		unidade.setHomePage(to.getHomePage());
 		unidade.setCidade(to.getCidade());
-
+		
+		unidade.setInstituicao(instituicaoTOBuilder.build(to.getInstituicao()));
 		unidade.setIdArquivo(to.getArquivo());
 
 		return unidade;
@@ -82,8 +86,8 @@ public class UnidadeTOBuilder {
 		unidade.setInscricaoMunicipal(to.getInscricaoMunicipal());
 		unidade.setHomePage(to.getHomePage());
 		unidade.setCidade(to.getCidade());
-
 		unidade.setArquivo(to.getIdArquivo());
+		unidade.setInstituicao(instituicaoTOBuilder.buildTO(to.getInstituicao()));
 
 		return unidade;
 	}
