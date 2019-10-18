@@ -40,7 +40,7 @@ public class IndicadoresService {
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public IndicadoresTO getById(@PathVariable(name = "id") Long idDepartamento) {
-		return getIndicadoresCmd.getById(idDepartamento);
+		return getIndicadoresCmd.getTOById(idDepartamento);
 	}
 	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)

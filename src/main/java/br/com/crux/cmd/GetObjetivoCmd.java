@@ -19,19 +19,24 @@ public class GetObjetivoCmd {
 	@Autowired private ObjetivoRepository objetivoRepository;
 	@Autowired private ObjetivoTOBuilder objetivoTOBuilder;
 	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
-	
+
 	public List<ObjetivoTO> getAll() {
 		Long idUnidade = getUnidadeLogadaCmd.get().getId();
-		Optional<List<Objetivo>> perspectivas = objetivoRepository.findByIdUnidade(idUnidade);
-		if(perspectivas.isPresent()) {
-			return objetivoTOBuilder.buildAll(perspectivas.get());
+		Optional<List<Objetivo>> objetivos = objetivoRepository.findByIdUnidade(idUnidade);
+
+		if (objetivos.isPresent()) {
+			return objetivoTOBuilder.buildAll(objetivos.get());
 		}
 		return new ArrayList<ObjetivoTO>();
 	}
-	
-	public ObjetivoTO getById(Long id) {
-		Objetivo entityOptional = objetivoRepository.findById(id).orElseThrow(()-> new NotFoundException("Objetivo não encontrado") ) ;
+
+	public ObjetivoTO getTOById(Long id) {
+		Objetivo entityOptional = objetivoRepository.findById(id).orElseThrow(() -> new NotFoundException("Objetivo não encontrado"));
 		return objetivoTOBuilder.buildTO(entityOptional);
 	}
-			
+
+	public Objetivo getById(Long id) {
+		return objetivoRepository.findById(id).orElseGet(null);
+	}
+
 }

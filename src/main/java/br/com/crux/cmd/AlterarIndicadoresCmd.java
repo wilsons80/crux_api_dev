@@ -1,52 +1,33 @@
 package br.com.crux.cmd;
 
-import java.util.Objects;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.builder.ObjetivoTOBuilder;
+import br.com.crux.builder.IndicadoresTOBuilder;
 import br.com.crux.dao.repository.IndicadoresRepository;
 import br.com.crux.entity.Indicadores;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosIndicadoresRule;
 import br.com.crux.to.IndicadoresTO;
-import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class AlterarIndicadoresCmd {
 
 	@Autowired private IndicadoresRepository indicadoresRepository;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
-	@Autowired private ObjetivoTOBuilder objetivoTOBuilder;
 	@Autowired private CamposObrigatoriosIndicadoresRule camposObrigatoriosRule;
-	
-	
+	@Autowired private IndicadoresTOBuilder indicadoresTOBuilder;
+
 	public void alterar(IndicadoresTO to) {
-		Optional<Indicadores> entityOptional = indicadoresRepository.findById(to.getIdIndicador());
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Indicador informado não existe.");
-		}
-		
-		if(Objects.isNull(to.getObjetivo())) {
-			throw new NotFoundException("Objetivo não informado.");
-		}
-		
-		camposObrigatoriosRule.verificar(to.getNome(), to.getDataInicio(), to.getObjetivo().getIdObjetivo());
-		
-		Indicadores entityUpdate = entityOptional.get();
+		camposObrigatoriosRule.verificar(to);
 
-		entityUpdate.setNome(to.getNome());
-		entityUpdate.setDataInicio(to.getDataInicio());
-		entityUpdate.setDataFim(to.getDataFim());
+		Indicadores entity = indicadoresRepository.findById(to.getIdIndicador()).orElseThrow(() -> new NotFoundException("Indicador informado não existe."));
 
-		entityUpdate.setObjetivo(objetivoTOBuilder.build(to.getObjetivo()));
-		
-		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
-		entityUpdate.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
-		
-		indicadoresRepository.save(entityUpdate);
-		
+		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
+
+		entity = indicadoresTOBuilder.build(to);
+
+		indicadoresRepository.save(entity);
+
 	}
 }

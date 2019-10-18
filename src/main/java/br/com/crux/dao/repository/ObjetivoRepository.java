@@ -13,8 +13,9 @@ import br.com.crux.entity.Objetivo;
 public interface ObjetivoRepository extends JpaRepository<Objetivo, Long>{
 
 	@Query(value = "SELECT o FROM Objetivo o "
-			+ " inner join Perspectiva p on o.perspectiva.unidade = p.unidade "
-			+ " where p.unidade.idUnidade = ?1")
+			+ " inner join Perspectiva p on o.perspectiva = p"
+			+ " inner join Unidade u on p.unidade = u"
+			+ " where u.idUnidade = ?1")
 	public Optional<List<Objetivo>> findByIdUnidade(Long idUnidade);
 
 }

@@ -22,41 +22,35 @@ import br.com.crux.to.PlanosAcaoTO;
 @RestController
 @RequestMapping(value = "planosacao")
 public class PlanosAcaoService {
-	
-	@Autowired
-	private GetPlanosAcaoCmd getPlanosAcaoCmd;
-	@Autowired
-	private ExcluirPlanosAcaoCmd  excluirPlanosAcaoCmd;
-	@Autowired
-	private AlterarPlanosAcaoCmd alterarPlanosAcaoCmd;
-	@Autowired
-	private CadastrarPlanosAcaoCmd cadastrarPlanosAcaoCmd;
-	
-	
+
+	@Autowired private GetPlanosAcaoCmd getPlanosAcaoCmd;
+	@Autowired private ExcluirPlanosAcaoCmd excluirPlanosAcaoCmd;
+	@Autowired private AlterarPlanosAcaoCmd alterarPlanosAcaoCmd;
+	@Autowired private CadastrarPlanosAcaoCmd cadastrarPlanosAcaoCmd;
+
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<PlanosAcaoTO> getAll() {
 		return getPlanosAcaoCmd.getAll();
 	}
-	
+
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public PlanosAcaoTO getById(@PathVariable(name = "id") Long id) {
-		return getPlanosAcaoCmd.getById(id);
+		return getPlanosAcaoCmd.getTOById(id);
 	}
-	
+
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void cadastrar(@RequestBody PlanosAcaoTO to) {
 		cadastrarPlanosAcaoCmd.cadastrar(to);
 	}
-	
+
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void alterar(@RequestBody PlanosAcaoTO to) {
 		alterarPlanosAcaoCmd.alterar(to);
 	}
-	
+
 	@DeleteMapping(path = "/{id}")
 	public void excluir(@PathVariable(name = "id") Long id) {
 		excluirPlanosAcaoCmd.excluir(id);
 	}
-	
 
 }

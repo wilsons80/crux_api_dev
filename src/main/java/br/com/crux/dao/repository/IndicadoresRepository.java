@@ -14,7 +14,8 @@ public interface IndicadoresRepository extends JpaRepository<Indicadores, Long>{
 
 	@Query(value = "SELECT i FROM Indicadores i "
 			+ " inner join Objetivo o on i.objetivo = o"
-			+ " inner join Perspectiva p on o.perspectiva.unidade = p.unidade "
+			+ " inner join Perspectiva p on o.perspectiva = p "
+			+ " inner join Unidade u on p.unidade = u "
 			+ " where p.unidade.idUnidade = ?1")
 	public Optional<List<Indicadores>> findByIdUnidade(Long idUnidade);
 

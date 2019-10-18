@@ -17,8 +17,9 @@ public interface PlanosAcaoRepository extends JpaRepository<PlanosAcao, Long>{
 			+ " inner join Metas m on ini.meta = m"
 			+ " inner join Indicadores i on m.indicadores = i"
 			+ " inner join Objetivo o on i.objetivo = o"
-			+ " inner join Perspectiva pe on o.perspectiva.unidade = pe.unidade "
-			+ " where pe.unidade.idUnidade = ?1")
+			+ " inner join Perspectiva pe on o.perspectiva = pe "
+			+ " inner join Unidade u on pe.unidade = u "
+			+ " where u.idUnidade = ?1")
 	public Optional<List<PlanosAcao>> findByIdUnidade(Long idUnidade);
 
 }

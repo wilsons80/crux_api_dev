@@ -12,10 +12,8 @@ public class ResponsaveisAlunoTO {
 	private String descDesligamento;
 	private String descGrauParentesco;
 
-	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
-	private LocalDateTime dataDesvinculacao;
-	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
-	private LocalDateTime dataVinculacao;
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class) private LocalDateTime dataDesvinculacao;
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class) private LocalDateTime dataVinculacao;
 
 	private String mesmoEnderResponsavel;
 	private String tipoResponsavel;
