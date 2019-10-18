@@ -16,11 +16,11 @@ public class CamposObrigatoriosAlunoRule {
 			throw new CamposObrigatoriosException("Matricula deve ser informada.");
 		}
 
-		if (Objects.isNull(to.getUnidade())) {
+		if (Objects.isNull(to.getUnidade()) && Objects.isNull(to.getUnidade().getIdUnidade())) {
 			throw new CamposObrigatoriosException("Unidade deve ser informada.");
 		}
 
-		if(Objects.isNull(to.getPessoaFisica())) {
+		if(Objects.isNull(to.getPessoaFisica()) && Objects.isNull(to.getPessoaFisica().getId())) {
 			throw new CamposObrigatoriosException("Pessoa Fícisa deve ser informada.");
 		}		
 	}

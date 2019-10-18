@@ -22,41 +22,35 @@ import br.com.crux.to.ProgramaTO;
 @RestController
 @RequestMapping(value = "programa")
 public class ProgramaService {
-	
-	@Autowired
-	private GetProgramaCmd getCmd;
-	@Autowired
-	private ExcluirProgramaCmd  excluirCmd;
-	@Autowired
-	private AlterarProgramaCmd alterarCmd;
-	@Autowired
-	private CadastrarProgramaCmd cadastrarCmd;
-	
-	
+
+	@Autowired private GetProgramaCmd getCmd;
+	@Autowired private ExcluirProgramaCmd excluirCmd;
+	@Autowired private AlterarProgramaCmd alterarCmd;
+	@Autowired private CadastrarProgramaCmd cadastrarCmd;
+
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<ProgramaTO> getAll() {
 		return getCmd.getAll();
 	}
-	
+
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ProgramaTO getById(@PathVariable(name = "id") Long id) {
 		return getCmd.getTOById(id);
 	}
-	
+
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void cadastrar(@RequestBody ProgramaTO to) {
 		cadastrarCmd.cadastrar(to);
 	}
-	
+
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void alterar(@RequestBody ProgramaTO to) {
 		alterarCmd.alterar(to);
 	}
-	
+
 	@DeleteMapping(path = "/{id}")
 	public void excluir(@PathVariable(name = "id") Long id) {
 		excluirCmd.excluir(id);
 	}
-	
 
 }

@@ -12,8 +12,8 @@ import br.com.crux.to.AtividadesTO;
 public class CamposObrigatoriosAtividadeRule {
 
 	public void verificar(AtividadesTO to) {
-		if (Objects.isNull(to.getDataInicio())) {
-			throw new CamposObrigatoriosException("Data de Início deve ser informada.");
+		if (Objects.isNull(to.getDataPrevisaoInicio())) {
+			throw new CamposObrigatoriosException("Data de previsão de início deve ser informada.");
 		}
 
 		if (Objects.isNull(to.getDataPrevisaoInicio())) {
@@ -24,15 +24,15 @@ public class CamposObrigatoriosAtividadeRule {
 			throw new CamposObrigatoriosException("Descrição deve ser informada.");
 		}
 
-		if (Objects.isNull(to.getUnidade())) {
+		if (Objects.isNull(to.getUnidade()) && Objects.isNull(to.getUnidade().getIdUnidade())) {
 			throw new CamposObrigatoriosException("Unidade deve ser informada.");
 		}
 
-		if (Objects.isNull(to.getProjeto())) {
+		if (Objects.isNull(to.getProjeto()) && Objects.isNull(to.getProjeto().getId())) {
 			throw new CamposObrigatoriosException("Projeto deve ser informado.");
 		}
 
-		if (Objects.isNull(to.getPlanosAcao())) {
+		if (Objects.isNull(to.getPlanosAcao()) && Objects.isNull(to.getPlanosAcao().getId())) {
 			throw new CamposObrigatoriosException("Plano de Ação deve ser informado.");
 		}
 

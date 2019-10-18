@@ -1,6 +1,7 @@
 package br.com.crux.builder;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,10 @@ public class IniciativaTOBuilder {
 	
 	public IniciativaTO buildTO(Iniciativa param) {
 		IniciativaTO retorno = new IniciativaTO();
+		
+		if(Objects.isNull(param)) {
+			return retorno;
+		}
 		
 		retorno.setId(param.getId());
 		retorno.setDataInicio(param.getDataInicio());

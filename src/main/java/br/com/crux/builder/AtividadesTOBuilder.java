@@ -46,13 +46,13 @@ public class AtividadesTOBuilder {
 		retorno.setHorarioFixo(p.getHorarioFixo());
 		retorno.setLocalExecucao(p.getLocalExecucao());
 
-		retorno.setSegunda(p.getSegunda() ? "S" : "N");
-		retorno.setTerca(p.getTerca() ? "S" : "N");
-		retorno.setQuarta(p.getQuarta() ? "S" : "N");
-		retorno.setQuinta(p.getQuinta() ? "S" : "N");
-		retorno.setSexta(p.getSexta() ? "S" : "N");
-		retorno.setSabado(p.getSabado() ? "S" : "N");
-		retorno.setDomingo(p.getDomingo() ? "S" : "N");
+		retorno.setSegunda(Objects.isNull(p.getSegunda()) || p.getSegunda() ? "S" : "N");
+		retorno.setTerca(Objects.isNull(p.getTerca())   || p.getTerca() ? "S" : "N");
+		retorno.setQuarta(Objects.isNull(p.getQuarta())  || p.getQuarta() ? "S" : "N");
+		retorno.setQuinta(Objects.isNull(p.getQuinta())  || p.getQuinta() ? "S" : "N");
+		retorno.setSexta(Objects.isNull(p.getSexta())   || p.getSexta() ? "S" : "N");
+		retorno.setSabado(Objects.isNull(p.getSabado())  || p.getSabado() ? "S" : "N");
+		retorno.setDomingo(Objects.isNull(p.getDomingo()) || p.getDomingo() ? "S" : "N");
 
 		retorno.setObservacoes(p.getObservacoes());
 		retorno.setValorCustoAtividade(p.getValorCustoAtividade());
