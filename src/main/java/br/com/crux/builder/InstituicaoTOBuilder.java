@@ -19,7 +19,7 @@ public class InstituicaoTOBuilder {
 		retorno.setNome(to.getNome());
 		retorno.setIdArquivo(to.getIdArquivo());
 		retorno.setUsuarioAlteracao(to.getUsuarioAlteracao());
-
+		retorno.setMostraLista(to.getMostraLista());
 
 		return retorno;
 	}
@@ -35,7 +35,8 @@ public class InstituicaoTOBuilder {
 		retorno.setNome(to.getNome());
 		retorno.setIdArquivo(to.getIdArquivo());
 		retorno.setUsuarioAlteracao(to.getUsuarioAlteracao());
-
+		retorno.setMostraLista(to.getMostraLista());
+		
 		return retorno;
 	}
 

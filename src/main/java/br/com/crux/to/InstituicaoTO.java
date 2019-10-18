@@ -9,7 +9,8 @@ public class InstituicaoTO {
 	private String nome;
 	private Long idArquivo;
 	private Long usuarioAlteracao;
-
+	private Boolean mostraLista;
+	
 	public InstituicaoTO() {
 	}
 
@@ -43,6 +44,14 @@ public class InstituicaoTO {
 
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
+	}
+
+	public Boolean getMostraLista() {
+		return mostraLista;
+	}
+
+	public void setMostraLista(Boolean mostraLista) {
+		this.mostraLista = mostraLista;
 	}
 
 

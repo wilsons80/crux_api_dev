@@ -1,6 +1,7 @@
 package br.com.crux.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +10,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import br.com.crux.infra.constantes.Constantes;
+import br.com.crux.infra.dao.SimNaoConverter;
 
 @Entity
 @Table(name = "instituicoes")
@@ -28,6 +30,10 @@ public class Instituicao {
 
 	@Column(name = "id_usuario_apl")
 	private Long usuarioAlteracao;
+	
+	@Column(name = "st_mostra_lista")
+	@Convert(converter = SimNaoConverter.class)
+	private Boolean mostraLista;
 
 	public Instituicao() {
 	}
@@ -63,5 +69,15 @@ public class Instituicao {
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
+
+	public Boolean getMostraLista() {
+		return mostraLista;
+	}
+
+	public void setMostraLista(Boolean mostraLista) {
+		this.mostraLista = mostraLista;
+	}
+	
+	
 
 }
