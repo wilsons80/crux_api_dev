@@ -76,4 +76,11 @@ public class Java8DateUtil {
 		return false;
 	}
 
+	
+	public static Long horaStringToLong(String hora) {
+		String teste = hora.replace(":","");
+		return Long.valueOf(teste);
+		
+	}
+	
 }

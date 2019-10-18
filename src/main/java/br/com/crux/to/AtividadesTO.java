@@ -21,8 +21,8 @@ public class AtividadesTO {
 	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime dataPrevisaoTermino;
 
-	private Long horaFim;
-	private Long horaInicio;
+	private String horaFim;
+	private String horaInicio;
 	private Long numeroAulas;
 	private Long cargaHoraria;
 	private Long maximoParticipantes;
@@ -106,19 +106,19 @@ public class AtividadesTO {
 		this.dataPrevisaoTermino = dataPrevisaoTermino;
 	}
 
-	public Long getHoraFim() {
+	public String getHoraFim() {
 		return horaFim;
 	}
 
-	public void setHoraFim(Long horaFim) {
+	public void setHoraFim(String horaFim) {
 		this.horaFim = horaFim;
 	}
 
-	public Long getHoraInicio() {
+	public String getHoraInicio() {
 		return horaInicio;
 	}
 
-	public void setHoraInicio(Long horaInicio) {
+	public void setHoraInicio(String horaInicio) {
 		this.horaInicio = horaInicio;
 	}
 

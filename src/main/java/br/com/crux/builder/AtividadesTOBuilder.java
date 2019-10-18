@@ -15,6 +15,7 @@ import br.com.crux.entity.Atividades;
 import br.com.crux.entity.PlanosAcao;
 import br.com.crux.entity.Projeto;
 import br.com.crux.entity.Unidade;
+import br.com.crux.infra.util.Java8DateUtil;
 import br.com.crux.to.AtividadesTO;
 
 @Component
@@ -37,8 +38,15 @@ public class AtividadesTOBuilder {
 		retorno.setDataInicio(p.getDataInicio());
 		retorno.setDataPrevisaoInicio(p.getDataPrevisaoInicio());
 		retorno.setDataPrevisaoTermino(p.getDataPrevisaoTermino());
-		retorno.setHoraFim(p.getHoraFim());
-		retorno.setHoraInicio(p.getHoraInicio());
+		
+		Optional.ofNullable(p.getHoraFim()).ifPresent(hora -> {
+			retorno.setHoraFim(Java8DateUtil.horaStringToLong(p.getHoraFim()));
+		});
+		
+		Optional.ofNullable(p.getHoraInicio()).ifPresent(hora -> {
+			retorno.setHoraInicio(Java8DateUtil.horaStringToLong(p.getHoraInicio()));
+		});
+		
 		retorno.setNumeroAulas(p.getNumeroAulas());
 		retorno.setCargaHoraria(p.getCargaHoraria());
 		retorno.setMaximoParticipantes(p.getMaximoParticipantes());
@@ -46,13 +54,13 @@ public class AtividadesTOBuilder {
 		retorno.setHorarioFixo(p.getHorarioFixo());
 		retorno.setLocalExecucao(p.getLocalExecucao());
 
-		retorno.setSegunda(Objects.isNull(p.getSegunda()) || p.getSegunda() ? "S" : "N");
-		retorno.setTerca(Objects.isNull(p.getTerca())   || p.getTerca() ? "S" : "N");
-		retorno.setQuarta(Objects.isNull(p.getQuarta())  || p.getQuarta() ? "S" : "N");
-		retorno.setQuinta(Objects.isNull(p.getQuinta())  || p.getQuinta() ? "S" : "N");
-		retorno.setSexta(Objects.isNull(p.getSexta())   || p.getSexta() ? "S" : "N");
-		retorno.setSabado(Objects.isNull(p.getSabado())  || p.getSabado() ? "S" : "N");
-		retorno.setDomingo(Objects.isNull(p.getDomingo()) || p.getDomingo() ? "S" : "N");
+		retorno.setSegunda(Objects.isNull(p.getSegunda()) || !p.getSegunda() ? "N" : "S");
+		retorno.setTerca(Objects.isNull(p.getTerca())     || !p.getTerca()   ? "N" : "S");
+		retorno.setQuarta(Objects.isNull(p.getQuarta())   || !p.getQuarta()  ? "N" : "S");
+		retorno.setQuinta(Objects.isNull(p.getQuinta())   || !p.getQuinta()  ? "N" : "S");
+		retorno.setSexta(Objects.isNull(p.getSexta())     || !p.getSexta()   ? "N" : "S");
+		retorno.setSabado(Objects.isNull(p.getSabado())   || !p.getSabado()  ? "N" : "S");
+		retorno.setDomingo(Objects.isNull(p.getDomingo()) || !p.getDomingo() ? "N" : "S");
 
 		retorno.setObservacoes(p.getObservacoes());
 		retorno.setValorCustoAtividade(p.getValorCustoAtividade());
@@ -92,8 +100,16 @@ public class AtividadesTOBuilder {
 		retorno.setDataInicio(p.getDataInicio());
 		retorno.setDataPrevisaoInicio(p.getDataPrevisaoInicio());
 		retorno.setDataPrevisaoTermino(p.getDataPrevisaoTermino());
-		retorno.setHoraFim(p.getHoraFim());
-		retorno.setHoraInicio(p.getHoraInicio());
+		
+		Optional.ofNullable(p.getHoraFim()).ifPresent(hora -> {
+			
+			retorno.setHoraFim(formatarHora(hora));
+		});
+		
+		Optional.ofNullable(p.getHoraInicio()).ifPresent(hora -> {
+			retorno.setHoraInicio(formatarHora(hora));
+		});
+		
 		retorno.setNumeroAulas(p.getNumeroAulas());
 		retorno.setCargaHoraria(p.getCargaHoraria());
 		retorno.setMaximoParticipantes(p.getMaximoParticipantes());
@@ -117,6 +133,14 @@ public class AtividadesTOBuilder {
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
 		return retorno;
+	}
+
+	private String formatarHora(Long hora) {
+		String horaString = String.valueOf(hora);
+		if(horaString.length() == 3) {
+			horaString = "0" + horaString;
+		}
+		return horaString.substring(0,2) + ":" + horaString.substring(2,4);
 	}
 
 	public List<AtividadesTO> buildAll(List<Atividades> dtos) {
