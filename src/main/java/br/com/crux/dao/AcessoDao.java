@@ -24,7 +24,7 @@ public class AcessoDao extends BaseDao{
 		trocarSenhaRepository.updateSenha(username, senha);
 	}
 	
-	public List<PerfilAcessoUsuarioDTO> getPerfilAcessoDoUsuario(Long idUnidade,Long idUsuario,Long idModulo, Boolean isUsuarioLogadoAdmin) {
+	public List<PerfilAcessoUsuarioDTO> getPerfilAcessoDoUsuario(Long idUnidade,Long idUsuario,Long idModulo) {
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append("	select us.id_usuario,                                         ");
@@ -51,10 +51,6 @@ public class AcessoDao extends BaseDao{
 		sql.append("   and gm.id_unidade       = u.id_unidade                         ");
 		sql.append("   and u.id_unidade        = :idUnidade                           ");
 		sql.append("   and m.modulo_pai is not null                                   ");
-		
-		if(isUsuarioLogadoAdmin == Boolean.FALSE) {
-			sql.append(" and  us.st_admin != 'S'                                      ");
-		}
 		
 		if(Objects.nonNull(idModulo)) {
 			sql.append("   and m.id_modulo         = :idModulo                        ");

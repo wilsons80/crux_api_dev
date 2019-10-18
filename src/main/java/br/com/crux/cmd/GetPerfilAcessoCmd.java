@@ -45,14 +45,11 @@ public class GetPerfilAcessoCmd {
 		if (Objects.isNull(idUnidade)) {
 			throw new ParametroNaoInformadoException("Erro ao recuperar os perfils do usuário, unidade não informada.");
 		}
-		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
-		return perfilAcessoUsuarioTOBuilder.buildAll(acessoDao.getPerfilAcessoDoUsuario(idUnidade, idUsuario, idModulo, usuarioLogado.getAdmin()));
+		return perfilAcessoUsuarioTOBuilder.buildAll(acessoDao.getPerfilAcessoDoUsuario(idUnidade, idUsuario, idModulo));
 	}
 
 	public List<PerfilAcessoUsuarioTO> getPerfilAcessoDoUsuarioNaUnidadeLogada(Long idUsuario, Long idModulo) {
-		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
-		
-		return perfilAcessoUsuarioTOBuilder.buildAll(acessoDao.getPerfilAcessoDoUsuario(getUnidadeLogadaCmd.get().getId(), idUsuario, idModulo, usuarioLogado.getAdmin()));
+		return perfilAcessoUsuarioTOBuilder.buildAll(acessoDao.getPerfilAcessoDoUsuario(getUnidadeLogadaCmd.get().getId(), idUsuario, idModulo));
 	}
 
 	public List<PerfilAcessoTO> getPerfilAcesso(String nomeModulo) {
