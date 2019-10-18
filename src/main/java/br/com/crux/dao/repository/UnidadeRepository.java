@@ -21,7 +21,7 @@ public interface UnidadeRepository extends JpaRepository<Unidade, Long>{
 
 	@Query(value = "SELECT u "
 		     + "  FROM Unidade u inner join Instituicao i "
-		     + "    on uu.instituicao = i "
+		     + "    on u.instituicao = i "
 		     + " where i.id = ?1")
 	public Optional<List<Unidade>> findAllInstituicao(Long idInstituicao);
 	
