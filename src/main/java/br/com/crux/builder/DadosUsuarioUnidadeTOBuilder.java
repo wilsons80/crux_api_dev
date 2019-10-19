@@ -9,13 +9,13 @@ import br.com.crux.dao.dto.UsuarioUnidadeDTO;
 import br.com.crux.entity.Unidade;
 import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.entity.UsuariosUnidade;
-import br.com.crux.to.UsuarioUnidadeTO;
+import br.com.crux.to.DadosUsuarioUnidadeTO;
 
 @Component
-public class UsuarioUnidadeTOBuilder {
+public class DadosUsuarioUnidadeTOBuilder {
 
-	public UsuarioUnidadeTO buildTO(UsuarioUnidadeDTO dto) {
-		UsuarioUnidadeTO to = new UsuarioUnidadeTO();
+	public DadosUsuarioUnidadeTO buildTO(UsuarioUnidadeDTO dto) {
+		DadosUsuarioUnidadeTO to = new DadosUsuarioUnidadeTO();
 		to.setIdUsuario(dto.getIdUsuario());
 		to.setIdPessoaFisica(dto.getIdPessoaFisica());
 		to.setEmail(dto.getEmail());
@@ -27,11 +27,11 @@ public class UsuarioUnidadeTOBuilder {
 	public UsuariosUnidade build(UsuariosSistema usuariosSistema, Unidade unidade) {
 		UsuariosUnidade entity = new UsuariosUnidade();
 		entity.setUnidade(unidade);
-		entity.setUsuariosSistema(usuariosSistema);
+		entity.setUsuarioSistema(usuariosSistema);
 		return entity;
 	}
 
-	public List<UsuarioUnidadeTO> buildAll(List<UsuarioUnidadeDTO> dtos) {
+	public List<DadosUsuarioUnidadeTO> buildAll(List<UsuarioUnidadeDTO> dtos) {
 		return dtos.stream().map(dto -> buildTO(dto)).collect(Collectors.toList());
 	}
 

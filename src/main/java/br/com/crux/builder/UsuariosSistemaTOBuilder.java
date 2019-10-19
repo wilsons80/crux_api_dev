@@ -22,7 +22,7 @@ public class UsuariosSistemaTOBuilder {
 	public UsuariosSistema build(UsuariosSistemaTO p) {
 		UsuariosSistema retorno = new UsuariosSistema();
 
-		retorno.setIdUsuario(p.getIdUsuario());
+		retorno.setIdUsuario(p.getId());
 		retorno.setUsername(p.getNomeUsuario());
 		retorno.setDescFimVigenciaUsuario(p.getDescFimVigenciaUsuario());
 		
@@ -52,7 +52,7 @@ public class UsuariosSistemaTOBuilder {
 	public UsuariosSistemaTO buildTO(UsuariosSistema p) {
 		UsuariosSistemaTO retorno = new UsuariosSistemaTO();
 		
-		retorno.setIdUsuario(p.getIdUsuario());
+		retorno.setId(p.getIdUsuario());
 		retorno.setNomeUsuario(p.getUsername());
 		retorno.setDescFimVigenciaUsuario(p.getDescFimVigenciaUsuario());
 		retorno.setSenhaUsuario(p.getSenha());
@@ -71,7 +71,7 @@ public class UsuariosSistemaTOBuilder {
 		
 		retorno.setPessoaFisica(pessoaFisicaTOBuilder.buildTO(p.getPessoaFisica()));
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
-
+		
 		return retorno;
 	}
 

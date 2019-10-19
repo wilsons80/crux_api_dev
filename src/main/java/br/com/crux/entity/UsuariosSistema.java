@@ -62,10 +62,7 @@ public class UsuariosSistema {
 	@JoinColumn(name="id_pessoa_fisica")
 	private PessoaFisica pessoaFisica;
 
-	@OneToMany(mappedBy="usuariosSistema")
-	private List<UsuariosGrupo> usuariosGrupos;
-
-	@OneToMany(mappedBy="usuariosSistema")
+	@OneToMany(mappedBy="usuarioSistema")
 	private List<UsuariosUnidade> usuariosUnidades;
 
 	@Column(name = "id_usuario_apl")
@@ -160,14 +157,6 @@ public class UsuariosSistema {
 
 	public void setPessoaFisica(PessoaFisica pessoaFisica) {
 		this.pessoaFisica = pessoaFisica;
-	}
-
-	public List<UsuariosGrupo> getUsuariosGrupos() {
-		return usuariosGrupos;
-	}
-
-	public void setUsuariosGrupos(List<UsuariosGrupo> usuariosGrupos) {
-		this.usuariosGrupos = usuariosGrupos;
 	}
 
 	public List<UsuariosUnidade> getUsuariosUnidades() {

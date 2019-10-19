@@ -19,27 +19,29 @@ public class UsuariosUnidade implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_usuario_unidade")
 	@SequenceGenerator(name = "sq_id_usuario_unidade", sequenceName = "sq_id_usuario_unidade", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_usuario_unidade")
-	private Long idUsuarioUnidade;
+	private Long id;
 
-	//bi-directional many-to-one association to Unidade
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_unidade")
 	private Unidade unidade;
 
-	//bi-directional many-to-one association to UsuariosSistema
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_usuario")
-	private UsuariosSistema usuariosSistema;
+	private UsuariosSistema usuarioSistema;
+	
+	@Column(name = "id_usuario_apl")
+	private Long usuarioAlteracao;
+	
 
 	public UsuariosUnidade() {
 	}
 
-	public Long getIdUsuarioUnidade() {
-		return this.idUsuarioUnidade;
+	public Long getId() {
+		return this.id;
 	}
 
-	public void setIdUsuarioUnidade(Long idUsuarioUnidade) {
-		this.idUsuarioUnidade = idUsuarioUnidade;
+	public void setId(Long idUsuarioUnidade) {
+		this.id = idUsuarioUnidade;
 	}
 
 	public Unidade getUnidade() {
@@ -50,12 +52,21 @@ public class UsuariosUnidade implements Serializable {
 		this.unidade = unidade;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
+	public UsuariosSistema getUsuarioSistema() {
+		return this.usuarioSistema;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
+	public void setUsuarioSistema(UsuariosSistema usuariosSistema) {
+		this.usuarioSistema = usuariosSistema;
 	}
 
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
+	}
+
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
+	}
+
+	
 }

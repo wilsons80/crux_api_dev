@@ -14,7 +14,7 @@ import br.com.crux.dao.repository.UsuarioSistemaRepository;
 import br.com.crux.dao.repository.UsuariosGrupoRepository;
 import br.com.crux.entity.GruposModulo;
 import br.com.crux.entity.Modulo;
-import br.com.crux.entity.PerfisAcesso;
+import br.com.crux.entity.PerfilAcesso;
 import br.com.crux.entity.Unidade;
 import br.com.crux.entity.UsuariosGrupo;
 import br.com.crux.entity.UsuariosSistema;
@@ -64,22 +64,22 @@ public class CadastrarAcessoUsuarioCmd {
 		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 
 		//Valido se já existe permissão no módulo pai.
-		Optional<List<UsuariosGrupo>> permissaoModuloPai = usuariosGrupoRepository.getPermissoes(acessoTO.getIdUsuario(), modulo.get().getModuloPai().getIdModulo());
+		Optional<List<UsuariosGrupo>> permissaoModuloPai = usuariosGrupoRepository.getPermissoes(acessoTO.getIdUsuario(), modulo.get().getModuloPai().getId());
 		if (!permissaoModuloPai.isPresent()) {
-			Optional<PerfisAcesso> perfilApenasConsulta = perfilAcessoRepository.getPerfilApenasConsulta();
+			Optional<PerfilAcesso> perfilApenasConsulta = perfilAcessoRepository.getPerfilApenasConsulta();
 			if(!perfilApenasConsulta.isPresent()) {
 				throw new PerfilAcessoException("Não foi possível atribuir permissão ao modulo pai.");
 			}
 
-			Optional<GruposModulo> grupoModuloOptional = grupoModuloRepository.findByIdModuloAndIdPerfilAcessoAndIdUnidade(modulo.get().getModuloPai().getIdModulo(), 
-			                                              		perfilApenasConsulta.get().getIdPerfilAcesso(), unidade.get().getIdUnidade());
+			Optional<GruposModulo> grupoModuloOptional = grupoModuloRepository.findByIdModuloAndIdPerfilAcessoAndIdUnidade(modulo.get().getModuloPai().getId(), 
+			                                              		perfilApenasConsulta.get().getId(), unidade.get().getIdUnidade());
 			
 			GruposModulo gruposModuloPai = new GruposModulo();
 			if(!grupoModuloOptional.isPresent()) {
 				gruposModuloPai.setModulo(modulo.get().getModuloPai());
-				gruposModuloPai.setNmGrupo("C");
-				gruposModuloPai.setPerfisAcesso(perfilApenasConsulta.get());
-				gruposModuloPai.setTxDescricaoGrupo("Grupo de perfil de consultar");
+				gruposModuloPai.setNome("C");
+				gruposModuloPai.setPerfilAcesso(perfilApenasConsulta.get());
+				gruposModuloPai.setDescricao("Grupo de perfil de consultar");
 				gruposModuloPai.setUnidade(unidade.get());
 				
 				gruposModuloPai = grupoModuloRepository.save(gruposModuloPai);

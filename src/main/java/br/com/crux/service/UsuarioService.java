@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.crux.cmd.GetUsuariosPorUnidadeCmd;
-import br.com.crux.to.UsuarioUnidadeTO;
+import br.com.crux.to.DadosUsuarioUnidadeTO;
 
 @RestController
 @RequestMapping(value = "usuario")
@@ -19,12 +19,12 @@ public class UsuarioService {
 	@Autowired GetUsuariosPorUnidadeCmd getUsuariosPorUnidadeCmd;
 	
 	@GetMapping(path = "/unidade", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<UsuarioUnidadeTO> getUsuariosPorUnidadeLogada() {
+	public List<DadosUsuarioUnidadeTO> getUsuariosPorUnidadeLogada() {
 		return getUsuariosPorUnidadeCmd.getUsuariosPorUnidade();
 	}
 	
 	@GetMapping(path = "/unidade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<UsuarioUnidadeTO> getUsuariosPorUnidade(@PathVariable(name = "id") Long idUnidade) {
+	public List<DadosUsuarioUnidadeTO> getUsuariosPorUnidade(@PathVariable(name = "id") Long idUnidade) {
 		return getUsuariosPorUnidadeCmd.getUsuariosPorUnidade(idUnidade);
 	}
 	

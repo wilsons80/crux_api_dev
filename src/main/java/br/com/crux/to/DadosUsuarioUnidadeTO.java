@@ -1,16 +1,17 @@
 package br.com.crux.to;
 
-public class UsuarioUnidadeTO {
+public class DadosUsuarioUnidadeTO {
 	
 	private Long idPessoaFisica;
 	private String nomeCompleto;
 	private String email;
 	private Long idUsuario;
 	
-	public UsuarioUnidadeTO() {
+	public DadosUsuarioUnidadeTO() {
 	}
 	
-	public UsuarioUnidadeTO(Long idPessoaFisica, String nomeCompleto, String email, Long idUsuario) {
+	
+	public DadosUsuarioUnidadeTO(Long idPessoaFisica, String nomeCompleto, String email, Long idUsuario) {
 		super();
 		this.idPessoaFisica = idPessoaFisica;
 		this.nomeCompleto = nomeCompleto;

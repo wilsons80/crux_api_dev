@@ -30,7 +30,7 @@ public class ExcluirAcessoUsuarioCmd {
 		
 		// Busco outras permissões de módulos filhos com o mesmo módulo pai
 		Optional<List<UsuariosGrupo>> usuariosGrupos = usuariosGrupoRepository.getModulosFilhosComMesmoModuloPai(usuario.getIdUsuario(),
-				                                                                                                 modulo.getModuloPai().getIdModulo());
+				                                                                                                 modulo.getModuloPai().getId());
 
 		if(!usuariosGrupos.isPresent()) {
 			// Significa que existe permissão com modulo pai sem modulo filho.

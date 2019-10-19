@@ -1,7 +1,7 @@
 package br.com.crux.to;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
+import java.util.List;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -10,7 +10,7 @@ import br.com.crux.infra.adapter.LocalDateTimeAdapter;
 public class UsuariosSistemaTO {
 	
 	
-	private Long idUsuario;
+	private Long id;
 	private String nomeUsuario;
 	private String senhaUsuario;
 	private String descFimVigenciaUsuario;
@@ -29,32 +29,35 @@ public class UsuariosSistemaTO {
 	private PessoaFisicaTO pessoaFisica;
 	private Long usuarioAlteracao;
 	
+	private List<UsuariosUnidadesTO> usuariosUnidades;
+	
 	
 	public UsuariosSistemaTO() {
 	}
 
-	public Long getIdUsuario() {
-		return idUsuario;
+	
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdUsuario(Long idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getNomeUsuario() {
 		return nomeUsuario;
 	}
 
-	public void setNomeUsuario(String username) {
-		this.nomeUsuario = username;
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
 	}
 
 	public String getSenhaUsuario() {
 		return senhaUsuario;
 	}
 
-	public void setSenhaUsuario(String senha) {
-		this.senhaUsuario = senha;
+	public void setSenhaUsuario(String senhaUsuario) {
+		this.senhaUsuario = senhaUsuario;
 	}
 
 	public String getDescFimVigenciaUsuario() {
@@ -98,7 +101,7 @@ public class UsuariosSistemaTO {
 	}
 
 	public Boolean getStAtivo() {
-		return Optional.ofNullable(stAtivo).orElse(false);
+		return stAtivo;
 	}
 
 	public void setStAtivo(Boolean stAtivo) {
@@ -106,7 +109,7 @@ public class UsuariosSistemaTO {
 	}
 
 	public Boolean getStTrocaSenha() {
-		return Optional.ofNullable(stTrocaSenha).orElse(false);
+		return stTrocaSenha;
 	}
 
 	public void setStTrocaSenha(Boolean stTrocaSenha) {
@@ -125,8 +128,18 @@ public class UsuariosSistemaTO {
 		return usuarioAlteracao;
 	}
 
-	public void setUsuarioAlteracao(Long usuariosAlteracao) {
-		this.usuarioAlteracao = usuariosAlteracao;
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
+	public List<UsuariosUnidadesTO> getUsuariosUnidades() {
+		return usuariosUnidades;
+	}
+
+	public void setUsuariosUnidades(List<UsuariosUnidadesTO> usuariosUnidades) {
+		this.usuariosUnidades = usuariosUnidades;
+	}
+	
+
+	
 }

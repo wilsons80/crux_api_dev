@@ -34,16 +34,15 @@ public class AlterarUnidadeCmd {
 		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		to.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
 		
-		if (Objects.nonNull(to.getInstituicao())) {
-			Optional<Instituicao> instituicao = instituicaoRepository.findById(to.getInstituicao().getId());
+		unidade = unidadeTOBuilder.build(to);
+		
+		if(Objects.nonNull(unidade.getInstituicao())) {
+			Optional<Instituicao> instituicao = instituicaoRepository.findById(unidade.getInstituicao().getId());
 			if(instituicao.isPresent()) {
 				unidade.setInstituicao(instituicao.get());
 			}
-		} else {
-			unidade.setInstituicao(null);
 		}
 
-		unidade = unidadeTOBuilder.build(to);
 		Unidade retorno = unidadeRepository.save(unidade);
 		return unidadeTOBuilder.buildTO(retorno);
 

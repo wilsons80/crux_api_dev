@@ -1,18 +1,11 @@
 package br.com.crux.entity;
 
-import java.io.Serializable;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -26,14 +19,13 @@ import br.com.crux.infra.dao.SimNaoConverter;
  */
 @Entity
 @Table(name="perfis_acessos")
-public class PerfisAcesso implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class PerfilAcesso {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_perfil_acesso")
 	@SequenceGenerator(name = "sq_id_perfil_acesso", sequenceName = "sq_id_perfil_acesso", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_perfil_acesso")
-	private Long idPerfilAcesso;
+	private Long id;
 
 	@Column(name="cs_altera")
 	@Convert(converter = SimNaoConverter.class)
@@ -54,24 +46,18 @@ public class PerfisAcesso implements Serializable {
 	@Column(name="nm_perfil_acesso")
 	private String nmPerfilAcesso;
 
-	//bi-directional many-to-one association to GruposModulo
-	@OneToMany(mappedBy="perfisAcesso")
-	private List<GruposModulo> gruposModulos;
+	@Column(name="id_usuario_apl")
+	private Long usuarioAlteracao;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
-
-	public PerfisAcesso() {
+	public PerfilAcesso() {
 	}
 
-	public Long getIdPerfilAcesso() {
-		return this.idPerfilAcesso;
+	public Long getId() {
+		return this.id;
 	}
 
-	public void setIdPerfilAcesso(Long idPerfilAcesso) {
-		this.idPerfilAcesso = idPerfilAcesso;
+	public void setId(Long idPerfilAcesso) {
+		this.id = idPerfilAcesso;
 	}
 
 	public Boolean getAltera() {
@@ -114,20 +100,13 @@ public class PerfisAcesso implements Serializable {
 		this.nmPerfilAcesso = nmPerfilAcesso;
 	}
 
-	public List<GruposModulo> getGruposModulos() {
-		return this.gruposModulos;
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
 	}
 
-	public void setGruposModulos(List<GruposModulo> gruposModulos) {
-		this.gruposModulos = gruposModulos;
+	public void setUsuarioAlteracao(Long usuariosSistema) {
+		this.usuarioAlteracao = usuariosSistema;
 	}
-
-	public UsuariosSistema getUsuariosSistema() {
-		return this.usuariosSistema;
-	}
-
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
-		this.usuariosSistema = usuariosSistema;
-	}
+	
 
 }

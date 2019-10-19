@@ -29,7 +29,7 @@ public class CadastrarUnidadeCmd {
 		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 		Unidade unidade = unidadeTOBuilder.build(to);
 
-		if(Objects.nonNull(to.getInstituicao())) {
+		if(Objects.nonNull(unidade.getInstituicao())) {
 			unidade.setInstituicao( instituicaoTOBuilder.build(cadastrarInstituicaoCmd.cadastrar(to.getInstituicao())));
 		}
 		

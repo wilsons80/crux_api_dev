@@ -20,7 +20,7 @@ public interface UsuariosGrupoRepository extends JpaRepository<UsuariosGrupo, Lo
 	@Query(value = "SELECT ug FROM UsuariosGrupo ug "
 			+ "inner join GruposModulo gm on ug.gruposModulo = gm "
 			+ "inner join Modulo m on gm.modulo = m"
-			+ " where m.idModulo = ?1")
+			+ " where m.id = ?1")
 	public Optional<UsuariosGrupo> getPorModulo(Long idModulo);
 	
 	@Query(value = "SELECT ug FROM UsuariosGrupo ug "
@@ -36,7 +36,7 @@ public interface UsuariosGrupoRepository extends JpaRepository<UsuariosGrupo, Lo
 			+ " inner join GruposModulo gm on gm = ug.gruposModulo"
 			+ " inner join Modulo m on m = gm.modulo"
 			+ "   where us.idUsuario  = ?1"
-			+ "    and m.idModulo    = ?2")
+			+ "    and m.id           = ?2")
 	public Optional<List<UsuariosGrupo>> getPermissoes(Long idUsuario, Long idModulo);
 	
 	
@@ -46,7 +46,7 @@ public interface UsuariosGrupoRepository extends JpaRepository<UsuariosGrupo, Lo
 			+ " inner join Modulo m on m = gm.modulo "
 			+ "   where us.idUsuario  = ?1 "
 			+ "     and exists ( select mp from Modulo mp "
-			+ "                    where mp.idModulo = ?2 "
+			+ "                    where mp.id = ?2 "
 			+ "                      and mp = m.moduloPai)")
 	public Optional<List<UsuariosGrupo>> getModulosFilhosComMesmoModuloPai(Long idUsuario, Long idModuloPai);
 

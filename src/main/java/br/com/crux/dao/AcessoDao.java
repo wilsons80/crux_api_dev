@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.dao.base.BaseDao;
-import br.com.crux.dao.dto.PerfilAcessoDTO;
+import br.com.crux.dao.dto.AcessoDTO;
 import br.com.crux.dao.dto.PerfilAcessoUsuarioDTO;
 import br.com.crux.dao.repository.TrocarSenhaRepository;
 
@@ -80,7 +80,7 @@ public class AcessoDao extends BaseDao{
 	
 	
 	
-	public List<PerfilAcessoDTO> getPerfilAcesso(Long idUnidade,Long idUsuario,Long idModulo) {
+	public List<AcessoDTO> getPerfilAcesso(Long idUnidade,Long idUsuario,Long idModulo) {
 		StringBuilder sql = new StringBuilder();
 
 	  	sql.append(" select m.id_modulo,                                              ");
@@ -112,8 +112,8 @@ public class AcessoDao extends BaseDao{
 		@SuppressWarnings("unchecked")
 		List<Object[]> values = query.getResultList();
 		
-		List<PerfilAcessoDTO> retorno = new ArrayList<PerfilAcessoDTO>();
-		values.stream().forEach( colunas -> retorno.add(new PerfilAcessoDTO(colunas)));
+		List<AcessoDTO> retorno = new ArrayList<AcessoDTO>();
+		values.stream().forEach( colunas -> retorno.add(new AcessoDTO(colunas)));
 		
 		return retorno;
 		

@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.crux.cmd.AlterarAcessoUsuarioCmd;
 import br.com.crux.cmd.CadastrarAcessoUsuarioCmd;
 import br.com.crux.cmd.ExcluirAcessoUsuarioCmd;
-import br.com.crux.cmd.GetPerfilAcessoCmd;
+import br.com.crux.cmd.GetAcessoCmd;
 import br.com.crux.to.CadastroAcessoTO;
-import br.com.crux.to.PerfilAcessoTO;
+import br.com.crux.to.AcessoTO;
 import br.com.crux.to.PerfilAcessoUsuarioTO;
 
 @RestController
@@ -33,7 +33,7 @@ public class AcessoService {
 	@Autowired
 	private AlterarAcessoUsuarioCmd alterarAcessoUsuarioCmd;
 	@Autowired
-	private GetPerfilAcessoCmd getPerfilAcessoCmd;
+	private GetAcessoCmd getPerfilAcessoCmd;
 
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void cadastrar(@RequestBody CadastroAcessoTO acesso) {
@@ -70,7 +70,7 @@ public class AcessoService {
 	
 	//Retorna os acesso do módulo acessado no menu
 	@GetMapping(path = "/modulo/{nome}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<PerfilAcessoTO> getPerfilAcesso(@PathVariable(name = "nome") String nomeModulo) {
+	public List<AcessoTO> getPerfilAcesso(@PathVariable(name = "nome") String nomeModulo) {
 		return getPerfilAcessoCmd.getPerfilAcesso(nomeModulo);
 	}
 

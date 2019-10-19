@@ -10,6 +10,6 @@ import br.com.crux.entity.Modulo;
 @Repository
 public interface ModuloRepository extends JpaRepository<Modulo, Long>{
 	
-	public Optional<Modulo> findByNmModulo(String nomeModulo);
+	public Optional<Modulo> findByNome(String nomeModulo);
 
 }

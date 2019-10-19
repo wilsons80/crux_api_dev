@@ -47,7 +47,10 @@ public class UnidadeTOBuilder {
 		unidade.setHomePage(to.getHomePage());
 		unidade.setCidade(to.getCidade());
 		
-		unidade.setInstituicao(instituicaoTOBuilder.build(to.getInstituicao()));
+		if (Objects.nonNull(to.getInstituicao()) && Objects.nonNull(to.getInstituicao().getId())) {
+			unidade.setInstituicao(instituicaoTOBuilder.build(to.getInstituicao()));
+		}
+		
 		unidade.setIdArquivo(to.getArquivo());
 
 		return unidade;
@@ -87,7 +90,10 @@ public class UnidadeTOBuilder {
 		unidade.setHomePage(to.getHomePage());
 		unidade.setCidade(to.getCidade());
 		unidade.setArquivo(to.getIdArquivo());
-		unidade.setInstituicao(instituicaoTOBuilder.buildTO(to.getInstituicao()));
+		
+		if (Objects.nonNull(to.getInstituicao()) && Objects.nonNull(to.getInstituicao().getId())) {
+			unidade.setInstituicao(instituicaoTOBuilder.buildTO(to.getInstituicao()));
+		}
 
 		return unidade;
 	}

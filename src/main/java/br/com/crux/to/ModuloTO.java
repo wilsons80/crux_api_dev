@@ -2,26 +2,21 @@ package br.com.crux.to;
 
 public class ModuloTO {
 
-	private Long idModulo;
+	private Long id;
 	private String descricao;
 	private String nome;
-	
+	private ModuloTO moduloPai;
+	private Long usuarioAlteracao;
+
 	public ModuloTO() {
 	}
-	
-	public ModuloTO(Long idModulo, String descricao, String nome) {
-		super();
-		this.idModulo = idModulo;
-		this.descricao = descricao;
-		this.nome = nome;
+
+	public Long getId() {
+		return id;
 	}
 
-	public Long getIdModulo() {
-		return idModulo;
-	}
-
-	public void setIdModulo(Long idModulo) {
-		this.idModulo = idModulo;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getDescricao() {
@@ -39,6 +34,21 @@ public class ModuloTO {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	
+
+	public ModuloTO getModuloPai() {
+		return moduloPai;
+	}
+
+	public void setModuloPai(ModuloTO moduloPai) {
+		this.moduloPai = moduloPai;
+	}
+
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
+	}
+
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
+	}
+
 }

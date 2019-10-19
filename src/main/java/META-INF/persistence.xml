@@ -51,7 +51,7 @@
 		<class>br.com.crux.entity.PagamentosFatura</class>
 		<class>br.com.crux.entity.Parametros</class>
 		<class>br.com.crux.entity.Pedido</class>
-		<class>br.com.crux.entity.PerfisAcesso</class>
+		<class>br.com.crux.entity.PerfilAcesso</class>
 		<class>br.com.crux.entity.Perspectiva</class>
 		<class>br.com.crux.entity.PessoaFisica</class>
 		<class>br.com.crux.entity.PlanosAcao</class>

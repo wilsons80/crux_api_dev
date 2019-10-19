@@ -20,7 +20,7 @@ public class GetUsuarioUnidadeCmd {
 
 		UsuariosSistema usuario = getUsuarioSistemaCmd.getById(idUsuario);
 
-		return usuariosUnidadeRepository.findByUsuariosSistema(usuario).orElse(Collections.emptyList());
+		return usuariosUnidadeRepository.findByUsuarioSistema(usuario).orElse(Collections.emptyList());
 
 	}
 

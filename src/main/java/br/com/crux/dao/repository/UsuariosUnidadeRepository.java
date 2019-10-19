@@ -12,8 +12,8 @@ import br.com.crux.entity.UsuariosUnidade;
 @Repository
 public interface UsuariosUnidadeRepository extends JpaRepository<UsuariosUnidade, Long> {
 
-	public Optional<List<UsuariosUnidade>> findByUsuariosSistema(UsuariosSistema usuario);
+	public Optional<List<UsuariosUnidade>> findByUsuarioSistema(UsuariosSistema usuario);
 
-	public void deleteByUsuariosSistema(UsuariosSistema usuariosSistema);
+	public void deleteByUsuarioSistema(UsuariosSistema usuariosSistema);
 
 }

@@ -22,6 +22,11 @@ public class CamposObrigatoriosUsuariosSistemaRule {
 
 		if(Objects.isNull(to.getPessoaFisica())) {
 			throw new CamposObrigatoriosException("Pessoa Fícisa deve ser informada.");
-		}		
+		}	
+		
+		if(Objects.isNull(to.getUsuariosUnidades()) || to.getUsuariosUnidades().isEmpty()) {
+			throw new CamposObrigatoriosException("Unidade deve ser informada.");
+		}	
+		
 	}
 }

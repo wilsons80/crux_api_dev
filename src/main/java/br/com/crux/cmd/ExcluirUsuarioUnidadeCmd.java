@@ -20,6 +20,6 @@ public class ExcluirUsuarioUnidadeCmd {
 
 		UsuariosSistema usuariosSistema = getUsuarioSistemaCmd.getById(idUsuario);
 
-		repository.deleteByUsuariosSistema(usuariosSistema);
+		repository.deleteByUsuarioSistema(usuariosSistema);
 	}
 }

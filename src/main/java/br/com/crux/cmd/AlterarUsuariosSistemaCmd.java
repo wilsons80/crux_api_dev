@@ -20,11 +20,12 @@ public class AlterarUsuariosSistemaCmd {
 	@Autowired private UsuariosSistemaTOBuilder toBuilder;
 	@Autowired private AlterarPessoaFisicaCmd alterarPessoaFisicaCmd;
 	@Autowired private CustomPasswordEncoder customPasswordEncoder;
+	@Autowired private AlterarUsuariosUnidadeCmd alterarUsuariosUnidadeCmd;
 	
 	public UsuariosSistemaTO alterar(UsuariosSistemaTO to) {
 		camposObrigatoriosRule.verificar(to);
 		
-		UsuariosSistema usuarioSistema = repository.findById(to.getIdUsuario()).orElseThrow((() -> new NotFoundException("Usuário informado não existe.")));
+		UsuariosSistema usuarioSistema = repository.findById(to.getId()).orElseThrow((() -> new NotFoundException("Usuário informado não existe.")));
 		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 		
 		usuarioSistema = toBuilder.build(to);
@@ -35,6 +36,8 @@ public class AlterarUsuariosSistemaCmd {
 			usuarioSistema.setSenha( novaSenhaEncode );
 			usuarioSistema.setQtdAcessoNegado(0L);
 		}
+		
+		alterarUsuariosUnidadeCmd.alterarAll(to.getUsuariosUnidades());
 		
 		UsuariosSistema usuarioSalvo = repository.save(usuarioSistema);
 		return toBuilder.buildTO(usuarioSalvo);

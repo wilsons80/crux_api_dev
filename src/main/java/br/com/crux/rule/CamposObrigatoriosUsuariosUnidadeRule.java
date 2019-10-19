@@ -4,17 +4,16 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
-import br.com.crux.entity.Unidade;
-import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.CamposObrigatoriosException;
+import br.com.crux.to.UsuariosUnidadesTO;
 
 @Component
 public class CamposObrigatoriosUsuariosUnidadeRule {
 
-	public void verificar(UsuariosSistema usuariosSistema, Unidade unidade) {
+	public void verificar(UsuariosUnidadesTO usuarioUnidade) {
 
-		Optional.ofNullable(usuariosSistema).orElseThrow(() -> new CamposObrigatoriosException("Usuário do Sistema deve ser informado."));
-		Optional.ofNullable(unidade).orElseThrow(() -> new CamposObrigatoriosException("Unidade deve ser informado."));
+		Optional.ofNullable(usuarioUnidade).orElseThrow(() -> new CamposObrigatoriosException("Usuário do Sistema deve ser informado."));
+		Optional.ofNullable(usuarioUnidade.getUnidade()).orElseThrow(() -> new CamposObrigatoriosException("Unidade deve ser informado."));
 
 	}
 }

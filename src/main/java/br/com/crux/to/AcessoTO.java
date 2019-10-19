@@ -1,32 +1,31 @@
 package br.com.crux.to;
 
-public class PerfilAcessoTO {
+public class AcessoTO {
 
-	private Long id;
-	private String nome;
+	private Long idModulo;
+	private String nomeModulo;
 	private Boolean altera;
 	private Boolean consulta;
 	private Boolean deleta;
 	private Boolean insere;
-	private Long usuarioAlteracao;
 
-	public PerfilAcessoTO() {
+	public AcessoTO() {
 	}
 
-	public Long getId() {
-		return id;
+	public Long getIdModulo() {
+		return idModulo;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdModulo(Long idModulo) {
+		this.idModulo = idModulo;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getNomeModulo() {
+		return nomeModulo;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNomeModulo(String nomeModulo) {
+		this.nomeModulo = nomeModulo;
 	}
 
 	public Boolean getAltera() {
@@ -59,14 +58,6 @@ public class PerfilAcessoTO {
 
 	public void setInsere(Boolean insere) {
 		this.insere = insere;
-	}
-
-	public Long getUsuarioAlteracao() {
-		return usuarioAlteracao;
-	}
-
-	public void setUsuarioAlteracao(Long idUsuarioAlteracao) {
-		this.usuarioAlteracao = idUsuarioAlteracao;
 	}
 
 }

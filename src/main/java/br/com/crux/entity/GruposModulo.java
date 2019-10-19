@@ -1,7 +1,5 @@
 package br.com.crux.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,60 +20,61 @@ import br.com.crux.infra.constantes.Constantes;
  */
 @Entity
 @Table(name="grupos_modulos")
-public class GruposModulo implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class GruposModulo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_grupo_modulo")
 	@SequenceGenerator(name = "sq_id_grupo_modulo", sequenceName = "sq_id_grupo_modulo", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_grupo_modulo")
-	private Long idGrupoModulo;
+	private Long id;
 
 	@Column(name="nm_grupo")
-	private String nmGrupo;
+	private String nome;
 
 	@Column(name="tx_descricao_grupo")
-	private String txDescricaoGrupo;
+	private String descricao;
 
-	//bi-directional many-to-one association to Modulo
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_modulo")
 	private Modulo modulo;
 
-	//bi-directional many-to-one association to PerfisAcesso
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_perfil_acesso")
-	private PerfisAcesso perfisAcesso;
+	private PerfilAcesso perfilAcesso;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_unidade")
 	private Unidade unidade;
+	
+	@Column(name="id_usuario_alteracao")
+	private Long usuarioAlteracao;
 
+	
 	public GruposModulo() {
 	}
 
-	public Long getIdGrupoModulo() {
-		return this.idGrupoModulo;
+	public Long getId() {
+		return this.id;
 	}
 
-	public void setIdGrupoModulo(Long idGrupoModulo) {
-		this.idGrupoModulo = idGrupoModulo;
+	public void setId(Long idGrupoModulo) {
+		this.id = idGrupoModulo;
 	}
 
-	public String getNmGrupo() {
-		return this.nmGrupo;
+	public String getNome() {
+		return this.nome;
 	}
 
-	public void setNmGrupo(String nmGrupo) {
-		this.nmGrupo = nmGrupo;
+	public void setNome(String nmGrupo) {
+		this.nome = nmGrupo;
 	}
 
-	public String getTxDescricaoGrupo() {
-		return this.txDescricaoGrupo;
+	public String getDescricao() {
+		return this.descricao;
 	}
 
-	public void setTxDescricaoGrupo(String txDescricaoGrupo) {
-		this.txDescricaoGrupo = txDescricaoGrupo;
+	public void setDescricao(String txDescricaoGrupo) {
+		this.descricao = txDescricaoGrupo;
 	}
 
 	public Modulo getModulo() {
@@ -86,12 +85,12 @@ public class GruposModulo implements Serializable {
 		this.modulo = modulo;
 	}
 
-	public PerfisAcesso getPerfisAcesso() {
-		return this.perfisAcesso;
+	public PerfilAcesso getPerfilAcesso() {
+		return this.perfilAcesso;
 	}
 
-	public void setPerfisAcesso(PerfisAcesso perfisAcesso) {
-		this.perfisAcesso = perfisAcesso;
+	public void setPerfilAcesso(PerfilAcesso perfisAcesso) {
+		this.perfilAcesso = perfisAcesso;
 	}
 
 	public Unidade getUnidade() {
@@ -100,6 +99,14 @@ public class GruposModulo implements Serializable {
 
 	public void setUnidade(Unidade unidade) {
 		this.unidade = unidade;
+	}
+
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
+	}
+
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
 	

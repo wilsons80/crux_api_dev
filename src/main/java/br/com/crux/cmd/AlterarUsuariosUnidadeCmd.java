@@ -12,22 +12,22 @@ import br.com.crux.rule.CamposObrigatoriosUsuariosUnidadeRule;
 import br.com.crux.to.UsuariosUnidadesTO;
 
 @Component
-public class CadastrarUsuariosUnidadeCmd {
+public class AlterarUsuariosUnidadeCmd {
 
 	@Autowired private CamposObrigatoriosUsuariosUnidadeRule camposObrigatoriosUsuariosUnidadeRule;
 	@Autowired private UsuariosUnidadeTOBuilder usuarioUnidadeTOBuilder;
 	@Autowired private UsuariosUnidadeRepository usuariosUnidadeRepository;
 
-	public void cadastrar(UsuariosUnidadesTO usuarioUnidade) {
+	public void alterar(UsuariosUnidadesTO usuarioUnidade) {
 		camposObrigatoriosUsuariosUnidadeRule.verificar(usuarioUnidade);
 		UsuariosUnidade entity = usuarioUnidadeTOBuilder.build(usuarioUnidade);
 		usuariosUnidadeRepository.save(entity);
 	}
 	
-	
-	public void cadastrarAll(List<UsuariosUnidadesTO> lista) {
-		lista.stream().forEach( usuarioUnidade -> {
-			cadastrar(usuarioUnidade);
+	public void alterarAll(List<UsuariosUnidadesTO> lista) {
+		lista.stream().forEach(usuarioUnidade -> {
+			alterar(usuarioUnidade);
 		});
 	}
+
 }
