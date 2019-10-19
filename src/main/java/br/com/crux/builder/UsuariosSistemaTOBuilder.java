@@ -17,6 +17,7 @@ public class UsuariosSistemaTOBuilder {
 	
 	@Autowired private PessoaFisicaTOBuilder pessoaFisicaTOBuilder;
 	@Autowired private CustomPasswordEncoder customPasswordEncoder;
+	@Autowired private UsuariosUnidadeTOBuilder usuariosUnidadeTOBuilder;
 	
 
 	public UsuariosSistema build(UsuariosSistemaTO p) {
@@ -45,11 +46,22 @@ public class UsuariosSistemaTOBuilder {
 		
 		retorno.setPessoaFisica(pessoaFisicaTOBuilder.build(p.getPessoaFisica()));
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
+		
+		retorno.setUsuariosUnidades(usuariosUnidadeTOBuilder.buildAllTO(p.getUnidades()));
 
 		return retorno;
 	}
 
 	public UsuariosSistemaTO buildTO(UsuariosSistema p) {
+		UsuariosSistemaTO retorno = new UsuariosSistemaTO();
+		
+		retorno = buildTOPSemUnidades(p);
+		retorno.setUnidades(usuariosUnidadeTOBuilder.buildAll(p.getUsuariosUnidades()));
+		
+		return retorno;
+	}
+	
+	public UsuariosSistemaTO buildTOPSemUnidades(UsuariosSistema p) {
 		UsuariosSistemaTO retorno = new UsuariosSistemaTO();
 		
 		retorno.setId(p.getIdUsuario());
@@ -71,7 +83,7 @@ public class UsuariosSistemaTOBuilder {
 		
 		retorno.setPessoaFisica(pessoaFisicaTOBuilder.buildTO(p.getPessoaFisica()));
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
-		
+				
 		return retorno;
 	}
 

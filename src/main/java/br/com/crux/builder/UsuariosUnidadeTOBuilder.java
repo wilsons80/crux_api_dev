@@ -34,7 +34,7 @@ public class UsuariosUnidadeTOBuilder {
 		
 		retorno.setId(p.getId());
 		retorno.setUnidade(unidadeTOBuilder.buildTO(p.getUnidade()));
-		retorno.setUsuarioSistema(usuariosSistemaTOBuilder.buildTO(p.getUsuarioSistema()));
+		retorno.setUsuarioSistema(usuariosSistemaTOBuilder.buildTOPSemUnidades(p.getUsuarioSistema()));
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
 		
@@ -45,4 +45,7 @@ public class UsuariosUnidadeTOBuilder {
 		return dtos.stream().map(dto -> buildTO(dto)).collect(Collectors.toList());
 	}
 	
+	public List<UsuariosUnidade> buildAllTO(List<UsuariosUnidadesTO> dtos) {
+		return dtos.stream().map(dto -> build(dto)).collect(Collectors.toList());
+	}
 }

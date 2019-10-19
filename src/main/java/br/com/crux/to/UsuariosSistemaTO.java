@@ -29,7 +29,7 @@ public class UsuariosSistemaTO {
 	private PessoaFisicaTO pessoaFisica;
 	private Long usuarioAlteracao;
 	
-	private List<UsuariosUnidadesTO> usuariosUnidades;
+	private List<UsuariosUnidadesTO> unidades;
 	
 	
 	public UsuariosSistemaTO() {
@@ -132,12 +132,12 @@ public class UsuariosSistemaTO {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
-	public List<UsuariosUnidadesTO> getUsuariosUnidades() {
-		return usuariosUnidades;
+	public List<UsuariosUnidadesTO> getUnidades() {
+		return unidades;
 	}
 
-	public void setUsuariosUnidades(List<UsuariosUnidadesTO> usuariosUnidades) {
-		this.usuariosUnidades = usuariosUnidades;
+	public void setUnidades(List<UsuariosUnidadesTO> usuariosUnidades) {
+		this.unidades = usuariosUnidades;
 	}
 	
 
