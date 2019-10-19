@@ -28,9 +28,6 @@ public class FamiliaresTO {
 	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime      dataDesligamento;
 
-	private Boolean transportaAluno;
-	private Boolean tutelaAluno;
-	private Boolean responsavelFinanceiroPeloAluno;
 
 	private List<ResponsaveisAlunoTO> responsaveis;
 	
@@ -117,29 +114,6 @@ public class FamiliaresTO {
 		this.usuarioAlteracao = usuariosSistema;
 	}
 
-	public Boolean getTransportaAluno() {
-		return transportaAluno;
-	}
-
-	public void setTransportaAluno(Boolean transportaAluno) {
-		this.transportaAluno = transportaAluno;
-	}
-
-	public Boolean getTutelaAluno() {
-		return tutelaAluno;
-	}
-
-	public void setTutelaAluno(Boolean tutelaAluno) {
-		this.tutelaAluno = tutelaAluno;
-	}
-
-	public Boolean getResponsavelFinanceiroPeloAluno() {
-		return responsavelFinanceiroPeloAluno;
-	}
-
-	public void setResponsavelFinanceiroPeloAluno(Boolean responsavelFinanceiroPeloAluno) {
-		this.responsavelFinanceiroPeloAluno = responsavelFinanceiroPeloAluno;
-	}
 
 	public List<ResponsaveisAlunoTO> getResponsaveis() {
 		return responsaveis;

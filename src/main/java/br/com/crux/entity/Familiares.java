@@ -69,17 +69,6 @@ public class Familiares {
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
 
-	@Column(name="st_transporta_aluno")
-	@Convert(converter = SimNaoConverter.class)
-	private Boolean transportaAluno;
-
-	@Column(name="st_tutela_aluno")
-	@Convert(converter = SimNaoConverter.class)
-	private Boolean tutelaAluno;
-
-	//@Column(name="st_resp_fin_aluno")
-	@Convert(converter = SimNaoConverter.class)
-	private Boolean responsavelFinanceiroPeloAluno;
 	
 	public Familiares() {
 	}
@@ -164,28 +153,5 @@ public class Familiares {
 		this.usuarioAlteracao = usuariosSistema;
 	}
 
-	public Boolean getTransportaAluno() {
-		return transportaAluno;
-	}
-
-	public void setTransportaAluno(Boolean transportaAluno) {
-		this.transportaAluno = transportaAluno;
-	}
-
-	public Boolean getTutelaAluno() {
-		return tutelaAluno;
-	}
-
-	public void setTutelaAluno(Boolean tutelaAluno) {
-		this.tutelaAluno = tutelaAluno;
-	}
-
-	public Boolean getResponsavelFinanceiroPeloAluno() {
-		return responsavelFinanceiroPeloAluno;
-	}
-
-	public void setResponsavelFinanceiroPeloAluno(Boolean responsavelFinanceiroPeloAluno) {
-		this.responsavelFinanceiroPeloAluno = responsavelFinanceiroPeloAluno;
-	}
 	
 }

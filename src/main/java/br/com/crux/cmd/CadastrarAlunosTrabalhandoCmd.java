@@ -30,6 +30,14 @@ public class CadastrarAlunosTrabalhandoCmd {
 	
 	public void cadastrar(AlunosTrabalhandoTO to) {
 		
+//		camposObrigatoriosRule.verificar(to);
+//
+//		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
+//
+//		Perspectiva entity = perspectivaTOBuilder.build(to);
+//
+//		perspectivaRepository.save(entity);
+		
 		if(Objects.isNull(to.getAluno())) {
 			throw new NotFoundException("Aluno não informado.");
 		}

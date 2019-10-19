@@ -40,9 +40,6 @@ public class FamiliaresTOBuilder {
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 		retorno.setDataCadastro(p.getDataCadastro());
 		retorno.setDataDesligamento(p.getDataDesligamento());
-		retorno.setTransportaAluno(p.getTransportaAluno());
-		retorno.setTutelaAluno(p.getTutelaAluno());
-		retorno.setResponsavelFinanceiroPeloAluno(p.getResponsavelFinanceiroPeloAluno());
 		
 
 		
@@ -67,9 +64,6 @@ public class FamiliaresTOBuilder {
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 		retorno.setDataCadastro(p.getDataCadastro());
 		retorno.setDataDesligamento(p.getDataDesligamento());
-		retorno.setTransportaAluno(p.getTransportaAluno());
-		retorno.setTutelaAluno(p.getTutelaAluno());
-		retorno.setResponsavelFinanceiroPeloAluno(p.getResponsavelFinanceiroPeloAluno());
 
 		if(Objects.nonNull(p.getId())) {
 			retorno.setResponsaveis(getResponsaveisAlunoCmd.getAllByFamiliar(p.getId()));
@@ -97,9 +91,6 @@ public class FamiliaresTOBuilder {
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 		retorno.setDataCadastro(p.getDataCadastro());
 		retorno.setDataDesligamento(p.getDataDesligamento());
-		retorno.setTransportaAluno(p.getTransportaAluno());
-		retorno.setTutelaAluno(p.getTutelaAluno());
-		retorno.setResponsavelFinanceiroPeloAluno(p.getResponsavelFinanceiroPeloAluno());
 
 		return retorno;
 	}
