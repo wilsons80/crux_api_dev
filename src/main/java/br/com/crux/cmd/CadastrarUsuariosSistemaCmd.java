@@ -29,7 +29,7 @@ public class CadastrarUsuariosSistemaCmd {
 		
 		UsuariosSistema usuarioSalvo = repository.save(usuarioSistema);
 	
-		cadastrarUsuariosUnidadeCmd.cadastrarAll(to.getUsuariosUnidades());
+		cadastrarUsuariosUnidadeCmd.cadastrarAll(to.getUnidades());
 		
 		return toBuilder.buildTO(usuarioSalvo);
 	}

@@ -37,7 +37,7 @@ public class AlterarUsuariosSistemaCmd {
 			usuarioSistema.setQtdAcessoNegado(0L);
 		}
 		
-		alterarUsuariosUnidadeCmd.alterarAll(to.getUsuariosUnidades());
+		alterarUsuariosUnidadeCmd.alterarAll(to.getUnidades());
 		
 		UsuariosSistema usuarioSalvo = repository.save(usuarioSistema);
 		return toBuilder.buildTO(usuarioSalvo);
