@@ -8,14 +8,17 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.cmd.GetInstituicaoCmd;
+import br.com.crux.entity.Instituicao;
 import br.com.crux.entity.Unidade;
 import br.com.crux.enums.ClassificadorSituacaoImovel;
 import br.com.crux.to.UnidadeTO;
 
 @Component
 public class UnidadeTOBuilder {
-	
+
 	@Autowired private InstituicaoTOBuilder instituicaoTOBuilder;
+	@Autowired private GetInstituicaoCmd getInstituicaoCmd;
 
 	public Unidade build(UnidadeTO to) {
 		Unidade unidade = new Unidade();
@@ -46,11 +49,13 @@ public class UnidadeTOBuilder {
 		unidade.setInscricaoMunicipal(to.getInscricaoMunicipal());
 		unidade.setHomePage(to.getHomePage());
 		unidade.setCidade(to.getCidade());
-		
+
 		if (Objects.nonNull(to.getInstituicao()) && Objects.nonNull(to.getInstituicao().getId())) {
-			unidade.setInstituicao(instituicaoTOBuilder.build(to.getInstituicao()));
+			
+			Instituicao instituicao = getInstituicaoCmd.getById(to.getInstituicao().getId());
+			unidade.setInstituicao(instituicao);
 		}
-		
+
 		unidade.setIdArquivo(to.getArquivo());
 
 		return unidade;
@@ -90,10 +95,8 @@ public class UnidadeTOBuilder {
 		unidade.setHomePage(to.getHomePage());
 		unidade.setCidade(to.getCidade());
 		unidade.setArquivo(to.getIdArquivo());
-		
-		if (Objects.nonNull(to.getInstituicao()) && Objects.nonNull(to.getInstituicao().getId())) {
-			unidade.setInstituicao(instituicaoTOBuilder.buildTO(to.getInstituicao()));
-		}
+
+		unidade.setInstituicao(instituicaoTOBuilder.buildTO(to.getInstituicao()));
 
 		return unidade;
 	}
