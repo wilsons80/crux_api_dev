@@ -49,6 +49,11 @@ public class UnidadeService {
 	public List<AcessoUnidadeTO> getUnidadesComAcesso() {
 		return getUnidadeCmd.getUnidadesComAcesso();
 	}
+	
+	@GetMapping(path = "/usuario/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<UnidadeTO> getAllUnidadesUsuarioTemAcesso(@PathVariable(name = "id") Long idUsuario) {
+		return getUnidadeCmd.getAllUnidadesUsuarioTemAcesso(idUsuario);
+	}
 
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public UnidadeTO cadastrar(@RequestBody UnidadeTO unidade) {

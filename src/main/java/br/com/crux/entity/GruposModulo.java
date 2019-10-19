@@ -46,7 +46,7 @@ public class GruposModulo {
 	@JoinColumn(name="id_unidade")
 	private Unidade unidade;
 	
-	@Column(name="id_usuario_alteracao")
+	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
 
 	

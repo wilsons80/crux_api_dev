@@ -74,7 +74,16 @@ public class GetUnidadeCmd {
 		return unidadeBuilder.buildAllTO(unidadesOptional.get());
 	}
 	
-	
+
+	public List<UnidadeTO> getAllUnidadesUsuarioTemAcesso(Long idUsuario) {
+		Optional<List<Unidade>> unidadesOptional = unidadeRepository.findAllUnidadesDoUsuarioLogado(idUsuario);
+		if(!unidadesOptional.isPresent()) {
+			return null;
+		}
+		
+		return unidadeBuilder.buildAllTO(unidadesOptional.get());
+	}
+
 	
 	public List<TipoUnidade> getAllTiposUnidade() {
 		return Arrays.asList(TipoUnidade.values());
