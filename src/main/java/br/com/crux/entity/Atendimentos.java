@@ -37,7 +37,7 @@ public class Atendimentos {
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="solucoes_id_solucao")
-	private Solucoes solucoe;
+	private Solucoes solucoes;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="aluno_id_aluno")
@@ -85,12 +85,12 @@ public class Atendimentos {
 		this.dataAtendimento = dataAtendimento;
 	}
 
-	public Solucoes getSolucoe() {
-		return solucoe;
+	public Solucoes getSolucoes() {
+		return solucoes;
 	}
 
-	public void setSolucoe(Solucoes solucoe) {
-		this.solucoe = solucoe;
+	public void setSolucoes(Solucoes solucoe) {
+		this.solucoes = solucoe;
 	}
 
 	public Aluno getAluno() {

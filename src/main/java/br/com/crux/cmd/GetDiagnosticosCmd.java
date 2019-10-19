@@ -2,7 +2,6 @@ package br.com.crux.cmd;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,21 +17,22 @@ public class GetDiagnosticosCmd {
 
 	@Autowired private DiagnosticosRepository repository;
 	@Autowired private DiagnosticosTOBuilder toBuilder;
-	
+
 	public List<DiagnosticosTO> getAll() {
 		List<DiagnosticosTO> entitys = toBuilder.buildAll(repository.findAll());
-		if(entitys == null || entitys.isEmpty()) {
+		if (entitys == null || entitys.isEmpty()) {
 			return new ArrayList<DiagnosticosTO>();
 		}
 		return entitys;
 	}
-	
-	public DiagnosticosTO getById(Long id) {
-		Optional<Diagnosticos> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Diagnostico não encontrada.");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+
+	public DiagnosticosTO getTOById(Long id) {
+		Diagnosticos entity = repository.findById(id).orElseThrow(() -> new NotFoundException("Diagnostico não encontrada."));
+		return toBuilder.buildTO(entity);
 	}
-			
+
+	public Diagnosticos getById(Long id) {
+		return repository.findById(id).orElseGet(null);
+	}
+
 }

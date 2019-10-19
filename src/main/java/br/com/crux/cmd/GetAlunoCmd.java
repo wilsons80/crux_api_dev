@@ -30,14 +30,15 @@ public class GetAlunoCmd {
 		return new ArrayList<AlunoTO>();
 	}
 	
-	public AlunoTO getById(Long id) {
-		Optional<Aluno> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Aluno não encontrada.");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+	public AlunoTO getTOById(Long id) {
+		Aluno entity = repository.findById(id).orElseThrow(()-> new NotFoundException("Aluno não encontrada."));
+		return toBuilder.buildTO(entity);
 	}
 			
+	public Aluno getById(Long id) {
+		return repository.findById(id).orElseGet(null);
+	}
+	
 	
 	public List<AlunoTO> getAlunosByNome(String nome) {
 		Optional<List<Aluno>> entitys = repository.findAlunosByNome(nome.toUpperCase());
