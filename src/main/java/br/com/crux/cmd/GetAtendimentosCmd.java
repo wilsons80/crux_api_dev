@@ -30,12 +30,13 @@ public class GetAtendimentosCmd {
 		return new ArrayList<AtendimentosTO>();
 	}
 	
-	public AtendimentosTO getById(Long id) {
-		Optional<Atendimentos> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Atendimento não encontrado.");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+	public AtendimentosTO getTOById(Long id) {
+		Atendimentos entity = repository.findById(id).orElseThrow(() -> new NotFoundException("Atendimento não encontrado."));
+		return toBuilder.buildTO(entity);
 	}
 			
+	public Atendimentos getById(Long id) {
+		return repository.findById(id).orElseGet(null);
+	}
+	
 }

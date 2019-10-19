@@ -36,12 +36,13 @@ public class GetFamiliaresCmd {
 		return new ArrayList<FamiliaresTO>();
 	}
 	
-	public FamiliaresTO getById(Long id) {
-		Optional<Familiares> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Familiar não encontrada.");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+	public FamiliaresTO getTOById(Long id) {
+		Familiares entity = repository.findById(id).orElseThrow(()-> new NotFoundException("Familiar não encontrada."));
+		return toBuilder.buildTO(entity);
+	}
+	
+	public Familiares getById(Long id) {
+		return repository.findById(id).orElseGet(null);
 	}
 			
 }

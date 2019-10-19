@@ -22,7 +22,7 @@ public class ExcluirFamiliaresCmd {
 			throw new ParametroNaoInformadoException("Erro ao excluir o familiar.");
 		}
 	
-		FamiliaresTO familiaresTO = getFamiliaresCmd.getById(idFamiliar);
+		FamiliaresTO familiaresTO = getFamiliaresCmd.getTOById(idFamiliar);
 		
 		//Apaga todos os responsáveis desse familiar.
 		familiaresTO.getResponsaveis().stream().forEach(r -> excluirReprovacoesAlunoCmd.excluir(r.getId()));

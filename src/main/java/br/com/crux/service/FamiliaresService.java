@@ -49,7 +49,7 @@ public class FamiliaresService {
 		
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public FamiliaresTO getById(@PathVariable(name = "id") Long id) {
-		return getCmd.getById(id);
+		return getCmd.getTOById(id);
 	}
 
 	@GetMapping(path = "/{idaluno}/responsavelvigente", produces = MediaType.APPLICATION_JSON_VALUE)
