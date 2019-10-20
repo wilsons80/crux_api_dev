@@ -1,6 +1,7 @@
 package br.com.crux.builder;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -47,7 +48,9 @@ public class UsuariosSistemaTOBuilder {
 		retorno.setPessoaFisica(pessoaFisicaTOBuilder.build(p.getPessoaFisica()));
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 		
-		retorno.setUsuariosUnidades(usuariosUnidadeTOBuilder.buildAllTO(p.getUnidades()));
+		if(Objects.nonNull(p.getUnidades())) {
+			retorno.setUsuariosUnidades(usuariosUnidadeTOBuilder.buildAllTO(p.getUnidades()));
+		}
 
 		return retorno;
 	}

@@ -7,10 +7,13 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.builder.InstituicaoTOBuilder;
 import br.com.crux.builder.UnidadeTOBuilder;
+import br.com.crux.builder.UsuariosSistemaTOBuilder;
 import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.entity.Unidade;
+import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.rule.ValidarCadastroUnidadeRule;
 import br.com.crux.to.UnidadeTO;
+import br.com.crux.to.UsuariosUnidadesTO;
 
 @Component
 public class CadastrarUnidadeCmd {
@@ -22,6 +25,9 @@ public class CadastrarUnidadeCmd {
 	
 	@Autowired private CadastrarInstituicaoCmd cadastrarInstituicaoCmd;
 	@Autowired private InstituicaoTOBuilder instituicaoTOBuilder;
+	@Autowired private CadastrarUsuariosUnidadeCmd cadastrarUsuariosUnidadeCmd;
+	@Autowired private GetUsuarioSistemaCmd getUsuarioSistemaCmd;
+	@Autowired private UsuariosSistemaTOBuilder usuariosSistemaTOBuilder;
 
 	public UnidadeTO cadastrar(UnidadeTO to) {
 		validarCadastroUnidadeRule.validar(to.getNomeUnidade(), to.getNomeUnidade());
@@ -34,6 +40,14 @@ public class CadastrarUnidadeCmd {
 		}
 		
 		Unidade retorno = unidadeRepository.save(unidade);
+		
+		UsuariosUnidadesTO usuariosUnidadesTO = new UsuariosUnidadesTO();
+		usuariosUnidadesTO.setUnidade(unidadeTOBuilder.buildTO(retorno));
+		usuariosUnidadesTO.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
+		UsuariosSistema usuarioSistema = getUsuarioSistemaCmd.getById(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
+		usuariosUnidadesTO.setUsuarioSistema(usuariosSistemaTOBuilder.buildTO(usuarioSistema));
+
+		cadastrarUsuariosUnidadeCmd.cadastrar(usuariosUnidadesTO);
 		
 		return unidadeTOBuilder.buildTO(retorno);
 	}
