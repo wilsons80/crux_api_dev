@@ -16,7 +16,14 @@ public interface GrupoModuloRepository extends JpaRepository<GruposModulo, Long>
 	
 	public Optional<List<GruposModulo>> findByUnidade(Unidade unidade);
 
-	
+
+	@Query(" SELECT grupo "
+			+ " FROM GruposModulo grupo "
+			+ " inner join Modulo modulo on grupo.modulo.id = modulo.id"
+			+ " inner join Unidade unidade on unidade.idUnidade = grupo.unidade.idUnidade"
+			+ "  where modulo.id             = ?1 ")
+	public Optional<List<GruposModulo>> findByModulo(Long idModulo);
+
 	@Query(" SELECT grupo "
 			+ " FROM GruposModulo grupo "
 			+ " inner join Modulo modulo on grupo.modulo.id = modulo.id"
@@ -33,7 +40,6 @@ public interface GrupoModuloRepository extends JpaRepository<GruposModulo, Long>
 			+ "  where unidade.idUnidade     = ?1 ")
 	public Optional<List<GruposModulo>> findByIdUnidade(Long idUnidade);
 	
-
 	@Query("SELECT gm FROM GruposModulo gm "
 			+ " inner join Modulo modulo on modulo = gm.modulo "
 			+ " inner join PerfilAcesso pa on pa = gm.perfilAcesso "

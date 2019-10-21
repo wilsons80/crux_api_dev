@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.crux.cmd.AlterarGrupoModuloCmd;
@@ -42,6 +43,13 @@ public class GrupoModuloService {
 	public List<GrupoModuloTO> getAllByUnidade(@PathVariable(name = "idunidade") Long idUnidade) {
 		return getCmd.getAllByUnidade(idUnidade);
 	}
+	
+	@GetMapping(path = "/unidade", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<GrupoModuloTO> getAllByUnidadeAndModulo(@RequestParam(name = "idunidade", required = false) Long idUnidade, 
+			                                            @RequestParam(name = "idmodulo", required = false) Long idModulo) {
+		return getCmd.getAllByUnidadeAndModulo(idUnidade, idModulo);
+	}
+	
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public GrupoModuloTO getById(@PathVariable(name = "id") Long idDepartamento) {
