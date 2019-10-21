@@ -38,6 +38,11 @@ public class GrupoModuloService {
 		return getCmd.getAllUnidadeLogada();
 	}
 	
+	@GetMapping(path = "/unidade/{idunidade}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<GrupoModuloTO> getAllByUnidade(@PathVariable(name = "idunidade") Long idUnidade) {
+		return getCmd.getAllByUnidade(idUnidade);
+	}
+	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public GrupoModuloTO getById(@PathVariable(name = "id") Long idDepartamento) {
 		return getCmd.getTOById(idDepartamento);
@@ -53,9 +58,9 @@ public class GrupoModuloService {
 		alterarCmd.alterar(to);
 	}
 	
-	@DeleteMapping(path = "/{idgrupomodulo}/usuario/{idusuario}")
-	public void excluir(@PathVariable(name = "idgrupomodulo") Long idGrupoModulo, @PathVariable(name = "idusuario") Long idUsuario) {
-		excluirCmd.excluir(idGrupoModulo, idUsuario);
+	@DeleteMapping(path = "/{idgrupomodulo}")
+	public void excluir(@PathVariable(name = "idgrupomodulo") Long idGrupoModulo) {
+		excluirCmd.excluir(idGrupoModulo);
 	}
 
 }
