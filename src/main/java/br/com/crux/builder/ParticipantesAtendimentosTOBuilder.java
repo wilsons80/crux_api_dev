@@ -31,34 +31,37 @@ public class ParticipantesAtendimentosTOBuilder {
 		ParticipantesAtendimentos retorno = new ParticipantesAtendimentos();
 
 		retorno.setId(p.getId());
-	
+
 		Optional.ofNullable(p.getFamiliar()).ifPresent(fam -> {
-			Familiares familiares = getFamiliaresCmd.getById(fam.getId());
-			retorno.setFamiliar(familiares);
+			if (Objects.nonNull(fam.getId())) {
+				Familiares familiares = getFamiliaresCmd.getById(fam.getId());
+				retorno.setFamiliar(familiares);
+			}
 		});
-		
+
 		Optional.ofNullable(p.getFuncionario()).ifPresent(fam -> {
 			Funcionario funcionario = getFuncionarioCmd.getById(fam.getId());
 			retorno.setFuncionario(funcionario);
 		});
 
-		Optional.ofNullable(p.getFuncionario()).ifPresent(fam -> {
+		Optional.ofNullable(p.getAtendimento()).ifPresent(fam -> {
 			Atendimentos atendimentos = getAtendimentosCmd.getById(fam.getId());
 			retorno.setAtendimento(atendimentos);
 		});
-		
+
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
 		return retorno;
+
 	}
 
 	public ParticipantesAtendimentosTO buildTO(ParticipantesAtendimentos p) {
 		ParticipantesAtendimentosTO retorno = new ParticipantesAtendimentosTO();
-		
-		if(Objects.isNull(p)) {
+
+		if (Objects.isNull(p)) {
 			return retorno;
 		}
-		
+
 		retorno.setId(p.getId());
 		retorno.setFamiliar(familiarBuilder.buildTO(p.getFamiliar()));
 		retorno.setFuncionario(funcionarioBuilder.buildTO(p.getFuncionario()));

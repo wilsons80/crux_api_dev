@@ -49,6 +49,10 @@ public class FamiliaresTOBuilder {
 	public FamiliaresTO buildTO(Familiares p) {
 		FamiliaresTO retorno = new FamiliaresTO();
 		
+		if(Objects.isNull(p)) {
+			return retorno;
+		}
+		
 		retorno.setId(p.getId());
 		retorno.setDescGrauParentesco(p.getDescGrauParentesco());
 		
