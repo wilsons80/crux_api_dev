@@ -48,6 +48,23 @@ public class GetGruposModulosCmd {
 		return new ArrayList<GrupoModuloTO>();
 	}
 	
+	public List<GrupoModuloTO> getAllByUnidadeAndModulo(Long idUnidade, Long idModulo) {
+		Optional<List<GruposModulo>> entitys = null;
+		
+		if( Objects.nonNull(idUnidade) && Objects.nonNull(idModulo)) {
+			entitys = grupoModuloRepository.findByUnidadeAndModulo(idUnidade, idModulo);
+		} else if ( Objects.nonNull(idUnidade) && Objects.isNull(idModulo) ) {
+			entitys = grupoModuloRepository.findByIdUnidade(idUnidade);
+		} else if ( Objects.isNull(idUnidade) && Objects.nonNull(idModulo) ) {
+			entitys = grupoModuloRepository.findByModulo(idModulo);
+		}
+
+		if(entitys.isPresent()) {
+			return grupoModuloTOBuilder.buildAll(entitys.get());
+		}
+
+		return new ArrayList<GrupoModuloTO>();
+	}
 	
 	public GrupoModuloTO getTOById(Long id) {
 		GruposModulo entity = grupoModuloRepository.findById(id).orElseThrow(() -> new NotFoundException("Grupo módulo não encontrado"));
