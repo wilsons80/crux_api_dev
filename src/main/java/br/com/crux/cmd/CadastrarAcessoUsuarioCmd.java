@@ -8,20 +8,17 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.dao.repository.GrupoModuloRepository;
 import br.com.crux.dao.repository.ModuloRepository;
-import br.com.crux.dao.repository.PerfilAcessoRepository;
 import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.dao.repository.UsuarioSistemaRepository;
 import br.com.crux.dao.repository.UsuariosGrupoRepository;
 import br.com.crux.entity.GruposModulo;
 import br.com.crux.entity.Modulo;
-import br.com.crux.entity.PerfilAcesso;
 import br.com.crux.entity.Unidade;
 import br.com.crux.entity.UsuariosGrupo;
 import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.exception.PerfilAcessoException;
 import br.com.crux.to.CadastroAcessoTO;
-import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class CadastrarAcessoUsuarioCmd {
@@ -32,7 +29,7 @@ public class CadastrarAcessoUsuarioCmd {
 	@Autowired private UsuarioSistemaRepository usuarioSistemaRepository;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	@Autowired private GrupoModuloRepository grupoModuloRepository;
-	@Autowired private PerfilAcessoRepository perfilAcessoRepository;
+	@Autowired private CadastrarGrupoModuloCmd cadastrarGrupoModuloCmd;
 	
 	public void cadastrar(CadastroAcessoTO acessoTO) {
 		
@@ -61,45 +58,23 @@ public class CadastrarAcessoUsuarioCmd {
 			throw new PerfilAcessoException("Usuário já possui esse perfil cadastrado.");
 		}
 		
-		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
-
-		//Valido se já existe permissão no módulo pai.
 		Optional<List<UsuariosGrupo>> permissaoModuloPai = usuariosGrupoRepository.getPermissoes(acessoTO.getIdUsuario(), modulo.get().getModuloPai().getId());
 		if (!permissaoModuloPai.isPresent()) {
-			Optional<PerfilAcesso> perfilApenasConsulta = perfilAcessoRepository.getPerfilApenasConsulta();
-			if(!perfilApenasConsulta.isPresent()) {
-				throw new PerfilAcessoException("Não foi possível atribuir permissão ao modulo pai.");
-			}
-
-			Optional<GruposModulo> grupoModuloOptional = grupoModuloRepository.findByIdModuloAndIdPerfilAcessoAndIdUnidade(modulo.get().getModuloPai().getId(), 
-			                                              		perfilApenasConsulta.get().getId(), unidade.get().getIdUnidade());
 			
-			GruposModulo gruposModuloPai = new GruposModulo();
-			if(!grupoModuloOptional.isPresent()) {
-				gruposModuloPai.setModulo(modulo.get().getModuloPai());
-				gruposModuloPai.setNome("C");
-				gruposModuloPai.setPerfilAcesso(perfilApenasConsulta.get());
-				gruposModuloPai.setDescricao("Grupo de perfil de consultar");
-				gruposModuloPai.setUnidade(unidade.get());
-				
-				gruposModuloPai = grupoModuloRepository.save(gruposModuloPai);
-			} else {
-				gruposModuloPai = grupoModuloOptional.get();
-			}
-			
+			//Valido se já existe permissão no módulo pai.
+			GruposModulo gruposModuloPai = cadastrarGrupoModuloCmd.cadastrarGrupoModuloPai(unidade.get().getIdUnidade(), modulo.get().getModuloPai().getId());
+						
 			UsuariosGrupo usuariosGrupoPai = new UsuariosGrupo();
 			usuariosGrupoPai.setGruposModulo(gruposModuloPai);
 			usuariosGrupoPai.setUsuariosSistema(usuario.get());
-			usuariosGrupoPai.setIdUsuarioApl(usuarioLogado.getIdUsuario());
+			usuariosGrupoPai.setIdUsuarioApl(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 			usuariosGrupoRepository.save(usuariosGrupoPai);
 		}
-		
-		
 		
 		UsuariosGrupo usuariosGrupo = new UsuariosGrupo();
 		usuariosGrupo.setGruposModulo(gruposModulo.get());
 		usuariosGrupo.setUsuariosSistema(usuario.get());
-		usuariosGrupo.setIdUsuarioApl(usuarioLogado.getIdUsuario());
+		usuariosGrupo.setIdUsuarioApl(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 		usuariosGrupoRepository.save(usuariosGrupo);
 		
 	}

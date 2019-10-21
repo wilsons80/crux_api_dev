@@ -30,8 +30,8 @@ public class GetGruposModulosCmd {
 			throw new ParametroNaoInformadoException("O módulo não foi informado.");
 		}
 		
-		List<GruposModulo> grupos = grupoModuloRepository.findByUnidadeAndModulo(idUnidade, idModulo);
-		return grupoModuloTOBuilder.buildAll(grupos);
+		Optional<List<GruposModulo>> grupos = grupoModuloRepository.findByUnidadeAndModulo(idUnidade, idModulo);
+		return grupoModuloTOBuilder.buildAll(grupos.get());
 	}
 	
 	

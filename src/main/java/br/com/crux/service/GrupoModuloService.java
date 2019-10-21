@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.crux.cmd.AlterarGrupoModuloCmd;
 import br.com.crux.cmd.CadastrarGrupoModuloCmd;
-import br.com.crux.cmd.ExcluirIndicadoresCmd;
+import br.com.crux.cmd.ExcluirGrupoModuloCmd;
 import br.com.crux.cmd.GetGruposModulosCmd;
 import br.com.crux.to.GrupoModuloTO;
 
@@ -26,7 +26,7 @@ public class GrupoModuloService {
 	@Autowired
 	private GetGruposModulosCmd getCmd;
 	@Autowired
-	private ExcluirIndicadoresCmd  excluirCmd;
+	private ExcluirGrupoModuloCmd excluirCmd;
 	@Autowired
 	private AlterarGrupoModuloCmd alterarCmd;
 	@Autowired
@@ -53,9 +53,9 @@ public class GrupoModuloService {
 		alterarCmd.alterar(to);
 	}
 	
-	@DeleteMapping(path = "/{id}")
-	public void excluir(@PathVariable(name = "id") Long id) {
-		excluirCmd.excluir(id);
+	@DeleteMapping(path = "/{idgrupomodulo}/usuario/{idusuario}")
+	public void excluir(@PathVariable(name = "idgrupomodulo") Long idGrupoModulo, @PathVariable(name = "idusuario") Long idUsuario) {
+		excluirCmd.excluir(idGrupoModulo, idUsuario);
 	}
 
 }

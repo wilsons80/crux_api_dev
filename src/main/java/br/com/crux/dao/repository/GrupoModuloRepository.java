@@ -23,7 +23,7 @@ public interface GrupoModuloRepository extends JpaRepository<GruposModulo, Long>
 			+ " inner join Unidade unidade on unidade.idUnidade = grupo.unidade.idUnidade"
 			+ "  where unidade.idUnidade     = ?1 "
 			+ "    and modulo.id             = ?2 ")
-	public List<GruposModulo> findByUnidadeAndModulo(Long idUnidade, Long idModulo);
+	public Optional<List<GruposModulo>> findByUnidadeAndModulo(Long idUnidade, Long idModulo);
 	
 	
 	@Query(" SELECT grupo "
