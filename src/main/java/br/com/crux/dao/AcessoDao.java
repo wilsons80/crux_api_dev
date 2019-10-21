@@ -32,7 +32,7 @@ public class AcessoDao extends BaseDao{
 		sql.append("       u.id_unidade,                                              ");
 		sql.append("       u.nm_unidade,                                              ");
 		sql.append("       m.id_modulo,                                               ");
-		sql.append("       m.nm_modulo,                                               ");
+		sql.append("       m.descricao,                                               ");
 		sql.append("       gm.id_grupo_modulo,                                        ");
 		sql.append("       gm.nm_grupo,                                               ");
 		sql.append("       gm.tx_descricao_grupo,                                     ");
