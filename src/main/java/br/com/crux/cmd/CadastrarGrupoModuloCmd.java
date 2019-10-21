@@ -46,10 +46,10 @@ public class CadastrarGrupoModuloCmd {
 	}
 	
 	
-	public GruposModulo cadastrarGrupoModuloPai(Long idUnidade, Long idModuloPai) {
+	public GruposModulo cadastrarGrupoModuloPai(Long idUnidade, Long idModulo) {
 		
-		Optional<Modulo> moduloPai = moduloRepository.findById(idModuloPai);
-		if(!moduloPai.isPresent()) {
+		Optional<Modulo> modulo = moduloRepository.findById(idModulo);
+		if(!modulo.isPresent()) {
 			throw new NotFoundException("Modulo informado não existe.");
 		}
 		
@@ -63,14 +63,14 @@ public class CadastrarGrupoModuloCmd {
 			throw new PerfilAcessoException("Não foi possível atribuir permissão ao modulo pai.");
 		}
 		
-		Optional<GruposModulo> grupoModuloPaiOptional = grupoModuloRepository.findByIdModuloAndIdPerfilAcessoAndIdUnidade(moduloPai.get().getId(), 
+		Optional<GruposModulo> grupoModuloPaiOptional = grupoModuloRepository.findByIdModuloAndIdPerfilAcessoAndIdUnidade(modulo.get().getModuloPai().getId(), 
 																									                      perfilApenasConsulta.get().getId(), 
 																									                      unidade.get().getIdUnidade());
 		
 		GruposModulo grupoModuloPai = null;
 		if(!grupoModuloPaiOptional.isPresent()) {
 			grupoModuloPai = new GruposModulo();
-			grupoModuloPai.setModulo(moduloPai.get().getModuloPai());
+			grupoModuloPai.setModulo(modulo.get().getModuloPai());
 			grupoModuloPai.setNome("C");
 			grupoModuloPai.setPerfilAcesso(perfilApenasConsulta.get());
 			grupoModuloPai.setDescricao("Grupo de perfil de consultar");

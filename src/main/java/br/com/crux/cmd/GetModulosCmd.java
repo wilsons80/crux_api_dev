@@ -1,6 +1,8 @@
 package br.com.crux.cmd;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,7 +22,9 @@ public class GetModulosCmd {
 	@Autowired private ModuloRepository moduloRepository;
 
 	public List<ModuloTO> getAll() {
-		List<Modulo> modulos = moduloRepository.findAll();
+		List<Modulo> modulos = moduloRepository.findAll().stream()
+				                                         .filter(m -> Objects.nonNull(m.getModuloPai()))
+				                                         .collect(Collectors.toList());
 		return moduloTOBuilder.buildAll(modulos);
 	}
 

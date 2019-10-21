@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -49,7 +50,7 @@ public class GetGruposModulosCmd {
 	}
 	
 	public List<GrupoModuloTO> getAllByUnidadeAndModulo(Long idUnidade, Long idModulo) {
-		Optional<List<GruposModulo>> entitys = null;
+		Optional<List<GruposModulo>> entitys = Optional.empty();
 		
 		if( Objects.nonNull(idUnidade) && Objects.nonNull(idModulo)) {
 			entitys = grupoModuloRepository.findByUnidadeAndModulo(idUnidade, idModulo);
@@ -60,7 +61,11 @@ public class GetGruposModulosCmd {
 		}
 
 		if(entitys.isPresent()) {
-			return grupoModuloTOBuilder.buildAll(entitys.get());
+			List<GruposModulo> lista = entitys.get().stream()
+					                                .filter( g -> Objects.nonNull(g.getModulo().getModuloPai()))
+					                                .collect(Collectors.toList());
+			
+			return grupoModuloTOBuilder.buildAll(lista);
 		}
 
 		return new ArrayList<GrupoModuloTO>();
