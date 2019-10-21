@@ -1,5 +1,6 @@
 package br.com.crux.cmd;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,9 +29,14 @@ public class AlterarUsuariosSistemaCmd {
 		UsuariosSistema usuarioSistema = repository.findById(to.getId()).orElseThrow((() -> new NotFoundException("Usuário informado não existe.")));
 		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 		
+		// Usuário deve ter mudado a senha.
+		if(StringUtils.isNotEmpty(to.getSenhaUsuario()) && !to.getSenhaUsuario().equals(usuarioSistema.getSenha())) {
+			to.setSenhaUsuario(customPasswordEncoder.encode(to.getSenhaUsuario()));
+		}
+			
 		usuarioSistema = toBuilder.build(to);
 		usuarioSistema.setPessoaFisica(alterarPessoaFisicaCmd.alterar(to.getPessoaFisica()));
-		
+			
 		if(to.getStTrocaSenha()) {
 			String novaSenhaEncode = customPasswordEncoder.encode( to.getPessoaFisica().getCpf().toString() );
 			usuarioSistema.setSenha( novaSenhaEncode );
