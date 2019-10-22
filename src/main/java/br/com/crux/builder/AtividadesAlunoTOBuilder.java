@@ -1,6 +1,7 @@
 package br.com.crux.builder;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,10 @@ public class AtividadesAlunoTOBuilder {
 
 	public AtividadesAlunoTO buildTO(AtividadesAluno p) {
 		AtividadesAlunoTO retorno = new AtividadesAlunoTO();
+		
+		if(Objects.isNull(p)) {
+			return retorno;
+		}
 		
 		retorno.setId(p.getId());
 		retorno.setDescDesligamento(p.getDescDesligamento());

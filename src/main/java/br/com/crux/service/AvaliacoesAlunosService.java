@@ -22,37 +22,32 @@ import br.com.crux.to.AvaliacoesAlunosTO;
 @RestController
 @RequestMapping(value = "avaliacaoaluno")
 public class AvaliacoesAlunosService {
-	
-	@Autowired
-	private GetAvaliacoesAlunosCmd getCmd;
-	@Autowired
-	private ExcluirAvaliacoesAlunosCmd  excluirCmd;
-	@Autowired
-	private AlterarAvaliacoesAlunosCmd alterarCmd;
-	@Autowired
-	private CadastrarAvaliacoesAlunosCmd cadastrarCmd;
-	
-	
+
+	@Autowired private GetAvaliacoesAlunosCmd getCmd;
+	@Autowired private ExcluirAvaliacoesAlunosCmd excluirCmd;
+	@Autowired private AlterarAvaliacoesAlunosCmd alterarCmd;
+	@Autowired private CadastrarAvaliacoesAlunosCmd cadastrarCmd;
+
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<AvaliacoesAlunosTO> getAll() {
 		return getCmd.getAll();
 	}
-	
+
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public AvaliacoesAlunosTO getById(@PathVariable(name = "id") Long id) {
 		return getCmd.getById(id);
 	}
-	
+
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void cadastrar(@RequestBody AvaliacoesAlunosTO param) {
 		cadastrarCmd.cadastrar(param);
 	}
-	
+
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void alterar(@RequestBody AvaliacoesAlunosTO param) {
 		alterarCmd.alterar(param);
 	}
-	
+
 	@DeleteMapping(path = "/{id}")
 	public void excluir(@PathVariable(name = "id") Long id) {
 		excluirCmd.excluir(id);

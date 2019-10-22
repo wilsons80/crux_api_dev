@@ -28,12 +28,13 @@ public class GetAvaliacoesCmd {
 		return toBuilder.buildAll(entitys);
 	}
 	
-	public AvaliacoesTO getById(Long id) {
-		Optional<Avaliacoes> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Avaliação não encontrada.");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+	public AvaliacoesTO getTOById(Long id) {
+		Avaliacoes entity = repository.findById(id).orElseThrow(() ->new NotFoundException("Avaliação não encontrada.") );
+		return toBuilder.buildTO(entity);
+	}
+
+	public Avaliacoes getById(Long id) {
+		return repository.findById(id).orElseGet(null);
 	}
 			
 }

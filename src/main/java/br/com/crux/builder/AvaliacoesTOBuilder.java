@@ -1,6 +1,7 @@
 package br.com.crux.builder;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
@@ -26,6 +27,10 @@ public class AvaliacoesTOBuilder {
 
 	public AvaliacoesTO buildTO(Avaliacoes p) {
 		AvaliacoesTO retorno = new AvaliacoesTO();
+		
+		if(Objects.isNull(p)) {
+			return retorno;
+		}
 		
 		retorno.setId(p.getId());
 		retorno.setNome(p.getNome());

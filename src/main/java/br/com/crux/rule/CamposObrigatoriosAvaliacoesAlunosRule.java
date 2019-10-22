@@ -5,6 +5,7 @@ import java.util.Objects;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.exception.CamposObrigatoriosException;
+import br.com.crux.to.AvaliacoesAlunosTO;
 
 @Component
 public class CamposObrigatoriosAvaliacoesAlunosRule {
@@ -14,6 +15,16 @@ public class CamposObrigatoriosAvaliacoesAlunosRule {
 			throw new CamposObrigatoriosException("Atividade deve ser informada.");
 		}
 		if(Objects.isNull(idAvaliacao)) {
+			throw new CamposObrigatoriosException("Avaliacao deve ser informada.");
+		}
+		
+	}
+
+	public void verificar(AvaliacoesAlunosTO to) {
+		if(Objects.isNull(to.getAtividadesAluno()) || Objects.isNull(to.getAtividadesAluno().getId())) {
+			throw new CamposObrigatoriosException("Atividade deve ser informada.");
+		}
+		if(Objects.isNull(to.getAvaliacoes()) || Objects.isNull(to.getAvaliacoes().getId())) {
 			throw new CamposObrigatoriosException("Avaliacao deve ser informada.");
 		}
 		

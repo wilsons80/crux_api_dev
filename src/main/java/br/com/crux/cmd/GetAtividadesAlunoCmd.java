@@ -27,12 +27,13 @@ public class GetAtividadesAlunoCmd {
 		return entitys;
 	}
 	
-	public AtividadesAlunoTO getById(Long id) {
-		Optional<AtividadesAluno> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Atividade de Aluno não encontrada.");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+	public AtividadesAlunoTO getTOById(Long id) {
+		AtividadesAluno entity = repository.findById(id).orElseThrow(() -> new NotFoundException("Atividade de Aluno não encontrada."));
+		return toBuilder.buildTO(entity);
+	}
+
+	public AtividadesAluno getById(Long id) {
+		return  repository.findById(id).orElseGet(null);
 	}
 			
 }

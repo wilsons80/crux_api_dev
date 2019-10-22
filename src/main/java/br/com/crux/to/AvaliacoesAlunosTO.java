@@ -19,7 +19,7 @@ public class AvaliacoesAlunosTO {
 	private AtividadesAlunoTO atividadesAluno;
 	private AvaliacoesTO avaliacoes;
 	
-	private NotaAvaliacao notaAvaliacao;
+	private String notaAvaliacao;
 	private Long usuarioAlteracao;
 
 	public AvaliacoesAlunosTO() {
@@ -49,11 +49,11 @@ public class AvaliacoesAlunosTO {
 		this.dataAvaliacao = dataAvaliacao;
 	}
 
-	public NotaAvaliacao getNotaAvaliacao() {
+	public String getNotaAvaliacao() {
 		return notaAvaliacao;
 	}
 
-	public void setNotaAvaliacao(NotaAvaliacao notaAvaliacao) {
+	public void setNotaAvaliacao(String notaAvaliacao) {
 		this.notaAvaliacao = notaAvaliacao;
 	}
 
