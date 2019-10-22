@@ -22,13 +22,22 @@ public interface ResponsaveisAlunoRepository extends JpaRepository<ResponsaveisA
 	public Optional<List<ResponsaveisAluno>> findByUnidadeAndFamiliar(Long idUnidade, Long idFamiliar);
 
 	
-	@Query(value = "SELECT ra FROM ResponsaveisAluno ra      "
+	@Query(value = "SELECT ra FROM ResponsaveisAluno ra          "
 		      + " inner join Familiares f on f = ra.familiar "
 			  + " inner join Aluno a on a = ra.aluno         "
 			  + " inner join Unidade uni on a.unidade = uni  "
-			  + " where uni.idUnidade     = ?1                   "
-			  + "   and a.id              = ?2                   "
-			  + "   and ra.dataVinculacao >= LocalDate.now()     ")
-	public Optional<List<ResponsaveisAluno>> findAllResponsaveisVigentes(Long idAluno, Long idUnidade);
+			  + " where uni.idUnidade = ?1                   "
+			  + "   and f.id          = ?2                   "
+			  + "   and a.id          = ?3                   ")
+	public Optional<List<ResponsaveisAluno>> findByUnidadeAndFamiliarAndAluno(Long idUnidade, Long idFamiliar, Long idAluno);
+
+	
+	@Query(value = "SELECT ra FROM ResponsaveisAluno ra        "
+		      + " inner join Familiares f on f = ra.familiar   "
+			  + " inner join Aluno a on a = ra.aluno           "
+			  + " inner join Unidade uni on a.unidade = uni    "
+			  + " where uni.idUnidade      = ?2                "
+			  + "   and a.id               = ?1                ")
+	public Optional<List<ResponsaveisAluno>> findAllResponsaveisPorAlunoAndUnidade(Long idAluno, Long idUnidade);
 	
 }

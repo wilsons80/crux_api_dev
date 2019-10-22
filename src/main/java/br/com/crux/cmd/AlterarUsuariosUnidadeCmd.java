@@ -48,8 +48,9 @@ public class AlterarUsuariosUnidadeCmd {
 		                                );
 		
 		//Adiciona os novos registros
-		List<UsuariosUnidadesTO> novos = usuariosUnidadesTO.stream().filter(registro -> !contemNaLista.test(registro, usuarioUnidadeTOBuilder.buildAll(usuariosUnidades.get())))
-				                                                                                      .collect(Collectors.toList());
+		List<UsuariosUnidadesTO> novos = usuariosUnidadesTO.stream()
+				                                           .filter(registro -> !contemNaLista.test(registro, usuarioUnidadeTOBuilder.buildAll(usuariosUnidades.get())))
+				                                           .collect(Collectors.toList());
 		
 		if(Objects.nonNull(novos)){
 			novos.forEach(novo -> alterar(novo));

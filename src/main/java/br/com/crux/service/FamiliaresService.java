@@ -53,8 +53,8 @@ public class FamiliaresService {
 	}
 
 	@GetMapping(path = "/{idaluno}/responsavelvigente", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<ResponsaveisAlunoTO> getResponsavelVigente(@PathVariable(name = "idaluno") Long idAluno) {
-		return getResponsavelFamiliarVigenteCmd.getAllResponsaveisVigentes(idAluno);
+	public ResponsaveisAlunoTO getResponsavelVigente(@PathVariable(name = "idaluno") Long idAluno) {
+		return getResponsavelFamiliarVigenteCmd.getResponsavelVigente(idAluno);
 	}
 	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)

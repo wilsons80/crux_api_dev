@@ -20,16 +20,16 @@ public class AlterarFamiliaresCmd {
 	@Autowired private AlterarPessoaFisicaCmd alterarPessoaFisicaCmd;
 	@Autowired private AlterarResponsaveisAlunoCmd alterarResponsaveisAlunoCmd;
 	
-	public FamiliaresTO alterar(FamiliaresTO to) {
-		camposObrigatoriosRule.verificar(to);
+	public FamiliaresTO alterar(FamiliaresTO familiarTO) {
+		camposObrigatoriosRule.verificar(familiarTO);
 		
-		Familiares familiar = repository.findById(to.getId()).orElseThrow(() -> new NotFoundException("Familiar informado não existe."));
+		Familiares familiar = repository.findById(familiarTO.getId()).orElseThrow(() -> new NotFoundException("Familiar informado não existe."));
 		
-		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
-		familiar = familiaresTOBuilder.build(to);
+		familiarTO.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
+		familiar = familiaresTOBuilder.build(familiarTO);
 		
-		familiar.setPessoasFisica(alterarPessoaFisicaCmd.alterar(to.getPessoasFisica()));
-		alterarResponsaveisAlunoCmd.alterar(to.getResponsaveis(), to);
+		familiar.setPessoasFisica(alterarPessoaFisicaCmd.alterar(familiarTO.getPessoasFisica()));
+		alterarResponsaveisAlunoCmd.alterarAll(familiarTO.getResponsaveis(), familiarTO);
 		
 		Familiares familiarSalvo = repository.save(familiar);
 		return familiaresTOBuilder.buildTO(familiarSalvo);
