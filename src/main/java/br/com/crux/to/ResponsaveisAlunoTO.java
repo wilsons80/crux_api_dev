@@ -20,6 +20,11 @@ public class ResponsaveisAlunoTO {
 	private AlunoTO aluno;
 	private FamiliarResponsavelTO familiar;
 	private Long usuarioAlteracao;
+	
+	private Boolean transportaAluno;
+	private Boolean tutelaAluno;
+	private Boolean responsavelFinanceiroPeloAluno;
+	
 
 	public ResponsaveisAlunoTO() {
 	}
@@ -103,5 +108,31 @@ public class ResponsaveisAlunoTO {
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
+
+	public Boolean getTransportaAluno() {
+		return transportaAluno;
+	}
+
+	public void setTransportaAluno(Boolean transportaAluno) {
+		this.transportaAluno = transportaAluno;
+	}
+
+	public Boolean getTutelaAluno() {
+		return tutelaAluno;
+	}
+
+	public void setTutelaAluno(Boolean tutelaAluno) {
+		this.tutelaAluno = tutelaAluno;
+	}
+
+	public Boolean getResponsavelFinanceiroPeloAluno() {
+		return responsavelFinanceiroPeloAluno;
+	}
+
+	public void setResponsavelFinanceiroPeloAluno(Boolean responsavelFinanceiroPeloAluno) {
+		this.responsavelFinanceiroPeloAluno = responsavelFinanceiroPeloAluno;
+	}
+	
+	
 
 }

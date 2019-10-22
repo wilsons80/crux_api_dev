@@ -4,12 +4,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.entity.ResponsaveisAluno;
-import br.com.crux.enums.TipoResponsavel;
 import br.com.crux.to.FamiliaresTO;
 import br.com.crux.to.ResponsaveisAlunoTO;
 
@@ -31,12 +29,9 @@ public class ResponsaveisAlunoTOBuilder {
 		retorno.setMesmoEnderResponsavel(p.getMesmoEnderResponsavel());
 		retorno.setAluno(alunoTOBuilder.build(familiarTO.getAluno()));
 		retorno.setFamiliar(familiaresTOBuilder.build(familiarTO));
-
-		
-		if( StringUtils.isNoneEmpty(p.getTipoResponsavel())) {
-			TipoResponsavel porTipo = TipoResponsavel.getPorTipo(p.getTipoResponsavel());
-			retorno.setTipoResponsavel(porTipo);
-		}
+		retorno.setTransportaAluno(p.getTransportaAluno());
+		retorno.setTutelaAluno(p.getTutelaAluno());
+		retorno.setResponsavelFinanceiroPeloAluno(p.getResponsavelFinanceiroPeloAluno());
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
 		return retorno;
@@ -58,12 +53,10 @@ public class ResponsaveisAlunoTOBuilder {
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 		retorno.setAluno(alunoTOBuilder.buildTO(p.getAluno()));
 		retorno.setFamiliar(familiaresTOBuilder.buildResponsavalTO(p.getFamiliar()));
-		
-		if(Objects.nonNull(p.getTipoResponsavel())) {
-			TipoResponsavel porTipo = TipoResponsavel.getPorTipo(p.getTipoResponsavel().getTipo());
-			retorno.setTipoResponsavel(porTipo.getTipo());
-		}
-		
+		retorno.setTransportaAluno(p.getTransportaAluno());
+		retorno.setTutelaAluno(p.getTutelaAluno());
+		retorno.setResponsavelFinanceiroPeloAluno(p.getResponsavelFinanceiroPeloAluno());
+
 		return retorno;
 	}
 

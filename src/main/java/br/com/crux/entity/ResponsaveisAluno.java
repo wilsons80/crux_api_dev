@@ -3,6 +3,7 @@ package br.com.crux.entity;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,11 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Type;
-
-import br.com.crux.enums.TipoResponsavel;
 import br.com.crux.infra.constantes.Constantes;
+import br.com.crux.infra.dao.SimNaoConverter;
 
 
 /**
@@ -49,12 +47,6 @@ public class ResponsaveisAluno  {
 	@Column(name="st_mesmo_ender_resp")
 	private String mesmoEnderResponsavel;
 
-	@Column(name="st_tipo_responsavel")
-	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", 
-	      parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.TipoResponsavel"),
-	    		         @Parameter(name = "keyName", value = "tipo")}) 	
-	private TipoResponsavel tipoResponsavel;
-
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_aluno")
 	private Aluno aluno;
@@ -65,6 +57,20 @@ public class ResponsaveisAluno  {
 
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
+		
+	@Column(name="st_transporta_aluno")
+	@Convert(converter = SimNaoConverter.class)
+	private Boolean transportaAluno;
+
+	@Column(name="st_tutela_aluno")
+	@Convert(converter = SimNaoConverter.class)
+	private Boolean tutelaAluno;
+
+	//@Column(name="st_resp_fin_aluno")
+	@Convert(converter = SimNaoConverter.class)
+	private Boolean responsavelFinanceiroPeloAluno;
+	
+	
 
 	public ResponsaveisAluno() {
 	}
@@ -117,14 +123,6 @@ public class ResponsaveisAluno  {
 		this.mesmoEnderResponsavel = mesmoEnderResponsavel;
 	}
 
-	public TipoResponsavel getTipoResponsavel() {
-		return tipoResponsavel;
-	}
-
-	public void setTipoResponsavel(TipoResponsavel tipoResponsavel) {
-		this.tipoResponsavel = tipoResponsavel;
-	}
-
 	public Aluno getAluno() {
 		return aluno;
 	}
@@ -149,5 +147,30 @@ public class ResponsaveisAluno  {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
+	public Boolean getTransportaAluno() {
+		return transportaAluno;
+	}
+
+	public void setTransportaAluno(Boolean transportaAluno) {
+		this.transportaAluno = transportaAluno;
+	}
+
+	public Boolean getTutelaAluno() {
+		return tutelaAluno;
+	}
+
+	public void setTutelaAluno(Boolean tutelaAluno) {
+		this.tutelaAluno = tutelaAluno;
+	}
+
+	public Boolean getResponsavelFinanceiroPeloAluno() {
+		return responsavelFinanceiroPeloAluno;
+	}
+
+	public void setResponsavelFinanceiroPeloAluno(Boolean responsavelFinanceiroPeloAluno) {
+		this.responsavelFinanceiroPeloAluno = responsavelFinanceiroPeloAluno;
+	}
+
+	
 
 }

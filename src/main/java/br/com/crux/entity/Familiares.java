@@ -3,7 +3,6 @@ package br.com.crux.entity;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,7 +18,6 @@ import org.hibernate.annotations.Type;
 
 import br.com.crux.enums.SituacaoParentesco;
 import br.com.crux.infra.constantes.Constantes;
-import br.com.crux.infra.dao.SimNaoConverter;
 
 
 /**
