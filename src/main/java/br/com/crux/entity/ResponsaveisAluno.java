@@ -66,7 +66,7 @@ public class ResponsaveisAluno  {
 	@Convert(converter = SimNaoConverter.class)
 	private Boolean tutelaAluno;
 
-	//@Column(name="st_resp_fin_aluno")
+	@Column(name="st_resp_fin_aluno")
 	@Convert(converter = SimNaoConverter.class)
 	private Boolean responsavelFinanceiroPeloAluno;
 	
