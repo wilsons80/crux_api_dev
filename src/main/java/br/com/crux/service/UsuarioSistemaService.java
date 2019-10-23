@@ -33,6 +33,7 @@ public class UsuarioSistemaService {
 	@Autowired private AlterarUsuariosSistemaCmd alterarCmd;
 	@Autowired private CadastrarUsuariosSistemaCmd cadastrarCmd;	
 	
+	
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<UsuariosSistemaTO> getAll() {
 		return getCmd.getAll();
