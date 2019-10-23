@@ -15,11 +15,6 @@ import javax.persistence.Table;
 
 import br.com.crux.infra.constantes.Constantes;
 
-
-/**
- * The persistent class for the vulnerabilidades_familiar database table.
- * 
- */
 @Entity
 @Table(name="vulnerabilidades_familiar")
 public class VulnerabilidadesFamiliar  {
@@ -46,7 +41,7 @@ public class VulnerabilidadesFamiliar  {
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_solucao")
-	private Solucoes solucoe;
+	private Solucoes solucoes;
 
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
@@ -94,12 +89,12 @@ public class VulnerabilidadesFamiliar  {
 		this.situacoesVulnerabilidade = situacoesVulnerabilidade;
 	}
 
-	public Solucoes getSolucoe() {
-		return solucoe;
+	public Solucoes getSolucoes() {
+		return solucoes;
 	}
 
-	public void setSolucoe(Solucoes solucoe) {
-		this.solucoe = solucoe;
+	public void setSolucoes(Solucoes solucoe) {
+		this.solucoes = solucoe;
 	}
 
 	public Long getUsuarioAlteracao() {

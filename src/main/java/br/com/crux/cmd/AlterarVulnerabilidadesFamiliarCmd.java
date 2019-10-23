@@ -53,7 +53,7 @@ public class AlterarVulnerabilidadesFamiliarCmd {
 		entity.setDataSolucao(to.getDataSolucao());
 		
 		entity.setSituacoesVulnerabilidade(situacoesVulnerabilidadeTOBuilder.build(to.getSituacoesVulnerabilidade()));
-		entity.setSolucoe(solucoesTOBuilder.build(to.getSolucoes()));
+		entity.setSolucoes(solucoesTOBuilder.build(to.getSolucoes()));
 		entity.setFamiliar(familiaresTOBuilder.build(to.getFamiliar()));
 		
 		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();

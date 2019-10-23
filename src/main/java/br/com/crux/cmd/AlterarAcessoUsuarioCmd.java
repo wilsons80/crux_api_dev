@@ -45,7 +45,9 @@ public class AlterarAcessoUsuarioCmd {
 				.orElseThrow(() -> new NotFoundException("Usuario logado não existe."));
 
 		UsuariosGrupo usuarioGrupo = usuariosGrupoRepository
-				.getPorModulo(gruposModulo.getModulo().getId())
+				.getPorModuloAndGrupoModuloAndUsuario(gruposModulo.getModulo().getId(), 
+						                              gruposModulo.getId(),
+						                              acessoTO.getIdUsuario())
 				.orElseThrow(() -> new PerfilAcessoException("Usuário grupo não encontrado."));
 		
 

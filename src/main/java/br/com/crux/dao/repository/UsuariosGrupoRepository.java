@@ -19,9 +19,12 @@ public interface UsuariosGrupoRepository extends JpaRepository<UsuariosGrupo, Lo
 	
 	@Query(value = "SELECT ug FROM UsuariosGrupo ug "
 			+ "inner join GruposModulo gm on ug.gruposModulo = gm "
-			+ "inner join Modulo m on gm.modulo = m"
-			+ " where m.id = ?1")
-	public Optional<UsuariosGrupo> getPorModulo(Long idModulo);
+			+ "inner join Modulo m on gm.modulo = m "
+			+ "inner join UsuariosSistema us on us.idUsuario = ug.usuariosSistema.idUsuario "
+			+ " where m.id = ?1 "
+			+ "   and gm.id = ?2"
+			+ "   and us.idUsuario = ?3")
+	public Optional<UsuariosGrupo> getPorModuloAndGrupoModuloAndUsuario(Long idModulo, Long idGrupoModulo, Long idUsuario);
 	
 	@Query(value = "SELECT ug FROM UsuariosGrupo ug "
 			+ " inner join UsuariosSistema us on us = ug.usuariosSistema"
