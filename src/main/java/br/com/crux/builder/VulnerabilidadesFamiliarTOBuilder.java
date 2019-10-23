@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.entity.VulnerabilidadesFamiliar;
+import br.com.crux.to.FamiliaresTO;
 import br.com.crux.to.VulnerabilidadesFamiliarTO;
 
 @Component
@@ -16,14 +17,14 @@ public class VulnerabilidadesFamiliarTOBuilder {
 	@Autowired private SituacoesVulnerabilidadeTOBuilder situacaoVulnerabilidadeBuilder;
 	@Autowired private SolucoesTOBuilder solucaoBuilder;
 
-	public VulnerabilidadesFamiliar build(VulnerabilidadesFamiliarTO p) {
+	public VulnerabilidadesFamiliar build(VulnerabilidadesFamiliarTO p, FamiliaresTO familiarTO) {
 		VulnerabilidadesFamiliar retorno = new VulnerabilidadesFamiliar();
 
 		retorno.setId(p.getId());
 		retorno.setDataIdentificacao(p.getDataIdentificacao());
 		retorno.setDataSolucao(p.getDataSolucao());
 		
-		retorno.setFamiliar(familiarBuilder.build(p.getFamiliar()));
+		retorno.setFamiliar(familiarBuilder.build(familiarTO));
 		retorno.setSolucoes(solucaoBuilder.build(p.getSolucoes()));
 		retorno.setSituacoesVulnerabilidade(situacaoVulnerabilidadeBuilder.build(p.getSituacoesVulnerabilidade()));
 		
@@ -39,7 +40,7 @@ public class VulnerabilidadesFamiliarTOBuilder {
 		retorno.setDataIdentificacao(p.getDataIdentificacao());
 		retorno.setDataSolucao(p.getDataSolucao());
 		
-		retorno.setFamiliar(familiarBuilder.buildTO(p.getFamiliar()));
+		retorno.setFamiliar(familiarBuilder.buildSemRelacionamentoTO(p.getFamiliar()));
 		retorno.setSolucoes(solucaoBuilder.buildTO(p.getSolucoes()));
 		retorno.setSituacoesVulnerabilidade(situacaoVulnerabilidadeBuilder.buildTO(p.getSituacoesVulnerabilidade()));
 		

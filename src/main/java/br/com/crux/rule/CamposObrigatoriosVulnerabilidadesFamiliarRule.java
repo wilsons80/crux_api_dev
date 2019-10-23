@@ -1,29 +1,29 @@
 package br.com.crux.rule;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import org.springframework.stereotype.Component;
 
 import br.com.crux.exception.CamposObrigatoriosException;
+import br.com.crux.to.VulnerabilidadesFamiliarTO;
 
 @Component
 public class CamposObrigatoriosVulnerabilidadesFamiliarRule {
 
-	public void verificar(LocalDateTime dataIdentificacao, Long idVulnerabilidade, Long idSolucao, Long idFamiliar) {
-		if(Objects.isNull(dataIdentificacao)) {
+	public void verificar(VulnerabilidadesFamiliarTO to) {
+		if(Objects.isNull(to.getDataIdentificacao())) {
 			throw new CamposObrigatoriosException("Data de Identificação deve ser informada.");
 		}
 
-		if(Objects.isNull(idVulnerabilidade)) {
+		if(Objects.isNull(to.getSituacoesVulnerabilidade())) {
 			throw new CamposObrigatoriosException("Vulnerabilidade deve ser informada.");
 		}
 
-		if(Objects.isNull(idSolucao)) {
+		if(Objects.isNull(to.getSolucoes())) {
 			throw new CamposObrigatoriosException("Solucao deve ser informada.");
 		}
 		
-		if(Objects.isNull(idFamiliar)) {
+		if(Objects.isNull(to.getFamiliar())) {
 			throw new CamposObrigatoriosException("Familiar deve ser informada.");
 		}
 		

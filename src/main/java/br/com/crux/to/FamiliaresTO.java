@@ -30,6 +30,8 @@ public class FamiliaresTO {
 
 
 	private List<ResponsaveisAlunoTO> responsaveis;
+	private List<VulnerabilidadesFamiliarTO> vulnerabilidades;
+	
 	
 	public FamiliaresTO() {
 	}
@@ -121,6 +123,14 @@ public class FamiliaresTO {
 
 	public void setResponsaveis(List<ResponsaveisAlunoTO> responsavel) {
 		this.responsaveis = responsavel;
+	}
+
+	public List<VulnerabilidadesFamiliarTO> getVulnerabilidades() {
+		return vulnerabilidades;
+	}
+
+	public void setVulnerabilidades(List<VulnerabilidadesFamiliarTO> vulnerabilidades) {
+		this.vulnerabilidades = vulnerabilidades;
 	}
 	
 	

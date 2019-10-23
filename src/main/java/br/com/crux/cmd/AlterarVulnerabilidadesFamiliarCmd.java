@@ -1,19 +1,18 @@
 package br.com.crux.cmd;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
+import java.util.function.BiPredicate;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.builder.FamiliaresTOBuilder;
-import br.com.crux.builder.SituacoesVulnerabilidadeTOBuilder;
-import br.com.crux.builder.SolucoesTOBuilder;
+import br.com.crux.builder.VulnerabilidadesFamiliarTOBuilder;
 import br.com.crux.dao.repository.VulnerabilidadesFamiliarRepository;
 import br.com.crux.entity.VulnerabilidadesFamiliar;
-import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosVulnerabilidadesFamiliarRule;
-import br.com.crux.to.UsuarioLogadoTO;
+import br.com.crux.to.FamiliaresTO;
 import br.com.crux.to.VulnerabilidadesFamiliarTO;
 
 @Component
@@ -23,43 +22,54 @@ public class AlterarVulnerabilidadesFamiliarCmd {
 	
 	@Autowired private VulnerabilidadesFamiliarRepository repository;
 	@Autowired private CamposObrigatoriosVulnerabilidadesFamiliarRule camposObrigatoriosRule;
-	
-	@Autowired private SituacoesVulnerabilidadeTOBuilder situacoesVulnerabilidadeTOBuilder;
-	@Autowired private SolucoesTOBuilder solucoesTOBuilder;
-	@Autowired private FamiliaresTOBuilder familiaresTOBuilder;
+	@Autowired private VulnerabilidadesFamiliarTOBuilder vulnerabilidadesFamiliarTOBuilder; 
+	@Autowired private GetVulnerabilidadesFamiliarCmd getVulnerabilidadesFamiliarCmd;
 	
 	
-	public void alterar(VulnerabilidadesFamiliarTO to) {
-		Optional<VulnerabilidadesFamiliar> entityOptional = repository.findById(to.getId());
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Vulnerabilidades da familiar informada não existe.");
-		}
-		
-		if(Objects.isNull(to.getSituacoesVulnerabilidade())) {
-			throw new NotFoundException("Vulnerabilidade não informada.");
-		}
-		if(Objects.isNull(to.getSolucoes())) {
-			throw new NotFoundException("Solução não informada.");
-		}
-		if(Objects.isNull(to.getFamiliar())) {
-			throw new NotFoundException("Familiar não informado.");
-		}
-		
-		camposObrigatoriosRule.verificar(to.getDataIdentificacao(), to.getSituacoesVulnerabilidade().getId(), to.getSolucoes().getId(), to.getFamiliar().getId());
-		
-		VulnerabilidadesFamiliar entity = entityOptional.get();
-
-		entity.setDataIdentificacao(to.getDataIdentificacao());
-		entity.setDataSolucao(to.getDataSolucao());
-		
-		entity.setSituacoesVulnerabilidade(situacoesVulnerabilidadeTOBuilder.build(to.getSituacoesVulnerabilidade()));
-		entity.setSolucoes(solucoesTOBuilder.build(to.getSolucoes()));
-		entity.setFamiliar(familiaresTOBuilder.build(to.getFamiliar()));
-		
-		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
-		entity.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
-		
+	
+	private void alterar(VulnerabilidadesFamiliarTO vulnerabilidadeTO, FamiliaresTO familiarTO) {
+		camposObrigatoriosRule.verificar(vulnerabilidadeTO);
+		vulnerabilidadeTO.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
+		VulnerabilidadesFamiliar entity = vulnerabilidadesFamiliarTOBuilder.build(vulnerabilidadeTO, familiarTO);
 		repository.save(entity);
-		
 	}
+	
+	
+	public void alterarAll(List<VulnerabilidadesFamiliarTO> responsaveisTO, FamiliaresTO familiarTO) {
+		//Lista de vulnerabilidades do familiar.
+		List<VulnerabilidadesFamiliar> vulnerabilidadesPorFamiliar = getVulnerabilidadesFamiliarCmd.getAllFamiliar(familiarTO.getId());
+		
+		BiPredicate<VulnerabilidadesFamiliarTO, List<VulnerabilidadesFamiliarTO>> contemNaLista  = (parte, lista) -> lista.stream()
+                                                                                                            .anyMatch(parteNova -> parteNova.getId().equals(parte.getId()));
+		
+		
+		//Remove da lista todos os registros que não contém no Banco de Dados
+		vulnerabilidadesPorFamiliar.removeIf(registro -> {
+														if(!contemNaLista.test(vulnerabilidadesFamiliarTOBuilder.buildTO(registro), responsaveisTO)){
+															repository.delete(registro); 
+															return true;
+														}
+														return false;
+									                }
+		                                );
+		
+		//Adiciona os novos registros
+		List<VulnerabilidadesFamiliarTO> novos = responsaveisTO.stream()
+				                                           .filter(registro -> !contemNaLista.test(registro, vulnerabilidadesFamiliarTOBuilder.buildAll(vulnerabilidadesPorFamiliar)))
+				                                           .collect(Collectors.toList());
+		
+		if(Objects.nonNull(novos)){
+			novos.forEach(novoResponsavel -> alterar(novoResponsavel, familiarTO));
+		}
+
+		//Atualiza os registros 
+		responsaveisTO.stream().forEach( registro -> {
+			if(contemNaLista.test(registro, vulnerabilidadesFamiliarTOBuilder.buildAll(vulnerabilidadesPorFamiliar))){
+				alterar(registro, familiarTO);
+			}
+		});
+	}
+
+	
+	
 }
