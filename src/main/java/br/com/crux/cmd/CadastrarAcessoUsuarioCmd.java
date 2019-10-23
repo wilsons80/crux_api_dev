@@ -62,7 +62,7 @@ public class CadastrarAcessoUsuarioCmd {
 		if (!permissaoModuloPai.isPresent()) {
 			
 			//Valido se já existe permissão no módulo pai.
-			GruposModulo gruposModuloPai = cadastrarGrupoModuloCmd.cadastrarGrupoModuloPai(unidade.get().getIdUnidade(), modulo.get().getModuloPai().getId());
+			GruposModulo gruposModuloPai = cadastrarGrupoModuloCmd.cadastrarGrupoModuloPai(unidade.get().getIdUnidade(), modulo.get().getId());
 						
 			UsuariosGrupo usuariosGrupoPai = new UsuariosGrupo();
 			usuariosGrupoPai.setGruposModulo(gruposModuloPai);

@@ -56,7 +56,7 @@ public class CadastrarUnidadeCmd {
 		UsuariosSistema usuarioSistema = getUsuarioSistemaCmd.getById(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 		usuariosUnidadesTO.setUsuarioSistema(usuariosSistemaTOBuilder.buildTO(usuarioSistema));
 
-		cadastrarUsuariosUnidadeCmd.cadastrar(usuariosUnidadesTO);
+		cadastrarUsuariosUnidadeCmd.cadastrar(usuariosUnidadesTO, usuarioSistema);
 		
 		return unidadeTOBuilder.buildTO(retorno);
 	}
