@@ -61,7 +61,6 @@
 		<class>br.com.crux.entity.Projeto</class>
 		<class>br.com.crux.entity.Questionario</class>
 		<class>br.com.crux.entity.ReprovacoesAluno</class>
-		<class>br.com.crux.entity.Responsaveis</class>
 		<class>br.com.crux.entity.ResponsaveisAluno</class>
 		<class>br.com.crux.entity.Servico</class>
 		<class>br.com.crux.entity.SituacoesVulnerabilidade</class>
@@ -74,7 +73,9 @@
 		<class>br.com.crux.entity.UsuariosUnidade</class>
 		<class>br.com.crux.entity.VulnerabilidadesAluno</class>
 		<class>br.com.crux.entity.VulnerabilidadesFamiliar</class>
-		<class>br.com.crux.entity.VulnerabilidadesResponsavel</class>
+		<class>br.com.crux.entity.Instituicao</class>
+		<class>br.com.crux.entity.LogErro</class>
 		<class>br.com.crux.entity.ParticipantesAtendimentos</class>
+		<class>br.com.crux.infra.dao.LocalDateTimeConverter</class>
 	</persistence-unit>
 </persistence>
