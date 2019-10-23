@@ -40,7 +40,7 @@ public class VulnerabilidadesAlunoTOBuilder {
 		retorno.setDataIdentificacao(p.getDataIdentificacao());
 		retorno.setDataSolucao(p.getDataSolucao());
 		
-		retorno.setAluno(alunoBuilder.buildTO(p.getAluno()));
+		retorno.setAluno(alunoBuilder.buildSemRelacionamentoTO(p.getAluno()));
 		retorno.setSolucoes(solucaoBuilder.buildTO(p.getSolucoes()));
 		retorno.setSituacoesVulnerabilidade(situacaoVulnerabilidadeBuilder.buildTO(p.getSituacoesVulnerabilidade()));
 		
