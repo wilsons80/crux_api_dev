@@ -56,7 +56,7 @@ public class AlunoTOBuilder {
 		retorno.setObservacoes(p.getObservacoes());
 		retorno.setDataDesligamento(p.getDataDesligamento());
 		retorno.setDescDesligamento(p.getDescDesligamento());
-		retorno.setPessoasFisica(pessoaFisicaBuilder.buildTO(p.getPessoasFisica()));
+		retorno.setPessoaFisica(pessoaFisicaBuilder.buildTO(p.getPessoasFisica()));
 		retorno.setUnidade(unidadeBuilder.buildTO(p.getUnidade()));
 		retorno.setDataCadastro(p.getDataCadastro()); 
 		retorno.setDataAlteracaoCadastro(p.getDataAlteracaoCadastro());

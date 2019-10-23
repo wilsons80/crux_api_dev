@@ -1,6 +1,7 @@
 package br.com.crux.to;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -38,6 +39,7 @@ public class AlunoTO {
 	private String matriculaAluno;
 	private Long usuarioAlteracao;
 
+	private List<VulnerabilidadesAlunoTO> vulnerabilidades;
 
 	public AlunoTO() {
 	}
@@ -126,7 +128,7 @@ public class AlunoTO {
 		return pessoaFisica;
 	}
 
-	public void setPessoasFisica(PessoaFisicaTO pessoasFisica) {
+	public void setPessoaFisica(PessoaFisicaTO pessoasFisica) {
 		this.pessoaFisica = pessoasFisica;
 	}
 
@@ -209,5 +211,15 @@ public class AlunoTO {
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
+
+	public List<VulnerabilidadesAlunoTO> getVulnerabilidades() {
+		return vulnerabilidades;
+	}
+
+	public void setVulnerabilidades(List<VulnerabilidadesAlunoTO> vulnerabilidades) {
+		this.vulnerabilidades = vulnerabilidades;
+	}
+	
+	
 
 }

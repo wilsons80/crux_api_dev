@@ -1,19 +1,18 @@
 package br.com.crux.cmd;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
+import java.util.function.BiPredicate;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.builder.AlunoTOBuilder;
-import br.com.crux.builder.SituacoesVulnerabilidadeTOBuilder;
-import br.com.crux.builder.SolucoesTOBuilder;
+import br.com.crux.builder.VulnerabilidadesAlunoTOBuilder;
 import br.com.crux.dao.repository.VulnerabilidadesAlunoRepository;
 import br.com.crux.entity.VulnerabilidadesAluno;
-import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosVulnerabilidadesAlunoRule;
-import br.com.crux.to.UsuarioLogadoTO;
+import br.com.crux.to.AlunoTO;
 import br.com.crux.to.VulnerabilidadesAlunoTO;
 
 @Component
@@ -23,43 +22,52 @@ public class AlterarVulnerabilidadesAlunoCmd {
 	
 	@Autowired private VulnerabilidadesAlunoRepository repository;
 	@Autowired private CamposObrigatoriosVulnerabilidadesAlunoRule camposObrigatoriosRule;
+	@Autowired private VulnerabilidadesAlunoTOBuilder vulnerabilidadesAlunoTOBuilder;
+	@Autowired private GetVulnerabilidadesAlunoCmd getVulnerabilidadesAlunoCmd;
 	
-	@Autowired private SituacoesVulnerabilidadeTOBuilder situacoesVulnerabilidadeTOBuilder;
-	@Autowired private SolucoesTOBuilder solucoesTOBuilder;
-	@Autowired private AlunoTOBuilder alunoTOBuilder;
-	
-	
-	public void alterar(VulnerabilidadesAlunoTO to) {
-		Optional<VulnerabilidadesAluno> entityOptional = repository.findById(to.getId());
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Vulnerabilidades do aluno informada não existe.");
-		}
-		
-		if(Objects.isNull(to.getSituacoesVulnerabilidade())) {
-			throw new NotFoundException("Vulnerabilidade não informada.");
-		}
-		if(Objects.isNull(to.getSolucoes())) {
-			throw new NotFoundException("Solução não informada.");
-		}
-		if(Objects.isNull(to.getAluno())) {
-			throw new NotFoundException("Aluno não informado.");
-		}
-		
-		camposObrigatoriosRule.verificar(to.getDataIdentificacao(), to.getSituacoesVulnerabilidade().getId(), to.getSolucoes().getId(), to.getAluno().getId());
-		
-		VulnerabilidadesAluno entity = entityOptional.get();
 
-		entity.setDataIdentificacao(to.getDataIdentificacao());
-		entity.setDataSolucao(to.getDataSolucao());
-		
-		entity.setSituacoesVulnerabilidade(situacoesVulnerabilidadeTOBuilder.build(to.getSituacoesVulnerabilidade()));
-		entity.setSolucoe(solucoesTOBuilder.build(to.getSolucoes()));
-		entity.setAluno(alunoTOBuilder.build(to.getAluno()));
-		
-		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
-		entity.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
-		
+	private void alterar(VulnerabilidadesAlunoTO vulnerabilidadeTO, AlunoTO alunoTO) {
+		camposObrigatoriosRule.verificar(vulnerabilidadeTO);
+		vulnerabilidadeTO.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
+		VulnerabilidadesAluno entity = vulnerabilidadesAlunoTOBuilder.build(vulnerabilidadeTO, alunoTO);
 		repository.save(entity);
-		
 	}
+	
+	
+	public void alterarAll(List<VulnerabilidadesAlunoTO> vulnerabilidadesTO, AlunoTO alunoTO) {
+		//Lista de vulnerabilidades do aluno.
+		List<VulnerabilidadesAluno> vulnerabilidadesPorAluno = getVulnerabilidadesAlunoCmd.getAllAluno(alunoTO.getId());
+		
+		BiPredicate<VulnerabilidadesAlunoTO, List<VulnerabilidadesAlunoTO>> contemNaLista  = (parte, lista) -> lista.stream()
+                                                                                                            .anyMatch(parteNova -> parteNova.getId().equals(parte.getId()));
+		
+		
+		//Remove da lista todos os registros que não contém no Banco de Dados
+		vulnerabilidadesPorAluno.removeIf(registro -> {
+														if(!contemNaLista.test(vulnerabilidadesAlunoTOBuilder.buildTO(registro), vulnerabilidadesTO)){
+															repository.delete(registro); 
+															return true;
+														}
+														return false;
+									                }
+		                                );
+		
+		//Adiciona os novos registros
+		List<VulnerabilidadesAlunoTO> novos = vulnerabilidadesTO.stream()
+				                                           .filter(registro -> !contemNaLista.test(registro, vulnerabilidadesAlunoTOBuilder.buildAll(vulnerabilidadesPorAluno)))
+				                                           .collect(Collectors.toList());
+		
+		if(Objects.nonNull(novos)){
+			novos.forEach(novoResponsavel -> alterar(novoResponsavel, alunoTO));
+		}
+
+		//Atualiza os registros 
+		vulnerabilidadesTO.stream().forEach( registro -> {
+			if(contemNaLista.test(registro, vulnerabilidadesAlunoTOBuilder.buildAll(vulnerabilidadesPorAluno))){
+				alterar(registro, alunoTO);
+			}
+		});
+	}
+
+	
 }

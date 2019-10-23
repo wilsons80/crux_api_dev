@@ -21,8 +21,6 @@ public class GetVulnerabilidadesFamiliarCmd {
 	@Autowired private VulnerabilidadesFamiliarRepository repository;
 	@Autowired private VulnerabilidadesFamiliarTOBuilder toBuilder;
 	@Autowired private GetFamiliaresCmd getFamiliaresCmd;
-	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
-	
 	
 	public List<VulnerabilidadesFamiliar> getAllFamiliar(Long idFamiliar) {
 		List<VulnerabilidadesFamiliar> retorno = new ArrayList<VulnerabilidadesFamiliar>();
@@ -31,8 +29,7 @@ public class GetVulnerabilidadesFamiliarCmd {
 		if(Objects.isNull(familiar)) {
 			throw new NotFoundException("Familiar informado não existe.");
 		}
-		//Long idUnidade = familiar.getAluno().getUnidade().getIdUnidade();
-		Long idUnidade = getUnidadeLogadaCmd.get().getId();
+		Long idUnidade = familiar.getAluno().getUnidade().getIdUnidade();
 		
 		Optional<List<VulnerabilidadesFamiliar>> vulnerabilidades = repository.findByUnidadeAndFamiliar(idUnidade, idFamiliar);
 		if(!vulnerabilidades.isPresent()) {return new ArrayList<VulnerabilidadesFamiliar>();}
@@ -49,12 +46,6 @@ public class GetVulnerabilidadesFamiliarCmd {
 		vulnerabilidades.stream().forEach(r -> retorno.add(toBuilder.buildTO(r)));
 		
 		return retorno;
-	}
-	
-	
-	public VulnerabilidadesFamiliarTO getById(Long id) {
-		VulnerabilidadesFamiliar entityOptional = repository.findById(id).orElseThrow(() -> new NotFoundException("Vulnerabilidades  da Familia não encontrada."));
-		return toBuilder.buildTO(entityOptional);
 	}
 			
 }
