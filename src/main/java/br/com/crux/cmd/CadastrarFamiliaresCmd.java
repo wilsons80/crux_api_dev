@@ -20,6 +20,7 @@ public class CadastrarFamiliaresCmd {
 	@Autowired private CadastrarPessoaFisicaCmd cadastrarPessoaFisicaCmd;
 	
 	@Autowired private CadastrarResponsaveisAlunoCmd cadastrarResponsaveisAlunoCmd;
+	@Autowired private CadastrarVulnerabilidadesFamiliarCmd cadastrarVulnerabilidadesFamiliarCmd;
 	
 	public FamiliaresTO cadastrar(FamiliaresTO to) {
 		camposObrigatoriosRule.verificar(to);
@@ -31,6 +32,7 @@ public class CadastrarFamiliaresCmd {
 		FamiliaresTO familiarTOSalvo = familiaresTOBuilder.buildTO(repository.save(entity));
 		
 		cadastrarResponsaveisAlunoCmd.cadastrar(to.getResponsaveis(), familiarTOSalvo);
+		cadastrarVulnerabilidadesFamiliarCmd.cadastrar(to.getVulnerabilidades(), familiarTOSalvo);
 		
 		return familiarTOSalvo;
 	}

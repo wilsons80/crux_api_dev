@@ -20,5 +20,13 @@ public interface VulnerabilidadesFamiliarRepository extends JpaRepository<Vulner
 			+ " where uni.idUnidade = ?1")
 	public Optional<List<VulnerabilidadesFamiliar>> findByUnidade(Long idUnidade);
 
-	
+
+	@Query(value = "SELECT ra FROM VulnerabilidadesFamiliar ra          "
+		      + " inner join Familiares f on f = ra.familiar            "
+			  + " inner join Aluno a on a = f.aluno                     "
+			  + " inner join Unidade uni on a.unidade = uni             "
+			  + " where uni.idUnidade = ?1                              "
+			  + "   and f.id          = ?2                              ")
+	public Optional<List<VulnerabilidadesFamiliar>> findByUnidadeAndFamiliar(Long idUnidade, Long idFamiliar);
+
 }

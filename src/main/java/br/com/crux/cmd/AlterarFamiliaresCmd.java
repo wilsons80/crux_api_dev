@@ -19,6 +19,7 @@ public class AlterarFamiliaresCmd {
 	@Autowired private FamiliaresTOBuilder familiaresTOBuilder;
 	@Autowired private AlterarPessoaFisicaCmd alterarPessoaFisicaCmd;
 	@Autowired private AlterarResponsaveisAlunoCmd alterarResponsaveisAlunoCmd;
+	@Autowired private AlterarVulnerabilidadesFamiliarCmd alterarVulnerabilidadesFamiliarCmd;
 	
 	public FamiliaresTO alterar(FamiliaresTO familiarTO) {
 		camposObrigatoriosRule.verificar(familiarTO);
@@ -29,7 +30,10 @@ public class AlterarFamiliaresCmd {
 		familiar = familiaresTOBuilder.build(familiarTO);
 		
 		familiar.setPessoasFisica(alterarPessoaFisicaCmd.alterar(familiarTO.getPessoasFisica()));
+		
 		alterarResponsaveisAlunoCmd.alterarAll(familiarTO.getResponsaveis(), familiarTO);
+		
+		alterarVulnerabilidadesFamiliarCmd.alterarAll(familiarTO.getVulnerabilidades(), familiarTO);
 		
 		Familiares familiarSalvo = repository.save(familiar);
 		return familiaresTOBuilder.buildTO(familiarSalvo);

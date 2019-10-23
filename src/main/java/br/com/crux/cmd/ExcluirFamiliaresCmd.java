@@ -16,6 +16,8 @@ public class ExcluirFamiliaresCmd {
 	@Autowired private GetFamiliaresCmd getFamiliaresCmd;
 	@Autowired private ExcluirReprovacoesAlunoCmd excluirReprovacoesAlunoCmd;
 	@Autowired private ExcluirPessoaFisicaCmd excluirPessoaFisicaCmd;
+	@Autowired private ExcluirVulnerabilidadesFamiliarCmd excluirVulnerabilidadesFamiliarCmd;
+	
 	
 	public void excluir(Long idFamiliar) {
 		if(Objects.isNull(idFamiliar)) {
@@ -26,6 +28,9 @@ public class ExcluirFamiliaresCmd {
 		
 		//Apaga todos os responsáveis desse familiar.
 		familiaresTO.getResponsaveis().stream().forEach(r -> excluirReprovacoesAlunoCmd.excluir(r.getId()));
+		
+		//Apaga todas a vulnuerabilidades desse familiar
+		familiaresTO.getVulnerabilidades().stream().forEach( v -> excluirVulnerabilidadesFamiliarCmd.excluir(v.getId()));
 			
 		//Apaga o familiar
 		repository.deleteById(idFamiliar);

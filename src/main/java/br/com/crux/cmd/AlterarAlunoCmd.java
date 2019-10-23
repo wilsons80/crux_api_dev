@@ -17,16 +17,18 @@ public class AlterarAlunoCmd {
 	@Autowired private AlunoRepository repository;
 	@Autowired private CamposObrigatoriosAlunoRule camposObrigatoriosRule;
 	@Autowired private AlunoTOBuilder alunoTOBuilder;
-	
 	@Autowired private AlterarPessoaFisicaCmd alterarPessoaFisicaCmd;
+	@Autowired private AlterarVulnerabilidadesAlunoCmd alterarVulnerabilidadesAlunoCmd;
 	
-	public AlunoTO alterar(AlunoTO to) {
-		camposObrigatoriosRule.verificar(to);
-		Aluno aluno = repository.findById(to.getId()).orElseThrow((() -> new NotFoundException("Aluno informado não existe.")));
+	public AlunoTO alterar(AlunoTO alunoTO) {
+		camposObrigatoriosRule.verificar(alunoTO);
+		Aluno aluno = repository.findById(alunoTO.getId()).orElseThrow((() -> new NotFoundException("Aluno informado não existe.")));
 		
-		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
-		aluno = alunoTOBuilder.build(to);
-		aluno.setPessoasFisica(alterarPessoaFisicaCmd.alterar(to.getPessoaFisica()));
+		alunoTO.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
+		aluno = alunoTOBuilder.build(alunoTO);
+		aluno.setPessoasFisica(alterarPessoaFisicaCmd.alterar(alunoTO.getPessoaFisica()));
+		
+		alterarVulnerabilidadesAlunoCmd.alterarAll(alunoTO.getVulnerabilidades(), alunoTO);
 		
 	    Aluno alunoSalvo = repository.save(aluno);
 		return alunoTOBuilder.buildTO(alunoSalvo);

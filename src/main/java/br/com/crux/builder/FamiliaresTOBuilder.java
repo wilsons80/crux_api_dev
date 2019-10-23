@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.cmd.GetResponsaveisAlunoCmd;
+import br.com.crux.cmd.GetVulnerabilidadesFamiliarCmd;
 import br.com.crux.entity.Familiares;
 import br.com.crux.enums.SituacaoParentesco;
 import br.com.crux.to.FamiliarResponsavelTO;
@@ -20,6 +21,7 @@ public class FamiliaresTOBuilder {
 	@Autowired private AlunoTOBuilder alunoBuilder;
 	@Autowired private PessoaFisicaTOBuilder pessoaFisicaBuilder;
 	@Autowired private GetResponsaveisAlunoCmd getResponsaveisAlunoCmd;
+	@Autowired private GetVulnerabilidadesFamiliarCmd getVulnerabilidadesFamiliarCmd;
 	
 	
 	public Familiares build(FamiliaresTO p) {
@@ -41,12 +43,24 @@ public class FamiliaresTOBuilder {
 		retorno.setDataCadastro(p.getDataCadastro());
 		retorno.setDataDesligamento(p.getDataDesligamento());
 		
-
-		
 		return retorno;
 	}
 
 	public FamiliaresTO buildTO(Familiares p) {
+		FamiliaresTO retorno = new FamiliaresTO();
+		
+		retorno = buildSemRelacionamentoTO(p);
+
+		if(Objects.nonNull(p.getId())) {
+			retorno.setResponsaveis(getResponsaveisAlunoCmd.getAllByFamiliar(p.getId()));
+			retorno.setVulnerabilidades(getVulnerabilidadesFamiliarCmd.getAllFamiliarTO(p.getId()));
+		}
+		
+		return retorno;
+	}
+	
+	
+	public FamiliaresTO buildSemRelacionamentoTO(Familiares p) {
 		FamiliaresTO retorno = new FamiliaresTO();
 		
 		if(Objects.isNull(p)) {
@@ -69,13 +83,9 @@ public class FamiliaresTOBuilder {
 		retorno.setDataCadastro(p.getDataCadastro());
 		retorno.setDataDesligamento(p.getDataDesligamento());
 
-		if(Objects.nonNull(p.getId())) {
-			retorno.setResponsaveis(getResponsaveisAlunoCmd.getAllByFamiliar(p.getId()));
-		}
 		
 		return retorno;
 	}
-	
 	
 	public FamiliarResponsavelTO buildResponsavalTO(Familiares p) {
 		FamiliarResponsavelTO retorno = new FamiliarResponsavelTO();
@@ -98,7 +108,8 @@ public class FamiliaresTOBuilder {
 
 		return retorno;
 	}
-
+	
+	
 	public List<FamiliaresTO> buildAll(List<Familiares> dtos) {
 		return dtos.stream().map(dto -> buildTO(dto)).collect(Collectors.toList());
 	}
