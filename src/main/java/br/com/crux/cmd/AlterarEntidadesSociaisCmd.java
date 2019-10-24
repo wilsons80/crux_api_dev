@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.builder.EmpresaTOBuilder;
 import br.com.crux.dao.repository.EmpresaRepository;
 import br.com.crux.dao.repository.EntidadesSociaisRepository;
 import br.com.crux.entity.Empresa;
@@ -20,19 +19,13 @@ import br.com.crux.to.UsuarioLogadoTO;
 public class AlterarEntidadesSociaisCmd {
 
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
-	
 	@Autowired private EntidadesSociaisRepository repository;
 	@Autowired private CamposObrigatoriosEntidadesSociaisRule camposObrigatoriosRule;
-
 	@Autowired private EmpresaRepository empresaRepository;
-	@Autowired private EmpresaTOBuilder empresaBuilder;
-	
+	@Autowired private AlterarEmpresaCmd alterarEmpresaCmd;
 	
 	public void alterar(EntidadesSociaisTO to) {
-		Optional<EntidadesSociais> entityOptional = repository.findById(to.getId());
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Entidade Social informada não existe.");
-		}
+		EntidadesSociais entidadeSocial = repository.findById(to.getId()).orElseThrow( () -> new NotFoundException("Entidade Social informada não existe.") );
 		
 		if(Objects.isNull(to.getEmpresa())) {
 			throw new NotFoundException("Empresa não informada.");
@@ -45,11 +38,11 @@ public class AlterarEntidadesSociaisCmd {
 			throw new NotFoundException("Empresa informado não existe.");
 		}
 		
-		EntidadesSociais entity = entityOptional.get();
+		EntidadesSociais entity = entidadeSocial;
 
 		entity.setDataFim(to.getDataFim());
 		entity.setDataVinculo(to.getDataVinculo());
-		entity.setEmpresa(empresaBuilder.build(to.getEmpresa()));
+		entity.setEmpresa(alterarEmpresaCmd.alterar(to.getEmpresa()));
 		
 		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
 		entity.setUsuarioAlteracao(usuarioLogado.getIdUsuario());
