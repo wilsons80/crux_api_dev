@@ -1,6 +1,6 @@
 package br.com.crux.security;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.cmd.GetTimeTokenExpiredCmd;
 import br.com.crux.infra.constantes.SecurityContantes;
+import br.com.crux.infra.util.Java8DateUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.JwtException;
@@ -22,17 +23,15 @@ public class JwtManager {
 	private GetTimeTokenExpiredCmd getTimeTokenExpiredCmd;
 
 	public String createToken(String username, List<String> roles) {
-		Calendar calendar = Calendar.getInstance();
-
 		JwtBuilder token = Jwts.builder()
   							   .setSubject(username)
 							   .claim(SecurityContantes.JWT_ROLE_KEY, roles)
 							   .signWith(SignatureAlgorithm.HS512, SecurityContantes.API_KEY.getBytes());
 				 
-		Integer time = getTimeTokenExpiredCmd.getTimeExpieredToken();
-		if( Objects.nonNull(time)  && time > 0 ) {
-			calendar.add(Calendar.MINUTE, time);
-			token.setExpiration(calendar.getTime());
+		Integer minutes = getTimeTokenExpiredCmd.getTimeExpieredToken();
+		if( Objects.nonNull(minutes)  && minutes > 0 ) {
+			LocalDateTime expired = LocalDateTime.now().plusMinutes(minutes);
+			token.setExpiration(Java8DateUtil.getDate(expired));
 		}
 		
 		return token.compact();
