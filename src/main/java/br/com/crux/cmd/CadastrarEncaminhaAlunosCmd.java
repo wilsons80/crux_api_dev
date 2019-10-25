@@ -30,17 +30,17 @@ public class CadastrarEncaminhaAlunosCmd {
 		if(Objects.isNull(to.getAluno())) {
 			throw new NotFoundException("Aluno não informado.");
 		}
-		if(Objects.isNull(to.getEntidadesSocial())) {
+		if(Objects.isNull(to.getEntidadeSocial())) {
 			throw new NotFoundException("Entidade social não informada.");
 		}
 		
-		camposObrigatoriosRule.verificar(to.getEntidadesSocial().getId(), to.getAluno().getId());
+		camposObrigatoriosRule.verificar(to.getEntidadeSocial().getId(), to.getAluno().getId());
 		
 		EncaminhaAlunos entity = new EncaminhaAlunos();
 		
 		entity.setDataEncaminhaAluno(to.getDataEncaminhaAluno());
 		entity.setDescricao(to.getDescricao());
-		entity.setEntidadesSocial(entidadesSociaisTOBuilder.build(to.getEntidadesSocial()));
+		entity.setEntidadesSocial(entidadesSociaisTOBuilder.build(to.getEntidadeSocial()));
 		entity.setAluno(alunoTOBuilder.build(to.getAluno()));
 		
 		UsuarioLogadoTO usuarioLogado = getUsuarioLogadoCmd.getUsuarioLogado();
