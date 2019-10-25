@@ -1,7 +1,5 @@
 package br.com.crux.cmd;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,12 +20,11 @@ public class AlterarEmpresaCmd {
 	@Autowired private EmpresaTOBuilder empresaTOBuilder;
 	
 	public Empresa alterar(EmpresaTO to) {
-		Optional<Empresa> entityOptional = repository.findById(to.getId());
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Empresa informada não existe.");
-		}
-		
 		camposObrigatoriosRule.verificar(to.getCodigo(), to.getNomeRazaoSocial(), to.getTipoEmpresa(), to.getTelefone(), to.getEndereco());
+		
+		
+		repository.findById(to.getId())
+		          .orElseThrow(() -> new NotFoundException("Empresa informada não existe."));
 		
 		Empresa entity = empresaTOBuilder.build(to);
 		entity.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());

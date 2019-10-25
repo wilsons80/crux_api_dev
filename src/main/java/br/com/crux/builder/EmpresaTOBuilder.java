@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.entity.Empresa;
+import br.com.crux.enums.CategoriaEmpresa;
 import br.com.crux.enums.TipoEmpresa;
 import br.com.crux.to.EmpresaTO;
 
@@ -25,17 +27,23 @@ public class EmpresaTOBuilder {
 		retorno.setInscricaoMunicipal(p.getInscricaoMunicipal());
 		retorno.setAtiva(p.getAtiva());
 		
-		if(Objects.nonNull(p.getTipoEmpresa())) {
+		if(StringUtils.isNotEmpty(p.getTipoEmpresa())) {
 			retorno.setTipoEmpresa(TipoEmpresa.getPorTipo(p.getTipoEmpresa()));
 		}
 		
 		retorno.setValorIcms(p.getValorIcms());
 		retorno.setDescricaoCategoriaEmpresa(p.getDescricaoCategoriaEmpresa());
 		retorno.setDescricaoTipoEmpresa(p.getDescricaoTipoEmpresa());
-		retorno.setCategoriaEmpresa(p.getCategoriaEmpresa());
+		
+		if(StringUtils.isNotEmpty(p.getTipoEmpresa())) {
+			retorno.setCategoriaEmpresa(CategoriaEmpresa.getPorTipo(p.getCategoriaEmpresa()));
+		}
+		
 		retorno.setTelefone(p.getTelefone());
 		retorno.setEmail(p.getEmail());
+		
 		retorno.setAutorizaEmail(p.getAutorizaEmail());
+		
 		retorno.setHomePage(p.getHomePage());
 		retorno.setEndereco(p.getEndereco());
 		retorno.setBairro(p.getBairro());
@@ -66,7 +74,7 @@ public class EmpresaTOBuilder {
 		retorno.setValorIcms(p.getValorIcms());
 		retorno.setDescricaoCategoriaEmpresa(p.getDescricaoCategoriaEmpresa());
 		retorno.setDescricaoTipoEmpresa(p.getDescricaoTipoEmpresa());
-		retorno.setCategoriaEmpresa(p.getCategoriaEmpresa());
+		retorno.setCategoriaEmpresa(Objects.nonNull(p.getCategoriaEmpresa()) ? p.getCategoriaEmpresa().getTipo() : null);
 		retorno.setTelefone(p.getTelefone());
 		retorno.setEmail(p.getEmail());
 		retorno.setAutorizaEmail(p.getAutorizaEmail());

@@ -4,9 +4,11 @@ import java.time.LocalDateTime;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import br.com.crux.infra.adapter.LocalDateTimeAdapter;
 
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class EntidadesSociaisTO  {
 
 	private Long id;

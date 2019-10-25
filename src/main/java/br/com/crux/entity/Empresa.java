@@ -3,6 +3,7 @@ package br.com.crux.entity;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,7 @@ import org.hibernate.annotations.Type;
 import br.com.crux.enums.CategoriaEmpresa;
 import br.com.crux.enums.TipoEmpresa;
 import br.com.crux.infra.constantes.Constantes;
+import br.com.crux.infra.dao.SimNaoConverter;
 
 /**
  * The persistent class for the empresas database table.
@@ -81,8 +83,9 @@ public class Empresa implements Serializable {
 	@Column(name = "ds_email")
 	private String email;
 
+	@Convert(converter = SimNaoConverter.class)
 	@Column(name = "st_autoriza_email")
-	private String autorizaEmail;
+	private Boolean autorizaEmail;
 
 	@Column(name = "ds_home_page")
 	private String homePage;
@@ -228,11 +231,11 @@ public class Empresa implements Serializable {
 		this.email = email;
 	}
 
-	public String getAutorizaEmail() {
+	public Boolean getAutorizaEmail() {
 		return autorizaEmail;
 	}
 
-	public void setAutorizaEmail(String autorizaEmail) {
+	public void setAutorizaEmail(Boolean autorizaEmail) {
 		this.autorizaEmail = autorizaEmail;
 	}
 

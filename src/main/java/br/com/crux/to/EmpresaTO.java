@@ -1,7 +1,9 @@
 package br.com.crux.to;
 
-import br.com.crux.enums.CategoriaEmpresa;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class EmpresaTO {
 
 	private Long id;
@@ -15,11 +17,11 @@ public class EmpresaTO {
 	private String tipoEmpresa;
 	private Double valorIcms;
 	private String descricaoTipoEmpresa;
-	private CategoriaEmpresa categoriaEmpresa;
+	private String categoriaEmpresa;
 	private String descricaoCategoriaEmpresa;
 	private String telefone;
 	private String email;
-	private String autorizaEmail;
+	private Boolean autorizaEmail;
 	private String homePage;
 	private String endereco;
 	private String bairro;
@@ -119,11 +121,11 @@ public class EmpresaTO {
 		this.descricaoTipoEmpresa = descricaoTipoEmpresa;
 	}
 
-	public CategoriaEmpresa getCategoriaEmpresa() {
+	public String getCategoriaEmpresa() {
 		return categoriaEmpresa;
 	}
 
-	public void setCategoriaEmpresa(CategoriaEmpresa categoriaEmpresa) {
+	public void setCategoriaEmpresa(String categoriaEmpresa) {
 		this.categoriaEmpresa = categoriaEmpresa;
 	}
 
@@ -151,11 +153,11 @@ public class EmpresaTO {
 		this.email = email;
 	}
 
-	public String getAutorizaEmail() {
+	public Boolean getAutorizaEmail() {
 		return autorizaEmail;
 	}
 
-	public void setAutorizaEmail(String autorizaEmail) {
+	public void setAutorizaEmail(Boolean autorizaEmail) {
 		this.autorizaEmail = autorizaEmail;
 	}
 

@@ -25,7 +25,7 @@ public class CadastrarEntidadesSociaisCmd {
 			throw new NotFoundException("Empresa não informada.");
 		}
 		
-		camposObrigatoriosRule.verificar(to.getEmpresa().getId());
+		camposObrigatoriosRule.verificar(to);
 		
 		EntidadesSociais entity = new EntidadesSociais();
 

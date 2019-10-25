@@ -1,6 +1,5 @@
 package br.com.crux.cmd;
 
-import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +26,7 @@ public class AlterarEntidadesSociaisCmd {
 	public void alterar(EntidadesSociaisTO to) {
 		EntidadesSociais entidadeSocial = repository.findById(to.getId()).orElseThrow( () -> new NotFoundException("Entidade Social informada não existe.") );
 		
-		if(Objects.isNull(to.getEmpresa())) {
-			throw new NotFoundException("Empresa não informada.");
-		}
-		
-		camposObrigatoriosRule.verificar(to.getEmpresa().getId());
+		camposObrigatoriosRule.verificar(to);
 		
 		Optional<Empresa> empresaOptional = empresaRepository.findById(to.getEmpresa().getId());
 		if(!empresaOptional.isPresent()) {
