@@ -38,7 +38,7 @@ public class EncaminhaAlunos  {
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_entidade_social")
-	private EntidadesSociais entidadesSociai;
+	private EntidadesSociais entidadesSocial;
 
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
@@ -78,12 +78,12 @@ public class EncaminhaAlunos  {
 		this.aluno = aluno;
 	}
 
-	public EntidadesSociais getEntidadesSociai() {
-		return entidadesSociai;
+	public EntidadesSociais getEntidadesSocial() {
+		return entidadesSocial;
 	}
 
-	public void setEntidadesSociai(EntidadesSociais entidadesSociai) {
-		this.entidadesSociai = entidadesSociai;
+	public void setEntidadesSocial(EntidadesSociais entidadesSociai) {
+		this.entidadesSocial = entidadesSociai;
 	}
 
 	public Long getUsuarioAlteracao() {

@@ -4,9 +4,12 @@ import java.time.LocalDateTime;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import br.com.crux.infra.adapter.LocalDateTimeAdapter;
 
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class EncaminhaAlunosTO  {
 
 	private Long id;
@@ -16,7 +19,7 @@ public class EncaminhaAlunosTO  {
 	private LocalDateTime dataEncaminhaAluno;
 	
 	private AlunoTO aluno;
-	private EntidadesSociaisTO entidadesSociais;
+	private EntidadesSociaisTO entidadesSocial;
 	private Long usuarioAlteracao;
 
 	public EncaminhaAlunosTO() {
@@ -54,12 +57,12 @@ public class EncaminhaAlunosTO  {
 		this.aluno = aluno;
 	}
 
-	public EntidadesSociaisTO getEntidadesSociais() {
-		return entidadesSociais;
+	public EntidadesSociaisTO getEntidadesSocial() {
+		return entidadesSocial;
 	}
 
-	public void setEntidadesSociais(EntidadesSociaisTO entidadesSociai) {
-		this.entidadesSociais = entidadesSociai;
+	public void setEntidadesSocial(EntidadesSociaisTO entidadesSociai) {
+		this.entidadesSocial = entidadesSociai;
 	}
 
 	public Long getUsuarioAlteracao() {

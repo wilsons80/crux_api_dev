@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.crux.cmd.AlterarEncaminhaAlunosCmd;
@@ -34,9 +35,11 @@ public class EncaminhaAlunosService {
 	
 	
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<EncaminhaAlunosTO> getAll() {
-		return getCmd.getAll();
+	public List<EncaminhaAlunosTO> getAll(@RequestParam(name = "aluno", required = false) Long idAluno,
+                                          @RequestParam(name = "entidadesocial", required = false) Long idEntidadeSocial) {
+		return getCmd.getAll(idAluno, idEntidadeSocial);
 	}
+	
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public EncaminhaAlunosTO getById(@PathVariable(name = "id") Long id) {
