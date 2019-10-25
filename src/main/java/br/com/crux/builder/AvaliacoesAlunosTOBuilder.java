@@ -36,7 +36,7 @@ public class AvaliacoesAlunosTOBuilder {
 			retorno.setAtividadesAluno(atiAluno);
 		});
 
-		Optional.ofNullable(p.getAtividadesAluno()).ifPresent(aa -> {
+		Optional.ofNullable(p.getAvaliacoes()).ifPresent(aa -> {
 			Avaliacoes avaliacoes = getAvaliacoesCmd.getById(aa.getId());
 			retorno.setAvaliacoes(avaliacoes);
 		});

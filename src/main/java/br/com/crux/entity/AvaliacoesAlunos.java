@@ -10,12 +10,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
 import br.com.crux.enums.NotaAvaliacao;
+import br.com.crux.infra.constantes.Constantes;
 
 
 @Entity
@@ -23,7 +25,8 @@ import br.com.crux.enums.NotaAvaliacao;
 public class AvaliacoesAlunos {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY, generator = "sq_id_avaliacao_aluno")
+	@SequenceGenerator(name = "sq_id_avaliacao_aluno", sequenceName = "sq_id_avaliacao_aluno", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_avaliacao_aluno")
 	private Long id;
 
