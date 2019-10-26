@@ -37,8 +37,6 @@ public class UniformesAlunoTOBuilder {
 		retorno.setQtdUniformeEntregue(p.getQtdUniformeEntregue());
 		retorno.setAtividadesAluno(atividadesAlunoBuilder.buildTO(p.getAtividadesAluno()));
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
-
-		
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
 		return retorno;

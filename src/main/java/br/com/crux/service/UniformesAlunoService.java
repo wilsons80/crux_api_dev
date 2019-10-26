@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.crux.cmd.AlterarUniformesAlunoCmd;
@@ -34,8 +35,9 @@ public class UniformesAlunoService {
 	
 	
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<UniformesAlunoTO> getAll() {
-		return getCmd.getAll();
+	public List<UniformesAlunoTO> getAllFilter(@RequestParam(name = "aluno", required = false) Long idAluno,
+                                               @RequestParam(name = "atividade", required = false) Long idAtividade) {
+		return getCmd.getAllFilter(idAluno, idAtividade);
 	}
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

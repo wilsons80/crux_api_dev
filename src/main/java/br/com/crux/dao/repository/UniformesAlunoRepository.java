@@ -21,4 +21,28 @@ public interface UniformesAlunoRepository extends JpaRepository<UniformesAluno, 
 	public Optional<List<UniformesAluno>> findByUnidade(Long idUnidade);
 
 	
+	@Query(value = "SELECT u FROM UniformesAluno u "
+			+ " inner join AtividadesAluno ati on ati = u.atividadesAluno"
+			+ " inner join Aluno aluno on aluno = ati.aluno"
+			+ " inner join Unidade uni on aluno.unidade = uni"
+			+ " where aluno.id = ?1")
+	public Optional<List<UniformesAluno>> findByAluno(Long idAluno);
+
+	@Query(value = "SELECT u FROM UniformesAluno u "
+			+ " inner join AtividadesAluno ati on ati = u.atividadesAluno"
+			+ " inner join Aluno aluno on aluno = ati.aluno"
+			+ " inner join Unidade uni on aluno.unidade = uni"
+			+ " where ati.atividade.id = ?1")
+	public Optional<List<UniformesAluno>> findByAtividade(Long idAtivide);
+
+	
+	@Query(value = "SELECT u FROM UniformesAluno u "
+			+ " inner join AtividadesAluno ati on ati = u.atividadesAluno"
+			+ " inner join Aluno aluno on aluno = ati.aluno"
+			+ " inner join Unidade uni on aluno.unidade = uni"
+			+ " where ati.atividade.id = ?2"
+			+ "   and aluno.id         = ?1")
+	public Optional<List<UniformesAluno>> findByAlunoAndAtividade(Long idAluno, Long idAtividade);
+	
+	
 }
