@@ -20,7 +20,7 @@ import br.com.crux.cmd.GetReprovacoesAlunoCmd;
 import br.com.crux.to.ReprovacoesAlunoTO;
 
 @RestController
-@RequestMapping(value = "reprovacaoalino")
+@RequestMapping(value = "reprovacaoaluno")
 public class ReprovacoesAlunoService {
 	
 	@Autowired
