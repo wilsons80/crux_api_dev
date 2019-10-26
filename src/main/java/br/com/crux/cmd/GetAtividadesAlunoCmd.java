@@ -1,9 +1,9 @@
 package br.com.crux.cmd;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +21,33 @@ public class GetAtividadesAlunoCmd {
 	@Autowired private AtividadesAlunoRepository repository;
 	@Autowired private AtividadesAlunoTOBuilder toBuilder;
 	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
+	@Autowired private GetAlunoCmd getAlunoCmd;
 
-	public List<AtividadesAlunoTO> getAll() {
-		List<AtividadesAlunoTO> entitys = toBuilder.buildAll(repository.findAll());
-		if (entitys == null || entitys.isEmpty()) {
-			return new ArrayList<AtividadesAlunoTO>();
+	public List<AtividadesAlunoTO> getAllFilter(Long idAluno, Long idAtividade) {
+		Long idUnidade = null;
+		if(Objects.isNull(idAluno)) {
+			idUnidade = getUnidadeLogadaCmd.get().getId();
+		} else {
+			idUnidade = getAlunoCmd.getTOById(idAluno).getId();
 		}
-		return entitys;
+		
+		Optional<List<AtividadesAluno>> entitys = Optional.empty();
+		
+		if(Objects.isNull(idAluno) && Objects.isNull(idAtividade)) {
+			entitys = repository.findByUnidade(idUnidade);	
+		}else if(Objects.isNull(idAluno) && Objects.nonNull(idAtividade)) {
+			entitys = repository.findByAtividade(idAtividade, idUnidade);
+		}else if(Objects.isNull(idAtividade)  && Objects.nonNull(idAluno)) {
+			entitys = repository.findByAluno(idAluno, idUnidade);
+		}else if(Objects.nonNull(idAluno) && Objects.nonNull(idAtividade)) {
+			entitys = repository.findByAlunoAndAtividade(idAluno, idAtividade, idUnidade);
+		}
+		
+		if(entitys.isPresent()) {
+			return toBuilder.buildAll(entitys.get());
+		}
+		
+		return new ArrayList<AtividadesAlunoTO>();
 	}
 
 	public AtividadesAlunoTO getTOById(Long id) {
@@ -41,7 +61,7 @@ public class GetAtividadesAlunoCmd {
 
 	public List<AtividadesAlunoTO> getByAluno(Long id) {
 
-		Optional<List<AtividadesAluno>> entitys = repository.getByAluno(id, getUnidadeLogadaCmd.get().getId());
+		Optional<List<AtividadesAluno>> entitys = repository.findByAluno(id, getUnidadeLogadaCmd.get().getId());
 
 		if (!entitys.isPresent()) {
 			return Collections.emptyList();
@@ -51,7 +71,7 @@ public class GetAtividadesAlunoCmd {
 	}
 
 	public List<AtividadesAlunoTO> getByAtividade(Long id) {
-		Optional<List<AtividadesAluno>> entitys = repository.getByAtividade(id, getUnidadeLogadaCmd.get().getId());
+		Optional<List<AtividadesAluno>> entitys = repository.findByAtividade(id, getUnidadeLogadaCmd.get().getId());
 
 		if (!entitys.isPresent()) {
 			return Collections.emptyList();
@@ -62,7 +82,7 @@ public class GetAtividadesAlunoCmd {
 	}
 
 	public List<AtividadesAlunoTO> getByAlunoEAtividade(Long idAluno, Long idAtividade) {
-		Optional<List<AtividadesAluno>> entitys = repository.getByAlunoEAtividade(idAluno,idAtividade,getUnidadeLogadaCmd.get().getId());
+		Optional<List<AtividadesAluno>> entitys = repository.findByAlunoAndAtividade(idAluno,idAtividade,getUnidadeLogadaCmd.get().getId());
 		
 		if (!entitys.isPresent()) {
 			return Collections.emptyList();

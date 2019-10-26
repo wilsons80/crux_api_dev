@@ -25,14 +25,14 @@ public interface AtividadesAlunoRepository extends JpaRepository<AtividadesAluno
 			+ " inner join Unidade uni on aluno.unidade = uni"
 			+ " where aluno.id = ?1 "
 			+ " and uni.idUnidade = ?2")
-	public Optional<List<AtividadesAluno>> getByAluno(Long idAluno, Long idUnidade);
+	public Optional<List<AtividadesAluno>> findByAluno(Long idAluno, Long idUnidade);
 
 	@Query(value = "SELECT ati FROM AtividadesAluno ati "
 			+ " inner join Atividades atividade on ati.atividade = atividade"
 			+ " inner join Unidade uni on atividade.unidade = uni"
 			+ " where atividade.id = ?1 "
 			+ " and uni.idUnidade = ?2")
-	public Optional<List<AtividadesAluno>> getByAtividade(Long idAtividade, Long idUnidade);
+	public Optional<List<AtividadesAluno>> findByAtividade(Long idAtividade, Long idUnidade);
 
 	@Query(value = "SELECT ati FROM AtividadesAluno ati "
 			+ " inner join Atividades atividade on ati.atividade = atividade"
@@ -41,7 +41,7 @@ public interface AtividadesAlunoRepository extends JpaRepository<AtividadesAluno
 			+ " where aluno.id = ?1 "
 			+ " and atividade.id = ?2 "
 			+ " and uni.idUnidade = ?3")
-	public Optional<List<AtividadesAluno>> getByAlunoEAtividade(Long idAluno, Long idAtividade, Long idUnidade);
+	public Optional<List<AtividadesAluno>> findByAlunoAndAtividade(Long idAluno, Long idAtividade, Long idUnidade);
 
 
 }
