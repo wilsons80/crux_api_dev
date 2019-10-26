@@ -18,21 +18,19 @@ public class GetReprovacoesAlunoCmd {
 
 	@Autowired private ReprovacoesAlunoRepository repository;
 	@Autowired private ReprovacoesAlunoTOBuilder toBuilder;
+	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	
 	public List<ReprovacoesAlunoTO> getAll() {
-		List<ReprovacoesAlunoTO> entitys = toBuilder.buildAll(repository.findAll());
-		if(entitys == null || entitys.isEmpty()) {
+		Optional<List<ReprovacoesAluno>> reprovacoes = repository.findByUnidade(getUnidadeLogadaCmd.get().getId());
+		if(!reprovacoes.isPresent()) {
 			return new ArrayList<ReprovacoesAlunoTO>();
 		}
-		return entitys;
+		return toBuilder.buildAll(reprovacoes.get());
 	}
 	
 	public ReprovacoesAlunoTO getById(Long id) {
-		Optional<ReprovacoesAluno> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Reprovacoes do Aluno não encontrada.");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+		ReprovacoesAluno entityOptional = repository.findById(id).orElseThrow(() -> new NotFoundException("Reprovacoes do Aluno não encontrada.") );
+		return toBuilder.buildTO(entityOptional);
 	}
 			
 }
