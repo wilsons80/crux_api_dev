@@ -26,11 +26,13 @@ public class ReprovacoesAlunoTOBuilder {
 		retorno.setDescricaoMotivo(p.getDescricaoMotivo());
 		retorno.setSerieReprovacao(p.getSerieReprovacao());
 		retorno.setQtdReprovacao(p.getQtdReprovacao());
-		
+		/*
 		Optional.ofNullable(p.getAluno()).ifPresent(a -> {
 			Aluno aluno = getAlunoCmd.getById(a.getId());
 			retorno.setAluno(aluno);
 		});
+		*/
+		retorno.setAluno(alunoBuilder.build(p.getAluno()));
 		
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
