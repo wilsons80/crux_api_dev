@@ -22,20 +22,38 @@ public class GetFrequenciasAlunosCmd {
 	
 	
 	public List<FrequenciasAlunosTO> getAll() {
-		Long idUnidade = getUnidadeLogadaCmd.get().getId();
-		Optional<List<FrequenciasAlunos>> entitys = repository.findByUnidade(idUnidade);
+		Optional<List<FrequenciasAlunos>> entitys = repository.findByUnidade(getUnidadeLogadaCmd.get().getId());
 		if(entitys.isPresent()) {
 			return toBuilder.buildAll(entitys.get());
 		}
 		return new ArrayList<FrequenciasAlunosTO>();
 	}
 	
-	public FrequenciasAlunosTO getById(Long id) {
-		Optional<FrequenciasAlunos> entityOptional = repository.findById(id);
-		if(!entityOptional.isPresent()) {
-			throw new NotFoundException("Frequencia do aluno não encontrada.");
-		}
-		return toBuilder.buildTO(entityOptional.get());
+	public FrequenciasAlunosTO getTOById(Long id) {
+		FrequenciasAlunos entity = repository.findById(id).orElseThrow(() -> new NotFoundException("Frequencia do aluno não encontrada."));
+		return toBuilder.buildTO(entity);
 	}
+	
+	public FrequenciasAlunos getById(Long id) {
+		return repository.findById(id).orElseGet(null);
+	}
+
+
+	public FrequenciasAlunosTO getPorAlunoAtividadeUnidadeLogada(Long idAluno, Long idAtividade) {
+	//	return repository.getPorAlunoAtividadeUnidadeLogada(idAluno, idAtividade, getUnidadeLogadaCmd.get().getId());
+	return null;	
+	}
+
+//	public FrequenciasAlunosTO getPorAluno(Long idAluno) {
+//		Long idUnidade = getUnidadeLogadaCmd.get().getId();
+//		return repository.getPorAluno(idAluno,idUnidade);
+//	}
+//
+//	public FrequenciasAlunosTO getPorAtividade(Long idAtividade) {
+//		Long idUnidade = getUnidadeLogadaCmd.get().getId();
+//		return repository.getPorAtividade(idAtividade,idUnidade);
+//	}
+//	
+	
 			
 }

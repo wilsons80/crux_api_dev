@@ -37,6 +37,22 @@ public class AtividadesAlunoService {
 	public AtividadesAlunoTO getById(@PathVariable(name = "id") Long id) {
 		return getCmd.getTOById(id);
 	}
+	
+	@GetMapping(path = "/aluno/{idAluno}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<AtividadesAlunoTO> getByAluno(@PathVariable(name = "idAluno") Long idAluno) {
+		return getCmd.getByAluno(idAluno);
+	}
+	
+	@GetMapping(path = "/atividade/{idAtividade}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<AtividadesAlunoTO> getByAtividade(@PathVariable(name = "idAtividade") Long idAtividade) {
+		return getCmd.getByAtividade(idAtividade);
+	}
+	
+	@GetMapping(path = "/aluno/{idAluno}/atividade/{idAtividade}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<AtividadesAlunoTO> getByAlunoEAtividade(@PathVariable(name = "idAluno") Long idAluno, @PathVariable(name = "idAtividade") Long idAtividade) {
+		return getCmd.getByAlunoEAtividade(idAluno, idAtividade);
+	}
+	
 
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void cadastrar(@RequestBody AtividadesAlunoTO param) {
