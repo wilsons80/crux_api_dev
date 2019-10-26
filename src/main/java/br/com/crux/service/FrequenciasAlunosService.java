@@ -22,37 +22,37 @@ import br.com.crux.to.FrequenciasAlunosTO;
 @RestController
 @RequestMapping(value = "frequenciaaluno")
 public class FrequenciasAlunosService {
-	
-	@Autowired
-	private GetFrequenciasAlunosCmd getCmd;
-	@Autowired
-	private ExcluirFrequenciasAlunosCmd  excluirCmd;
-	@Autowired
-	private AlterarFrequenciasAlunosCmd alterarCmd;
-	@Autowired
-	private CadastrarFrequenciasAlunosCmd cadastrarCmd;
-	
-	
+
+	@Autowired private GetFrequenciasAlunosCmd getCmd;
+	@Autowired private ExcluirFrequenciasAlunosCmd excluirCmd;
+	@Autowired private AlterarFrequenciasAlunosCmd alterarCmd;
+	@Autowired private CadastrarFrequenciasAlunosCmd cadastrarCmd;
+
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<FrequenciasAlunosTO> getAll() {
 		return getCmd.getAll();
 	}
-	
+
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public FrequenciasAlunosTO getById(@PathVariable(name = "id") Long id) {
-		return getCmd.getById(id);
+		return getCmd.getTOById(id);
 	}
 	
+	@GetMapping(path = "/atividade/{idAtividade}/aluno/{idAluno}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public FrequenciasAlunosTO getByAluno(@PathVariable(name = "idAluno") Long idAluno, @PathVariable(name = "idAtividade") Long idAtividade) {
+		return getCmd.getPorAlunoAtividadeUnidadeLogada(idAluno,idAtividade);
+	}
+
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void cadastrar(@RequestBody FrequenciasAlunosTO param) {
 		cadastrarCmd.cadastrar(param);
 	}
-	
+
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void alterar(@RequestBody FrequenciasAlunosTO param) {
 		alterarCmd.alterar(param);
 	}
-	
+
 	@DeleteMapping(path = "/{id}")
 	public void excluir(@PathVariable(name = "id") Long id) {
 		excluirCmd.excluir(id);

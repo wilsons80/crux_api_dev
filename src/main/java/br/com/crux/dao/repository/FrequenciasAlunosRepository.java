@@ -21,4 +21,6 @@ public interface FrequenciasAlunosRepository extends JpaRepository<FrequenciasAl
 	public Optional<List<FrequenciasAlunos>> findByUnidade(Long idUnidade);
 
 	
+
+	
 }
