@@ -1,6 +1,5 @@
 package br.com.crux.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +42,7 @@ public class UniformesAlunoService {
 	
 	@GetMapping(path = "/matriculado/atividade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<UniformesAlunoTO> getAllAlunosMatriculadosNaAtividadeNoPeriodo(@PathVariable(name = "id") Long idAtividade,
-                                                                                @RequestParam(name = "data") Long dataTime) {
+                                                                                @RequestParam(name = "dataReferencia") Long dataTime) {
 		return getCmd.getAllAlunosMatriculadosNaAtividadeNoPeriodo(idAtividade, dataTime);
 	}
 	
