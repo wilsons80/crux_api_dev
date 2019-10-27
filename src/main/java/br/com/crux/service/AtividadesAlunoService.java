@@ -37,7 +37,7 @@ public class AtividadesAlunoService {
 	}
 	
 	@GetMapping(path = "/matriculado/atividade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<AtividadesAlunoTO> getAllAlunosMatriculadosNaAtividadeNoPeriodo(@PathVariable(name = "atividade") Long idAtividade,
+	public List<AtividadesAlunoTO> getAllAlunosMatriculadosNaAtividadeNoPeriodo(@PathVariable(name = "id") Long idAtividade,
                                                                                 @RequestParam(name = "data") LocalDateTime data) {
 		return getCmd.getAllAlunosMatriculadosNaAtividadeNoPeriodo(idAtividade, data);
 	}
