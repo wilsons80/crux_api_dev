@@ -1,10 +1,12 @@
 package br.com.crux.cmd;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,6 +15,7 @@ import br.com.crux.builder.AtividadesAlunoTOBuilder;
 import br.com.crux.dao.repository.AtividadesAlunoRepository;
 import br.com.crux.entity.AtividadesAluno;
 import br.com.crux.exception.NotFoundException;
+import br.com.crux.infra.util.Java8DateUtil;
 import br.com.crux.to.AtividadesAlunoTO;
 
 @Component
@@ -23,6 +26,17 @@ public class GetAtividadesAlunoCmd {
 	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	@Autowired private GetAlunoCmd getAlunoCmd;
 
+	
+	public List<AtividadesAlunoTO> getAllAlunosMatriculadosNaAtividadeNoPeriodo(Long idAtividade, LocalDateTime data) {
+		List<AtividadesAlunoTO> atividadesTO = getAllFilter(null, idAtividade);
+		
+		List<AtividadesAlunoTO> resultado = atividadesTO.stream().filter( r -> {
+			return Java8DateUtil.isVigente( r.getDataInicioAtividade().toLocalDate(), (Objects.nonNull(r.getDataDesvinculacao()) ? r.getDataDesvinculacao().toLocalDate() : null) );
+		}).collect(Collectors.toList());
+
+		return resultado;
+	}
+	
 	public List<AtividadesAlunoTO> getAllFilter(Long idAluno, Long idAtividade) {
 		Long idUnidade = null;
 		if(Objects.isNull(idAluno)) {

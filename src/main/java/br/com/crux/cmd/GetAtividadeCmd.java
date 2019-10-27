@@ -1,8 +1,11 @@
 package br.com.crux.cmd;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,6 +15,7 @@ import br.com.crux.dao.repository.AtividadeRepository;
 import br.com.crux.entity.Atividades;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.exception.ParametroNaoInformadoException;
+import br.com.crux.infra.util.Java8DateUtil;
 import br.com.crux.to.AtividadesTO;
 
 @Component
@@ -21,8 +25,28 @@ public class GetAtividadeCmd {
 	@Autowired private AtividadesTOBuilder toBuilder;
 	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	
+	public List<AtividadesTO> getAllVigentesAndPassadas() {
+		List<AtividadesTO> atividadesTO = getAllUnidadeLogada();
+		List<AtividadesTO> resultado = atividadesTO.stream().filter( r -> {
+											return Java8DateUtil.isVigente( r.getDataInicio().toLocalDate(), (Objects.nonNull(r.getDataFim()) ? r.getDataFim().toLocalDate() : null) )
+												   ||
+												   Objects.nonNull(r.getDataFim()) && r.getDataFim().toLocalDate().isBefore(LocalDate.now());
+										}).collect(Collectors.toList());
+		return resultado;
+	}
 	
-	public List<AtividadesTO> getAll() {
+	public List<AtividadesTO> getAllVigentesAndFuturas() {
+		List<AtividadesTO> atividadesTO = getAllUnidadeLogada();
+		List<AtividadesTO> resultado = atividadesTO.stream().filter( r -> {
+											return Java8DateUtil.isVigente( r.getDataInicio().toLocalDate(), (Objects.nonNull(r.getDataFim()) ? r.getDataFim().toLocalDate() : null) )
+												   ||
+												   Objects.nonNull(r.getDataFim()) && r.getDataFim().toLocalDate().isAfter(LocalDate.now());
+										}).collect(Collectors.toList());
+		return resultado;
+	}
+	
+	
+	public List<AtividadesTO> getAllUnidadeLogada() {
 		Long idUnidade = getUnidadeLogadaCmd.get().getId();
 		Optional<List<Atividades>> entitys = repository.findByIdUnidade(idUnidade);
 		if(entitys.isPresent()) {

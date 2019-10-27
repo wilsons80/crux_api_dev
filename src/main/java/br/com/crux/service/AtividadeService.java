@@ -30,9 +30,19 @@ public class AtividadeService {
 
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<AtividadesTO> getAll() {
-		return getCmd.getAll();
+		return getCmd.getAllUnidadeLogada();
+	}
+	
+	@GetMapping(path = "/vigente-e-passadas", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<AtividadesTO> getAllVigentesAndPassadas() {
+		return getCmd.getAllVigentesAndPassadas();	
 	}
 
+	@GetMapping(path = "/vigente-e-futuras", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<AtividadesTO> getAllVigentesAndFuturas() {
+		return getCmd.getAllVigentesAndFuturas();	
+	}
+	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public AtividadesTO getById(@PathVariable(name = "id") Long id) {
 		return getCmd.getTOById(id);
