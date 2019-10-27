@@ -76,6 +76,15 @@ public class Java8DateUtil {
 		return false;
 	}
 
+	public static boolean isVigente(LocalDate dataRefencia, LocalDate inicio, LocalDate fim) {
+		if (dataRefencia.equals(inicio)) {return true;}
+		if (dataRefencia.equals(fim)) {return true;}
+		if (dataRefencia.isBefore(inicio)) {return false;}
+		if (Objects.isNull(fim)) {return true;}     
+		if (dataRefencia.isAfter(dataRefencia) && dataRefencia.isBefore(fim)) {return true;}
+		
+		return false;
+	}
 	
 	public static Long horaStringToLong(String hora) {
 		String teste = hora.replace(":","");

@@ -1,7 +1,8 @@
 package br.com.crux.cmd;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -27,15 +28,17 @@ public class GetUniformesAlunoCmd {
 	@Autowired private GetAlunoCmd getAlunoCmd;
 	
 	
-	public List<UniformesAlunoTO>  getAllAlunosMatriculadosNaAtividadeNoPeriodo(Long idAtividade, LocalDateTime dataReferencia) {
-		List<UniformesAlunoTO> atividadesTO = getAllFilter(null, idAtividade);
+	public List<UniformesAlunoTO>  getAllAlunosMatriculadosNaAtividadeNoPeriodo(Long idAtividade, Long dataTime) {
+		LocalDate dataReferencia = Java8DateUtil.getLocalDate(new Date(dataTime));
 		
+		List<UniformesAlunoTO> atividadesTO = getAllFilter(null, idAtividade);
 		List<UniformesAlunoTO> resultado = atividadesTO.stream().filter( r -> {
-			return Java8DateUtil.isVigente( r.getAtividadesAluno().getDataInicioAtividade().toLocalDate(), (Objects.nonNull(r.getAtividadesAluno().getDataDesvinculacao()) ? r.getAtividadesAluno().getDataDesvinculacao().toLocalDate() : null) );
+			return Java8DateUtil.isVigente(dataReferencia, r.getAtividadesAluno().getDataInicioAtividade().toLocalDate(), (Objects.nonNull(r.getAtividadesAluno().getDataDesvinculacao()) ? r.getAtividadesAluno().getDataDesvinculacao().toLocalDate() : null) );
 		}).collect(Collectors.toList());
 
 		return resultado;
 	}
+	
 	
 	public List<UniformesAlunoTO> getAllFilter(Long idAluno, Long idAtividade) {
 		Long idUnidade = null;
