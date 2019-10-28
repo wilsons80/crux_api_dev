@@ -1,7 +1,6 @@
 package br.com.crux.cmd;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -29,11 +28,13 @@ public class GetAtividadesAlunoCmd {
 	@Autowired private GetAlunoCmd getAlunoCmd;
 
 	
-	public List<AtividadesAlunoTO> getAllAlunosMatriculadosNaAtividadeNoPeriodo(Long idAtividade, LocalDateTime data) {
+	public List<AtividadesAlunoTO> getAllAlunosMatriculadosNaAtividadeNoPeriodo(Long idAtividade, Long dataLong) {
+		LocalDate dataReferencia = Java8DateUtil.getLocalDate(new Date(dataLong));
+		
 		List<AtividadesAlunoTO> atividadesTO = getAllFilter(null, idAtividade);
 		
 		List<AtividadesAlunoTO> resultado = atividadesTO.stream().filter( r -> {
-			return Java8DateUtil.isVigente( r.getDataInicioAtividade().toLocalDate(), (Objects.nonNull(r.getDataDesvinculacao()) ? r.getDataDesvinculacao().toLocalDate() : null) );
+			return Java8DateUtil.isVigente( dataReferencia, r.getDataInicioAtividade().toLocalDate(), (Objects.nonNull(r.getDataDesvinculacao()) ? r.getDataDesvinculacao().toLocalDate() : null) );
 		}).collect(Collectors.toList());
 
 		return resultado;
