@@ -7,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.crux.cmd.AlterarUniformesAlunoCmd;
-import br.com.crux.cmd.CadastrarUniformesAlunoCmd;
 import br.com.crux.cmd.ExcluirUniformesAlunoCmd;
 import br.com.crux.cmd.GetUniformesAlunoCmd;
 import br.com.crux.to.UniformesAlunoTO;
@@ -30,20 +28,12 @@ public class UniformesAlunoService {
 	private ExcluirUniformesAlunoCmd  excluirCmd;
 	@Autowired
 	private AlterarUniformesAlunoCmd alterarCmd;
-	@Autowired
-	private CadastrarUniformesAlunoCmd cadastrarCmd;
 	
-	
-	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<UniformesAlunoTO> getAllFilter(@RequestParam(name = "aluno", required = false) Long idAluno,
-                                               @RequestParam(name = "atividade", required = false) Long idAtividade) {
-		return getCmd.getAllFilter(idAluno, idAtividade);
-	}
 	
 	@GetMapping(path = "/matriculado/atividade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<UniformesAlunoTO> getAllAlunosMatriculadosNaAtividadeNoPeriodo(@PathVariable(name = "id") Long idAtividade,
-                                                                                @RequestParam(name = "dataReferencia") Long dataTime) {
-		return getCmd.getAllAlunosMatriculadosNaAtividadeNoPeriodo(idAtividade, dataTime);
+                                                                               @RequestParam(name = "dataReferencia") Long dataTime) {
+		return getCmd.getAllAlunosMatriculadosTO(idAtividade, dataTime);
 	}
 	
 	
@@ -52,14 +42,11 @@ public class UniformesAlunoService {
 		return getCmd.getById(id);
 	}
 	
-	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void cadastrar(@RequestBody UniformesAlunoTO param) {
-		cadastrarCmd.cadastrar(param);
-	}
-	
-	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void alterar(@RequestBody UniformesAlunoTO param) {
-		alterarCmd.alterar(param);
+	@PutMapping(path = "/atividade/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void alterar(@PathVariable(name = "id") Long idAtividade,
+			            @RequestParam(name = "data") Long data,
+			            @RequestBody List<UniformesAlunoTO> param) {
+		alterarCmd.alterarAll(param, idAtividade, data);
 	}
 	
 	@DeleteMapping(path = "/{id}")

@@ -28,11 +28,21 @@ public class GetUniformesAlunoCmd {
 	@Autowired private GetAlunoCmd getAlunoCmd;
 	
 	
-	public List<UniformesAlunoTO>  getAllAlunosMatriculadosNaAtividadeNoPeriodo(Long idAtividade, Long dataTime) {
+	public List<UniformesAlunoTO>  getAllAlunosMatriculadosTO(Long idAtividade, Long dataTime) {
+		return toBuilder.buildAll(getAllAlunos(idAtividade, dataTime));
+	}
+	
+	public List<UniformesAluno>  getAllAlunosMatriculados(Long idAtividade, Long dataTime) {
+		return getAllAlunos(idAtividade, dataTime);
+	}
+	
+	
+	private List<UniformesAluno>  getAllAlunos(Long idAtividade, Long dataTime) {
 		LocalDate dataReferencia = Java8DateUtil.getLocalDate(new Date(dataTime));
 		
-		List<UniformesAlunoTO> atividadesTO = getAllFilter(null, idAtividade);
-		List<UniformesAlunoTO> resultado = atividadesTO.stream().filter( r -> {
+		List<UniformesAluno> atividades = getAllFilter(null, idAtividade);
+		
+		List<UniformesAluno> resultado = atividades.stream().filter( r -> {
 			return Java8DateUtil.isVigente(dataReferencia, r.getAtividadesAluno().getDataInicioAtividade().toLocalDate(), (Objects.nonNull(r.getAtividadesAluno().getDataDesvinculacao()) ? r.getAtividadesAluno().getDataDesvinculacao().toLocalDate() : null) );
 		}).collect(Collectors.toList());
 
@@ -40,7 +50,7 @@ public class GetUniformesAlunoCmd {
 	}
 	
 	
-	public List<UniformesAlunoTO> getAllFilter(Long idAluno, Long idAtividade) {
+	public List<UniformesAluno> getAllFilter(Long idAluno, Long idAtividade) {
 		Long idUnidade = null;
 		
 		if(Objects.isNull(idAluno)) {
@@ -62,9 +72,9 @@ public class GetUniformesAlunoCmd {
 		}
 		
 		if(entitys.isPresent()) {
-			return toBuilder.buildAll(entitys.get());
+			return entitys.get();
 		}
-		return new ArrayList<UniformesAlunoTO>();
+		return new ArrayList<UniformesAluno>();
 	}
 	
 	public UniformesAlunoTO getById(Long id) {
