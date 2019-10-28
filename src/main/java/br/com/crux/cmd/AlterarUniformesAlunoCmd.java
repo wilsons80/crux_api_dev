@@ -36,9 +36,9 @@ public class AlterarUniformesAlunoCmd {
 		repository.save(entity);
 	}	
 	
-	public void alterarAll(List<UniformesAlunoTO> vulnerabilidadesTO, Long idAtividade, Long dataLong) {
+	public void alterarAll(List<UniformesAlunoTO> vulnerabilidadesTO, Long idAtividade) {
 		//Lista de uniformes do aluno.
-		List<UniformesAluno> uniformesEntregues = getUniformesAlunoCmd.getAllAlunosMatriculados(idAtividade, dataLong);
+		List<UniformesAluno> uniformesEntregues = getUniformesAlunoCmd.getAllAlunosMatriculados(idAtividade);
 		
 		BiPredicate<UniformesAlunoTO, List<UniformesAlunoTO>> contemNaLista  = (parte, lista) -> lista.stream()
                                                                                                             .anyMatch(parteNova -> parteNova.getId().equals(parte.getId()));
