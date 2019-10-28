@@ -58,8 +58,16 @@ public class AtividadesAlunoService {
 	}
 	
 	@GetMapping(path = "/aluno/{idAluno}/atividade/{idAtividade}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<AtividadesAlunoTO> getByAlunoEAtividade(@PathVariable(name = "idAluno") Long idAluno, @PathVariable(name = "idAtividade") Long idAtividade) {
+	public List<AtividadesAlunoTO> getByAlunoEAtividade(@PathVariable(name = "idAluno") Long idAluno, 
+			                                            @PathVariable(name = "idAtividade") Long idAtividade) {
 		return getCmd.getByAlunoEAtividade(idAluno, idAtividade);
+	}
+
+	@GetMapping(path = "/aluno/{idAluno}/atividade/{idAtividade}/data/{data}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<AtividadesAlunoTO> getByAlunoEAtividade(@PathVariable(name = "idAluno") Long idAluno, 
+			                                            @PathVariable(name = "idAtividade") Long idAtividade,
+			                                            @PathVariable(name = "data") Long data) {
+		return getCmd.getByAlunoEAtividadeEPeriodo(idAluno, idAtividade, data);
 	}
 	
 

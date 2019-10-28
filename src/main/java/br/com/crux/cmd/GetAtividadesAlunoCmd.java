@@ -1,8 +1,10 @@
 package br.com.crux.cmd;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -74,30 +76,42 @@ public class GetAtividadesAlunoCmd {
 	}
 
 	public List<AtividadesAlunoTO> getByAluno(Long id) {
-
 		Optional<List<AtividadesAluno>> entitys = repository.findByAluno(id, getUnidadeLogadaCmd.get().getId());
-
 		if (!entitys.isPresent()) {
 			return Collections.emptyList();
 		}
-
 		return toBuilder.buildAll(entitys.get());
 	}
 
 	public List<AtividadesAlunoTO> getByAtividade(Long id) {
 		Optional<List<AtividadesAluno>> entitys = repository.findByAtividade(id, getUnidadeLogadaCmd.get().getId());
-
 		if (!entitys.isPresent()) {
 			return Collections.emptyList();
 		}
-
 		return toBuilder.buildAll(entitys.get());
-
 	}
 
-	public List<AtividadesAlunoTO> getByAlunoEAtividade(Long idAluno, Long idAtividade) {
-		Optional<List<AtividadesAluno>> entitys = repository.findByAlunoAndAtividade(idAluno,idAtividade,getUnidadeLogadaCmd.get().getId());
+	
+	public List<AtividadesAlunoTO> getByAlunoEAtividadeEPeriodo(Long idAluno, Long idAtividade, Long dataLong) {
+		LocalDate dataReferencia = Java8DateUtil.getLocalDate(new Date(dataLong));
 		
+		List<AtividadesAlunoTO> atividadesAlunos = getByAlunoEAtividade(idAluno, idAtividade);
+		List<AtividadesAlunoTO> resultado = atividadesAlunos.stream().filter( r -> {
+			return Java8DateUtil.isVigente(dataReferencia, r.getDataInicioAtividade().toLocalDate(), (Objects.nonNull(r.getDataDesvinculacao()) ? r.getDataDesvinculacao().toLocalDate() : null) );
+		}).collect(Collectors.toList());
+		
+		return resultado;
+	}
+	
+	public List<AtividadesAlunoTO> getByAlunoEAtividade(Long idAluno, Long idAtividade) {
+		Long idUnidade = null;
+		if(Objects.isNull(idAluno)) {
+			idUnidade = getUnidadeLogadaCmd.get().getId();
+		} else {
+			idUnidade = getAlunoCmd.getTOById(idAluno).getId();
+		}
+		
+		Optional<List<AtividadesAluno>> entitys = repository.findByAlunoAndAtividade(idAluno,idAtividade, idUnidade);
 		if (!entitys.isPresent()) {
 			return Collections.emptyList();
 		}
