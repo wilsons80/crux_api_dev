@@ -24,9 +24,13 @@ public class AlterarUniformesAlunoCmd {
 	@Autowired private UniformesAlunoTOBuilder uniformesAlunoTOBuilder;
 	@Autowired private GetUniformesAlunoCmd getUniformesAlunoCmd;
 	
-	private void alterar(UniformesAlunoTO to) {
+	private void salvar(UniformesAlunoTO to) {
 		camposObrigatoriosRule.verificar(to);
-		UniformesAluno entity = repository.findById(to.getId()).orElseThrow(() -> new NotFoundException("Uniforme do aluno informado não existe.") );
+		
+		UniformesAluno entity = null;
+		if(Objects.nonNull(to.getId())) {
+			entity = repository.findById(to.getId()).orElseThrow(() -> new NotFoundException("Uniforme do aluno informado não existe.") );
+		}
 		entity = uniformesAlunoTOBuilder.build(to);
 		entity.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 		repository.save(entity);
@@ -56,13 +60,13 @@ public class AlterarUniformesAlunoCmd {
 				                                           .collect(Collectors.toList());
 		
 		if(Objects.nonNull(novos)){
-			novos.forEach(novoResponsavel -> alterar(novoResponsavel));
+			novos.forEach(novoResponsavel -> salvar(novoResponsavel));
 		}
 
 		//Atualiza os registros 
 		vulnerabilidadesTO.stream().forEach( registro -> {
 			if(contemNaLista.test(registro, uniformesAlunoTOBuilder.buildAll(uniformesEntregues))){
-				alterar(registro);
+				salvar(registro);
 			}
 		});
 	}
