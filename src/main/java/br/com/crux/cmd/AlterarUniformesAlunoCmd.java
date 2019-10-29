@@ -41,7 +41,9 @@ public class AlterarUniformesAlunoCmd {
 		List<UniformesAluno> uniformesEntregues = getUniformesAlunoCmd.getAllAlunosMatriculados(idAtividade);
 		
 		BiPredicate<UniformesAlunoTO, List<UniformesAlunoTO>> contemNaLista  = (parte, lista) -> lista.stream()
-                                                                                                            .anyMatch(parteNova -> parteNova.getId().equals(parte.getId()));
+                                                                                                      .anyMatch(registroTO -> Objects.nonNull(registroTO.getId()) 
+                                                                                                    		                 && 
+                                                                                                    		                 registroTO.getId().equals(parte.getId()));
 		
 		
 		//Remove da lista todos os registros que não contém no Banco de Dados
@@ -56,15 +58,17 @@ public class AlterarUniformesAlunoCmd {
 		
 		//Adiciona os novos registros
 		List<UniformesAlunoTO> novos = vulnerabilidadesTO.stream()
-				                                           .filter(registro -> !contemNaLista.test(registro, uniformesAlunoTOBuilder.buildAll(uniformesEntregues)))
-				                                           .collect(Collectors.toList());
+				                                         .filter(registro -> Objects.isNull(registro.getId()))
+				                                         .collect(Collectors.toList());
 		
 		if(Objects.nonNull(novos)){
 			novos.forEach(novoResponsavel -> salvar(novoResponsavel));
 		}
 
 		//Atualiza os registros 
-		vulnerabilidadesTO.stream().forEach( registro -> {
+		vulnerabilidadesTO.stream()
+		                  .filter(registro -> Objects.nonNull(registro.getId()))
+		                  .forEach( registro -> {
 			if(contemNaLista.test(registro, uniformesAlunoTOBuilder.buildAll(uniformesEntregues))){
 				salvar(registro);
 			}

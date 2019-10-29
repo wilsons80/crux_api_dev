@@ -34,7 +34,9 @@ public class AlterarUsuariosUnidadeCmd {
 		Optional<List<UsuariosUnidade>> usuariosUnidades = usuariosUnidadeRepository.findByUsuarioSistema(idUsuarioSistema);
 		
 		BiPredicate<UsuariosUnidadesTO, List<UsuariosUnidadesTO>> contemNaLista  = (parte, lista) -> lista.stream()
-				                                                                                   .anyMatch(parteNova -> parteNova.getUnidade().getIdUnidade().equals(parte.getUnidade().getIdUnidade()));
+				                                                                                   .anyMatch(parteNova -> Objects.nonNull(parteNova.getUnidade().getIdUnidade())
+				                                                                                		                  &&
+				                                                                                		                  parteNova.getUnidade().getIdUnidade().equals(parte.getUnidade().getIdUnidade()));
 		
 		
 		//Remove da lista todos os registros que não contém no Banco de Dados
@@ -49,7 +51,7 @@ public class AlterarUsuariosUnidadeCmd {
 		
 		//Adiciona os novos registros
 		List<UsuariosUnidadesTO> novos = usuariosUnidadesTO.stream()
-				                                           .filter(registro -> !contemNaLista.test(registro, usuarioUnidadeTOBuilder.buildAll(usuariosUnidades.get())))
+				                                           .filter(registro -> Objects.isNull(registro.getId()))
 				                                           .collect(Collectors.toList());
 		
 		if(Objects.nonNull(novos)){

@@ -40,7 +40,9 @@ public class AlterarVulnerabilidadesFamiliarCmd {
 		List<VulnerabilidadesFamiliar> vulnerabilidadesPorFamiliar = getVulnerabilidadesFamiliarCmd.getAllFamiliar(familiarTO.getId());
 		
 		BiPredicate<VulnerabilidadesFamiliarTO, List<VulnerabilidadesFamiliarTO>> contemNaLista  = (parte, lista) -> lista.stream()
-                                                                                                            .anyMatch(parteNova -> parteNova.getId().equals(parte.getId()));
+																														  .anyMatch(registroTO -> Objects.nonNull(registroTO.getId()) 
+																													                 && 
+																													                 registroTO.getId().equals(parte.getId()));
 		
 		
 		//Remove da lista todos os registros que não contém no Banco de Dados
@@ -55,18 +57,20 @@ public class AlterarVulnerabilidadesFamiliarCmd {
 		
 		//Adiciona os novos registros
 		List<VulnerabilidadesFamiliarTO> novos = responsaveisTO.stream()
-				                                           .filter(registro -> !contemNaLista.test(registro, vulnerabilidadesFamiliarTOBuilder.buildAll(vulnerabilidadesPorFamiliar)))
-				                                           .collect(Collectors.toList());
+				                                               .filter(registro -> Objects.isNull(registro.getId()))
+				                                               .collect(Collectors.toList());
 		
 		if(Objects.nonNull(novos)){
 			novos.forEach(novoResponsavel -> alterar(novoResponsavel, familiarTO));
 		}
 
 		//Atualiza os registros 
-		responsaveisTO.stream().forEach( registro -> {
-			if(contemNaLista.test(registro, vulnerabilidadesFamiliarTOBuilder.buildAll(vulnerabilidadesPorFamiliar))){
-				alterar(registro, familiarTO);
-			}
+		responsaveisTO.stream()
+		              .filter(registro -> Objects.nonNull(registro.getId()))
+		              .forEach( registro -> {
+												if(contemNaLista.test(registro, vulnerabilidadesFamiliarTOBuilder.buildAll(vulnerabilidadesPorFamiliar))){
+													alterar(registro, familiarTO);
+												}
 		});
 	}
 

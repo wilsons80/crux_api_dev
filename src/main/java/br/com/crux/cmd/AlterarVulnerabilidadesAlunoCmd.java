@@ -39,7 +39,10 @@ public class AlterarVulnerabilidadesAlunoCmd {
 		List<VulnerabilidadesAluno> vulnerabilidadesPorAluno = getVulnerabilidadesAlunoCmd.getAllAluno(alunoTO.getId());
 		
 		BiPredicate<VulnerabilidadesAlunoTO, List<VulnerabilidadesAlunoTO>> contemNaLista  = (parte, lista) -> lista.stream()
-                                                                                                            .anyMatch(parteNova -> parteNova.getId().equals(parte.getId()));
+																													.anyMatch(registroTO -> Objects.nonNull(registroTO.getId()) 
+																											                 && 
+																											                 registroTO.getId().equals(parte.getId()));
+		
 		
 		
 		//Remove da lista todos os registros que não contém no Banco de Dados
@@ -54,18 +57,20 @@ public class AlterarVulnerabilidadesAlunoCmd {
 		
 		//Adiciona os novos registros
 		List<VulnerabilidadesAlunoTO> novos = vulnerabilidadesTO.stream()
-				                                           .filter(registro -> !contemNaLista.test(registro, vulnerabilidadesAlunoTOBuilder.buildAll(vulnerabilidadesPorAluno)))
-				                                           .collect(Collectors.toList());
+				                                                .filter(registro -> Objects.isNull(registro.getId()))
+				                                                .collect(Collectors.toList());
 		
 		if(Objects.nonNull(novos)){
 			novos.forEach(novoResponsavel -> alterar(novoResponsavel, alunoTO));
 		}
 
 		//Atualiza os registros 
-		vulnerabilidadesTO.stream().forEach( registro -> {
-			if(contemNaLista.test(registro, vulnerabilidadesAlunoTOBuilder.buildAll(vulnerabilidadesPorAluno))){
-				alterar(registro, alunoTO);
-			}
+		vulnerabilidadesTO.stream()
+		                  .filter(registro -> Objects.nonNull(registro.getId()))
+		                  .forEach( registro -> {
+													if(contemNaLista.test(registro, vulnerabilidadesAlunoTOBuilder.buildAll(vulnerabilidadesPorAluno))){
+														alterar(registro, alunoTO);
+													}
 		});
 	}
 
