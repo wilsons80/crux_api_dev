@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.crux.cmd.AlterarUniformesAlunoCmd;
-import br.com.crux.cmd.ExcluirUniformesAlunoCmd;
 import br.com.crux.cmd.GetUniformesAlunoCmd;
 import br.com.crux.to.UniformesAlunoTO;
 
@@ -23,8 +21,6 @@ public class UniformesAlunoService {
 	
 	@Autowired
 	private GetUniformesAlunoCmd getCmd;
-	@Autowired
-	private ExcluirUniformesAlunoCmd  excluirCmd;
 	@Autowired
 	private AlterarUniformesAlunoCmd alterarCmd;
 	
@@ -46,9 +42,4 @@ public class UniformesAlunoService {
 		alterarCmd.alterarAll(param, idAtividade);
 	}
 	
-	@DeleteMapping(path = "/{id}")
-	public void excluir(@PathVariable(name = "id") Long id) {
-		excluirCmd.excluir(id);
-	}
-
 }
