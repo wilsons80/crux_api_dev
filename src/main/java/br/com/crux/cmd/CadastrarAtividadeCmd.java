@@ -15,7 +15,7 @@ public class CadastrarAtividadeCmd {
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	@Autowired private AtividadeRepository repository;
 	@Autowired private AtividadesTOBuilder atividadesTOBuilder;
-
+	@Autowired private CadastrarColaboradoresAtividadeCmd cadastrarColaboradoresAtividadeCmd;
 	@Autowired private CamposObrigatoriosAtividadeRule camposObrigatoriosRule;
 
 	public void cadastrar(AtividadesTO to) {
@@ -25,8 +25,12 @@ public class CadastrarAtividadeCmd {
 		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 
 		Atividades entity = atividadesTOBuilder.build(to);
-
-		repository.save(entity);
+		
+		Atividades atividade = repository.save(entity);
+		
+		if(!to.getColaboradoresAtividade().isEmpty()) {
+			cadastrarColaboradoresAtividadeCmd.cadastrar(to.getColaboradoresAtividade());
+		}
 
 	}
 }

@@ -1,6 +1,9 @@
 package br.com.crux.to;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -11,14 +14,17 @@ public class AtividadesTO {
 	private Long id;
 	private String descricao;
 	private String descricaoLocalExecucao;
-	
-	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class) 
 	private LocalDateTime dataFim;
-	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+	
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class) 
 	private LocalDateTime dataInicio;
-	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+	
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class) 
 	private LocalDateTime dataPrevisaoInicio;
-	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+	
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class) 
 	private LocalDateTime dataPrevisaoTermino;
 
 	private String horaFim;
@@ -29,7 +35,7 @@ public class AtividadesTO {
 	private Long periodoAtividade;
 	private String horarioFixo;
 	private String localExecucao;
-	
+
 	private Boolean segunda;
 	private Boolean terca;
 	private Boolean quarta;
@@ -37,14 +43,16 @@ public class AtividadesTO {
 	private Boolean sexta;
 	private Boolean sabado;
 	private Boolean domingo;
-	
+
 	private String observacoes;
 	private Long valorCustoAtividade;
-	
+
 	private PlanosAcaoTO planosAcao;
 	private ProjetoTO projeto;
 	private UnidadeTO unidade;
-	
+
+	private List<ColaboradoresAtividadeTO> colaboradoresAtividade;
+
 	private Long usuarioAlteracao;
 
 	public AtividadesTO() {
@@ -273,5 +281,10 @@ public class AtividadesTO {
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
+
+	public List<ColaboradoresAtividadeTO> getColaboradoresAtividade() {
+		return Optional.ofNullable(colaboradoresAtividade).orElse(Collections.emptyList());
+	}
+
 
 }
