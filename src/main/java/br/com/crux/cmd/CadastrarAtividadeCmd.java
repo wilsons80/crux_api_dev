@@ -29,6 +29,7 @@ public class CadastrarAtividadeCmd {
 		Atividades atividade = repository.save(entity);
 		
 		if(!to.getColaboradoresAtividade().isEmpty()) {
+			to.getColaboradoresAtividade().forEach(ca -> ca.setAtividade(atividadesTOBuilder.buildTO(atividade)));
 			cadastrarColaboradoresAtividadeCmd.cadastrar(to.getColaboradoresAtividade());
 		}
 

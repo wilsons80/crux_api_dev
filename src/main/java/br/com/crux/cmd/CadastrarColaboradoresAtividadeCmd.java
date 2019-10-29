@@ -34,5 +34,5 @@ public class CadastrarColaboradoresAtividadeCmd {
 	public void cadastrar(List<ColaboradoresAtividadeTO> colaboradoresAtividade) {
 		colaboradoresAtividade.forEach(ca -> cadastrar(ca));
 	}
-	
+
 }

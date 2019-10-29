@@ -4,21 +4,18 @@ import java.time.LocalDateTime;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import br.com.crux.enums.NotaAvaliacao;
 import br.com.crux.infra.adapter.LocalDateTimeAdapter;
-
 
 public class AvaliacoesAlunosTO {
 
 	private Long id;
 	private String descriaoAvaliacao;
-	
-	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
-	private LocalDateTime dataAvaliacao;
-	
+
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class) private LocalDateTime dataAvaliacao;
+
 	private AtividadesAlunoTO atividadesAluno;
 	private AvaliacoesTO avaliacoes;
-	
+
 	private String notaAvaliacao;
 	private Long usuarioAlteracao;
 
