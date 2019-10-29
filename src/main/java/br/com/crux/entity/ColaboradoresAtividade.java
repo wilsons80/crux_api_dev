@@ -12,7 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import br.com.crux.infra.constantes.Constantes;
 
 /**
  * The persistent class for the colaboradores_atividades database table.
@@ -23,8 +26,12 @@ import javax.persistence.Table;
 @NamedQuery(name = "ColaboradoresAtividade.findAll", query = "SELECT c FROM ColaboradoresAtividade c")
 public class ColaboradoresAtividade implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "id_colaborador_atividade") private Long idColaboradorAtividade;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_colaborador_atividade")
+	@SequenceGenerator(name = "sq_id_colaborador_atividade", sequenceName = "sq_id_colaborador_atividade", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
+	@Column(name = "id_colaborador_atividade") 
+	private Long idColaboradorAtividade;
 
 	@Column(name = "dt_entrada_atividade") private LocalDateTime dtEntradaAtividade;
 
@@ -45,7 +52,7 @@ public class ColaboradoresAtividade implements Serializable {
 	@JoinColumn(name = "id_funcionario") 
 	private Funcionario funcionario;
 
-	@JoinColumn(name = "id_usuario_apl")
+	@Column(name="id_usuario_apl")
 	private Long usuariosSistema;
 
 	public ColaboradoresAtividade() {

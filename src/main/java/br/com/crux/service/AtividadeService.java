@@ -2,6 +2,8 @@ package br.com.crux.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -49,16 +51,19 @@ public class AtividadeService {
 	}
 
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional
 	public void cadastrar(@RequestBody AtividadesTO param) {
 		cadastrarCmd.cadastrar(param);
 	}
 
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional
 	public void alterar(@RequestBody AtividadesTO param) {
 		alterarCmd.alterar(param);
 	}
 
 	@DeleteMapping(path = "/{id}")
+	@Transactional
 	public void excluir(@PathVariable(name = "id") Long id) {
 		excluirCmd.excluir(id);
 	}
