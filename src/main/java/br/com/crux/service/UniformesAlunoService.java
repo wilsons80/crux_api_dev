@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.crux.cmd.AlterarUniformesAlunoCmd;
@@ -31,9 +30,8 @@ public class UniformesAlunoService {
 	
 	
 	@GetMapping(path = "/matriculado/atividade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<UniformesAlunoTO> getAllAlunosMatriculadosNaAtividadeNoPeriodo(@PathVariable(name = "id") Long idAtividade,
-                                                                               @RequestParam(name = "dataReferencia") Long dataTime) {
-		return getCmd.getAllAlunosMatriculadosTO(idAtividade, dataTime);
+	public List<UniformesAlunoTO> getAllAlunosMatriculadosNaAtividadeNoPeriodo(@PathVariable(name = "id") Long idAtividade) {
+		return getCmd.getAllAlunosMatriculadosTO(idAtividade);
 	}
 	
 	
@@ -44,9 +42,8 @@ public class UniformesAlunoService {
 	
 	@PutMapping(path = "/atividade/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void alterar(@PathVariable(name = "id") Long idAtividade,
-			            @RequestParam(name = "data") Long data,
 			            @RequestBody List<UniformesAlunoTO> param) {
-		alterarCmd.alterarAll(param, idAtividade, data);
+		alterarCmd.alterarAll(param, idAtividade);
 	}
 	
 	@DeleteMapping(path = "/{id}")
