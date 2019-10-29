@@ -47,6 +47,12 @@ public class AvaliacoesAlunosService {
 	public void alterar(@RequestBody AvaliacoesAlunosTO param) {
 		alterarCmd.alterar(param);
 	}
+	
+	@PutMapping(path = "/atividade/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void alterarAll(@PathVariable(name = "id") Long idAtividade,
+			               @RequestBody List<AvaliacoesAlunosTO> param) {
+		alterarCmd.alterarAll(param, idAtividade);
+	}
 
 	@DeleteMapping(path = "/{id}")
 	public void excluir(@PathVariable(name = "id") Long id) {
