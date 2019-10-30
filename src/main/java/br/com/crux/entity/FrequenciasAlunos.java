@@ -3,6 +3,7 @@ package br.com.crux.entity;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import br.com.crux.infra.constantes.Constantes;
+import br.com.crux.infra.dao.SimNaoConverter;
 
 
 @Entity
@@ -36,9 +38,14 @@ public class FrequenciasAlunos {
 	@JoinColumn(name="id_atividade_aluno")
 	private AtividadesAluno atividadesAluno;
 
+	@Convert(converter = SimNaoConverter.class)
+	@Column(name = "st_frequencia")
+	private Boolean frequencia;
+	
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
 
+	
 	public FrequenciasAlunos() {
 	}
 
@@ -81,5 +88,15 @@ public class FrequenciasAlunos {
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
+
+	public Boolean getFrequencia() {
+		return frequencia;
+	}
+
+	public void setFrequencia(Boolean frequencia) {
+		this.frequencia = frequencia;
+	}
+	
+	
 
 }

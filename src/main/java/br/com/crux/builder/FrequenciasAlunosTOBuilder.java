@@ -21,6 +21,7 @@ public class FrequenciasAlunosTOBuilder {
 		retorno.setId(p.getId());
 		retorno.setDataFrequencia(p.getDataFrequencia());
 		retorno.setJustificativa(p.getJustificativa());
+		retorno.setFrequencia(p.getFrequencia());
 		retorno.setAtividadesAluno(atividadesAlunoBuilder.build(p.getAtividadesAluno()));
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
@@ -32,6 +33,7 @@ public class FrequenciasAlunosTOBuilder {
 		
 		retorno.setId(p.getId());
 		retorno.setDataFrequencia(p.getDataFrequencia());
+		retorno.setFrequencia(p.getFrequencia());
 		retorno.setJustificativa(p.getJustificativa());
 		retorno.setAtividadesAluno(atividadesAlunoBuilder.buildTO(p.getAtividadesAluno()));
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());

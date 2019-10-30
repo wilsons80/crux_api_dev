@@ -21,6 +21,12 @@ public interface FrequenciasAlunosRepository extends JpaRepository<FrequenciasAl
 	public Optional<List<FrequenciasAlunos>> findByUnidade(Long idUnidade);
 
 	
-
+	@Query(value = "SELECT f FROM FrequenciasAlunos f "
+			+ " inner join AtividadesAluno ati on ati = f.atividadesAluno"
+			+ " inner join Atividades a on a = ati.atividade"
+			+ " inner join Aluno aluno on aluno = ati.aluno"
+			+ " inner join Unidade uni on aluno.unidade = uni"
+			+ " where a.id = ?1")
+	public Optional<List<FrequenciasAlunos>> findByAtividade(Long idAtividade);
 	
 }

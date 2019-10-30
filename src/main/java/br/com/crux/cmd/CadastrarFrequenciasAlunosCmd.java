@@ -33,7 +33,7 @@ public class CadastrarFrequenciasAlunosCmd {
 			throw new NotFoundException("Atividade do alno não informada.");
 		}
 		
-		camposObrigatoriosRule.verificar(to.getAtividadesAluno().getId());
+		camposObrigatoriosRule.verificar(to);
 		
 		Optional<AtividadesAluno> atividadeOptional = atividadesAlunoRepository.findById(to.getAtividadesAluno().getId());
 		if(!atividadeOptional.isPresent()) {
