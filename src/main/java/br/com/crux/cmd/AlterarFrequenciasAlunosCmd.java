@@ -43,7 +43,10 @@ public class AlterarFrequenciasAlunosCmd {
 		List<FrequenciasAlunos> listaBaseDados = frequenciasAlunosCmd.getAll(idAtividade, dataFrequenciaLong);
 		
 		BiPredicate<FrequenciasAlunosTO, List<FrequenciasAlunosTO>> contemNaLista  = (parte, lista) -> lista.stream()
-                                                                                                            .anyMatch(parteNova -> parteNova.getId().equals(parte.getId()));
+																						                    .anyMatch(registroTO -> Objects.nonNull(registroTO.getId()) 
+																						              		                 && 
+																						              		                 registroTO.getId().equals(parte.getId()));
+		
 		
 		
 		//Remove da lista todos os registros que não contém no Banco de Dados
@@ -58,18 +61,20 @@ public class AlterarFrequenciasAlunosCmd {
 		
 		//Adiciona os novos registros
 		List<FrequenciasAlunosTO> novos = listaTO.stream()
-				                                           .filter(registro -> !contemNaLista.test(registro, frequenciasAlunosTOBuilder.buildAll(listaBaseDados)))
-				                                           .collect(Collectors.toList());
+				                                 .filter(registro -> Objects.isNull(registro.getId()))
+				                                 .collect(Collectors.toList());
 		
 		if(Objects.nonNull(novos)){
 			novos.forEach(novoResponsavel -> salvar(novoResponsavel));
 		}
 
 		//Atualiza os registros 
-		listaTO.stream().forEach( registro -> {
-			if(contemNaLista.test(registro, frequenciasAlunosTOBuilder.buildAll(listaBaseDados))){
-				salvar(registro);
-			}
+		listaTO.stream()
+		       .filter(registro -> Objects.nonNull(registro.getId()))
+		       .forEach( registro -> {
+										if(contemNaLista.test(registro, frequenciasAlunosTOBuilder.buildAll(listaBaseDados))){
+											salvar(registro);
+										}
 		});
 	}
 	

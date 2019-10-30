@@ -1,5 +1,7 @@
 package br.com.crux.builder;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +21,7 @@ public class FrequenciasAlunosTOBuilder {
 		FrequenciasAlunos retorno = new FrequenciasAlunos();
 
 		retorno.setId(p.getId());
-		retorno.setDataFrequencia(p.getDataFrequencia());
+		retorno.setDataFrequencia(p.getDataFrequencia().toLocalDate());
 		retorno.setJustificativa(p.getJustificativa());
 		retorno.setFrequencia(p.getFrequencia());
 		retorno.setAtividadesAluno(atividadesAlunoBuilder.build(p.getAtividadesAluno()));
@@ -32,7 +34,7 @@ public class FrequenciasAlunosTOBuilder {
 		FrequenciasAlunosTO retorno = new FrequenciasAlunosTO();
 		
 		retorno.setId(p.getId());
-		retorno.setDataFrequencia(p.getDataFrequencia());
+		retorno.setDataFrequencia(LocalDateTime.of(p.getDataFrequencia(), LocalTime.now()));
 		retorno.setFrequencia(p.getFrequencia());
 		retorno.setJustificativa(p.getJustificativa());
 		retorno.setAtividadesAluno(atividadesAlunoBuilder.buildTO(p.getAtividadesAluno()));

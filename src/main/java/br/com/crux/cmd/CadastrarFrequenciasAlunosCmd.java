@@ -42,7 +42,7 @@ public class CadastrarFrequenciasAlunosCmd {
 		
 		FrequenciasAlunos entity = new FrequenciasAlunos();
 
-		entity.setDataFrequencia(to.getDataFrequencia());
+		entity.setDataFrequencia(to.getDataFrequencia().toLocalDate());
 		entity.setJustificativa(to.getJustificativa());
 		entity.setAtividadesAluno(atividadesAlunoBuilder.build(to.getAtividadesAluno()));
 		

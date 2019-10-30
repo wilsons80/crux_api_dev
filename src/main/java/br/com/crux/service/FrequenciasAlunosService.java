@@ -24,14 +24,20 @@ public class FrequenciasAlunosService {
 	@Autowired private AlterarFrequenciasAlunosCmd alterarCmd;
 	
 	
-	@GetMapping(path = "/atividade/{idAtividade}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/matriculado/atividade/{idAtividade}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<FrequenciasAlunosTO> getAlunosMatriculados(@PathVariable(name = "idAtividade") Long idAtividade,
+			                                               @RequestParam(name = "datafrequencia") Long dataFrequencia) {
+		return getCmd.getAllAlunosMatriculadosTO(idAtividade, dataFrequencia);
+	}
+	
+	@GetMapping(path = "/frequencia/atividade/{idAtividade}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<FrequenciasAlunosTO> getAllFilter(@PathVariable(name = "idAtividade") Long idAtividade,
 			                                      @RequestParam(name = "datafrequencia") Long dataFrequencia) {
 		return getCmd.getAllTO(idAtividade, dataFrequencia);
 	}
 	
-	@PutMapping(path = "/atividade/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void alterar(@PathVariable(name = "id") Long idAtividade,
+	@PutMapping(path = "/matriculado/atividade/{idAtividade}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void alterar(@PathVariable(name = "idAtividade") Long idAtividade,
 			            @RequestParam(name = "datafrequencia") Long dataFrequencia,
 			            @RequestBody List<FrequenciasAlunosTO> param) {
 		alterarCmd.alterarAll(param, idAtividade, dataFrequencia);
