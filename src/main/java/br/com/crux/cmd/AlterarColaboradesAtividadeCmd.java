@@ -1,0 +1,67 @@
+package br.com.crux.cmd;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.function.BiPredicate;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import br.com.crux.builder.ColaboradoresAtividadeTOBuilder;
+import br.com.crux.dao.repository.ColaboradoresAtividadeRepository;
+import br.com.crux.entity.ColaboradoresAtividade;
+import br.com.crux.to.ColaboradoresAtividadeTO;
+
+@Component
+public class AlterarColaboradesAtividadeCmd {
+
+	@Autowired private ColaboradoresAtividadeRepository repository;
+	@Autowired private GetColaboradoresAtividadeCmd getColaboradoresAtividadeCmd;
+	@Autowired private ColaboradoresAtividadeTOBuilder colaboradoresAtividadeTOBuilder;
+	@Autowired private CadastrarColaboradoresAtividadeCmd cadastrarColaboradoresAtividadeCmd;
+	
+	
+	
+	public void alterarAll(List<ColaboradoresAtividadeTO> colaboradoresAtividadeTO, Long idAtividade) {
+		
+		//Lista de colaboradores da atividade.
+		List<ColaboradoresAtividade> colaboradoresAtividade = getColaboradoresAtividadeCmd.getAllPorAtividade(idAtividade);
+		
+		BiPredicate<ColaboradoresAtividadeTO, List<ColaboradoresAtividadeTO>> contemNaLista  = (parte, lista) -> lista.stream()
+                                                                                                      .anyMatch(registroTO -> Objects.nonNull(registroTO.getId()) 
+                                                                                                    		                 && 
+                                                                                                    		                 registroTO.getId().equals(parte.getId()));
+		
+		
+		//Remove da lista todos os registros que não contém no Banco de Dados
+		colaboradoresAtividade.removeIf(registro -> {
+														if(!contemNaLista.test(colaboradoresAtividadeTOBuilder.buildTO(registro), colaboradoresAtividadeTO)){
+															repository.delete(registro); 
+															return true;
+														}
+														return false;
+									                }
+		                                );
+		
+		//Adiciona os novos registros
+		List<ColaboradoresAtividadeTO> novos = colaboradoresAtividadeTO.stream()
+				                                         .filter(registro -> Objects.isNull(registro.getId()))
+				                                         .collect(Collectors.toList());
+		
+		if(Objects.nonNull(novos)){
+			novos.forEach(novoColaborador -> cadastrarColaboradoresAtividadeCmd.cadastrar(novoColaborador));
+		}
+
+		//Atualiza os registros 
+		colaboradoresAtividadeTO.stream()
+		                  .filter(registro -> Objects.nonNull(registro.getId()))
+		                  .forEach( registro -> {
+			if(contemNaLista.test(registro, colaboradoresAtividadeTOBuilder.buildAll(colaboradoresAtividade))){
+				cadastrarColaboradoresAtividadeCmd.cadastrar(registro);
+			}
+		});
+	}
+	
+	
+}
