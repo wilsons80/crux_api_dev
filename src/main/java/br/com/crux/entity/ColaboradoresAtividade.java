@@ -1,52 +1,59 @@
 package br.com.crux.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import br.com.crux.infra.constantes.Constantes;
 
 /**
  * The persistent class for the colaboradores_atividades database table.
  * 
  */
 @Entity
-@Table(name="colaboradores_atividades")
-@NamedQuery(name="ColaboradoresAtividade.findAll", query="SELECT c FROM ColaboradoresAtividade c")
+@Table(name = "colaboradores_atividades")
+@NamedQuery(name = "ColaboradoresAtividade.findAll", query = "SELECT c FROM ColaboradoresAtividade c")
 public class ColaboradoresAtividade implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_colaborador_atividade")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_colaborador_atividade")
+	@SequenceGenerator(name = "sq_id_colaborador_atividade", sequenceName = "sq_id_colaborador_atividade", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
+	@Column(name = "id_colaborador_atividade") 
 	private Long idColaboradorAtividade;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_entrada_atividade")
-	private Date dtEntradaAtividade;
+	@Column(name = "dt_entrada_atividade") private LocalDateTime dtEntradaAtividade;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="dt_saida_atividade")
-	private Date dtSaidaAtividade;
+	@Column(name = "dt_saida_atividade") private LocalDateTime dtSaidaAtividade;
 
 	//bi-directional many-to-one association to Atividade
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_atividade")
+	@ManyToOne(fetch = FetchType.LAZY) 
+	@JoinColumn(name = "id_atividade") 
 	private Atividades atividade;
 
 	//bi-directional many-to-one association to Cargo
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_cargo")
+	@ManyToOne(fetch = FetchType.LAZY) 
+	@JoinColumn(name = "id_cargo") 
 	private Cargo cargo;
 
 	//bi-directional many-to-one association to Funcionario
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_funcionario")
+	@ManyToOne(fetch = FetchType.LAZY) 
+	@JoinColumn(name = "id_funcionario") 
 	private Funcionario funcionario;
 
-	//bi-directional many-to-one association to UsuariosSistema
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario_apl")
-	private UsuariosSistema usuariosSistema;
+	@Column(name="id_usuario_apl")
+	private Long usuariosSistema;
 
 	public ColaboradoresAtividade() {
 	}
@@ -59,19 +66,19 @@ public class ColaboradoresAtividade implements Serializable {
 		this.idColaboradorAtividade = idColaboradorAtividade;
 	}
 
-	public Date getDtEntradaAtividade() {
+	public LocalDateTime getDtEntradaAtividade() {
 		return this.dtEntradaAtividade;
 	}
 
-	public void setDtEntradaAtividade(Date dtEntradaAtividade) {
+	public void setDtEntradaAtividade(LocalDateTime dtEntradaAtividade) {
 		this.dtEntradaAtividade = dtEntradaAtividade;
 	}
 
-	public Date getDtSaidaAtividade() {
+	public LocalDateTime getDtSaidaAtividade() {
 		return this.dtSaidaAtividade;
 	}
 
-	public void setDtSaidaAtividade(Date dtSaidaAtividade) {
+	public void setDtSaidaAtividade(LocalDateTime dtSaidaAtividade) {
 		this.dtSaidaAtividade = dtSaidaAtividade;
 	}
 
@@ -99,11 +106,11 @@ public class ColaboradoresAtividade implements Serializable {
 		this.funcionario = funcionario;
 	}
 
-	public UsuariosSistema getUsuariosSistema() {
+	public Long getUsuariosSistema() {
 		return this.usuariosSistema;
 	}
 
-	public void setUsuariosSistema(UsuariosSistema usuariosSistema) {
+	public void setUsuariosSistema(Long usuariosSistema) {
 		this.usuariosSistema = usuariosSistema;
 	}
 

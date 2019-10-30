@@ -27,7 +27,7 @@ public class AlterarAtividadeCmd {
 		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 
 		entity = atividadesTOBuilder.build(to);
-
+		
 		repository.save(entity);
 
 	}

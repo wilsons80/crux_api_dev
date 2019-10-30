@@ -22,37 +22,33 @@ import br.com.crux.to.AvaliacoesTO;
 @RestController
 @RequestMapping(value = "avaliacoes")
 public class AvaliacoesService {
-	
-	@Autowired
-	private GetAvaliacoesCmd getCmd;
-	@Autowired
-	private ExcluirAvaliacoesCmd excluirCmd;
-	@Autowired
-	private AlterarAvaliacoesCmd alterarCmd;
-	@Autowired
-	private CadastrarAvaliacoesCmd cadastrarCmd;
-	
-	
+
+	@Autowired private GetAvaliacoesCmd getCmd;
+	@Autowired private ExcluirAvaliacoesCmd excluirCmd;
+	@Autowired private AlterarAvaliacoesCmd alterarCmd;
+	@Autowired private CadastrarAvaliacoesCmd cadastrarCmd;
+
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<AvaliacoesTO> getAll() {
 		return getCmd.getAll();
 	}
-	
+
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public AvaliacoesTO getById(@PathVariable(name = "id") Long id) {
 		return getCmd.getTOById(id);
 	}
-	
+
+
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void cadastrar(@RequestBody AvaliacoesTO param) {
 		cadastrarCmd.cadastrar(param);
 	}
-	
+
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void alterar(@RequestBody AvaliacoesTO param) {
 		alterarCmd.alterar(param);
 	}
-	
+
 	@DeleteMapping(path = "/{id}")
 	public void excluir(@PathVariable(name = "id") Long id) {
 		excluirCmd.excluir(id);

@@ -37,7 +37,9 @@ public class AlterarResponsaveisAlunoCmd {
 		List<ResponsaveisAluno> responsaveisPorAluno = getResponsavelFamiliarVigenteCmd.getAllResponsaveis(familiarTO.getAluno().getId(), familiarTO.getId());
 		
 		BiPredicate<ResponsaveisAlunoTO, List<ResponsaveisAlunoTO>> contemNaLista  = (parte, lista) -> lista.stream()
-                                                                                                            .anyMatch(parteNova -> parteNova.getId().equals(parte.getId()));
+																											.anyMatch(registroTO -> Objects.nonNull(registroTO.getId()) 
+																									                 && 
+																									                 registroTO.getId().equals(parte.getId()));
 		
 		
 		//Remove da lista todos os registros que não contém no Banco de Dados
@@ -52,18 +54,20 @@ public class AlterarResponsaveisAlunoCmd {
 		
 		//Adiciona os novos registros
 		List<ResponsaveisAlunoTO> novos = responsaveisTO.stream()
-				                                           .filter(registro -> !contemNaLista.test(registro, responsaveisAlunoTOBuilder.buildAll(responsaveisPorAluno)))
-				                                           .collect(Collectors.toList());
+				                                        .filter(registro -> Objects.isNull(registro.getId()))
+				                                        .collect(Collectors.toList());
 		
 		if(Objects.nonNull(novos)){
 			novos.forEach(novoResponsavel -> alterar(novoResponsavel, familiarTO));
 		}
 
 		//Atualiza os registros 
-		responsaveisTO.stream().forEach( registro -> {
-			if(contemNaLista.test(registro, responsaveisAlunoTOBuilder.buildAll(responsaveisPorAluno))){
-				alterar(registro, familiarTO);
-			}
+		responsaveisTO.stream()
+		              .filter(registro -> Objects.nonNull(registro.getId())) 
+		              .forEach( registro -> {
+												if(contemNaLista.test(registro, responsaveisAlunoTOBuilder.buildAll(responsaveisPorAluno))){
+													alterar(registro, familiarTO);
+												}
 		});
 	}
 }
