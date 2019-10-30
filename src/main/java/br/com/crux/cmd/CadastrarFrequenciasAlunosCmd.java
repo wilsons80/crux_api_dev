@@ -33,7 +33,7 @@ public class CadastrarFrequenciasAlunosCmd {
 			throw new NotFoundException("Atividade do alno não informada.");
 		}
 		
-		camposObrigatoriosRule.verificar(to.getAtividadesAluno().getId());
+		camposObrigatoriosRule.verificar(to);
 		
 		Optional<AtividadesAluno> atividadeOptional = atividadesAlunoRepository.findById(to.getAtividadesAluno().getId());
 		if(!atividadeOptional.isPresent()) {
@@ -42,7 +42,7 @@ public class CadastrarFrequenciasAlunosCmd {
 		
 		FrequenciasAlunos entity = new FrequenciasAlunos();
 
-		entity.setDataFrequencia(to.getDataFrequencia());
+		entity.setDataFrequencia(to.getDataFrequencia().toLocalDate());
 		entity.setJustificativa(to.getJustificativa());
 		entity.setAtividadesAluno(atividadesAlunoBuilder.build(to.getAtividadesAluno()));
 		

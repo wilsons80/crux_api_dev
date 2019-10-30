@@ -1,8 +1,10 @@
 package br.com.crux.to;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -283,8 +285,17 @@ public class AtividadesTO {
 	}
 
 	public List<ColaboradoresAtividadeTO> getColaboradoresAtividade() {
-		return Optional.ofNullable(colaboradoresAtividade).orElse(Collections.emptyList());
+		if(Objects.isNull(colaboradoresAtividade)) {
+			return new ArrayList<ColaboradoresAtividadeTO>();
+		}
+		return colaboradoresAtividade;
 	}
+
+	public void setColaboradoresAtividade(List<ColaboradoresAtividadeTO> colaboradoresAtividade) {
+		this.colaboradoresAtividade = colaboradoresAtividade;
+	}
+
+	
 
 
 }

@@ -4,18 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.crux.cmd.AlterarFrequenciasAlunosCmd;
-import br.com.crux.cmd.CadastrarFrequenciasAlunosCmd;
-import br.com.crux.cmd.ExcluirFrequenciasAlunosCmd;
 import br.com.crux.cmd.GetFrequenciasAlunosCmd;
 import br.com.crux.to.FrequenciasAlunosTO;
 
@@ -24,38 +21,26 @@ import br.com.crux.to.FrequenciasAlunosTO;
 public class FrequenciasAlunosService {
 
 	@Autowired private GetFrequenciasAlunosCmd getCmd;
-	@Autowired private ExcluirFrequenciasAlunosCmd excluirCmd;
 	@Autowired private AlterarFrequenciasAlunosCmd alterarCmd;
-	@Autowired private CadastrarFrequenciasAlunosCmd cadastrarCmd;
-
-	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<FrequenciasAlunosTO> getAll() {
-		return getCmd.getAll();
-	}
-
-	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public FrequenciasAlunosTO getById(@PathVariable(name = "id") Long id) {
-		return getCmd.getTOById(id);
+	
+	
+	@GetMapping(path = "/matriculado/atividade/{idAtividade}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<FrequenciasAlunosTO> getAlunosMatriculados(@PathVariable(name = "idAtividade") Long idAtividade,
+			                                               @RequestParam(name = "datafrequencia") Long dataFrequencia) {
+		return getCmd.getAllAlunosMatriculadosTO(idAtividade, dataFrequencia);
 	}
 	
-	@GetMapping(path = "/atividade/{idAtividade}/aluno/{idAluno}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public FrequenciasAlunosTO getByAluno(@PathVariable(name = "idAluno") Long idAluno, @PathVariable(name = "idAtividade") Long idAtividade) {
-		return getCmd.getPorAlunoAtividadeUnidadeLogada(idAluno,idAtividade);
+	@GetMapping(path = "/frequencia/atividade/{idAtividade}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<FrequenciasAlunosTO> getAllFilter(@PathVariable(name = "idAtividade") Long idAtividade,
+			                                      @RequestParam(name = "datafrequencia") Long dataFrequencia) {
+		return getCmd.getAllTO(idAtividade, dataFrequencia);
 	}
-
-	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void cadastrar(@RequestBody FrequenciasAlunosTO param) {
-		cadastrarCmd.cadastrar(param);
-	}
-
-	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void alterar(@RequestBody FrequenciasAlunosTO param) {
-		alterarCmd.alterar(param);
-	}
-
-	@DeleteMapping(path = "/{id}")
-	public void excluir(@PathVariable(name = "id") Long id) {
-		excluirCmd.excluir(id);
-	}
+	
+	@PutMapping(path = "/matriculado/atividade/{idAtividade}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void alterar(@PathVariable(name = "idAtividade") Long idAtividade,
+			            @RequestParam(name = "datafrequencia") Long dataFrequencia,
+			            @RequestBody List<FrequenciasAlunosTO> param) {
+		alterarCmd.alterarAll(param, idAtividade, dataFrequencia);
+	}	
 
 }

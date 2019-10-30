@@ -14,10 +14,11 @@ public class FrequenciasAlunosTO {
 	
 	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime dataFrequencia;
+	private Boolean frequencia;
 	
 	private AtividadesAlunoTO atividadesAluno;
 	private Long usuarioAlteracao;
-
+	
 	public FrequenciasAlunosTO() {
 	}
 
@@ -59,6 +60,14 @@ public class FrequenciasAlunosTO {
 
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
+	}
+
+	public Boolean getFrequencia() {
+		return frequencia;
+	}
+
+	public void setFrequencia(Boolean frequencia) {
+		this.frequencia = frequencia;
 	}
 
 
