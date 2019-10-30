@@ -16,6 +16,7 @@ public class AlterarAtividadeCmd {
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	@Autowired private AtividadeRepository repository;
 	@Autowired private AtividadesTOBuilder atividadesTOBuilder;
+	@Autowired private AlterarColaboradesAtividadeCmd alterarColaboradesAtividadeCmd;
 
 	@Autowired private CamposObrigatoriosAtividadeRule camposObrigatoriosRule;
 
@@ -30,7 +31,7 @@ public class AlterarAtividadeCmd {
 		
 		repository.save(entity);
 		
-		
+		alterarColaboradesAtividadeCmd.alterarAll(to.getColaboradoresAtividade(),entity.getId());
 
 	}
 }

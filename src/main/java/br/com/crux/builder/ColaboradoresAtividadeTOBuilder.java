@@ -27,8 +27,7 @@ public class ColaboradoresAtividadeTOBuilder {
 	@Autowired CargosTOBuilder cargosTOBuilder;
 	@Autowired FuncionarioTOBuilder funcionarioTOBuilder;
 
-	public ColaboradoresAtividade build(ColaboradoresAtividadeTO p) {
-
+	private ColaboradoresAtividade baseBuild(ColaboradoresAtividadeTO p) {
 		ColaboradoresAtividade entity = new ColaboradoresAtividade();
 
 		entity.setIdColaboradorAtividade(p.getId());
@@ -52,6 +51,25 @@ public class ColaboradoresAtividadeTOBuilder {
 
 		entity.setUsuariosSistema(p.getUsuariosSistema());
 
+		return entity;
+
+	}
+
+	public ColaboradoresAtividade build(ColaboradoresAtividadeTO p) {
+
+		ColaboradoresAtividade entity = baseBuild(p);
+
+		Optional.ofNullable(p.getAtividade()).ifPresent(a -> {
+			Atividades atividades = getAtividadeCmd.getById(p.getAtividade().getId());
+			entity.setAtividade(atividades);
+		});
+		return entity;
+	}
+
+	public ColaboradoresAtividade buildComIdAtividade(ColaboradoresAtividadeTO to, Long idAtividade) {
+		ColaboradoresAtividade entity = baseBuild(to);
+		Atividades atividades = getAtividadeCmd.getById(idAtividade);
+		entity.setAtividade(atividades);
 		return entity;
 	}
 

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import br.com.crux.builder.ColaboradoresAtividadeTOBuilder;
 import br.com.crux.dao.repository.ColaboradoresAtividadeRepository;
 import br.com.crux.entity.ColaboradoresAtividade;
+import br.com.crux.exception.NotFoundException;
+import br.com.crux.rule.CamposObrigatoriosColaboradoresAtividadeRule;
 import br.com.crux.to.ColaboradoresAtividadeTO;
 
 @Component
@@ -20,7 +22,21 @@ public class AlterarColaboradesAtividadeCmd {
 	@Autowired private GetColaboradoresAtividadeCmd getColaboradoresAtividadeCmd;
 	@Autowired private ColaboradoresAtividadeTOBuilder colaboradoresAtividadeTOBuilder;
 	@Autowired private CadastrarColaboradoresAtividadeCmd cadastrarColaboradoresAtividadeCmd;
+	@Autowired private CamposObrigatoriosColaboradoresAtividadeRule camposObrigatoriosRule;
+	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	
+	
+	private void alterar(ColaboradoresAtividadeTO to, Long idAtividade) {
+		camposObrigatoriosRule.verificarAtualizar(to);
+		
+		ColaboradoresAtividade entity = null;
+		if(Objects.nonNull(to.getId())) {
+			entity = repository.findById(to.getId()).orElseThrow(() -> new NotFoundException("Colaboradores atividade informado não existe.") );
+		}
+		entity = colaboradoresAtividadeTOBuilder.buildComIdAtividade(to,idAtividade);
+		entity.setUsuariosSistema(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
+		repository.save(entity);
+	}	
 	
 	
 	public void alterarAll(List<ColaboradoresAtividadeTO> colaboradoresAtividadeTO, Long idAtividade) {
@@ -58,10 +74,12 @@ public class AlterarColaboradesAtividadeCmd {
 		                  .filter(registro -> Objects.nonNull(registro.getId()))
 		                  .forEach( registro -> {
 			if(contemNaLista.test(registro, colaboradoresAtividadeTOBuilder.buildAll(colaboradoresAtividade))){
-				cadastrarColaboradoresAtividadeCmd.cadastrar(registro);
+				alterar(registro,idAtividade);
 			}
 		});
 	}
+	
+
 	
 	
 }

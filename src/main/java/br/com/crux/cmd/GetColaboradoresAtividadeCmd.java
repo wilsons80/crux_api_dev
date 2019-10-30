@@ -1,6 +1,7 @@
 package br.com.crux.cmd;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +34,7 @@ public class GetColaboradoresAtividadeCmd {
 	}
 
 	public List<ColaboradoresAtividade> getAllPorAtividade(Long idAtividade) {
-		return repository.getPorAtividade(idAtividade).orElseGet(null);
+		return repository.getPorAtividade(idAtividade).orElse(Collections.emptyList());
 	}
 
 	public ColaboradoresAtividadeTO getById(Long id) {
@@ -42,7 +43,7 @@ public class GetColaboradoresAtividadeCmd {
 	}
 
 	public List<ColaboradoresAtividadeTO> getPorAtividade(Long id) {
-		List<ColaboradoresAtividade> lista = repository.getPorAtividade(id).orElseThrow(() -> new NotFoundException("Colaborador da Atividade não encontrado."));
+		List<ColaboradoresAtividade> lista = repository.getPorAtividade(id).orElse(Collections.emptyList());
 		return toBuilder.buildAll(lista);
 	}
 
