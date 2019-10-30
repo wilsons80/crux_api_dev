@@ -19,7 +19,7 @@ import br.com.crux.to.ColaboradoresAtividadeTO;
 
 @Component
 public class ColaboradoresAtividadeTOBuilder {
-	
+
 	@Autowired GetAtividadeCmd getAtividadeCmd;
 	@Autowired GetCargosCmd getCargosCmd;
 	@Autowired GetFuncionarioCmd getFuncionarioCmd;
@@ -28,13 +28,13 @@ public class ColaboradoresAtividadeTOBuilder {
 	@Autowired FuncionarioTOBuilder funcionarioTOBuilder;
 
 	public ColaboradoresAtividade build(ColaboradoresAtividadeTO p) {
-		
+
 		ColaboradoresAtividade entity = new ColaboradoresAtividade();
 
 		entity.setIdColaboradorAtividade(p.getId());
 		entity.setDtEntradaAtividade(p.getDtEntradaAtividade());
 		entity.setDtSaidaAtividade(p.getDtSaidaAtividade());
-		
+
 		Optional.ofNullable(p.getAtividade()).ifPresent(a -> {
 			Atividades atividades = getAtividadeCmd.getById(p.getAtividade().getId());
 			entity.setAtividade(atividades);
@@ -49,25 +49,23 @@ public class ColaboradoresAtividadeTOBuilder {
 			Funcionario funcionario = getFuncionarioCmd.getById(f.getId());
 			entity.setFuncionario(funcionario);
 		});
-		
+
 		entity.setUsuariosSistema(p.getUsuariosSistema());
 
 		return entity;
 	}
 
 	public ColaboradoresAtividadeTO buildTO(ColaboradoresAtividade p) {
-		
+
 		ColaboradoresAtividadeTO to = new ColaboradoresAtividadeTO();
 
-
-		if(Objects.isNull(p)) {
+		if (Objects.isNull(p)) {
 			return to;
 		}
-		
+
 		to.setId(p.getIdColaboradorAtividade());
 		to.setDtEntradaAtividade(p.getDtEntradaAtividade());
 		to.setDtSaidaAtividade(p.getDtSaidaAtividade());
-		to.setAtividade(atividadesTOBuilder.buildTO(p.getAtividade()));
 		to.setCargo(cargosTOBuilder.buildTO(p.getCargo()));
 		to.setFuncionario(funcionarioTOBuilder.buildTO(p.getFuncionario()));
 		to.setUsuariosSistema(p.getUsuariosSistema());

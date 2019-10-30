@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.cmd.GetColaboradoresAtividadeCmd;
 import br.com.crux.cmd.GetPlanosAcaoCmd;
 import br.com.crux.cmd.GetProjetoCmd;
 import br.com.crux.cmd.GetUnidadeCmd;
@@ -17,6 +18,7 @@ import br.com.crux.entity.Projeto;
 import br.com.crux.entity.Unidade;
 import br.com.crux.infra.util.Java8DateUtil;
 import br.com.crux.to.AtividadesTO;
+import br.com.crux.to.ColaboradoresAtividadeTO;
 
 @Component
 public class AtividadesTOBuilder {
@@ -27,6 +29,7 @@ public class AtividadesTOBuilder {
 	@Autowired private GetUnidadeCmd getUnidadeCmd;
 	@Autowired private GetProjetoCmd getProjetoCmd;
 	@Autowired private GetPlanosAcaoCmd getPlanosAcaoCmd;
+	@Autowired private GetColaboradoresAtividadeCmd getColaboradoresAtividadeCmd;
 
 	public Atividades build(AtividadesTO p) {
 		Atividades retorno = new Atividades();
@@ -38,15 +41,15 @@ public class AtividadesTOBuilder {
 		retorno.setDataInicio(p.getDataInicio());
 		retorno.setDataPrevisaoInicio(p.getDataPrevisaoInicio());
 		retorno.setDataPrevisaoTermino(p.getDataPrevisaoTermino());
-		
+
 		Optional.ofNullable(p.getHoraFim()).ifPresent(hora -> {
 			retorno.setHoraFim(Java8DateUtil.horaStringToLong(p.getHoraFim()));
 		});
-		
+
 		Optional.ofNullable(p.getHoraInicio()).ifPresent(hora -> {
 			retorno.setHoraInicio(Java8DateUtil.horaStringToLong(p.getHoraInicio()));
 		});
-		
+
 		retorno.setNumeroAulas(p.getNumeroAulas());
 		retorno.setCargaHoraria(p.getCargaHoraria());
 		retorno.setMaximoParticipantes(p.getMaximoParticipantes());
@@ -55,11 +58,11 @@ public class AtividadesTOBuilder {
 		retorno.setLocalExecucao(p.getLocalExecucao());
 
 		retorno.setSegunda(Objects.isNull(p.getSegunda()) || !p.getSegunda() ? "N" : "S");
-		retorno.setTerca(Objects.isNull(p.getTerca())     || !p.getTerca()   ? "N" : "S");
-		retorno.setQuarta(Objects.isNull(p.getQuarta())   || !p.getQuarta()  ? "N" : "S");
-		retorno.setQuinta(Objects.isNull(p.getQuinta())   || !p.getQuinta()  ? "N" : "S");
-		retorno.setSexta(Objects.isNull(p.getSexta())     || !p.getSexta()   ? "N" : "S");
-		retorno.setSabado(Objects.isNull(p.getSabado())   || !p.getSabado()  ? "N" : "S");
+		retorno.setTerca(Objects.isNull(p.getTerca()) || !p.getTerca() ? "N" : "S");
+		retorno.setQuarta(Objects.isNull(p.getQuarta()) || !p.getQuarta() ? "N" : "S");
+		retorno.setQuinta(Objects.isNull(p.getQuinta()) || !p.getQuinta() ? "N" : "S");
+		retorno.setSexta(Objects.isNull(p.getSexta()) || !p.getSexta() ? "N" : "S");
+		retorno.setSabado(Objects.isNull(p.getSabado()) || !p.getSabado() ? "N" : "S");
 		retorno.setDomingo(Objects.isNull(p.getDomingo()) || !p.getDomingo() ? "N" : "S");
 
 		retorno.setObservacoes(p.getObservacoes());
@@ -87,11 +90,10 @@ public class AtividadesTOBuilder {
 
 	public AtividadesTO buildTO(Atividades p) {
 		AtividadesTO retorno = new AtividadesTO();
-		
-		if(Objects.isNull(p)) {
+
+		if (Objects.isNull(p)) {
 			return retorno;
 		}
-		
 
 		retorno.setId(p.getId());
 		retorno.setDescricao(p.getDescricao());
@@ -100,16 +102,16 @@ public class AtividadesTOBuilder {
 		retorno.setDataInicio(p.getDataInicio());
 		retorno.setDataPrevisaoInicio(p.getDataPrevisaoInicio());
 		retorno.setDataPrevisaoTermino(p.getDataPrevisaoTermino());
-		
+
 		Optional.ofNullable(p.getHoraFim()).ifPresent(hora -> {
-			
+
 			retorno.setHoraFim(formatarHora(hora));
 		});
-		
+
 		Optional.ofNullable(p.getHoraInicio()).ifPresent(hora -> {
 			retorno.setHoraInicio(formatarHora(hora));
 		});
-		
+
 		retorno.setNumeroAulas(p.getNumeroAulas());
 		retorno.setCargaHoraria(p.getCargaHoraria());
 		retorno.setMaximoParticipantes(p.getMaximoParticipantes());
@@ -130,6 +132,10 @@ public class AtividadesTOBuilder {
 		retorno.setUnidade(unidadeBuilder.buildTO(p.getUnidade()));
 		retorno.setProjeto(projetoBuilder.buildTO(p.getProjeto()));
 		retorno.setPlanosAcao(planosAcaoBuilder.buildTO(p.getPlanosAcao()));
+
+		List<ColaboradoresAtividadeTO> colaboradores = getColaboradoresAtividadeCmd.getPorAtividade(p.getId());
+		retorno.setColaboradoresAtividade(colaboradores);
+
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
 		return retorno;
@@ -137,14 +143,16 @@ public class AtividadesTOBuilder {
 
 	private String formatarHora(Long hora) {
 		String horaString = String.valueOf(hora);
-		if(horaString.length() == 3) {
+		if (horaString.length() == 3) {
 			horaString = "0" + horaString;
 		}
-		return horaString.substring(0,2) + ":" + horaString.substring(2,4);
+		return horaString.substring(0, 2) + ":" + horaString.substring(2, 4);
 	}
 
 	public List<AtividadesTO> buildAll(List<Atividades> dtos) {
 		return dtos.stream().map(dto -> buildTO(dto)).collect(Collectors.toList());
 	}
+	
+	
 
 }
