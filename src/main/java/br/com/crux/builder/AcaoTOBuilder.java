@@ -28,7 +28,7 @@ public class AcaoTOBuilder {
 		retorno.setDataFim(p.getDataFim());
 		retorno.setDataPrevisaoInicio(p.getDataPrevisaoInicio());
 		retorno.setDataPrevisaoFim(p.getDataPrevisaoFim());
-		
+
 		Optional.ofNullable(p.getAtividade()).ifPresent(atv -> {
 			Atividades atividade = getAtividadeCmd.getById(atv.getId());
 			retorno.setAtividade(atividade);
@@ -41,8 +41,8 @@ public class AcaoTOBuilder {
 
 	public AcaoTO buildTO(Acoes p) {
 		AcaoTO retorno = new AcaoTO();
-		
-		if(Objects.isNull(p)) {
+
+		if (Objects.isNull(p)) {
 			return retorno;
 		}
 
