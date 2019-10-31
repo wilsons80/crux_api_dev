@@ -3,6 +3,7 @@ package br.com.crux.cmd;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.dao.repository.AtividadeRepository;
@@ -21,7 +22,7 @@ public class ExcluirAtividadeCmd {
 
 		try {
 			repository.deleteById(idAtividade);
-		} catch (Exception e) {
+		} catch (DataIntegrityViolationException e) {
 			throw new NegocioException("Erro ao excluir, existem dados vinculados a essa atividade.");
 		}
 

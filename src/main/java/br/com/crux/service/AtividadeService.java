@@ -63,7 +63,6 @@ public class AtividadeService {
 	}
 
 	@DeleteMapping(path = "/{id}")
-	@Transactional
 	public void excluir(@PathVariable(name = "id") Long id) {
 		excluirCmd.excluir(id);
 	}
