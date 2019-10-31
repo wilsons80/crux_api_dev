@@ -13,6 +13,7 @@ import br.com.crux.dao.repository.ColaboradoresAtividadeRepository;
 import br.com.crux.entity.ColaboradoresAtividade;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosColaboradoresAtividadeRule;
+import br.com.crux.to.AtividadesTO;
 import br.com.crux.to.ColaboradoresAtividadeTO;
 
 @Component
@@ -24,7 +25,8 @@ public class AlterarColaboradesAtividadeCmd {
 	@Autowired private CadastrarColaboradoresAtividadeCmd cadastrarColaboradoresAtividadeCmd;
 	@Autowired private CamposObrigatoriosColaboradoresAtividadeRule camposObrigatoriosRule;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
-	
+	@Autowired private GetAtividadeCmd getAtividadeCmd;
+	 
 	
 	private void alterar(ColaboradoresAtividadeTO to, Long idAtividade) {
 		camposObrigatoriosRule.verificarAtualizar(to);
@@ -66,7 +68,13 @@ public class AlterarColaboradesAtividadeCmd {
 				                                         .collect(Collectors.toList());
 		
 		if(Objects.nonNull(novos)){
-			novos.forEach(novoColaborador -> cadastrarColaboradoresAtividadeCmd.cadastrar(novoColaborador));
+			
+			AtividadesTO atividadeTO = getAtividadeCmd.getTOById(idAtividade);
+			
+			novos.forEach(novoColaborador -> {
+				novoColaborador.setAtividade(atividadeTO);
+				cadastrarColaboradoresAtividadeCmd.cadastrar(novoColaborador);
+			});
 		}
 
 		//Atualiza os registros 

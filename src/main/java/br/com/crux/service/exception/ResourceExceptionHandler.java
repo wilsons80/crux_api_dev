@@ -34,7 +34,7 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler{
 
 			try {
 				final Integer codigoErro = handleExceptionCmd.handle(throwable);
-				String mensagemCodErro = " O código " + codigoErro + " foi informado à STI";
+				String mensagemCodErro = " O código " + codigoErro + " foi gravado.";
 
 				apiError = new ApiError(codigoErro, "Ocorreu um erro interno." + mensagemCodErro);
 			} catch (Exception e) {

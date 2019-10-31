@@ -35,4 +35,5 @@ public class CadastrarColaboradoresAtividadeCmd {
 		colaboradoresAtividade.forEach(ca -> cadastrar(ca));
 	}
 
+	
 }

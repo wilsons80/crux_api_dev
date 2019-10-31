@@ -19,16 +19,16 @@ public class LogErro {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_logerro")
 	@SequenceGenerator(name = "sq_id_logerro", sequenceName = "sq_id_logerro", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
-	@Column(name = "idLogErro", nullable = false, unique = true, insertable = false, updatable = false)
+	@Column(name = "idlogerro", nullable = false, unique = true, insertable = false, updatable = false)
 	private Integer id;
 
-	@Column(name = "txMensagemErro", nullable = false)
+	@Column(name = "txmensagemerro", nullable = false)
 	private String mensagemErro;
 
-	@Column(name = "dsLogin", nullable = false, length = 32)
+	@Column(name = "dslogin", nullable = false, length = 32)
 	private String login;
 
-	@Column(name = "dtRegistro", nullable = false)
+	@Column(name = "dtregistro", nullable = false)
 	private LocalDateTime dataRegistro;
 
 	public LogErro() {
