@@ -43,7 +43,7 @@ public class GetAvaliacoesAlunosCmd {
 	}	
 	
 	private List<AvaliacoesAlunos> getAlunosMatriculados(Long idAtividade, Long idAvaliacao) {
-		Avaliacoes avaliacaoEntity = getAvaliacoesCmd.getById(id);
+		Avaliacoes avaliacaoEntity = getAvaliacoesCmd.getById(idAvaliacao);
 		
 		List<AvaliacoesAlunos> avaliacoes = new ArrayList<AvaliacoesAlunos>();
 		
