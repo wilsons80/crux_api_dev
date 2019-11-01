@@ -37,7 +37,7 @@ public class GetAtividadesAlunoCmd {
 		if(Objects.isNull(idAluno)) {
 			idUnidade = getUnidadeLogadaCmd.get().getId();
 		} else {
-			idUnidade = getAlunoCmd.getTOById(idAluno).getId();
+			idUnidade = getAlunoCmd.getTOById(idAluno).getUnidade().getIdUnidade();
 		}
 		
 		Optional<List<AtividadesAluno>> entitys = Optional.empty();
