@@ -39,8 +39,7 @@ public class GetUniformesAlunoCmd {
 		if(Objects.isNull(idAluno)) {
 			idUnidade = getUnidadeLogadaCmd.get().getId(); 
 		}else {
-			AlunoTO alunoTO = getAlunoCmd.getTOById(idAluno);
-			idUnidade = alunoTO.getUnidade().getIdUnidade();
+			idUnidade = getAlunoCmd.getTOById(idAluno).getUnidade().getIdUnidade();
 		}
 		Optional<List<UniformesAluno>> entitys = Optional.empty();
 		
