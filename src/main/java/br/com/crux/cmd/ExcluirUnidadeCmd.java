@@ -28,24 +28,25 @@ public class ExcluirUnidadeCmd {
 	
 	
 	public void excluir(Long idUnidade) {
-		Optional<UnidadeTO> unidadeApagar = getUnidadeCmd.getUnidadeUsuarioLogadoComAcesso(idUnidade);
-		if(!unidadeApagar.isPresent()) {
-			throw new NotFoundException("Usuário não tem permissão para excluir essa unidade.");
-		}
-		
-		Optional<Unidade> unidade = unidadeRepository.findById(idUnidade);
-		
-		Optional<List<Perspectiva>> perspectiva = perspectivaRepository.findByIdUnidade(unidade.get().getIdUnidade());
-		if(perspectiva.isPresent()) {
-			throw new TabaleReferenciaEncontradaException("Por favor, exclua a Perspectiva antes.");
-		}
-		
 		try {
+			
+			Optional<UnidadeTO> unidadeApagar = getUnidadeCmd.getUnidadeUsuarioLogadoComAcesso(idUnidade);
+			if(!unidadeApagar.isPresent()) {
+				throw new NotFoundException("Usuário não tem permissão para excluir essa unidade.");
+			}
+			
+			Optional<Unidade> unidade = unidadeRepository.findById(idUnidade);
+			
+			Optional<List<Perspectiva>> perspectiva = perspectivaRepository.findByIdUnidade(unidade.get().getIdUnidade());
+			if(perspectiva.isPresent()) {
+				throw new TabaleReferenciaEncontradaException("Por favor, exclua a Perspectiva antes.");
+			}
 			if(unidade.get().getIdArquivo() != null) {
 				arquivoRepository.deleteById(unidade.get().getIdArquivo());
 			}
 			
 			unidadeRepository.delete(unidade.get());
+			
 		} catch (DataIntegrityViolationException e) {
 			throw new NegocioException("Erro ao excluir, existem dados vinculados a essa unidade.");
 		}
