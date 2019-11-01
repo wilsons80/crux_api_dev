@@ -29,11 +29,12 @@ public class AtividadesAlunoService {
 	@Autowired private AlterarAtividadesAlunoCmd alterarCmd;
 	@Autowired private CadastrarAtividadesAlunoCmd cadastrarCmd;
 
-	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/matriculado", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<AtividadesAlunoTO> getAllFilter(@RequestParam(name = "aluno", required = false) Long idAluno,
                                                 @RequestParam(name = "atividade", required = false) Long idAtividade) {
 		return getCmd.getAllFilter(idAluno, idAtividade);
 	}
+	
 	
 	@GetMapping(path = "/matriculado/atividade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<AtividadesAlunoTO> getAllAlunosMatriculadosNaAtividade(@PathVariable(name = "id") Long idAtividade) {
