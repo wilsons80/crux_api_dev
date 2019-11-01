@@ -29,6 +29,13 @@ public class AtividadesAlunoService {
 	@Autowired private AlterarAtividadesAlunoCmd alterarCmd;
 	@Autowired private CadastrarAtividadesAlunoCmd cadastrarCmd;
 
+	
+	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<AtividadesAlunoTO> getAll() {
+		return getCmd.getAllFilter(null, null);
+	}
+	
+	
 	@GetMapping(path = "/matriculado", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<AtividadesAlunoTO> getAllFilter(@RequestParam(name = "aluno", required = false) Long idAluno,
                                                 @RequestParam(name = "atividade", required = false) Long idAtividade) {
