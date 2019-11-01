@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class GetFrequenciasAlunosCmd {
 	}
 
 	
-	public List<FrequenciasAlunosTO> getAllTO(Long idAtividade, Long dataFrequenciaLong) {
+	public List<FrequenciasAlunosTO> getListaFrequenciaTO(Long idAtividade, Long dataFrequenciaLong) {
 		List<FrequenciasAlunos> frequencias = get(idAtividade, dataFrequenciaLong);
 		return toBuilder.buildAll(frequencias);
 	}
@@ -59,6 +60,15 @@ public class GetFrequenciasAlunosCmd {
 		return new ArrayList<FrequenciasAlunos>();		
 	}
 	
+	
+	private boolean isFrequencia(AtividadesAlunoTO parte, FrequenciasAlunosTO registroTO) {
+		return Objects.nonNull(registroTO.getId()) 
+		                       && 
+		                       registroTO.getAtividadesAluno().getAluno().getId().equals(parte.getAluno().getId())
+		                       &&
+		                       registroTO.getAtividadesAluno().getAtividade().getId().equals(parte.getAtividade().getId());
+	}
+	
 	private List<FrequenciasAlunos> getAlunosMatriculados(Long idAtividade, Long dataFrequenciaLong) {
 		List<FrequenciasAlunos> frequencias = new ArrayList<FrequenciasAlunos>();
 		LocalDate dataFrequencia = Java8DateUtil.getLocalDate(new Date(dataFrequenciaLong));
@@ -67,23 +77,41 @@ public class GetFrequenciasAlunosCmd {
 		List<AtividadesAlunoTO> atividades = getAtividadesAlunoCmd.getAllAlunosMatriculadosNaAtividade(idAtividade);
 		List<AtividadesAlunoTO> atividadesAlunos = atividades.stream().filter( atividadeAluno -> {
 			return Java8DateUtil.isVigente(dataFrequencia, atividadeAluno.getDataInicioAtividade().toLocalDate(), 
-					(Objects.nonNull(atividadeAluno.getDataDesvinculacao()) ? 
-							atividadeAluno.getDataDesvinculacao().toLocalDate() : null));
+					                                       (Objects.nonNull(atividadeAluno.getDataDesvinculacao()) ? 
+							                               atividadeAluno.getDataDesvinculacao().toLocalDate() : null));
 		}).collect(Collectors.toList());
 		
-		atividadesAlunos.stream().forEach( atividade -> {
+		// Lista de alunos que já tiveram a frequência registrada nessa atividade/data
+		List<FrequenciasAlunosTO> listaFrequenciaTO = getListaFrequenciaTO(idAtividade, dataFrequenciaLong);
+		
+		BiPredicate<AtividadesAlunoTO, List<FrequenciasAlunosTO>> contemNaLista  = (parte, lista) -> lista.stream()
+									  											                          .anyMatch(registroTO -> isFrequencia(parte,registroTO));
+		
+		
+		atividadesAlunos.stream().forEach( atividadeAluno -> {
 			FrequenciasAlunos frequencia = new FrequenciasAlunos();
 			
-			frequencia.setAtividadesAluno(atividadeAlunoTOBuilder.build(atividade));
-			frequencia.setDataFrequencia(dataFrequencia);
-			frequencia.setFrequencia(Boolean.TRUE);
-			frequencia.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
+			if(contemNaLista.test(atividadeAluno, listaFrequenciaTO)) {
+				FrequenciasAlunosTO frequenciasAlunosTO = listaFrequenciaTO.stream().filter(registroTO -> isFrequencia(atividadeAluno, registroTO)).findFirst().orElse(null);
+				if(Objects.nonNull(frequenciasAlunosTO)) {
+					frequencia = toBuilder.build(frequenciasAlunosTO);
+				}
+			} else {
+				frequencia.setAtividadesAluno(atividadeAlunoTOBuilder.build(atividadeAluno));
+				frequencia.setDataFrequencia(dataFrequencia);
+				frequencia.setFrequencia(Boolean.TRUE);
+				frequencia.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
+			}
+			
 			frequencias.add(frequencia);
 		});
 		
 		
 		return frequencias;		
 	}
+
+
+
 	
 	
 	public List<FrequenciasAlunosTO> getAll() {

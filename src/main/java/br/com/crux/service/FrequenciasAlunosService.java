@@ -31,9 +31,9 @@ public class FrequenciasAlunosService {
 	}
 	
 	@GetMapping(path = "/frequencia/atividade/{idAtividade}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<FrequenciasAlunosTO> getAllFilter(@PathVariable(name = "idAtividade") Long idAtividade,
-			                                      @RequestParam(name = "datafrequencia") Long dataFrequencia) {
-		return getCmd.getAllTO(idAtividade, dataFrequencia);
+	public List<FrequenciasAlunosTO> getListaFrequencia(@PathVariable(name = "idAtividade") Long idAtividade,
+			                                            @RequestParam(name = "datafrequencia") Long dataFrequencia) {
+		return getCmd.getListaFrequenciaTO(idAtividade, dataFrequencia);
 	}
 	
 	@PutMapping(path = "/matriculado/atividade/{idAtividade}", consumes = MediaType.APPLICATION_JSON_VALUE)
