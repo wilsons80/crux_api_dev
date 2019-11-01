@@ -30,6 +30,18 @@ public interface AvaliacoesAlunosRepository extends JpaRepository<AvaliacoesAlun
 			+ " where a.id = ?1")
 	public Optional<List<AvaliacoesAlunos>> findByAtividade(Long idAtividade);	
 	
+
+	@Query(value = "SELECT aa FROM AvaliacoesAlunos aa "
+			+ " inner join Avaliacoes ava on ava = aa.avaliacoes"
+			+ " inner join AtividadesAluno ati on ati = aa.atividadesAluno"
+			+ " inner join Atividades a on a = ati.atividade"
+			+ " inner join Aluno aluno on aluno = ati.aluno"
+			+ " inner join Unidade uni on aluno.unidade = uni"
+			+ " where a.id = ?1    "
+			+ "   and ava.id = ?2  ")
+	public Optional<List<AvaliacoesAlunos>> findByAtividadeAndAvaliacao(Long idAtividade, Long idAvaliacao);	
+
+	
 	
 	@Query(value = "SELECT aa FROM AvaliacoesAlunos aa "
 			+ " inner join AtividadesAluno ati on ati = aa.atividadesAluno"

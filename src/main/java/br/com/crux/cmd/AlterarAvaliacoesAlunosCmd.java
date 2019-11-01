@@ -11,11 +11,9 @@ import org.springframework.stereotype.Component;
 import br.com.crux.builder.AvaliacoesAlunosTOBuilder;
 import br.com.crux.dao.repository.AvaliacoesAlunosRepository;
 import br.com.crux.entity.AvaliacoesAlunos;
-import br.com.crux.entity.UniformesAluno;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosAvaliacoesAlunosRule;
 import br.com.crux.to.AvaliacoesAlunosTO;
-import br.com.crux.to.UniformesAlunoTO;
 
 @Component
 public class AlterarAvaliacoesAlunosCmd {
@@ -56,14 +54,14 @@ public class AlterarAvaliacoesAlunosCmd {
 	}	
 	
 
-	public void alterarAll(List<AvaliacoesAlunosTO> avaliacoesTO, Long idAtividade) {
+	public void alterarAll(List<AvaliacoesAlunosTO> avaliacoesTO, Long idAtividade, Long idAvaliacao) {
 		//Lista de avaliações do aluno.
-		List<AvaliacoesAlunos> listaBancoDados = getAvaliacoesAlunosCmd.getAllAlunosMatriculados(idAtividade);
+		List<AvaliacoesAlunos> listaBancoDados = getAvaliacoesAlunosCmd.getAllAlunosMatriculados(idAtividade, idAvaliacao);
 		
 		BiPredicate<AvaliacoesAlunosTO, List<AvaliacoesAlunosTO>> contemNaLista  = (parte, lista) -> lista.stream()
                                                                                                           .anyMatch(registroTO -> Objects.nonNull(registroTO.getId()) 
-                                                                                                    		                 && 
-                                                                                                    		                 registroTO.getId().equals(parte.getId()));
+                                                                                                    		                      && 
+                                                                                                    		                      registroTO.getId().equals(parte.getId()));
 		
 		
 		//Remove da lista todos os registros que não contém no Banco de Dados
@@ -82,7 +80,7 @@ public class AlterarAvaliacoesAlunosCmd {
 				                                         .collect(Collectors.toList());
 		
 		if(Objects.nonNull(novos)){
-			novos.forEach(novoResponsavel -> salvar(novoResponsavel));
+			novos.forEach(novoRegistro -> salvar(novoRegistro));
 		}
 
 		//Atualiza os registros 
