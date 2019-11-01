@@ -13,10 +13,12 @@ import org.springframework.stereotype.Component;
 import br.com.crux.builder.AtividadesAlunoTOBuilder;
 import br.com.crux.builder.AvaliacoesAlunosTOBuilder;
 import br.com.crux.dao.repository.AvaliacoesAlunosRepository;
+import br.com.crux.entity.Avaliacoes;
 import br.com.crux.entity.AvaliacoesAlunos;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.to.AtividadesAlunoTO;
 import br.com.crux.to.AvaliacoesAlunosTO;
+import br.com.crux.to.AvaliacoesTO;
 
 @Component
 public class GetAvaliacoesAlunosCmd {
@@ -28,7 +30,7 @@ public class GetAvaliacoesAlunosCmd {
 	@Autowired private GetAtividadesAlunoCmd getAtividadesAlunoCmd;
 	@Autowired private AtividadesAlunoTOBuilder atividadeAlunoTOBuilder;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
-	
+	@Autowired private GetAvaliacoesCmd getAvaliacoesCmd;
 	
 	
 	public List<AvaliacoesAlunosTO> getAllAlunosMatriculadosTO(Long idAtividade, Long idAvaliacao) {
@@ -41,6 +43,8 @@ public class GetAvaliacoesAlunosCmd {
 	}	
 	
 	private List<AvaliacoesAlunos> getAlunosMatriculados(Long idAtividade, Long idAvaliacao) {
+		Avaliacoes avaliacaoEntity = getAvaliacoesCmd.getById(id);
+		
 		List<AvaliacoesAlunos> avaliacoes = new ArrayList<AvaliacoesAlunos>();
 		
 		List<AtividadesAlunoTO> atividadesAlunos = getAtividadesAlunoCmd.getAllAlunosMatriculadosNaAtividade(idAtividade);
@@ -64,7 +68,7 @@ public class GetAvaliacoesAlunosCmd {
 			} else {
 				avaliacao.setAtividadesAluno(atividadeAlunoTOBuilder.build(atividadeAluno));
 				avaliacao.setDataAvaliacao(LocalDateTime.now());
-
+				avaliacao.setAvaliacoes(avaliacaoEntity);
 				avaliacao.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 			}
 			
