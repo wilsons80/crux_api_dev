@@ -111,7 +111,13 @@ public class GetFrequenciasAlunosCmd {
 	}
 
 
-
+	public List<FrequenciasAlunosTO> getAllAtividadeAluno(Long idAtividadeAluno) {
+		Optional<List<FrequenciasAlunos>> entitys = repository.findAllByAtividadeAluno(idAtividadeAluno);
+		if(entitys.isPresent()) {
+			return toBuilder.buildAll(entitys.get());
+		}
+		return new ArrayList<FrequenciasAlunosTO>();
+	}
 	
 	
 	public List<FrequenciasAlunosTO> getAll() {
