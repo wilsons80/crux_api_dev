@@ -18,7 +18,6 @@ import br.com.crux.entity.AvaliacoesAlunos;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.to.AtividadesAlunoTO;
 import br.com.crux.to.AvaliacoesAlunosTO;
-import br.com.crux.to.AvaliacoesTO;
 
 @Component
 public class GetAvaliacoesAlunosCmd {
