@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.cmd.GetPessoaFisicaCmd;
+import br.com.crux.cmd.GetFuncionarioCmd;
 import br.com.crux.cmd.GetQuestionariosCmd;
-import br.com.crux.entity.PessoaFisica;
+import br.com.crux.entity.Funcionario;
 import br.com.crux.entity.Questionario;
 import br.com.crux.entity.TalentosPf;
 import br.com.crux.to.TalentosPfTO;
@@ -18,9 +18,9 @@ import br.com.crux.to.TalentosPfTO;
 @Component
 public class TalentosPFTOBuilder {
 
-	@Autowired private PessoaFisicaTOBuilder pessoaFisicaBuilder;
+	@Autowired private FuncionarioTOBuilder funcionarioTOBuilder;
 	@Autowired private QuestionariosTOBuilder questionariosTOBuilder;
-	@Autowired private GetPessoaFisicaCmd getPessoaFisicaCmd;
+	@Autowired private GetFuncionarioCmd getFuncionarioCmd;
 	@Autowired private GetQuestionariosCmd getQuestionariosCmd;
 
 	public TalentosPf build(TalentosPfTO p) {
@@ -32,10 +32,10 @@ public class TalentosPFTOBuilder {
 		retorno.setNrNotaCompetencia(p.getNrNotaCompetencia());
 		retorno.setObservacao(p.getObservacao());
 
-		Optional.ofNullable(p.getPessoasFisica()).ifPresent(pf -> {
-			if (Objects.nonNull(pf.getId())) {
-				PessoaFisica pessoa = getPessoaFisicaCmd.getById(pf.getId());
-				retorno.setPessoasFisica(pessoa);
+		Optional.ofNullable(p.getFuncionario()).ifPresent(f -> {
+			if (Objects.nonNull(f.getId())) {
+				Funcionario funcionario = getFuncionarioCmd.getById(f.getId());
+				retorno.setPessoasFisica(funcionario.getPessoasFisica());
 			}
 		});
 
@@ -63,7 +63,10 @@ public class TalentosPFTOBuilder {
 		retorno.setDataRespostaTalento(p.getDataRespostaTalento());
 		retorno.setNrNotaCompetencia(p.getNrNotaCompetencia());
 		retorno.setObservacao(p.getObservacao());
-		retorno.setPessoasFisica(pessoaFisicaBuilder.buildTO(p.getPessoasFisica()));
+		
+		Funcionario funcionario = getFuncionarioCmd.getPorPessoa(p.getPessoasFisica().getId());
+		retorno.setFuncionario(funcionarioTOBuilder.buildTO(funcionario));
+
 		retorno.setQuestionario(questionariosTOBuilder.buildTO(p.getQuestionario()));
 		retorno.setUsuarioAlteracao(p.getUsuariosAlteracao());
 

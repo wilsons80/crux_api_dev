@@ -2,10 +2,8 @@ package br.com.crux.to;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -19,13 +17,13 @@ public class AtividadesTO {
 
 	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class) 
 	private LocalDateTime dataFim;
-	
+
 	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class) 
 	private LocalDateTime dataInicio;
-	
+
 	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class) 
 	private LocalDateTime dataPrevisaoInicio;
-	
+
 	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class) 
 	private LocalDateTime dataPrevisaoTermino;
 
@@ -285,7 +283,7 @@ public class AtividadesTO {
 	}
 
 	public List<ColaboradoresAtividadeTO> getColaboradoresAtividade() {
-		if(Objects.isNull(colaboradoresAtividade)) {
+		if (Objects.isNull(colaboradoresAtividade)) {
 			return new ArrayList<ColaboradoresAtividadeTO>();
 		}
 		return colaboradoresAtividade;
@@ -294,8 +292,5 @@ public class AtividadesTO {
 	public void setColaboradoresAtividade(List<ColaboradoresAtividadeTO> colaboradoresAtividade) {
 		this.colaboradoresAtividade = colaboradoresAtividade;
 	}
-
-	
-
 
 }
