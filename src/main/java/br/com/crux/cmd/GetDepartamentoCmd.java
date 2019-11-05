@@ -32,12 +32,13 @@ public class GetDepartamentoCmd {
 		
 	}
 	
-	public DepartamentoTO getById(Long idDepartamento) {
-		Optional<Departamentos> departamentoOptional = repository.findById(idDepartamento);
-		if(!departamentoOptional.isPresent()) {
-			throw new NotFoundException("Departamento não encontrado");
-		}
-		return toBuilder.buildTO(departamentoOptional.get());
+	public DepartamentoTO getTOById(Long idDepartamento) {
+		Departamentos departamento = repository.findById(idDepartamento).orElseThrow(() -> new NotFoundException("Departamento não encontrado"));
+		return toBuilder.buildTO(departamento);
+	}
+	
+	public Departamentos getById(Long idDepartamento) {
+		return repository.findById(idDepartamento).orElseGet(null);
 	}
 			
 }

@@ -2,21 +2,24 @@ package br.com.crux.builder;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.cmd.GetDepartamentoCmd;
+import br.com.crux.cmd.GetUnidadeCmd;
 import br.com.crux.entity.Departamentos;
+import br.com.crux.entity.Unidade;
 import br.com.crux.to.DepartamentoTO;
-
 
 @Component
 public class DepartamentoTOBuilder {
-	
-	@Autowired
-	private UnidadeTOBuilder unidadeBuilder;
-	
+
+	@Autowired private UnidadeTOBuilder unidadeBuilder;
+	@Autowired private GetUnidadeCmd getUnidadeCmd;
+	@Autowired private GetDepartamentoCmd getDepartamentoCmd;
 
 	public Departamentos build(DepartamentoTO to) {
 		Departamentos entity = new Departamentos();
@@ -25,33 +28,49 @@ public class DepartamentoTOBuilder {
 		entity.setDsEnderecoDepartamento(to.getDsEnderecoDepartamento());
 		entity.setNmDepartamento(to.getNmDepartamento());
 		entity.setNrTelefoneDepartamento(to.getNrTelefoneDepartamento());
-		entity.setUnidade(unidadeBuilder.build(to.getUnidade()));
-		if(Objects.nonNull(to.getDepartamentoSuperior())) {
-			entity.setDepartamentosSuperior(buildDepartamentoSuperior(to.getDepartamentoSuperior()));
-		}
 		
+		Optional.ofNullable(to.getUnidade()).ifPresent(u -> {
+			Unidade unidade = getUnidadeCmd.getById(u.getIdUnidade());
+			entity.setUnidade(unidade);
+		});
+		
+		if (Objects.nonNull(to.getDepartamentoSuperior()) && Objects.nonNull(to.getDepartamentoSuperior().getIdDepartamento()) ) {
+			Departamentos departamento = getDepartamentoCmd.getById(to.getDepartamentoSuperior().getIdDepartamento());
+			entity.setDepartamentosSuperior(departamento);
+		}
+
 		return entity;
 	}
 
-	
-	public DepartamentoTO buildTO(Departamentos dto) {
+	public DepartamentoTO buildTO(Departamentos d) {
 		DepartamentoTO to = new DepartamentoTO();
-		to.setIdDepartamento(dto.getIdDepartamento());
-		to.setCdUnidadeDepartamento(dto.getCdUnidadeDepartamento());
-		to.setDsEnderecoDepartamento(dto.getDsEnderecoDepartamento());
-		to.setNmDepartamento(dto.getNmDepartamento());
-		to.setNrTelefoneDepartamento(dto.getNrTelefoneDepartamento());
-		to.setUnidade(unidadeBuilder.buildTO(dto.getUnidade()));
-		
-		if(Objects.nonNull(dto.getDepartamentosSuperior())) {
-			to.setDepartamentoSuperior(buildTODepartamentoSuperior(dto.getDepartamentosSuperior()));
+
+		if (Objects.isNull(to)) {
+			return to;
 		}
-		
+
+		to.setIdDepartamento(d.getIdDepartamento());
+		to.setCdUnidadeDepartamento(d.getCdUnidadeDepartamento());
+		to.setDsEnderecoDepartamento(d.getDsEnderecoDepartamento());
+		to.setNmDepartamento(d.getNmDepartamento());
+		to.setNrTelefoneDepartamento(d.getNrTelefoneDepartamento());
+
+		to.setUnidade(unidadeBuilder.buildTO(d.getUnidade()));
+
+		if (Objects.nonNull(d.getDepartamentosSuperior())) {
+			to.setDepartamentoSuperior(buildTODepartamentoSuperior(d.getDepartamentosSuperior()));
+		}
+
 		return to;
 	}
-	
+
 	private DepartamentoTO buildTODepartamentoSuperior(Departamentos dto) {
 		DepartamentoTO to = new DepartamentoTO();
+		
+		if (Objects.isNull(to)) {
+			return to;
+		}
+		
 		to.setIdDepartamento(dto.getIdDepartamento());
 		to.setCdUnidadeDepartamento(dto.getCdUnidadeDepartamento());
 		to.setDsEnderecoDepartamento(dto.getDsEnderecoDepartamento());
@@ -60,20 +79,8 @@ public class DepartamentoTOBuilder {
 		to.setUnidade(unidadeBuilder.buildTO(dto.getUnidade()));
 		return to;
 	}
-	
-	private Departamentos buildDepartamentoSuperior(DepartamentoTO dto) {
-		Departamentos entity = new Departamentos();
-		entity.setIdDepartamento(dto.getIdDepartamento());
-		entity.setCdUnidadeDepartamento(dto.getCdUnidadeDepartamento());
-		entity.setDsEnderecoDepartamento(dto.getDsEnderecoDepartamento());
-		entity.setNmDepartamento(dto.getNmDepartamento());
-		entity.setNrTelefoneDepartamento(dto.getNrTelefoneDepartamento());
-		entity.setUnidade(unidadeBuilder.build(dto.getUnidade()));
-		return entity;
-	}
-	
-	
-	public List<DepartamentoTO> buildAll(List<Departamentos> dtos){
+
+	public List<DepartamentoTO> buildAll(List<Departamentos> dtos) {
 		return dtos.stream().map(dto -> buildTO(dto)).collect(Collectors.toList());
 	}
 

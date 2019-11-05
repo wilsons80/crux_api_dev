@@ -22,45 +22,35 @@ import br.com.crux.to.CargoTO;
 @RestController
 @RequestMapping(value = "cargos")
 public class CargosService {
-	
-	@Autowired
-	private GetCargosCmd getCmd;
-	@Autowired
-	private ExcluirCargosCmd  excluirCmd;
-	@Autowired
-	private AlterarCargosCmd alterarCmd;
-	@Autowired
-	private CadastrarCargosCmd cadastrarCmd;
-	
-	
+
+	@Autowired private GetCargosCmd getCmd;
+	@Autowired private ExcluirCargosCmd excluirCmd;
+	@Autowired private AlterarCargosCmd alterarCmd;
+	@Autowired private CadastrarCargosCmd cadastrarCmd;
+
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<CargoTO> getAll() {
 		return getCmd.getAll();
 	}
-	
+
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public CargoTO getById(@PathVariable(name = "id") Long id) {
 		return getCmd.getTOById(id);
 	}
-	
+
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void cadastrar(@RequestBody CargoTO param) {
 		cadastrarCmd.cadastrar(param);
 	}
-	
+
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void alterar(@RequestBody CargoTO param) {
 		alterarCmd.alterar(param);
 	}
-	
+
 	@DeleteMapping(path = "/{id}")
 	public void excluir(@PathVariable(name = "id") Long id) {
 		excluirCmd.excluir(id);
 	}
-	
-	
-	
-	
-	
 
 }

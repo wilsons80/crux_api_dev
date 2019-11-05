@@ -1,13 +1,11 @@
 package br.com.crux.to;
 
-import br.com.crux.enums.TipoCargo;
-
 public class CargoTO {
 
 	private Long id;
 	private String codigo;
 	private String nome;
-	private TipoCargo tipoCargo;
+	private String tipoCargo;
 	private Long usuarioAlteracao;
 
 	public CargoTO() {
@@ -37,11 +35,11 @@ public class CargoTO {
 		this.nome = nome;
 	}
 
-	public TipoCargo getTipoCargo() {
+	public String getTipoCargo() {
 		return tipoCargo;
 	}
 
-	public void setTipoCargo(TipoCargo tipoCargo) {
+	public void setTipoCargo(String tipoCargo) {
 		this.tipoCargo = tipoCargo;
 	}
 

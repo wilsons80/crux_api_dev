@@ -22,45 +22,35 @@ import br.com.crux.to.DepartamentoTO;
 @RestController
 @RequestMapping(value = "departamento")
 public class DepartamentoService {
-	
-	@Autowired
-	private GetDepartamentoCmd getDepartamentoCmd;
-	@Autowired
-	private ExcluirDepartamentoCmd  excluirDepartamentoCmd;
-	@Autowired
-	private AlterarDepartamentoCmd alterarDepartamentoCmd;
-	@Autowired
-	private CadastrarDepartamentoCmd cadastrarDepartamentoCmd;
-	
-	
+
+	@Autowired private GetDepartamentoCmd getDepartamentoCmd;
+	@Autowired private ExcluirDepartamentoCmd excluirDepartamentoCmd;
+	@Autowired private AlterarDepartamentoCmd alterarDepartamentoCmd;
+	@Autowired private CadastrarDepartamentoCmd cadastrarDepartamentoCmd;
+
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<DepartamentoTO> getAll() {
 		return getDepartamentoCmd.getAll();
 	}
-	
+
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public DepartamentoTO getById(@PathVariable(name = "id") Long idDepartamento) {
-		return getDepartamentoCmd.getById(idDepartamento);
+		return getDepartamentoCmd.getTOById(idDepartamento);
 	}
-	
+
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void cadastrar(@RequestBody DepartamentoTO departamento) {
 		cadastrarDepartamentoCmd.cadastrar(departamento);
 	}
-	
+
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void alterar(@RequestBody DepartamentoTO departamento) {
 		alterarDepartamentoCmd.alterar(departamento);
 	}
-	
+
 	@DeleteMapping(path = "/{id}")
 	public void excluir(@PathVariable(name = "id") Long idDepartamento) {
 		excluirDepartamentoCmd.excluir(idDepartamento);
 	}
-	
-	
-	
-	
-	
 
 }

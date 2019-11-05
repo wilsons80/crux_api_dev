@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.entity.Cargo;
+import br.com.crux.enums.TipoCargo;
 import br.com.crux.to.CargoTO;
 
 
@@ -19,7 +20,7 @@ public class CargosTOBuilder {
 		retorno.setId(param.getId());
 		retorno.setCodigo(param.getCodigo());
 		retorno.setNome(param.getNome());
-		retorno.setTipoCargo(param.getTipoCargo());
+		retorno.setTipoCargo(TipoCargo.getPorTipo(param.getTipoCargo()));
 		retorno.setUsuarioAlteracao(param.getUsuarioAlteracao());
 		
 		return retorno;
@@ -37,7 +38,7 @@ public class CargosTOBuilder {
 		retorno.setId(param.getId());
 		retorno.setCodigo(param.getCodigo());
 		retorno.setNome(param.getNome());
-		retorno.setTipoCargo(param.getTipoCargo());
+		retorno.setTipoCargo(param.getTipoCargo().getTipo());
 		retorno.setUsuarioAlteracao(param.getUsuarioAlteracao());
 		
 		return retorno;
