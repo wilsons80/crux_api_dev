@@ -1,5 +1,6 @@
 package br.com.crux.builder;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -32,11 +33,11 @@ public class CadastroReservaAtividadeTOBuilder {
 		retorno.setDescricaoCancelamentoCadastro(p.getDescricaoCancelamentoCadastro());
 		retorno.setDataCadastroReserva(p.getDataCadastroReserva());
 		retorno.setDataCancelamentoCadastro(p.getDataCancelamentoCadastro());
-		retorno.setDataCadastroAtividade(p.getDataCadastroAtividade());
-		retorno.setDtAlteracaoAtividade(p.getDtAlteracaoAtividade());
+		retorno.setDtAlteracaoAtividade(LocalDateTime.now());
 		
 		Optional.ofNullable(p.getAtividade()).ifPresent(atividade -> {
 			Atividades atv = getAtividadeCmd.getById(atividade.getId());
+			retorno.setDataCadastroAtividade(atv.getDataInicio());
 			retorno.setAtividade(atv);
 		});
 		
