@@ -14,15 +14,15 @@ public class CamposObrigatoriosTalentosPFRule {
 
 	public void verificar(TalentosPfTO to) {
 
-		if(Objects.isNull(to.getPessoasFisica())) {
-			throw new CamposObrigatoriosException("Pessoa Física deve ser informada.");
+		if(Objects.isNull(to.getFuncionario()) || Objects.isNull(to.getFuncionario().getId())) {
+			throw new CamposObrigatoriosException("Funcionário deve ser informado.");
 		}
 		
 		if(StringUtils.isEmpty(to.getRespostaTalento())) {
 			throw new CamposObrigatoriosException("Resposta do Talento deve ser informado.");
 		}
 
-		if(Objects.isNull(to.getQuestionario())) {
+		if(Objects.isNull(to.getQuestionario()) || Objects.isNull(to.getQuestionario().getId())) {
 			throw new CamposObrigatoriosException("Questionário deve ser informado.");
 		}
 	}

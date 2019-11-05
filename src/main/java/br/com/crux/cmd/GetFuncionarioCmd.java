@@ -20,7 +20,6 @@ public class GetFuncionarioCmd {
 
 	@Autowired private FuncionarioRepository repository;
 	@Autowired private FuncionarioTOBuilder toBuilder;
-	
 	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	
 	public List<FuncionarioTO> getAllPorUnidadeLogada() {
@@ -45,5 +44,10 @@ public class GetFuncionarioCmd {
 		return repository.findById(idPresente).orElseGet(null);
 		
 	}
-			
+
+	public Funcionario getPorPessoa(Long idPessoa) {
+		return repository.getPorPessoa(idPessoa).orElseThrow(() -> new NotFoundException("Funciário não encontrado."));
+		
+	}
+
 }

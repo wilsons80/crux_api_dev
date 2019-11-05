@@ -16,7 +16,7 @@ public class TalentosPfTO {
 
 	private Double nrNotaCompetencia;
 	private String observacao;
-	private PessoaFisicaTO pessoasFisica;
+	private FuncionarioTO funcionario;
 	private QuestionarioTO questionario;
 	private Long usuarioAlteracao;
 
@@ -63,13 +63,6 @@ public class TalentosPfTO {
 		this.observacao = observacao;
 	}
 
-	public PessoaFisicaTO getPessoasFisica() {
-		return pessoasFisica;
-	}
-
-	public void setPessoasFisica(PessoaFisicaTO pessoasFisica) {
-		this.pessoasFisica = pessoasFisica;
-	}
 
 	public QuestionarioTO getQuestionario() {
 		return questionario;
@@ -85,6 +78,14 @@ public class TalentosPfTO {
 
 	public void setUsuarioAlteracao(Long usuariosAlteracao) {
 		this.usuarioAlteracao = usuariosAlteracao;
+	}
+
+	public FuncionarioTO getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(FuncionarioTO funcionario) {
+		this.funcionario = funcionario;
 	}
 
 }
