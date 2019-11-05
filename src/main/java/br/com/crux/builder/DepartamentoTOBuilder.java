@@ -38,6 +38,8 @@ public class DepartamentoTOBuilder {
 			Departamentos departamento = getDepartamentoCmd.getById(to.getDepartamentoSuperior().getIdDepartamento());
 			entity.setDepartamentosSuperior(departamento);
 		}
+		
+		entity.setUsuarioAlteracao(to.getUsuarioAlteracao());
 
 		return entity;
 	}
@@ -57,7 +59,7 @@ public class DepartamentoTOBuilder {
 
 		to.setUnidade(unidadeBuilder.buildTO(d.getUnidade()));
 
-		if (Objects.nonNull(d.getDepartamentosSuperior())) {
+		if (Objects.nonNull(d.getDepartamentosSuperior()) || Objects.nonNull(d.getDepartamentosSuperior().getIdDepartamento())) {
 			to.setDepartamentoSuperior(buildTODepartamentoSuperior(d.getDepartamentosSuperior()));
 		}
 

@@ -9,6 +9,7 @@ public class DepartamentoTO  {
 	private String nrTelefoneDepartamento;
 	private DepartamentoTO departamentoSuperior;
 	private UnidadeTO unidade;
+	private Long usuarioAlteracao;
 
 	
 	public DepartamentoTO() {
@@ -68,6 +69,14 @@ public class DepartamentoTO  {
 
 	public void setUnidade(UnidadeTO unidade) {
 		this.unidade = unidade;
+	}
+
+	public Long getUsuarioAlteracao() {
+		return usuarioAlteracao;
+	}
+
+	public void setUsuarioAlteracao(Long usuarioAlteracao) {
+		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
 

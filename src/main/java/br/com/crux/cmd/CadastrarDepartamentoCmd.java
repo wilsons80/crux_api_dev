@@ -15,10 +15,13 @@ public class CadastrarDepartamentoCmd {
 	@Autowired private DepartamentoRepository departamentoRepository;
 	@Autowired private DepartamentoTOBuilder departamentoTOBuilder;
 	@Autowired private CamposObrigatoriosDepartamentoRule camposObrigatoriosDepartamentoRule;
+	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 
 	public void cadastrar(DepartamentoTO to) {
 
 		camposObrigatoriosDepartamentoRule.verificar(to);
+		
+		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 
 		Departamentos entity = departamentoTOBuilder.build(to);
 
