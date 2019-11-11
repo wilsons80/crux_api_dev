@@ -15,7 +15,6 @@ import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.exception.PerfilAcessoException;
 import br.com.crux.to.CadastroAcessoTO;
-import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class AlterarAcessoUsuarioCmd {
@@ -35,20 +34,14 @@ public class AlterarAcessoUsuarioCmd {
 
 		usuarioSistemaRepository.findById(acessoTO.getIdUsuario()).orElseThrow(() -> new NotFoundException("Usuario informado não existe."));
 
-		GruposModulo gruposModulo = grupoModuloRepository
-				.findById(acessoTO.getIdGrupoModulo())
-				.orElseThrow(() -> new NotFoundException("Não existe o tipo de perfil cadastrado para essa unidade."));
+		GruposModulo gruposModulo = grupoModuloRepository.findById(acessoTO.getIdGrupoModulo())
+				                                         .orElseThrow(() -> new NotFoundException("Não existe o tipo de perfil cadastrado para essa unidade."));
 
-		UsuarioLogadoTO usuarioLogadoTO = getUsuarioLogadoCmd.getUsuarioLogado();
-		UsuariosSistema usuarioLogado = usuarioSistemaRepository
-				.findById(usuarioLogadoTO.getIdUsuario())
-				.orElseThrow(() -> new NotFoundException("Usuario logado não existe."));
+		UsuariosSistema usuarioLogado = usuarioSistemaRepository.findById(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario())
+				                                                .orElseThrow(() -> new NotFoundException("Usuario logado não existe."));
 
-		UsuariosGrupo usuarioGrupo = usuariosGrupoRepository
-				.getPorModuloAndGrupoModuloAndUsuario(gruposModulo.getModulo().getId(), 
-						                              gruposModulo.getId(),
-						                              acessoTO.getIdUsuario())
-				.orElseThrow(() -> new PerfilAcessoException("Usuário grupo não encontrado."));
+		UsuariosGrupo usuarioGrupo = usuariosGrupoRepository.getPorModuloAndGrupoModuloAndUsuario(gruposModulo.getModulo().getId(),gruposModulo.getId(),acessoTO.getIdUsuario())
+				                                            .orElseThrow(() -> new PerfilAcessoException("Usuário grupo não encontrado."));
 		
 
 		usuarioGrupo.setGruposModulo(gruposModulo);

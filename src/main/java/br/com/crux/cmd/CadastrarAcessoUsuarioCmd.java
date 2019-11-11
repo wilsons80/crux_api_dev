@@ -1,6 +1,7 @@
 package br.com.crux.cmd;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,18 +59,7 @@ public class CadastrarAcessoUsuarioCmd {
 			throw new PerfilAcessoException("Usuário já possui esse perfil cadastrado.");
 		}
 		
-		Optional<List<UsuariosGrupo>> permissaoModuloPai = usuariosGrupoRepository.getPermissoes(acessoTO.getIdUsuario(), modulo.get().getModuloPai().getId());
-		if (!permissaoModuloPai.isPresent()) {
-			
-			//Valido se já existe permissão no módulo pai.
-			GruposModulo gruposModuloPai = cadastrarGrupoModuloCmd.cadastrarGrupoModuloPai(unidade.get().getIdUnidade(), modulo.get().getId());
-						
-			UsuariosGrupo usuariosGrupoPai = new UsuariosGrupo();
-			usuariosGrupoPai.setGruposModulo(gruposModuloPai);
-			usuariosGrupoPai.setUsuariosSistema(usuario.get());
-			usuariosGrupoPai.setIdUsuarioApl(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
-			usuariosGrupoRepository.save(usuariosGrupoPai);
-		}
+		cadastrarAcessoModuloPai(unidade, modulo.get(), usuario);
 		
 		UsuariosGrupo usuariosGrupo = new UsuariosGrupo();
 		usuariosGrupo.setGruposModulo(gruposModulo.get());
@@ -78,4 +68,26 @@ public class CadastrarAcessoUsuarioCmd {
 		usuariosGrupoRepository.save(usuariosGrupo);
 		
 	}
+
+	
+	private void cadastrarAcessoModuloPai(Optional<Unidade> unidade, Modulo modulo, Optional<UsuariosSistema> usuario) {
+		if(Objects.isNull(modulo.getModuloPai())) return;
+		
+		Optional<List<UsuariosGrupo>> permissaoModuloPai = usuariosGrupoRepository.getPermissoes(usuario.get().getIdUsuario(), modulo.getModuloPai().getId());
+		if (!permissaoModuloPai.isPresent()) {
+			
+			//Valido se já existe permissão no módulo pai.
+			GruposModulo gruposModuloPai = cadastrarGrupoModuloCmd.cadastrarGrupoModuloPai(unidade.get().getIdUnidade(), modulo.getModuloPai().getId());
+						
+			UsuariosGrupo usuariosGrupoPai = new UsuariosGrupo();
+			usuariosGrupoPai.setGruposModulo(gruposModuloPai);
+			usuariosGrupoPai.setUsuariosSistema(usuario.get());
+			usuariosGrupoPai.setIdUsuarioApl(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
+			usuariosGrupoRepository.save(usuariosGrupoPai);
+			
+			
+			cadastrarAcessoModuloPai(unidade, modulo.getModuloPai() , usuario);
+		}
+	}
+	
 }

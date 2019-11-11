@@ -63,14 +63,14 @@ public class CadastrarGrupoModuloCmd {
 			throw new PerfilAcessoException("Não foi possível atribuir permissão ao modulo pai.");
 		}
 		
-		Optional<GruposModulo> grupoModuloPaiOptional = grupoModuloRepository.findByIdModuloAndIdPerfilAcessoAndIdUnidade(modulo.get().getModuloPai().getId(), 
+		Optional<GruposModulo> grupoModuloPaiOptional = grupoModuloRepository.findByIdModuloAndIdPerfilAcessoAndIdUnidade(modulo.get().getId(), 
 																									                      perfilApenasConsulta.get().getId(), 
 																									                      unidade.get().getIdUnidade());
 		
 		GruposModulo grupoModuloPai = null;
 		if(!grupoModuloPaiOptional.isPresent()) {
 			grupoModuloPai = new GruposModulo();
-			grupoModuloPai.setModulo(modulo.get().getModuloPai());
+			grupoModuloPai.setModulo(modulo.get());
 			grupoModuloPai.setNome("C");
 			grupoModuloPai.setPerfilAcesso(perfilApenasConsulta.get());
 			grupoModuloPai.setDescricao("Grupo de perfil de consultar");
