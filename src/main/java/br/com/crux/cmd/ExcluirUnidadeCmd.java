@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import br.com.crux.dao.repository.ArquivoRepository;
 import br.com.crux.dao.repository.PerspectivaRepository;
 import br.com.crux.dao.repository.UnidadeRepository;
+import br.com.crux.dao.repository.UsuariosUnidadeRepository;
 import br.com.crux.entity.Perspectiva;
 import br.com.crux.entity.Unidade;
 import br.com.crux.exception.NotFoundException;
@@ -22,6 +23,7 @@ public class ExcluirUnidadeCmd {
 
 	@Autowired private UnidadeRepository unidadeRepository;
 	@Autowired private GetUnidadeCmd getUnidadeCmd;
+	@Autowired private UsuariosUnidadeRepository usuariosUnidadeRepository;
 	
 	@Autowired private ArquivoRepository arquivoRepository;
 	@Autowired private PerspectivaRepository perspectivaRepository;
@@ -44,6 +46,9 @@ public class ExcluirUnidadeCmd {
 			if(unidade.get().getIdArquivo() != null) {
 				arquivoRepository.deleteById(unidade.get().getIdArquivo());
 			}
+			
+			
+			usuariosUnidadeRepository.deleteById(idUnidade);
 			
 			unidadeRepository.delete(unidade.get());
 			
