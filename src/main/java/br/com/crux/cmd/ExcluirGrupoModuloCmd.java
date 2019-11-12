@@ -30,7 +30,7 @@ public class ExcluirGrupoModuloCmd {
 			
 			Optional<GruposModulo> grupoModulo = repository.findById(idGrupoModulo);
 			
-			Optional<UsuariosGrupo> usuariosGruposOptional = usuariosGrupoRepository.findById(grupoModulo.get().getId());
+			Optional<UsuariosGrupo> usuariosGruposOptional = usuariosGrupoRepository.findByGruposModulo(grupoModulo.get());
 			if(usuariosGruposOptional.isPresent()) {
 				usuariosGrupoRepository.delete(usuariosGruposOptional.get());
 			}

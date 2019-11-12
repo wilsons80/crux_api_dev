@@ -13,6 +13,7 @@ import br.com.crux.dao.repository.UnidadeRepository;
 import br.com.crux.dao.repository.UsuariosUnidadeRepository;
 import br.com.crux.entity.Perspectiva;
 import br.com.crux.entity.Unidade;
+import br.com.crux.entity.UsuariosUnidade;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.exception.TabaleReferenciaEncontradaException;
 import br.com.crux.exception.base.NegocioException;
@@ -48,7 +49,12 @@ public class ExcluirUnidadeCmd {
 			}
 			
 			
-			usuariosUnidadeRepository.deleteById(idUnidade);
+			Optional<List<UsuariosUnidade>> usuariosUnidade = usuariosUnidadeRepository.findByUnidade(unidade.get());
+			if(usuariosUnidade.isPresent()) {
+				usuariosUnidade.get().stream().forEach(uu -> {
+					usuariosUnidadeRepository.deleteById(uu.getId());
+				});
+			}
 			
 			unidadeRepository.delete(unidade.get());
 			

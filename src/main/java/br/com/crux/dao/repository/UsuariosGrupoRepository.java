@@ -15,6 +15,9 @@ import br.com.crux.entity.UsuariosSistema;
 @Repository
 public interface UsuariosGrupoRepository extends JpaRepository<UsuariosGrupo, Long> {
 
+	
+	public Optional<UsuariosGrupo> findByGruposModulo(GruposModulo grupoModulo);
+	
 	public Optional<UsuariosGrupo> findByGruposModuloAndUsuariosSistema(GruposModulo grupoModulo, UsuariosSistema usuario);
 	
 	@Query(value = "SELECT ug FROM UsuariosGrupo ug "
