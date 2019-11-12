@@ -10,7 +10,7 @@ public class PessoaFisicaTO {
 	private String classificadorMotivoNaoTrab;
 	private String descricaoPessoaFisicaAtendidoOrgaoRede;
 	private String bairro;
-	private String cidadeNaturalidade;
+	private String cidade;
 	private String condicaoMoradia;
 	private String cor;
 	private String cursoEscola;
@@ -53,7 +53,7 @@ public class PessoaFisicaTO {
 	private String tituloEleitor;
 	private String zonaTitulo;
 	private String ufCi;
-	private String ufEndereco;
+	private String uf;
 	private String ufNascimento;
 	// Classificador indicativo se a pessoa física é atendida por outro órgão da
 	// rede de apoio social / pessoal
@@ -123,12 +123,12 @@ public class PessoaFisicaTO {
 		this.bairro = bairro;
 	}
 
-	public String getCidadeNaturalidade() {
-		return cidadeNaturalidade;
+	public String getCidade() {
+		return cidade;
 	}
 
-	public void setCidadeNaturalidade(String cidadeNaturalidade) {
-		this.cidadeNaturalidade = cidadeNaturalidade;
+	public void setCidade(String cidadeNaturalidade) {
+		this.cidade = cidadeNaturalidade;
 	}
 
 	public String getCondicaoMoradia() {
@@ -467,12 +467,12 @@ public class PessoaFisicaTO {
 		this.ufCi = ufCi;
 	}
 
-	public String getUfEndereco() {
-		return ufEndereco;
+	public String getUf() {
+		return uf;
 	}
 
-	public void setUfEndereco(String ufEndereco) {
-		this.ufEndereco = ufEndereco;
+	public void setUf(String ufEndereco) {
+		this.uf = ufEndereco;
 	}
 
 	public String getUfNascimento() {

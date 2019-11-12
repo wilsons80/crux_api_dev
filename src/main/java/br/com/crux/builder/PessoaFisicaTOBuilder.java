@@ -32,7 +32,7 @@ public class PessoaFisicaTOBuilder {
 		retorno.setClassificadorMotivoNaoTrab(p.getClassificadorMotivoNaoTrab());
 		retorno.setDescricaoPessoaFisicaAtendidoOrgaoRede(p.getDescricaoPessoaFisicaAtendidoOrgaoRede());
 		retorno.setBairro(p.getBairro());
-		retorno.setCidadeNaturalidade(p.getCidadeNaturalidade());
+		retorno.setCidadeNaturalidade(p.getCidade());
 		retorno.setCondicaoMoradia(p.getCondicaoMoradia());
 		retorno.setCor(p.getCor());
 		retorno.setCursoEscola(p.getCursoEscola());
@@ -75,7 +75,7 @@ public class PessoaFisicaTOBuilder {
 		retorno.setTituloEleitor(p.getTituloEleitor());
 		retorno.setZonaTitulo(p.getZonaTitulo());
 		retorno.setUfCi(p.getUfCi());
-		retorno.setUfEndereco(p.getUfEndereco());
+		retorno.setUfEndereco(p.getUf());
 		retorno.setUfNascimento(p.getUfNascimento());
 		retorno.setStatusAtendidoOrgaoRede(p.getStatusAtendidoOrgaoRede());
 
@@ -125,7 +125,7 @@ public class PessoaFisicaTOBuilder {
 		retorno.setClassificadorMotivoNaoTrab(p.getClassificadorMotivoNaoTrab());
 		retorno.setDescricaoPessoaFisicaAtendidoOrgaoRede(p.getDescricaoPessoaFisicaAtendidoOrgaoRede());
 		retorno.setBairro(p.getBairro());
-		retorno.setCidadeNaturalidade(p.getCidadeNaturalidade());
+		retorno.setCidade(p.getCidadeNaturalidade());
 		retorno.setCondicaoMoradia(p.getCondicaoMoradia());
 		retorno.setCor(p.getCor());
 		retorno.setCursoEscola(p.getCursoEscola());
@@ -168,7 +168,7 @@ public class PessoaFisicaTOBuilder {
 		retorno.setTituloEleitor(p.getTituloEleitor());
 		retorno.setZonaTitulo(p.getZonaTitulo());
 		retorno.setUfCi(p.getUfCi());
-		retorno.setUfEndereco(p.getUfEndereco());
+		retorno.setUf(p.getUfEndereco());
 		retorno.setUfNascimento(p.getUfNascimento());
 		retorno.setStatusAtendidoOrgaoRede(p.getStatusAtendidoOrgaoRede());
 		retorno.setAutorizaEmail(p.getAutorizaEmail());
