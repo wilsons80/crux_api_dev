@@ -50,6 +50,7 @@ public class AcessoDao extends BaseDao{
 		sql.append("   and uu.id_unidade       = u.id_unidade                         ");
 		sql.append("   and gm.id_unidade       = u.id_unidade                         ");
 		sql.append("   and u.id_unidade        = :idUnidade                           ");
+		sql.append("   and m.nm_modulo         not like 'TB_REFERENCIA%'              ");
 		sql.append("   and m.modulo_pai is not null                                   ");
 		
 		if(Objects.nonNull(idModulo)) {

@@ -1,5 +1,6 @@
 package br.com.crux.cmd;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,11 +41,24 @@ public class CadastrarGrupoModuloCmd {
 		GruposModulo entity = toBuilder.buildTO(to);
 
 		// Cadastrar o grupo do modulo pai, caso não exista.
-		cadastrarGrupoModuloPai(to.getUnidade().getIdUnidade(), to.getModulo().getId());
+		addGrupoModuloPai(to.getUnidade().getIdUnidade(), to.getModulo().getId());
 		
 		repository.save(entity);
 	}
 	
+	private void addGrupoModuloPai(Long idUnidade, Long idModulo) {
+		Optional<Modulo> moduloPai = moduloRepository.findById(idModulo);
+		
+		if(Objects.isNull(moduloPai.get().getModuloPai())) {
+			return;
+		}
+		
+		// Cadastrar o grupo do modulo pai, caso não exista.
+		cadastrarGrupoModuloPai(idUnidade, moduloPai.get().getModuloPai().getId());
+		
+		addGrupoModuloPai(idUnidade, moduloPai.get().getModuloPai().getId());
+		
+	}
 	
 	public GruposModulo cadastrarGrupoModuloPai(Long idUnidade, Long idModulo) {
 		

@@ -73,7 +73,7 @@ public class CadastrarAcessoUsuarioCmd {
 	private void cadastrarAcessoModuloPai(Optional<Unidade> unidade, Modulo modulo, Optional<UsuariosSistema> usuario) {
 		if(Objects.isNull(modulo.getModuloPai())) return;
 		
-		Optional<List<UsuariosGrupo>> permissaoModuloPai = usuariosGrupoRepository.getPermissoes(usuario.get().getIdUsuario(), modulo.getModuloPai().getId());
+		Optional<List<UsuariosGrupo>> permissaoModuloPai = usuariosGrupoRepository.getPermissoes(usuario.get().getIdUsuario(), modulo.getModuloPai().getId(), unidade.get().getIdUnidade());
 		if (!permissaoModuloPai.isPresent()) {
 			
 			//Valido se já existe permissão no módulo pai.

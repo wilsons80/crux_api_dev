@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.dao.repository.UsuarioSistemaRepository;
+import br.com.crux.dao.repository.UsuariosGrupoRepository;
 import br.com.crux.entity.UsuariosSistema;
 import br.com.crux.exception.UsuarioSemAcessoException;
 
@@ -24,7 +25,7 @@ import br.com.crux.exception.UsuarioSemAcessoException;
 public class GetUsuarioAutenticadoCmd implements UserDetailsService{
 	
 	@Autowired private UsuarioSistemaRepository usuarioSistemaRepository;
-	
+	@Autowired private UsuariosGrupoRepository usuariosGrupoRepository;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -42,7 +43,10 @@ public class GetUsuarioAutenticadoCmd implements UserDetailsService{
 		}
 		
 		List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
-		user.getUsuariosUnidades().forEach(unidades -> roles.add(new SimpleGrantedAuthority("ROLE_" + unidades.getUnidade().getSiglaUnidade().toUpperCase())));
+		user.getUsuariosUnidades().stream()
+		                          .filter(p -> usuariosGrupoRepository.getPermissoesNaUnidade(user.getIdUsuario(), p.getUnidade().getIdUnidade()).isPresent())
+		                          .forEach(unidades -> roles.add(new SimpleGrantedAuthority("ROLE_" + unidades.getUnidade().getSiglaUnidade().toUpperCase())));
+		
 		List<GrantedAuthority> authorities = roles;
 
 		
