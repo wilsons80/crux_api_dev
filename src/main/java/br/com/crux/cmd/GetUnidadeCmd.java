@@ -24,6 +24,7 @@ import br.com.crux.to.UsuarioLogadoTO;
 
 @Component
 public class GetUnidadeCmd {
+	
 
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	@Autowired private UnidadeRepository unidadeRepository;
@@ -36,7 +37,7 @@ public class GetUnidadeCmd {
 		
 		List<AcessoUnidadeTO> unidades = new ArrayList<>();
 		authentication.getAuthorities().stream().forEach( autho -> {
-			Optional<Unidade> unidade = unidadeRepository.findBySiglaUnidade(autho.getAuthority().replace("ROLE_", ""));
+			Optional<Unidade> unidade = unidadeRepository.findBySiglaUnidadeIgnoreCase(autho.getAuthority().replace("ROLE_", ""));
 			
 			if(unidade.isPresent()) {
 				unidades.add(unidadeTOBuilder.build(unidade.get()));
@@ -85,7 +86,7 @@ public class GetUnidadeCmd {
 	
 
 	public Unidade getBySigla(String sigla) {
-		Optional<Unidade> unidade = unidadeRepository.findBySiglaUnidade(sigla);
+		Optional<Unidade> unidade = unidadeRepository.findBySiglaUnidadeIgnoreCase(sigla);
 		return unidade.orElse(null);
 	}
 

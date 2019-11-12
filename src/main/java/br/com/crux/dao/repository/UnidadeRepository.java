@@ -12,8 +12,12 @@ import br.com.crux.entity.Unidade;
 
 @Repository
 public interface UnidadeRepository extends JpaRepository<Unidade, Long>{
+
 	
-	public Optional<Unidade> findBySiglaUnidade(String cdUnidade);
+	@Query(value = "SELECT u "
+		     + "  FROM Unidade u"
+		     + " where upper(u.siglaUnidade) = upper(?1)")
+	public Optional<Unidade> findBySiglaUnidadeIgnoreCase(String cdUnidade);
 
 	@Query(value = "SELECT u "
 			     + "  FROM Unidade u inner join UsuariosUnidade uu on uu.unidade = u "

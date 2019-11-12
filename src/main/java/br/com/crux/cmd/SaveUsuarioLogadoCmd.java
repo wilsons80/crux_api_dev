@@ -58,9 +58,11 @@ public class SaveUsuarioLogadoCmd {
 		usuarioLogadoTO.setTrocarSenha(usuariosSistema.getStTrocaSenha());
 		usuarioLogadoTO.setIdPessoaFisica(usuariosSistema.getPessoaFisica().getId());
 		
+		
 		List<AcessoUnidadeTO> unidades = new ArrayList<>();
 		authorities.stream().forEach( autho -> {
-			Optional<Unidade> unidade = unidadeRepository.findBySiglaUnidade(autho.getAuthority().replace("ROLE_", ""));
+			String codigoUnidade = autho.getAuthority().replace("ROLE_", "");
+			Optional<Unidade> unidade = unidadeRepository.findBySiglaUnidadeIgnoreCase(codigoUnidade);
 			
 			if(unidade.isPresent()) {
 				unidades.add(unidadeTOBuilder.build(unidade.get()));

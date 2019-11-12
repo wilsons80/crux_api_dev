@@ -20,6 +20,7 @@ import br.com.crux.to.UsuariosUnidadesTO;
 @Component
 public class CadastrarUnidadeCmd {
 
+	
 	@Autowired private UnidadeRepository unidadeRepository;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	@Autowired private ValidarCadastroUnidadeRule validarCadastroUnidadeRule;
@@ -36,7 +37,7 @@ public class CadastrarUnidadeCmd {
 	public UnidadeTO cadastrar(UnidadeTO to) {
 		validarCadastroUnidadeRule.validar(to.getSiglaUnidade(), to.getNomeUnidade());
 		
-		Optional<Unidade> siglaUnidade = unidadeRepository.findBySiglaUnidade(to.getSiglaUnidade());
+		Optional<Unidade> siglaUnidade = unidadeRepository.findBySiglaUnidadeIgnoreCase(to.getSiglaUnidade());
 		if (siglaUnidade.isPresent()) {
 			throw new UnidadeJaExisteException("Já existe unidade com essa sigla.");
 		}
