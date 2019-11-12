@@ -59,9 +59,7 @@ public class DepartamentoTOBuilder {
 
 		to.setUnidade(unidadeBuilder.buildTO(d.getUnidade()));
 
-		if (Objects.nonNull(d.getDepartamentosSuperior()) || Objects.nonNull(d.getDepartamentosSuperior().getIdDepartamento())) {
-			to.setDepartamentoSuperior(buildTODepartamentoSuperior(d.getDepartamentosSuperior()));
-		}
+		to.setDepartamentoSuperior(buildTODepartamentoSuperior(d.getDepartamentosSuperior()));
 
 		return to;
 	}
@@ -69,7 +67,7 @@ public class DepartamentoTOBuilder {
 	private DepartamentoTO buildTODepartamentoSuperior(Departamentos dto) {
 		DepartamentoTO to = new DepartamentoTO();
 		
-		if (Objects.isNull(to)) {
+		if (Objects.isNull(to) || Objects.isNull(to.getIdDepartamento())) {
 			return to;
 		}
 		
