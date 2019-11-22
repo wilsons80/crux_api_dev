@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.cmd.GetIniciativaCmd;
 import br.com.crux.cmd.GetProgramaCmd;
-import br.com.crux.entity.Iniciativa;
+import br.com.crux.cmd.GetUnidadeCmd;
+import br.com.crux.cmd.GetUnidadeLogadaCmd;
 import br.com.crux.entity.Programa;
 import br.com.crux.entity.Projeto;
 import br.com.crux.to.ProjetoTO;
@@ -18,10 +18,10 @@ import br.com.crux.to.ProjetoTO;
 @Component
 public class ProjetoTOBuilder {
 
-	@Autowired private IniciativaTOBuilder iniciativaTOBuilder;
 	@Autowired private ProgramaTOBuilder programaTOBuilder;
-	@Autowired private GetIniciativaCmd getIniciativaCmd;
 	@Autowired private GetProgramaCmd getProgramaCmd;
+	@Autowired private GetUnidadeCmd getUnidadeCmd;
+	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 
 	public Projeto build(ProjetoTO p) {
 		Projeto retorno = new Projeto();
@@ -37,20 +37,16 @@ public class ProjetoTOBuilder {
 		retorno.setDataPrevisaoInicio(p.getDataPrevisaoInicio());
 		retorno.setDataPrevisaoTermino(p.getDataPrevisaoTermino());
 
-		Optional.ofNullable(p.getIniciativa()).ifPresent(i -> {
-			if (Objects.nonNull(i.getId())) {
-				Iniciativa iniciativa = getIniciativaCmd.getById(i.getId());
-				retorno.setIniciativa(iniciativa);
-			}
-
-		});
-
 		Optional.ofNullable(p.getPrograma()).ifPresent(pro -> {
 			if (Objects.nonNull(pro.getId())) {
 				Programa programa = getProgramaCmd.getById(pro.getId());
 				retorno.setPrograma(programa);
 			}
 		});
+
+		Long idUnidade = getUnidadeLogadaCmd.get().getId();
+
+		retorno.setUnidade(getUnidadeCmd.getById(idUnidade));
 
 		return retorno;
 	}
@@ -72,7 +68,6 @@ public class ProjetoTOBuilder {
 
 		retorno.setDataPrevisaoInicio(p.getDataPrevisaoInicio());
 		retorno.setDataPrevisaoTermino(p.getDataPrevisaoTermino());
-		retorno.setIniciativa(iniciativaTOBuilder.buildTO(p.getIniciativa()));
 		retorno.setPrograma(programaTOBuilder.buildTO(p.getPrograma()));
 
 		return retorno;

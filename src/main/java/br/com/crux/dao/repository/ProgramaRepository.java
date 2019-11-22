@@ -14,7 +14,7 @@ public interface ProgramaRepository extends JpaRepository<Programa, Long>{
 
 	@Query(value = "SELECT p FROM Programa p"
 			+ " inner join Unidade u on p.unidade = u "
-			+ " where u.idUnidade = ?1")
+			+ " where u.idUnidade = :idUnidade")
 	public Optional<List<Programa>> findByIdUnidade(Long idUnidade);
 
 }

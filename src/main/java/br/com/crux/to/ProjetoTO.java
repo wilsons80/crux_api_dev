@@ -21,7 +21,6 @@ public class ProjetoTO {
 	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime dataPrevisaoTermino;
 	
-	private IniciativaTO iniciativa;
 	private ProgramaTO programa;
 	private Long usuarioAlteracao;
 
@@ -84,13 +83,6 @@ public class ProjetoTO {
 		this.dataPrevisaoTermino = dataPrevisaoTermino;
 	}
 
-	public IniciativaTO getIniciativa() {
-		return iniciativa;
-	}
-
-	public void setIniciativa(IniciativaTO iniciativa) {
-		this.iniciativa = iniciativa;
-	}
 
 	public ProgramaTO getPrograma() {
 		return programa;
