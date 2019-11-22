@@ -12,12 +12,7 @@ import br.com.crux.entity.Programa;
 @Repository
 public interface ProgramaRepository extends JpaRepository<Programa, Long>{
 
-	@Query(value = "SELECT pro FROM Programa pro"
-			+ " inner join Iniciativa ini on pro.iniciativa = ini"
-			+ " inner join Metas m on ini.meta = m"
-			+ " inner join Indicadores i on m.indicadores = i"
-			+ " inner join Objetivo o on i.objetivo = o"
-			+ " inner join Perspectiva p on o.perspectiva = p "
+	@Query(value = "SELECT p FROM Programa p"
 			+ " inner join Unidade u on p.unidade = u "
 			+ " where u.idUnidade = ?1")
 	public Optional<List<Programa>> findByIdUnidade(Long idUnidade);

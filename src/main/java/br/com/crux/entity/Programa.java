@@ -57,6 +57,10 @@ public class Programa implements Serializable {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="iniciativas_id_iniciativa")
 	private Iniciativa iniciativa;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_unidade")
+	private Unidade unidade;
 
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
@@ -152,6 +156,14 @@ public class Programa implements Serializable {
 
 	public void setUsuarioAlteracao(Long usuariosSistema) {
 		this.usuarioAlteracao = usuariosSistema;
+	}
+
+	public Unidade getUnidade() {
+		return unidade;
+	}
+
+	public void setUnidade(Unidade unidade) {
+		this.unidade = unidade;
 	}
 
 

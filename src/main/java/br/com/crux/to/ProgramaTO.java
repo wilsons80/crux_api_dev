@@ -22,7 +22,6 @@ public class ProgramaTO {
 	private Long faixaEtariaInicio;
 
 	private ObjetivoTO objetivo;
-	private IniciativaTO iniciativa;
 	private Long usuarioAlteracao;
 
 	public ProgramaTO() {
@@ -100,13 +99,6 @@ public class ProgramaTO {
 		this.objetivo = objetivo;
 	}
 
-	public IniciativaTO getIniciativa() {
-		return iniciativa;
-	}
-
-	public void setIniciativa(IniciativaTO iniciativa) {
-		this.iniciativa = iniciativa;
-	}
 
 	public Long getUsuarioAlteracao() {
 		return usuarioAlteracao;

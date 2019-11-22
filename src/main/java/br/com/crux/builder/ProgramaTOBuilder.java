@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.cmd.GetIniciativaCmd;
 import br.com.crux.cmd.GetObjetivoCmd;
-import br.com.crux.entity.Iniciativa;
+import br.com.crux.cmd.GetUnidadeCmd;
+import br.com.crux.cmd.GetUnidadeLogadaCmd;
 import br.com.crux.entity.Objetivo;
 import br.com.crux.entity.Programa;
 import br.com.crux.to.ProgramaTO;
@@ -18,10 +18,10 @@ import br.com.crux.to.ProgramaTO;
 @Component
 public class ProgramaTOBuilder {
 
-	@Autowired private IniciativaTOBuilder iniciativaTOBuilder;
 	@Autowired private ObjetivoTOBuilder objetivoTOBuilder;
 	@Autowired private GetObjetivoCmd getObjetivoCmd;
-	@Autowired private GetIniciativaCmd getIniciativaCmd;
+	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
+	@Autowired private GetUnidadeCmd getUnidadeCmd;
 
 	public Programa build(ProgramaTO param) {
 		Programa retorno = new Programa();
@@ -41,10 +41,9 @@ public class ProgramaTOBuilder {
 			retorno.setObjetivo(obj);
 		});
 
-		Optional.ofNullable(param.getIniciativa()).ifPresent(i -> {
-			Iniciativa iniciativa = getIniciativaCmd.getById(i.getId());
-			retorno.setIniciativa(iniciativa);
-		});
+		Long idUnidade = getUnidadeLogadaCmd.get().getId();
+		
+		retorno.setUnidade(getUnidadeCmd.getById(idUnidade));
 
 		return retorno;
 	}
@@ -66,13 +65,12 @@ public class ProgramaTOBuilder {
 		retorno.setDataFim(param.getDataFim());
 		retorno.setUsuarioAlteracao(param.getUsuarioAlteracao());
 		retorno.setObjetivo(objetivoTOBuilder.buildTO(param.getObjetivo()));
-		retorno.setIniciativa(iniciativaTOBuilder.buildTO(param.getIniciativa()));
 
 		return retorno;
 	}
 
 	public List<ProgramaTO> buildAll(List<Programa> dtos) {
-		return dtos.stream().map(dto -> buildTO(dto)).collect(Collectors.toList());
+		return dtos.stream().map(this::buildTO).collect(Collectors.toList());
 	}
 
 }

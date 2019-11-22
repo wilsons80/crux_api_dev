@@ -19,9 +19,6 @@ public class CamposObrigatoriosProgramaRule {
 		if (Objects.isNull(to.getDataInicio())) {
 			throw new CamposObrigatoriosException("Data de Início deve ser informada.");
 		}
-
-		if (Objects.isNull(to.getIniciativa())) {
-			throw new CamposObrigatoriosException("Iniciativa deve ser informada.");
-		}
+		
 	}
 }
