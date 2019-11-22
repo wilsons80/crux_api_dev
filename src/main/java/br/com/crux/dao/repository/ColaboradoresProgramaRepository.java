@@ -14,10 +14,8 @@ public interface ColaboradoresProgramaRepository extends JpaRepository<Colaborad
 
 	@Query(value = "SELECT col FROM ColaboradoresPrograma col" 
 			+ " inner join Programa pro on col.programa = pro" 
-			+ " inner join Iniciativa ini on pro.iniciativa = ini" 
-			+ " inner join Metas m on ini.meta = m" + " inner join Indicadores i on m.indicadores = i"
-			+ " inner join Objetivo o on i.objetivo = o" + " inner join Perspectiva p on o.perspectiva.unidade = p.unidade " 
-			+ " where p.unidade.idUnidade = ?1")
+			+ " inner join Unidade u on pro.unidade = u" 
+			+ " where u.idUnidade = :idUnidade")
 	public Optional<List<ColaboradoresPrograma>> findByIdUnidade(Long idUnidade);
 
 	@Query(value = "SELECT cp FROM ColaboradoresPrograma cp " 

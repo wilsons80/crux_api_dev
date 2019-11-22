@@ -12,15 +12,10 @@ import br.com.crux.entity.ColaboradoresProjeto;
 @Repository
 public interface ColaboradoresProjetoRepository extends JpaRepository<ColaboradoresProjeto, Long>{
 
-	@Query(value = "SELECT col FROM ColaboradoresProjeto col"
-			+ " inner join Projeto proj on col.projeto = proj"
-			+ " inner join Programa pro on proj.programa = pro"
-			+ " inner join Iniciativa ini on pro.iniciativa = ini"
-			+ " inner join Metas m on ini.meta = m"
-			+ " inner join Indicadores i on m.indicadores = i"
-			+ " inner join Objetivo o on i.objetivo = o"
-			+ " inner join Perspectiva p on o.perspectiva.unidade = p.unidade "
-			+ " where p.unidade.idUnidade = ?1")
+	@Query(value = "SELECT c FROM ColaboradoresProjeto c"
+			+ " inner join Projeto p on c.projeto = p"
+			+ " inner join Unidade u on p.unidade = u"
+			+ " where u.idUnidade = :idUnidade")
 	public Optional<List<ColaboradoresProjeto>> findByIdUnidade(Long idUnidade);
 
 }
