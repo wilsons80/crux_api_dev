@@ -16,10 +16,6 @@ public class CamposObrigatoriosAtendimentosRule {
 			throw new CamposObrigatoriosException("Data de atendimento deve ser informada.");
 		}
 
-		if (Objects.isNull(to.getSolucoes()) || Objects.isNull(to.getSolucoes().getId())) {
-			throw new CamposObrigatoriosException("Solução deve ser informada.");
-		}
-
 		if (Objects.isNull(to.getAluno()) || Objects.isNull(to.getAluno())) {
 			throw new CamposObrigatoriosException("Aluno deve ser informado.");
 		}

@@ -95,7 +95,7 @@ public class Atividades implements Serializable {
 	private String observacoes;
 
 	@Column(name="vl_custo_atividade")
-	private Long valorCustoAtividade;
+	private Double valorCustoAtividade;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="planos_acao_id_plano_acao")
@@ -108,6 +108,11 @@ public class Atividades implements Serializable {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="unidades_id_unidade")
 	private Unidade unidade;
+	
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_turma")
+	private Turmas turma;	
 
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
@@ -347,12 +352,12 @@ public class Atividades implements Serializable {
 	}
 
 
-	public Long getValorCustoAtividade() {
+	public Double getValorCustoAtividade() {
 		return valorCustoAtividade;
 	}
 
 
-	public void setValorCustoAtividade(Long valorCustoAtividade) {
+	public void setValorCustoAtividade(Double valorCustoAtividade) {
 		this.valorCustoAtividade = valorCustoAtividade;
 	}
 
@@ -396,6 +401,15 @@ public class Atividades implements Serializable {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
+
+	public Turmas getTurma() {
+		return turma;
+	}
+
+
+	public void setTurma(Turmas turma) {
+		this.turma = turma;
+	}
 
 
 }

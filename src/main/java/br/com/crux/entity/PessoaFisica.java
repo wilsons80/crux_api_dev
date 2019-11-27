@@ -3,6 +3,7 @@ package br.com.crux.entity;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import br.com.crux.infra.constantes.Constantes;
+import br.com.crux.infra.dao.SimNaoConverter;
 
 /**
  * The persistent class for the pessoas_fisicas database table.
@@ -223,6 +225,52 @@ public class PessoaFisica  {
 	@Column(name = "id_usuario_apl")
 	private Long usuarioAlteracao;
 
+	@Convert(converter = SimNaoConverter.class)
+	@Column(name = "st_deficiente")
+	private Boolean ehDeficiente;
+	
+	@Column(name = "ds_deficiente")
+	private String descricaoDeficiencia;	
+	
+	@Column(name = "ds_tipo_sangue")
+	private String tipoSangue;	
+	
+	@Column(name = "ds_raca")
+	private String raca;	
+	
+	@Column(name="dt_emissao_ci")
+	private LocalDateTime dataEmissaoCI;
+	
+	@Column(name = "nr_certificado_reservista")
+	private String numeroReservista;	
+	
+	@Column(name = "nr_regiao_militar_reservista")
+	private String regiaoMilitarReservista;	
+	
+	@Column(name = "uf_regiao_militar")
+	private String ufRegiaoMilitar;	
+	
+	@Column(name = "nr_cnh")
+	private String numeroCNH;	
+	
+	@Column(name = "categoria_cnh")
+	private String categoriaCNH;	
+	
+	@Column(name="dt_vencimento_cnh")
+	private LocalDateTime vencimentoCNH;
+
+	@Column(name = "nr_pis_pasep")
+	private String numeroPisPasep;	
+	
+	@Column(name = "uf_cts")
+	private String ufCTS;	
+	
+	@Convert(converter = SimNaoConverter.class)
+	@Column(name = "st_cursando_nivel_superior")
+	private Boolean cursandoNivelSuperior;
+
+	
+	
 	public PessoaFisica() {
 	}
 
@@ -729,5 +777,119 @@ public class PessoaFisica  {
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
+
+	public Boolean getEhDeficiente() {
+		return ehDeficiente;
+	}
+
+	public void setEhDeficiente(Boolean ehDeficiente) {
+		this.ehDeficiente = ehDeficiente;
+	}
+
+	public String getDescricaoDeficiencia() {
+		return descricaoDeficiencia;
+	}
+
+	public void setDescricaoDeficiencia(String descricaoDeficiencia) {
+		this.descricaoDeficiencia = descricaoDeficiencia;
+	}
+
+	public String getTipoSangue() {
+		return tipoSangue;
+	}
+
+	public void setTipoSangue(String tipoSangue) {
+		this.tipoSangue = tipoSangue;
+	}
+
+	public String getRaca() {
+		return raca;
+	}
+
+	public void setRaca(String raca) {
+		this.raca = raca;
+	}
+
+	public LocalDateTime getDataEmissaoCI() {
+		return dataEmissaoCI;
+	}
+
+	public void setDataEmissaoCI(LocalDateTime dataEmissaoCI) {
+		this.dataEmissaoCI = dataEmissaoCI;
+	}
+
+	public String getNumeroReservista() {
+		return numeroReservista;
+	}
+
+	public void setNumeroReservista(String numeroReservista) {
+		this.numeroReservista = numeroReservista;
+	}
+
+	public String getRegiaoMilitarReservista() {
+		return regiaoMilitarReservista;
+	}
+
+	public void setRegiaoMilitarReservista(String regiaoMilitarReservista) {
+		this.regiaoMilitarReservista = regiaoMilitarReservista;
+	}
+
+	public String getUfRegiaoMilitar() {
+		return ufRegiaoMilitar;
+	}
+
+	public void setUfRegiaoMilitar(String ufRegiaoMilitar) {
+		this.ufRegiaoMilitar = ufRegiaoMilitar;
+	}
+
+	public String getNumeroCNH() {
+		return numeroCNH;
+	}
+
+	public void setNumeroCNH(String numeroCNH) {
+		this.numeroCNH = numeroCNH;
+	}
+
+	public String getCategoriaCNH() {
+		return categoriaCNH;
+	}
+
+	public void setCategoriaCNH(String categoriaCNH) {
+		this.categoriaCNH = categoriaCNH;
+	}
+
+	public LocalDateTime getVencimentoCNH() {
+		return vencimentoCNH;
+	}
+
+	public void setVencimentoCNH(LocalDateTime vencimentoCNH) {
+		this.vencimentoCNH = vencimentoCNH;
+	}
+
+	public String getNumeroPisPasep() {
+		return numeroPisPasep;
+	}
+
+	public void setNumeroPisPasep(String numeroPisPasep) {
+		this.numeroPisPasep = numeroPisPasep;
+	}
+
+	public String getUfCTS() {
+		return ufCTS;
+	}
+
+	public void setUfCTS(String ufCTS) {
+		this.ufCTS = ufCTS;
+	}
+
+	public Boolean getCursandoNivelSuperior() {
+		return cursandoNivelSuperior;
+	}
+
+	public void setCursandoNivelSuperior(Boolean cursandoNivelSuperior) {
+		this.cursandoNivelSuperior = cursandoNivelSuperior;
+	}
+	
+	
 
 }

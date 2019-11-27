@@ -2,8 +2,10 @@ package br.com.crux.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -21,6 +24,7 @@ import br.com.crux.enums.ConclusaoParecer;
 import br.com.crux.enums.ParecerEntrevistador;
 import br.com.crux.enums.TipoFuncionario;
 import br.com.crux.infra.constantes.Constantes;
+import br.com.crux.infra.dao.SimNaoConverter;
 
 @Entity
 @Table(name="funcionarios")
@@ -94,6 +98,22 @@ public class Funcionario implements Serializable {
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
 
+	
+	@Convert(converter = SimNaoConverter.class)
+	@Column(name = "st_desconta_vt")
+	private Boolean descontaValeTransporte;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_departamento")
+	private Departamentos departamento;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_programa")
+	private Programa programa;	
+	
+	
+	@OneToMany(mappedBy="funcionario")
+	private List<Dependentes> dependentes;	
 
 	public Funcionario() {
 	}
@@ -257,8 +277,36 @@ public class Funcionario implements Serializable {
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
-	
-	
 
+
+	public Boolean getDescontaValeTransporte() {
+		return descontaValeTransporte;
+	}
+
+
+	public void setDescontaValeTransporte(Boolean descontaValeTransporte) {
+		this.descontaValeTransporte = descontaValeTransporte;
+	}
+
+
+	public Departamentos getDepartamento() {
+		return departamento;
+	}
+
+
+	public void setDepartamento(Departamentos departamento) {
+		this.departamento = departamento;
+	}
+
+
+	public Programa getPrograma() {
+		return programa;
+	}
+
+
+	public void setPrograma(Programa programa) {
+		this.programa = programa;
+	}
+	
 
 }

@@ -4,9 +4,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -43,7 +46,17 @@ public class Cargo implements Serializable {
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
 
-
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_cbo")
+	private Cbo cbo;
+	
+	@Column(name="ds_perfil_profissional")
+	private String descricaoPerfilProfissional;
+	
+	@Column(name="ds_resumo_atividades")
+	private String descricaoResumoAtividades;	
+	
+	
 	public Cargo() {
 	}
 
@@ -87,5 +100,30 @@ public class Cargo implements Serializable {
 		this.usuarioAlteracao = usuariosSistema;
 	}
 
+	public Cbo getCbo() {
+		return cbo;
+	}
+
+	public void setCbo(Cbo cbo) {
+		this.cbo = cbo;
+	}
+
+	public String getDescricaoPerfilProfissional() {
+		return descricaoPerfilProfissional;
+	}
+
+	public void setDescricaoPerfilProfissional(String descricaoPerfilProfissional) {
+		this.descricaoPerfilProfissional = descricaoPerfilProfissional;
+	}
+
+	public String getDescricaoResumoAtividades() {
+		return descricaoResumoAtividades;
+	}
+
+	public void setDescricaoResumoAtividades(String descricaoResumoAtividades) {
+		this.descricaoResumoAtividades = descricaoResumoAtividades;
+	}
+
+	
 
 }

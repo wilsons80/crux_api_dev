@@ -45,7 +45,7 @@ public class AtividadesTO {
 	private Boolean domingo;
 
 	private String observacoes;
-	private Long valorCustoAtividade;
+	private Double valorCustoAtividade;
 
 	private PlanosAcaoTO planosAcao;
 	private ProjetoTO projeto;
@@ -242,11 +242,11 @@ public class AtividadesTO {
 		this.observacoes = observacoes;
 	}
 
-	public Long getValorCustoAtividade() {
+	public Double getValorCustoAtividade() {
 		return valorCustoAtividade;
 	}
 
-	public void setValorCustoAtividade(Long valorCustoAtividade) {
+	public void setValorCustoAtividade(Double valorCustoAtividade) {
 		this.valorCustoAtividade = valorCustoAtividade;
 	}
 

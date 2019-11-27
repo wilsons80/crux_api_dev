@@ -38,12 +38,22 @@ public class Metas implements Serializable {
 	private LocalDateTime dataInicio;
 
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="indicadores_id_indicador")
+	@JoinColumn(name="id_indicador")
 	private Indicadores indicadores;
 
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
+	
+	@Column(name="qt_meta")
+	private Long qtdMetas;	
+	
+	@Column(name="ds_formula_meta")
+	private String descricaoFormula;	
+	
+	@Column(name="nm_meta")
+	private String nome;	
 
+	
 	public Metas() {
 	}
 
@@ -94,5 +104,31 @@ public class Metas implements Serializable {
 	public void setUsuarioAlteracao(Long usuariosSistema) {
 		this.usuarioAlteracao = usuariosSistema;
 	}
+
+	public Long getQtdMetas() {
+		return qtdMetas;
+	}
+
+	public void setQtdMetas(Long qtdMetas) {
+		this.qtdMetas = qtdMetas;
+	}
+
+	public String getDescricaoFormula() {
+		return descricaoFormula;
+	}
+
+	public void setDescricaoFormula(String descricaoFormula) {
+		this.descricaoFormula = descricaoFormula;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
+	
 
 }
