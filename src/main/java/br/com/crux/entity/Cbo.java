@@ -28,10 +28,10 @@ public class Cbo implements Serializable {
 	private Long numero;
 
 	@Column(name="nm_titulo")
-	private Long nomeTitulo;
+	private String nomeTitulo;
 
 	@Column(name="ds_tipo")
-	private Long descricaoTipo;
+	private String descricaoTipo;
 
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
@@ -55,19 +55,19 @@ public class Cbo implements Serializable {
 		this.numero = numero;
 	}
 
-	public Long getNomeTitulo() {
+	public String getNomeTitulo() {
 		return nomeTitulo;
 	}
 
-	public void setNomeTitulo(Long nomeTitulo) {
+	public void setNomeTitulo(String nomeTitulo) {
 		this.nomeTitulo = nomeTitulo;
 	}
 
-	public Long getDescricaoTipo() {
+	public String getDescricaoTipo() {
 		return descricaoTipo;
 	}
 
-	public void setDescricaoTipo(Long descricaoTipo) {
+	public void setDescricaoTipo(String descricaoTipo) {
 		this.descricaoTipo = descricaoTipo;
 	}
 
