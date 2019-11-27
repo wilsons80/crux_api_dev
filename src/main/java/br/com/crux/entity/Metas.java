@@ -31,6 +31,7 @@ public class Metas implements Serializable {
 	@Column(name="ds_meta")
 	private String descricao;
 
+	
 	@Column(name="dt_fim_meta")
 	private LocalDateTime dataFim;
 
