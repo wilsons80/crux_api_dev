@@ -3,7 +3,7 @@ package br.com.crux.to;
 public class CboTO {
 
 	private Long id;
-	private Long numero;
+	private String numero;
 	private String nomeTitulo;
 	private String descricaoTipo;
 	private Long usuarioAlteracao;
@@ -19,11 +19,11 @@ public class CboTO {
 		this.id = id;
 	}
 
-	public Long getNumero() {
+	public String getNumero() {
 		return numero;
 	}
 
-	public void setNumero(Long numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 
