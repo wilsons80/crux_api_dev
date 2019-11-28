@@ -13,7 +13,7 @@ import br.com.crux.entity.OcorrenciaAluno;
 public interface OcorrenciaAlunoRepository extends JpaRepository<OcorrenciaAluno, Long>{
 	
 	@Query("select oa from OcorrenciaAluno oa "
-			+ " inner join Aluno a on a.id = ao.aluno.id"
+			+ " inner join Aluno a on a.id = oa.aluno.id"
 			+ " inner join Unidade u on u.idUnidade = a.unidade.idUnidade"
 			+ " where u.idUnidade = ?1")
 	Optional<List<OcorrenciaAluno>> findAllByUnidade(Long idUnidade);
