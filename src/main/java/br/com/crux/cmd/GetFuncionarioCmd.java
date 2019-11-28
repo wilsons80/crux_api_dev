@@ -33,7 +33,7 @@ public class GetFuncionarioCmd {
 		List<FuncionarioTO> lista = toBuilder.buildAll(funcionariosOptional.get());
 		return lista;
 	}
-	
+
 	public FuncionarioTO getTOById(Long id) {
 		Funcionario entity = repository.findById(id).orElseThrow(() -> new NotFoundException("Funcionário não encontrado."));
 		return toBuilder.buildTO(entity);
@@ -47,7 +47,10 @@ public class GetFuncionarioCmd {
 
 	public Funcionario getPorPessoa(Long idPessoa) {
 		return repository.getPorPessoa(idPessoa).orElseThrow(() -> new NotFoundException("Funciário não encontrado."));
-		
 	}
 
+	public FuncionarioTO getPorPessoaFisica(Long idPessoa) {
+		return toBuilder.buildTO(getPorPessoa(idPessoa)); 
+	}
+	
 }
