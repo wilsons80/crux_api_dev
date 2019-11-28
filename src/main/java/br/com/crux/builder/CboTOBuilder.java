@@ -19,7 +19,7 @@ public class CboTOBuilder {
 		retorno.setId(param.getId());
 		retorno.setDescricaoTipo(param.getDescricaoTipo());
 		retorno.setNomeTitulo(param.getNomeTitulo());
-		retorno.setNumero(param.getNumero());
+		retorno.setNumero(Long.valueOf(param.getNumero().replace("-", "")));
 		retorno.setUsuarioAlteracao(param.getUsuarioAlteracao());
 
 		return retorno;
@@ -35,7 +35,7 @@ public class CboTOBuilder {
 		retorno.setId(param.getId());
 		retorno.setDescricaoTipo(param.getDescricaoTipo());
 		retorno.setNomeTitulo(param.getNomeTitulo());
-		retorno.setNumero(param.getNumero());
+		retorno.setNumero(String.valueOf(param.getNumero()));
 		retorno.setUsuarioAlteracao(param.getUsuarioAlteracao());
 
 		return retorno;
