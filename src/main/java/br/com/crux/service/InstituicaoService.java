@@ -23,16 +23,11 @@ import br.com.crux.to.InstituicaoTO;
 @RequestMapping(value = "instituicao")
 public class InstituicaoService {
 
-	@Autowired
-	private GetInstituicaoCmd getCmd;
-	@Autowired
-	private CadastrarInstituicaoCmd cadastrarCmd;
-	@Autowired
-	private ExcluirInstituicaoCmd excluirCmd;
-	@Autowired
-	private AlterarInstituicaoCmd alterarCmd;
-	
-	
+	@Autowired private GetInstituicaoCmd getCmd;
+	@Autowired private CadastrarInstituicaoCmd cadastrarCmd;
+	@Autowired private ExcluirInstituicaoCmd excluirCmd;
+	@Autowired private AlterarInstituicaoCmd alterarCmd;
+
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<InstituicaoTO> getAll() {
 		return getCmd.getAll();
@@ -42,21 +37,20 @@ public class InstituicaoService {
 	public InstituicaoTO getById(@PathVariable(name = "idUnidade") Long idUnidade) {
 		return getCmd.getTOById(idUnidade);
 	}
-	
+
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public InstituicaoTO cadastrar(@RequestBody InstituicaoTO to) {
 		return cadastrarCmd.cadastrar(to);
 	}
-	
+
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public InstituicaoTO alterar(@RequestBody InstituicaoTO to) {
 		return alterarCmd.alterar(to);
 	}
-	
+
 	@DeleteMapping(path = "/{unidade}")
 	public void excluir(@PathVariable(name = "unidade") Long idUnidade) {
 		excluirCmd.excluir(idUnidade);
 	}
-	
 
 }
