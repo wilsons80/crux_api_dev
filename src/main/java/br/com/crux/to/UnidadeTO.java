@@ -1,6 +1,12 @@
 package br.com.crux.to;
 
+import java.time.LocalDateTime;
+
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import br.com.crux.infra.adapter.LocalDateTimeAdapter;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UnidadeTO {
@@ -30,6 +36,16 @@ public class UnidadeTO {
 	private String homePage;
 	private String cidade;
 	private InstituicaoTO instituicao;
+	private String numeroCnas;
+	private String numeroCdca;
+	
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+	private LocalDateTime dataVigenciaCdca;
+	
+	private String numeroCas;
+	
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+	private LocalDateTime dataVigenciaCas;
 	
 
 	public UnidadeTO() {
@@ -235,5 +251,46 @@ public class UnidadeTO {
 		this.instituicao = instituicao;
 	}
 
+	public String getNumeroCnas() {
+		return numeroCnas;
+	}
+
+	public void setNumeroCnas(String numeroCnas) {
+		this.numeroCnas = numeroCnas;
+	}
+
+	public String getNumeroCdca() {
+		return numeroCdca;
+	}
+
+	public void setNumeroCdca(String numeroCdca) {
+		this.numeroCdca = numeroCdca;
+	}
+
+	public LocalDateTime getDataVigenciaCdca() {
+		return dataVigenciaCdca;
+	}
+
+	public void setDataVigenciaCdca(LocalDateTime dataVigenciaCdca) {
+		this.dataVigenciaCdca = dataVigenciaCdca;
+	}
+
+	public String getNumeroCas() {
+		return numeroCas;
+	}
+
+	public void setNumeroCas(String numeroCas) {
+		this.numeroCas = numeroCas;
+	}
+
+	public LocalDateTime getDataVigenciaCas() {
+		return dataVigenciaCas;
+	}
+
+	public void setDataVigenciaCas(LocalDateTime dataVigenciaCas) {
+		this.dataVigenciaCas = dataVigenciaCas;
+	}
+
+	
 	
 }

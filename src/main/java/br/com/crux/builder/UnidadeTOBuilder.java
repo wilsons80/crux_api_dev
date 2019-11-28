@@ -57,6 +57,12 @@ public class UnidadeTOBuilder {
 		}
 
 		unidade.setIdArquivo(to.getArquivo());
+		
+		unidade.setNumeroCas(to.getNumeroCas());
+		unidade.setNumeroCdca(to.getNumeroCdca());
+		unidade.setDataVigenciaCdca(to.getDataVigenciaCdca());
+		unidade.setNumeroCnas(to.getNumeroCnas());
+		unidade.setDataVigenciaCas(to.getDataVigenciaCas());
 
 		return unidade;
 	}
@@ -97,6 +103,12 @@ public class UnidadeTOBuilder {
 		unidade.setArquivo(to.getIdArquivo());
 
 		unidade.setInstituicao(instituicaoTOBuilder.buildTO(to.getInstituicao()));
+		
+		unidade.setNumeroCas(to.getNumeroCas());
+		unidade.setNumeroCdca(to.getNumeroCdca());
+		unidade.setDataVigenciaCdca(to.getDataVigenciaCdca());
+		unidade.setNumeroCnas(to.getNumeroCnas());
+		unidade.setDataVigenciaCas(to.getDataVigenciaCas());
 
 		return unidade;
 	}

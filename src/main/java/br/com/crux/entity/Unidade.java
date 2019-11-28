@@ -1,5 +1,7 @@
 package br.com.crux.entity;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -107,6 +109,22 @@ public class Unidade{
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_instituicao", nullable = true)
 	private Instituicao instituicao;
+
+	@Column(name = "nr_cnas")
+	private String numeroCnas;
+	
+	@Column(name = "nr_cdca")
+	private String numeroCdca;
+	
+	@Column(name = "dt_vigencia_cdca")
+	private LocalDateTime dataVigenciaCdca;
+	
+	@Column(name = "nr_cas")
+	private String numeroCas;
+	
+	@Column(name = "dt_vigencia_cas")
+	private LocalDateTime dataVigenciaCas;
+	
 	
 	public Unidade() {
 	}
@@ -311,6 +329,47 @@ public class Unidade{
 		this.instituicao = instituicao;
 	}
 
+	public String getNumeroCnas() {
+		return numeroCnas;
+	}
+
+	public void setNumeroCnas(String numeroCnas) {
+		this.numeroCnas = numeroCnas;
+	}
+
+	public String getNumeroCdca() {
+		return numeroCdca;
+	}
+
+	public void setNumeroCdca(String numeroCdca) {
+		this.numeroCdca = numeroCdca;
+	}
+
+	public LocalDateTime getDataVigenciaCdca() {
+		return dataVigenciaCdca;
+	}
+
+	public void setDataVigenciaCdca(LocalDateTime dataVigenciaCdca) {
+		this.dataVigenciaCdca = dataVigenciaCdca;
+	}
+
+	public String getNumeroCas() {
+		return numeroCas;
+	}
+
+	public void setNumeroCas(String numeroCas) {
+		this.numeroCas = numeroCas;
+	}
+
+	public LocalDateTime getDataVigenciaCas() {
+		return dataVigenciaCas;
+	}
+
+	public void setDataVigenciaCas(LocalDateTime dataVigenciaCas) {
+		this.dataVigenciaCas = dataVigenciaCas;
+	}
+
+	
 
 
 }
