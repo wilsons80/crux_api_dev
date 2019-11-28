@@ -34,6 +34,24 @@ public class Instituicao {
 	@Column(name = "st_mostra_lista")
 	@Convert(converter = SimNaoConverter.class)
 	private Boolean mostraLista;
+	
+	@Column(name = "ds_area_autacao	")
+	private String areaAtuacao;
+
+	@Column(name = "ds_apresentacao	")
+	private String apresentacao;
+	
+	@Column(name = "ds_visao")
+	private String visao;
+	
+	@Column(name = "ds_missao")
+	private String missao;
+	
+	@Column(name = "ds_valores")
+	private String valores;
+	
+	@Column(name = "ds_finalidades_estatutarias")
+	private String finalidadesEstatutarias;
 
 	public Instituicao() {
 	}
@@ -77,6 +95,55 @@ public class Instituicao {
 	public void setMostraLista(Boolean mostraLista) {
 		this.mostraLista = mostraLista;
 	}
+
+	public String getAreaAtuacao() {
+		return areaAtuacao;
+	}
+
+	public void setAreaAtuacao(String areaAtuacao) {
+		this.areaAtuacao = areaAtuacao;
+	}
+
+	public String getApresentacao() {
+		return apresentacao;
+	}
+
+	public void setApresentacao(String apresentacao) {
+		this.apresentacao = apresentacao;
+	}
+
+	public String getVisao() {
+		return visao;
+	}
+
+	public void setVisao(String visao) {
+		this.visao = visao;
+	}
+
+	public String getMissao() {
+		return missao;
+	}
+
+	public void setMissao(String missao) {
+		this.missao = missao;
+	}
+
+	public String getValores() {
+		return valores;
+	}
+
+	public void setValores(String valores) {
+		this.valores = valores;
+	}
+
+	public String getFinalidadesEstatutarias() {
+		return finalidadesEstatutarias;
+	}
+
+	public void setFinalidadesEstatutarias(String finalidadesEstatutarias) {
+		this.finalidadesEstatutarias = finalidadesEstatutarias;
+	}
+	
 	
 	
 

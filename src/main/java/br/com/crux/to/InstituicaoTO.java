@@ -10,6 +10,13 @@ public class InstituicaoTO {
 	private Long idArquivo;
 	private Long usuarioAlteracao;
 	private Boolean mostraLista;
+	private String areaAtuacao;
+	private String apresentacao;
+	private String visao;
+	private String missao;
+	private String valores;
+	private String finalidadesEstatutarias;
+	
 	
 	public InstituicaoTO() {
 	}
@@ -54,5 +61,54 @@ public class InstituicaoTO {
 		this.mostraLista = mostraLista;
 	}
 
+	public String getAreaAtuacao() {
+		return areaAtuacao;
+	}
+
+	public void setAreaAtuacao(String areaAtuacao) {
+		this.areaAtuacao = areaAtuacao;
+	}
+
+	public String getApresentacao() {
+		return apresentacao;
+	}
+
+	public void setApresentacao(String apresentacao) {
+		this.apresentacao = apresentacao;
+	}
+
+	public String getVisao() {
+		return visao;
+	}
+
+	public void setVisao(String visao) {
+		this.visao = visao;
+	}
+
+	public String getMissao() {
+		return missao;
+	}
+
+	public void setMissao(String missao) {
+		this.missao = missao;
+	}
+
+	public String getValores() {
+		return valores;
+	}
+
+	public void setValores(String valores) {
+		this.valores = valores;
+	}
+
+	public String getFinalidadesEstatutarias() {
+		return finalidadesEstatutarias;
+	}
+
+	public void setFinalidadesEstatutarias(String finalidadesEstatutarias) {
+		this.finalidadesEstatutarias = finalidadesEstatutarias;
+	}
+
+	
 
 }

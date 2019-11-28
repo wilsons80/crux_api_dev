@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.entity.Instituicao;
@@ -13,35 +14,29 @@ import br.com.crux.to.InstituicaoTO;
 public class InstituicaoTOBuilder {
 
 	public Instituicao build(InstituicaoTO to) {
+
 		Instituicao retorno = new Instituicao();
-
-		retorno.setId(to.getId());
-		retorno.setNome(to.getNome());
-		retorno.setIdArquivo(to.getIdArquivo());
-		retorno.setUsuarioAlteracao(to.getUsuarioAlteracao());
-		retorno.setMostraLista(to.getMostraLista());
-
+		BeanUtils.copyProperties(to, retorno);
+		
 		return retorno;
 	}
 
-	public InstituicaoTO buildTO(Instituicao to) {
-		InstituicaoTO retorno = new InstituicaoTO();
+	public InstituicaoTO buildTO(Instituicao instituicao) {
+		InstituicaoTO to = new InstituicaoTO();
 
-		if (Objects.isNull(to)) {
-			return retorno;
+		if (Objects.isNull(instituicao)) {
+			return to;
 		}
 
-		retorno.setId(to.getId());
-		retorno.setNome(to.getNome());
-		retorno.setIdArquivo(to.getIdArquivo());
-		retorno.setUsuarioAlteracao(to.getUsuarioAlteracao());
-		retorno.setMostraLista(to.getMostraLista());
+		BeanUtils.copyProperties(instituicao, to);
 		
-		return retorno;
+		return to;
 	}
 
 	public List<InstituicaoTO> buildAllTO(List<Instituicao> dtos) {
 		return dtos.stream().map(dto -> buildTO(dto)).collect(Collectors.toList());
 	}
+	
+	
 
 }
