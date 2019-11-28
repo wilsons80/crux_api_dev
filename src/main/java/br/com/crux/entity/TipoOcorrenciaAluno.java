@@ -14,7 +14,7 @@ import br.com.crux.infra.dao.SimNaoConverter;
 
 @Entity
 @Table(name = "tipos_ocorrencias_alunos")
-public class TiposOcorrenciasAlunos  {
+public class TipoOcorrenciaAluno  {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_tipo_ocorrencia_aluno")
@@ -32,7 +32,7 @@ public class TiposOcorrenciasAlunos  {
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
 	
-	public TiposOcorrenciasAlunos() {
+	public TipoOcorrenciaAluno() {
 	}
 
 	public Long getId() {

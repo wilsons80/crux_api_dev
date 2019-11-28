@@ -35,7 +35,7 @@ public class OcorrenciasAlunos  {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_tipo_ocorrencia_aluno")
-	private TiposOcorrenciasAlunos tipoOcorrenciaAluno;
+	private TipoOcorrenciaAluno tipoOcorrenciaAluno;
 	
 	@Column(name="dt_ocorrência")
 	private LocalDateTime dataOcorrencia;
@@ -79,11 +79,11 @@ public class OcorrenciasAlunos  {
 		this.funcionario = funcionario;
 	}
 
-	public TiposOcorrenciasAlunos getTipoOcorrenciaAluno() {
+	public TipoOcorrenciaAluno getTipoOcorrenciaAluno() {
 		return tipoOcorrenciaAluno;
 	}
 
-	public void setTipoOcorrenciaAluno(TiposOcorrenciasAlunos tipoOcorrenciaAluno) {
+	public void setTipoOcorrenciaAluno(TipoOcorrenciaAluno tipoOcorrenciaAluno) {
 		this.tipoOcorrenciaAluno = tipoOcorrenciaAluno;
 	}
 
