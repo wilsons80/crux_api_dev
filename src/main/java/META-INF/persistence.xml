@@ -83,6 +83,6 @@
 		<class>br.com.crux.entity.NiveisTurma</class>
 		<class>br.com.crux.entity.AlunosTurma</class>
 		<class>br.com.crux.entity.TipoOcorrenciaAluno</class>
-		<class>br.com.crux.entity.OcorrenciasAlunos</class>
+		<class>br.com.crux.entity.OcorrenciaAluno</class>
 	</persistence-unit>
 </persistence>

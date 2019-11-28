@@ -17,7 +17,7 @@ import br.com.crux.infra.constantes.Constantes;
 
 @Entity
 @Table(name = "ocorrencias_alunos")
-public class OcorrenciasAlunos  {
+public class OcorrenciaAluno  {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_ocorrencia_aluno")
@@ -52,7 +52,7 @@ public class OcorrenciasAlunos  {
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
 	
-	public OcorrenciasAlunos() {
+	public OcorrenciaAluno() {
 	}
 
 	public Long getId() {
