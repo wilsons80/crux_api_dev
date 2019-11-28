@@ -7,6 +7,11 @@ public class CargoTO {
 	private String nome;
 	private String tipoCargo;
 	private Long usuarioAlteracao;
+	private CboTO cbo;
+	private String descricaoPerfilProfissional;
+	private String descricaoResumoAtividades;	
+	private Long qtdHoras;		
+	
 
 	public CargoTO() {
 	}
@@ -51,4 +56,37 @@ public class CargoTO {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
+	public CboTO getCbo() {
+		return cbo;
+	}
+
+	public void setCbo(CboTO cbo) {
+		this.cbo = cbo;
+	}
+
+	public String getDescricaoPerfilProfissional() {
+		return descricaoPerfilProfissional;
+	}
+
+	public void setDescricaoPerfilProfissional(String descricaoPerfilProfissional) {
+		this.descricaoPerfilProfissional = descricaoPerfilProfissional;
+	}
+
+	public String getDescricaoResumoAtividades() {
+		return descricaoResumoAtividades;
+	}
+
+	public void setDescricaoResumoAtividades(String descricaoResumoAtividades) {
+		this.descricaoResumoAtividades = descricaoResumoAtividades;
+	}
+
+	public Long getQtdHoras() {
+		return qtdHoras;
+	}
+
+	public void setQtdHoras(Long qtdHoras) {
+		this.qtdHoras = qtdHoras;
+	}
+
+	
 }

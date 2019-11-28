@@ -1,7 +1,5 @@
 package br.com.crux.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,8 +20,7 @@ import br.com.crux.infra.constantes.Constantes;
 
 @Entity
 @Table(name="cargos")
-public class Cargo implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Cargo{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_cargo")
@@ -56,7 +53,9 @@ public class Cargo implements Serializable {
 	@Column(name="ds_resumo_atividades")
 	private String descricaoResumoAtividades;	
 	
-	
+	@Column(name="qt_horas")
+	private Long qtdHoras;	
+
 	public Cargo() {
 	}
 
@@ -124,6 +123,15 @@ public class Cargo implements Serializable {
 		this.descricaoResumoAtividades = descricaoResumoAtividades;
 	}
 
+	public Long getQtdHoras() {
+		return qtdHoras;
+	}
+
+	public void setQtdHoras(Long qtdHoras) {
+		this.qtdHoras = qtdHoras;
+	}
+
+	
 	
 
 }
