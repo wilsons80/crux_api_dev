@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,17 +23,12 @@ public class MetasTOBuilder {
 	public Metas build(MetasTO param) {
 		Metas retorno = new Metas();
 
-		retorno.setIdMeta(param.getId());
-		retorno.setDataInicio(param.getDataInicio());
-		retorno.setDataFim(param.getDataFim());
-		retorno.setDescricao(param.getNome());
+		BeanUtils.copyProperties(param, retorno, "indicadores");
 
 		Optional.ofNullable(param.getIndicadores()).ifPresent(i -> {
 			Indicadores indicadores = getIndicadoresCmd.getById(i.getIdIndicador());
 			retorno.setIndicadores(indicadores);
 		});
-
-		retorno.setUsuarioAlteracao(param.getUsuarioAlteracao());
 
 		return retorno;
 	}
@@ -44,12 +40,9 @@ public class MetasTOBuilder {
 			return retorno;
 		}
 
-		retorno.setId(param.getIdMeta());
-		retorno.setDataInicio(param.getDataInicio());
-		retorno.setDataFim(param.getDataFim());
-		retorno.setNome(param.getDescricao());
+		BeanUtils.copyProperties(param, retorno, "indicadores");
+
 		retorno.setIndicadores(indicadorTOBuilder.buildTO(param.getIndicadores()));
-		retorno.setUsuarioAlteracao(param.getUsuarioAlteracao());
 
 		return retorno;
 	}

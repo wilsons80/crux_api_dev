@@ -9,14 +9,19 @@ import br.com.crux.infra.adapter.LocalDateTimeAdapter;
 public class MetasTO {
 
 	private Long id;
+	private String descricao;
 	private String nome;
 	private IndicadoresTO indicadores;
 	private Long usuarioAlteracao;
 
-	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class) 
 	private LocalDateTime dataFim;
-	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class) 
 	private LocalDateTime dataInicio;
+
+	private Long qtdMetas;
+
+	private String descricaoFormula;
 
 	public MetasTO() {
 	}
@@ -69,5 +74,30 @@ public class MetasTO {
 		this.dataInicio = dataInicio;
 	}
 
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public Long getQtdMetas() {
+		return qtdMetas;
+	}
+
+	public void setQtdMetas(Long qtdMetas) {
+		this.qtdMetas = qtdMetas;
+	}
+
+	public String getDescricaoFormula() {
+		return descricaoFormula;
+	}
+
+	public void setDescricaoFormula(String descricaoFormula) {
+		this.descricaoFormula = descricaoFormula;
+	}
+	
+	
 
 }

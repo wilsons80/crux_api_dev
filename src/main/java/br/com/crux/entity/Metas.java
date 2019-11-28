@@ -26,11 +26,13 @@ public class Metas implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_meta")
 	@SequenceGenerator(name = "sq_id_meta", sequenceName = "sq_id_meta", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_meta")
-	private Long idMeta;
+	private Long id;
+	
+	@Column(name="nm_meta")
+	private String nome;	
 
 	@Column(name="ds_meta")
 	private String descricao;
-
 	
 	@Column(name="dt_fim_meta")
 	private LocalDateTime dataFim;
@@ -51,19 +53,16 @@ public class Metas implements Serializable {
 	@Column(name="ds_formula_meta")
 	private String descricaoFormula;	
 	
-	@Column(name="nm_meta")
-	private String nome;	
-
 	
 	public Metas() {
 	}
 
-	public Long getIdMeta() {
-		return this.idMeta;
+	public Long getId() {
+		return this.id;
 	}
 
-	public void setIdMeta(Long idMeta) {
-		this.idMeta = idMeta;
+	public void setId(Long idMeta) {
+		this.id = idMeta;
 	}
 
 	public String getDescricao() {
