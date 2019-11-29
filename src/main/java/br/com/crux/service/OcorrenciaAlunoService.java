@@ -29,6 +29,11 @@ public class OcorrenciaAlunoService {
 	@Autowired private AlterarOcorrenciaAlunoCmd alterarCmd;
 	@Autowired private CadastrarOcorrenciaAlunoCmd cadastrarCmd;
 
+	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<OcorrenciaAlunoTO> getAll() {
+		return getCmd.getAllFilter(null,  null);
+	}	
+	
 	@GetMapping(path = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<OcorrenciaAlunoTO> getAllFilter(@RequestParam(name = "tipoocorrencia", required = false) Long idTipoOcorrencia,
                                                 @RequestParam(name = "aluno", required = false) Long idAluno) {

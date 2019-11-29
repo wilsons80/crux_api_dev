@@ -37,7 +37,7 @@ public class OcorrenciaAluno  {
 	@JoinColumn(name="id_tipo_ocorrencia_aluno")
 	private TipoOcorrenciaAluno tipoOcorrenciaAluno;
 	
-	@Column(name="dt_ocorrência")
+	@Column(name="dt_ocorrencia")
 	private LocalDateTime dataOcorrencia;
 	
 	@Column(name = "ds_ocorrencia")
@@ -46,7 +46,7 @@ public class OcorrenciaAluno  {
 	@Column(name = "ds_local_ocorrencia")
 	private String local;
 
-	@Column(name="dt_ciencia_ocorrência")
+	@Column(name="dt_ciencia_ocorrencia")
 	private LocalDateTime dataCiencia;
 	
 	@Column(name="id_usuario_apl")
