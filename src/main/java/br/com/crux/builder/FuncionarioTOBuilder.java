@@ -30,8 +30,12 @@ public class FuncionarioTOBuilder {
 	@Autowired private GetUnidadeCmd getUnidadeCmd;
 	@Autowired private GetCargosCmd getCargosCmd;
 	@Autowired private GetEmpresaCmd getEmpresaCmd;
+	@Autowired private DepartamentoTOBuilder departamentoTOBuilder;
+	@Autowired private ProgramaTOBuilder programaTOBuilder;
+	@Autowired private DependentesTOBuilder dependentesTOBuilder;
 
-	public Funcionario build(FuncionarioTO to) {
+	
+	public Funcionario buildSemDependentes(FuncionarioTO to) {
 
 		Funcionario retorno = new Funcionario();
 
@@ -83,12 +87,36 @@ public class FuncionarioTOBuilder {
 			}
 		});
 
+		retorno.setDescontaValeTransporte(to.getDescontaValeTransporte());
+		
+		Optional.ofNullable(to.getDepartamento()).ifPresent( d -> {
+			retorno.setDepartamento(departamentoTOBuilder.build(to.getDepartamento()));
+		});
+		
+		Optional.ofNullable(to.getPrograma()).ifPresent( d -> {
+			retorno.setPrograma(programaTOBuilder.build(to.getPrograma()));
+		});
+		
+		
 		retorno.setUsuarioAlteracao(to.getUsuarioAlteracao());
 
 		return retorno;
 	}
+	
+	
+	public Funcionario build(FuncionarioTO to) {
+		Funcionario retorno = new Funcionario();
+		
+		retorno = buildSemDependentes(to);
+		if (Objects.nonNull(to.getDependentes())) {
+			retorno.setDependentes(dependentesTOBuilder.buildTOAll(to.getDependentes()));
+		}
+		
+		return retorno;
+	}
 
-	public FuncionarioTO buildTO(Funcionario p) {
+	
+	public FuncionarioTO buildTOSemDependentes(Funcionario p) {
 		FuncionarioTO retorno = new FuncionarioTO();
 
 		if (Objects.isNull(p)) {
@@ -136,8 +164,31 @@ public class FuncionarioTOBuilder {
 
 		retorno.setFuncionarioEntrevistador(getFuncionarioEntrevistador(p.getFuncionarioEntrevistador()));
 
+		retorno.setDescontaValeTransporte(p.getDescontaValeTransporte());
+		
+		Optional.ofNullable(p.getDepartamento()).ifPresent( d -> {
+			retorno.setDepartamento(departamentoTOBuilder.buildTO(p.getDepartamento()));
+		});
+		
+		Optional.ofNullable(p.getPrograma()).ifPresent( d -> {
+			retorno.setPrograma(programaTOBuilder.buildTO(p.getPrograma()));
+		});
+		
+		
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
+		return retorno;
+	}
+	
+	
+	public FuncionarioTO buildTO(Funcionario p) {
+		FuncionarioTO retorno = new FuncionarioTO();
+		
+		retorno = buildTOSemDependentes(p);
+		if (Objects.nonNull(p.getDependentes())) {
+			retorno.setDependentes(dependentesTOBuilder.buildAll(p.getDependentes()));
+		}
+		
 		return retorno;
 	}
 

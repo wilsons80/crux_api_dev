@@ -1,6 +1,7 @@
 package br.com.crux.to;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -35,6 +36,12 @@ public class FuncionarioTO {
 	private EmpresaTO empresaFuncionario;
 
 	private Long usuarioAlteracao;
+	
+	private Boolean descontaValeTransporte;
+	private DepartamentoTO departamento;
+	private ProgramaTO programa;
+	
+	private List<DependentesTO> dependentes;		
 
 	public FuncionarioTO() {
 	}
@@ -166,5 +173,39 @@ public class FuncionarioTO {
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
+
+	public Boolean getDescontaValeTransporte() {
+		return descontaValeTransporte;
+	}
+
+	public void setDescontaValeTransporte(Boolean descontaValeTransporte) {
+		this.descontaValeTransporte = descontaValeTransporte;
+	}
+
+	public DepartamentoTO getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(DepartamentoTO departamento) {
+		this.departamento = departamento;
+	}
+
+	public ProgramaTO getPrograma() {
+		return programa;
+	}
+
+	public void setPrograma(ProgramaTO programa) {
+		this.programa = programa;
+	}
+
+	public List<DependentesTO> getDependentes() {
+		return dependentes;
+	}
+
+	public void setDependentes(List<DependentesTO> dependentes) {
+		this.dependentes = dependentes;
+	}
+
+	
 
 }

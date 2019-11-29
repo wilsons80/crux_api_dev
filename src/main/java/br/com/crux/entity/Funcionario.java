@@ -307,6 +307,17 @@ public class Funcionario implements Serializable {
 	public void setPrograma(Programa programa) {
 		this.programa = programa;
 	}
+
+
+	public List<Dependentes> getDependentes() {
+		return dependentes;
+	}
+
+
+	public void setDependentes(List<Dependentes> dependentes) {
+		this.dependentes = dependentes;
+	}
+	
 	
 
 }

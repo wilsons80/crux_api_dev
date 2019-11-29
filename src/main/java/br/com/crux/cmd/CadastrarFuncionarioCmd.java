@@ -17,6 +17,7 @@ public class CadastrarFuncionarioCmd {
 	@Autowired private CamposObrigatoriosFuncionarioRule camposObrigatoriosFuncionarioRule;
 	@Autowired private CadastrarPessoaFisicaCmd cadastrarPessoaFisicaCmd;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
+	@Autowired private CadastrarDependentesFuncionarioCmd cadastrarDependentesFuncionarioCmd;
 
 	public FuncionarioTO cadastrar(FuncionarioTO to) {
 		camposObrigatoriosFuncionarioRule.verificar(to);
@@ -26,8 +27,13 @@ public class CadastrarFuncionarioCmd {
 
 		entity.setPessoasFisica(cadastrarPessoaFisicaCmd.cadastrar(to.getPessoasFisica()));
 		Funcionario funcionario = repository.save(entity);
+		
+		cadastrarDependentesFuncionarioCmd.cadastrar(to.getDependentes(), funcionarioTOBuilder.buildTO(funcionario));
 
 		return funcionarioTOBuilder.buildTO(funcionario);
 
 	}
+	
+	
+	
 }

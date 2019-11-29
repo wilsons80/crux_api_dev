@@ -18,6 +18,7 @@ public class AlterarFuncionarioCmd {
 	@Autowired private CamposObrigatoriosFuncionarioRule camposObrigatoriosFuncionarioRule;
 	@Autowired private FuncionarioTOBuilder funcionarioTOBuilder;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
+	@Autowired private AlterarDependentesCmd alterarDependentesCmd;
 
 	public FuncionarioTO alterar(FuncionarioTO to) {
 		
@@ -30,6 +31,8 @@ public class AlterarFuncionarioCmd {
 		
 		funcionario.setPessoasFisica(alterarPessoaFisicaCmd.alterar(to.getPessoasFisica()));
 
+		alterarDependentesCmd.alterarAll(to.getDependentes(), to);
+		
 		Funcionario funcionarioSalvo = repository.save(funcionario);
 		
 		return funcionarioTOBuilder.buildTO(funcionarioSalvo);
