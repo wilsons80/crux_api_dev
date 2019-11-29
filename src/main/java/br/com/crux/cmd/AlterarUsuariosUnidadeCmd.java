@@ -1,5 +1,7 @@
 package br.com.crux.cmd;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -31,7 +33,7 @@ public class AlterarUsuariosUnidadeCmd {
 	
 	public void alterarAll(List<UsuariosUnidadesTO> usuariosUnidadesTO, Long idUsuarioSistema) {
 		//Lista da unidades que o usuário tem acesso.
-		Optional<List<UsuariosUnidade>> usuariosUnidades = usuariosUnidadeRepository.findByUsuarioSistema(idUsuarioSistema);
+		List<UsuariosUnidade> usuariosUnidades = usuariosUnidadeRepository.findByUsuarioSistema(idUsuarioSistema).orElse(new ArrayList<UsuariosUnidade>());
 		
 		BiPredicate<UsuariosUnidadesTO, List<UsuariosUnidadesTO>> contemNaLista  = (parte, lista) -> lista.stream()
 				                                                                                   .anyMatch(parteNova -> Objects.nonNull(parteNova.getUnidade().getIdUnidade())
@@ -40,7 +42,7 @@ public class AlterarUsuariosUnidadeCmd {
 		
 		
 		//Remove da lista todos os registros que não contém no Banco de Dados
-		usuariosUnidades.get().removeIf(registro -> {
+		usuariosUnidades.removeIf(registro -> {
 														if(!contemNaLista.test(usuarioUnidadeTOBuilder.buildTO(registro), usuariosUnidadesTO)){
 															usuariosUnidadeRepository.delete(registro); 
 															return true;
