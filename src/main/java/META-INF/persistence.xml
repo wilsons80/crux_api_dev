@@ -84,5 +84,27 @@
 		<class>br.com.crux.entity.AlunosTurma</class>
 		<class>br.com.crux.entity.TipoOcorrenciaAluno</class>
 		<class>br.com.crux.entity.OcorrenciaAluno</class>
+		<class>br.com.crux.entity.AlocacoesFuncionario</class>
+		<class>br.com.crux.entity.ColaboradoresTurma</class>
+		<class>br.com.crux.entity.ComposicaoRhPrograma</class>
+		<class>br.com.crux.entity.ComposicaoRhProjeto</class>
+		<class>br.com.crux.entity.IndicadoresPrograma</class>
+		<class>br.com.crux.entity.IndicadoresProjeto</class>
+		<class>br.com.crux.entity.IndicadoresUnidade</class>
+		<class>br.com.crux.entity.MateriaisPrograma</class>
+		<class>br.com.crux.entity.MateriaisProjeto</class>
+		<class>br.com.crux.entity.MetasPrograma</class>
+		<class>br.com.crux.entity.MetasProjeto</class>
+		<class>br.com.crux.entity.MetasUnidade</class>
+		<class>br.com.crux.entity.ObjetivosPrograma</class>
+		<class>br.com.crux.entity.ObjetivosProjeto</class>
+		<class>br.com.crux.entity.ObjetivosUnidade</class>
+		<class>br.com.crux.entity.ParceriasPrograma</class>
+		<class>br.com.crux.entity.ParceriasProjeto</class>
+		<class>br.com.crux.entity.PrestacoesConta</class>
+		<class>br.com.crux.entity.ProgramasUnidade</class>
+		<class>br.com.crux.entity.ProjetosUnidade</class>
+		<class>br.com.crux.entity.TiposContratacoes</class>
+		<class>br.com.crux.entity.Material</class>
 	</persistence-unit>
 </persistence>
