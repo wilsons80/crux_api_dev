@@ -34,7 +34,6 @@ public class AlterarFuncionarioCmd {
 		alterarDependentesCmd.alterarAll(to.getDependentes(), to);
 		
 		Funcionario funcionarioSalvo = repository.save(funcionario);
-		
 		return funcionarioTOBuilder.buildTO(funcionarioSalvo);
 
 	}

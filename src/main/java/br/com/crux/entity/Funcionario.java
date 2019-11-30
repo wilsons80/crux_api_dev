@@ -113,7 +113,11 @@ public class Funcionario implements Serializable {
 	
 	
 	@OneToMany(mappedBy="funcionario")
-	private List<Dependentes> dependentes;	
+	private List<Dependentes> dependentes;
+	
+	@OneToMany(mappedBy="funcionario")
+	private List<AlocacoesFuncionario> alocacoesFuncionario;
+	
 
 	public Funcionario() {
 	}
@@ -316,6 +320,16 @@ public class Funcionario implements Serializable {
 
 	public void setDependentes(List<Dependentes> dependentes) {
 		this.dependentes = dependentes;
+	}
+
+
+	public List<AlocacoesFuncionario> getAlocacoesFuncionario() {
+		return alocacoesFuncionario;
+	}
+
+
+	public void setAlocacoesFuncionario(List<AlocacoesFuncionario> alocacoesFuncionario) {
+		this.alocacoesFuncionario = alocacoesFuncionario;
 	}
 	
 	

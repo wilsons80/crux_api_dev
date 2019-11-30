@@ -33,9 +33,9 @@ public class FuncionarioTOBuilder {
 	@Autowired private DepartamentoTOBuilder departamentoTOBuilder;
 	@Autowired private ProgramaTOBuilder programaTOBuilder;
 	@Autowired private DependentesTOBuilder dependentesTOBuilder;
+	@Autowired private AlocacoesFuncionarioTOBuilder alocacoesFuncionarioTOBuilder;
 
-	
-	public Funcionario buildSemDependentes(FuncionarioTO to) {
+	public Funcionario buildSemRelacionamentosCircular(FuncionarioTO to) {
 
 		Funcionario retorno = new Funcionario();
 
@@ -107,16 +107,20 @@ public class FuncionarioTOBuilder {
 	public Funcionario build(FuncionarioTO to) {
 		Funcionario retorno = new Funcionario();
 		
-		retorno = buildSemDependentes(to);
+		retorno = buildSemRelacionamentosCircular(to);
 		if (Objects.nonNull(to.getDependentes())) {
 			retorno.setDependentes(dependentesTOBuilder.buildTOAll(to.getDependentes()));
+		}
+		
+		if (Objects.nonNull(to.getAlocacoesFuncionario())) {
+			retorno.setAlocacoesFuncionario(alocacoesFuncionarioTOBuilder.buildTOAll(to.getAlocacoesFuncionario()));
 		}
 		
 		return retorno;
 	}
 
 	
-	public FuncionarioTO buildTOSemDependentes(Funcionario p) {
+	public FuncionarioTO buildTOSemRelacionamentosCircular(Funcionario p) {
 		FuncionarioTO retorno = new FuncionarioTO();
 
 		if (Objects.isNull(p)) {
@@ -184,7 +188,7 @@ public class FuncionarioTOBuilder {
 	public FuncionarioTO buildTO(Funcionario p) {
 		FuncionarioTO retorno = new FuncionarioTO();
 		
-		retorno = buildTOSemDependentes(p);
+		retorno = buildTOSemRelacionamentosCircular(p);
 		if (Objects.nonNull(p.getDependentes())) {
 			retorno.setDependentes(dependentesTOBuilder.buildAll(p.getDependentes()));
 		}

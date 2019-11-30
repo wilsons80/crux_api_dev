@@ -41,7 +41,9 @@ public class FuncionarioTO {
 	private DepartamentoTO departamento;
 	private ProgramaTO programa;
 	
-	private List<DependentesTO> dependentes;		
+	private List<DependentesTO> dependentes;	
+	
+	private List<AlocacoesFuncionarioTO> alocacoesFuncionario;
 
 	public FuncionarioTO() {
 	}
@@ -204,6 +206,14 @@ public class FuncionarioTO {
 
 	public void setDependentes(List<DependentesTO> dependentes) {
 		this.dependentes = dependentes;
+	}
+
+	public List<AlocacoesFuncionarioTO> getAlocacoesFuncionario() {
+		return alocacoesFuncionario;
+	}
+
+	public void setAlocacoesFuncionario(List<AlocacoesFuncionarioTO> alocacoesFuncionario) {
+		this.alocacoesFuncionario = alocacoesFuncionario;
 	}
 
 	
