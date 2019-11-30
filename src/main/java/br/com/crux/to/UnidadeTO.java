@@ -291,6 +291,31 @@ public class UnidadeTO {
 		this.dataVigenciaCas = dataVigenciaCas;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idUnidade == null) ? 0 : idUnidade.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UnidadeTO other = (UnidadeTO) obj;
+		if (idUnidade == null) {
+			if (other.idUnidade != null)
+				return false;
+		} else if (!idUnidade.equals(other.idUnidade))
+			return false;
+		return true;
+	}
+
 	
 	
 }

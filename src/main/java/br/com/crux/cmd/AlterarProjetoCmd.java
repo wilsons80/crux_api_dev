@@ -17,10 +17,10 @@ public class AlterarProjetoCmd {
 	@Autowired private CamposObrigatoriosProjetoRule camposObrigatoriosRule;
 	@Autowired private ProjetoTOBuilder projetoTOBuilder;
 	@Autowired private AlterarProjetoUnidadesCmd alterarProjetoUnidadesCmd;
-
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 
 	public void alterar(ProjetoTO to) {
+		
 		camposObrigatoriosRule.verificar(to);
 
 		Projeto entity = repository.findById(to.getId()).orElseThrow(() -> new NotFoundException("Projeto informado não existe."));
@@ -28,11 +28,10 @@ public class AlterarProjetoCmd {
 		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 
 		entity = projetoTOBuilder.build(to);
-
-		alterarProjetoUnidadesCmd.alterarAll(to.getUnidades(), to.getId());
 		
-		repository.save(entity);
+		Projeto projeto = repository.save(entity);
 		
+		alterarProjetoUnidadesCmd.alterarAll(to.getUnidades(), projeto);
 		
 
 	}
