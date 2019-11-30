@@ -164,10 +164,7 @@ public class FuncionarioTOBuilder {
 		retorno.setFuncionarioEntrevistador(getFuncionarioEntrevistador(p.getFuncionarioEntrevistador()));
 
 		retorno.setDescontaValeTransporte(p.getDescontaValeTransporte());
-		
-		Optional.ofNullable(p.getDepartamento()).ifPresent( d -> {
-			retorno.setDepartamento(departamentoTOBuilder.buildTO(p.getDepartamento()));
-		});
+		retorno.setDepartamento(departamentoTOBuilder.buildTO(p.getDepartamento()));
 		
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
@@ -226,6 +223,9 @@ public class FuncionarioTOBuilder {
 		});
 
 		retorno.setEmpresaFuncionario(empresaTOBuilder.buildTO(p.getEmpresaFuncionario()));
+		
+		retorno.setDescontaValeTransporte(p.getDescontaValeTransporte());
+		retorno.setDepartamento(departamentoTOBuilder.buildTO(p.getDepartamento()));
 
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
@@ -273,6 +273,12 @@ public class FuncionarioTOBuilder {
 		Optional.ofNullable(p.getConclusaoParecer()).ifPresent(cp -> {
 			retorno.setConclusaoParecer(ConclusaoParecer.getPorTipo(cp));
 		});
+		
+		retorno.setDescontaValeTransporte(p.getDescontaValeTransporte());
+		
+		Optional.ofNullable(p.getDepartamento()).ifPresent( d -> {
+			retorno.setDepartamento(departamentoTOBuilder.build(p.getDepartamento()));
+		});		
 
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
