@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.cmd.GetCargosCmd;
+import br.com.crux.cmd.GetDepartamentoCmd;
 import br.com.crux.cmd.GetEmpresaCmd;
 import br.com.crux.cmd.GetUnidadeCmd;
 import br.com.crux.entity.Cargo;
+import br.com.crux.entity.Departamentos;
 import br.com.crux.entity.Empresa;
 import br.com.crux.entity.Funcionario;
 import br.com.crux.entity.Unidade;
@@ -33,6 +35,7 @@ public class FuncionarioTOBuilder {
 	@Autowired private DepartamentoTOBuilder departamentoTOBuilder;
 	@Autowired private DependentesTOBuilder dependentesTOBuilder;
 	@Autowired private AlocacoesFuncionarioTOBuilder alocacoesFuncionarioTOBuilder;
+	@Autowired private GetDepartamentoCmd getDepartamentoCmd;
 
 	public Funcionario buildSemRelacionamentosCircular(FuncionarioTO to) {
 
@@ -89,7 +92,8 @@ public class FuncionarioTOBuilder {
 		retorno.setDescontaValeTransporte(to.getDescontaValeTransporte());
 		
 		Optional.ofNullable(to.getDepartamento()).ifPresent( d -> {
-			retorno.setDepartamento(departamentoTOBuilder.build(to.getDepartamento()));
+			Departamentos departamento = getDepartamentoCmd.getById(d.getIdDepartamento());
+			retorno.setDepartamento(departamento);
 		});
 
 		
