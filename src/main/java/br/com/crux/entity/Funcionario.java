@@ -107,11 +107,6 @@ public class Funcionario implements Serializable {
 	@JoinColumn(name="id_departamento")
 	private Departamentos departamento;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_programa")
-	private Programa programa;	
-	
-	
 	@OneToMany(mappedBy="funcionario")
 	private List<Dependentes> dependentes;
 	
@@ -300,16 +295,6 @@ public class Funcionario implements Serializable {
 
 	public void setDepartamento(Departamentos departamento) {
 		this.departamento = departamento;
-	}
-
-
-	public Programa getPrograma() {
-		return programa;
-	}
-
-
-	public void setPrograma(Programa programa) {
-		this.programa = programa;
 	}
 
 

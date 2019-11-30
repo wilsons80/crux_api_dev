@@ -39,10 +39,8 @@ public class FuncionarioTO {
 	
 	private Boolean descontaValeTransporte;
 	private DepartamentoTO departamento;
-	private ProgramaTO programa;
 	
 	private List<DependentesTO> dependentes;	
-	
 	private List<AlocacoesFuncionarioTO> alocacoesFuncionario;
 
 	public FuncionarioTO() {
@@ -190,14 +188,6 @@ public class FuncionarioTO {
 
 	public void setDepartamento(DepartamentoTO departamento) {
 		this.departamento = departamento;
-	}
-
-	public ProgramaTO getPrograma() {
-		return programa;
-	}
-
-	public void setPrograma(ProgramaTO programa) {
-		this.programa = programa;
 	}
 
 	public List<DependentesTO> getDependentes() {

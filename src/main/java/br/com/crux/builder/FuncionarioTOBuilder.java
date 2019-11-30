@@ -31,7 +31,6 @@ public class FuncionarioTOBuilder {
 	@Autowired private GetCargosCmd getCargosCmd;
 	@Autowired private GetEmpresaCmd getEmpresaCmd;
 	@Autowired private DepartamentoTOBuilder departamentoTOBuilder;
-	@Autowired private ProgramaTOBuilder programaTOBuilder;
 	@Autowired private DependentesTOBuilder dependentesTOBuilder;
 	@Autowired private AlocacoesFuncionarioTOBuilder alocacoesFuncionarioTOBuilder;
 
@@ -92,11 +91,7 @@ public class FuncionarioTOBuilder {
 		Optional.ofNullable(to.getDepartamento()).ifPresent( d -> {
 			retorno.setDepartamento(departamentoTOBuilder.build(to.getDepartamento()));
 		});
-		
-		Optional.ofNullable(to.getPrograma()).ifPresent( d -> {
-			retorno.setPrograma(programaTOBuilder.build(to.getPrograma()));
-		});
-		
+
 		
 		retorno.setUsuarioAlteracao(to.getUsuarioAlteracao());
 
@@ -173,11 +168,6 @@ public class FuncionarioTOBuilder {
 		Optional.ofNullable(p.getDepartamento()).ifPresent( d -> {
 			retorno.setDepartamento(departamentoTOBuilder.buildTO(p.getDepartamento()));
 		});
-		
-		Optional.ofNullable(p.getPrograma()).ifPresent( d -> {
-			retorno.setPrograma(programaTOBuilder.buildTO(p.getPrograma()));
-		});
-		
 		
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
