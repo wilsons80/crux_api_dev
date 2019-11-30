@@ -17,6 +17,7 @@ public class AlterarProgramaCmd {
 	@Autowired private CamposObrigatoriosProgramaRule camposObrigatoriosRule;
 	@Autowired private ProgramaTOBuilder programaTOBuilder;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
+	@Autowired private AlterarProgramaUnidadesCmd alterarProgramaUnidadesCmd;
 
 	public void alterar(ProgramaTO to) {
 		Programa entity = repository.findById(to.getId()).orElseThrow(() -> new NotFoundException("Programa informado não existe."));
@@ -27,7 +28,9 @@ public class AlterarProgramaCmd {
 
 		entity = programaTOBuilder.build(to);
 
-		repository.save(entity);
+		Programa programa = repository.save(entity);
+
+		alterarProgramaUnidadesCmd.alterarAll(to.getUnidades(), programa);
 
 	}
 }

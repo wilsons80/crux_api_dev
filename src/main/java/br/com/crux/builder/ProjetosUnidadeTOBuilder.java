@@ -23,12 +23,5 @@ public class ProjetosUnidadeTOBuilder {
 		return projetosUnidade;
 	}
 
-//	public ProjetoTO buildTO(Projeto p) {
-//			return null;
-//	}
-//
-//	public List<ProjetoTO> buildAll(List<Projeto> dtos) {
-//		return dtos.stream().map(dto -> buildTO(dto)).collect(Collectors.toList());
-//	}
 
 }

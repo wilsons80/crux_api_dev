@@ -17,12 +17,9 @@ import br.com.crux.to.UnidadeTO;
 @Component
 public class CadastrarProjetosUnidadeCmd {
 
-	@Autowired
-	ProjetosUnidadeRepository projetosUnidadeRepository;
-	@Autowired
-	UnidadeTOBuilder unidadeTOBuilder;
-	@Autowired
-	ProjetosUnidadeTOBuilder projetosUnidadeTOBuilder;
+	@Autowired ProjetosUnidadeRepository projetosUnidadeRepository;
+	@Autowired UnidadeTOBuilder unidadeTOBuilder;
+	@Autowired ProjetosUnidadeTOBuilder projetosUnidadeTOBuilder;
 
 	public ProjetosUnidade cadastrar(Projeto projeto, Unidade unidade) {
 		ProjetosUnidade projetosUnidade = projetosUnidadeTOBuilder.build(projeto, unidade);
