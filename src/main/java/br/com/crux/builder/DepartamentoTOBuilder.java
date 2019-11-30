@@ -23,6 +23,7 @@ public class DepartamentoTOBuilder {
 
 	public Departamentos build(DepartamentoTO to) {
 		Departamentos entity = new Departamentos();
+		
 		entity.setIdDepartamento(to.getIdDepartamento());
 		entity.setCdUnidadeDepartamento(to.getCdUnidadeDepartamento());
 		entity.setDsEnderecoDepartamento(to.getDsEnderecoDepartamento());
@@ -47,7 +48,7 @@ public class DepartamentoTOBuilder {
 	public DepartamentoTO buildTO(Departamentos d) {
 		DepartamentoTO to = new DepartamentoTO();
 
-		if (Objects.isNull(to)) {
+		if (Objects.isNull(d)) {
 			return to;
 		}
 
@@ -67,7 +68,7 @@ public class DepartamentoTOBuilder {
 	private DepartamentoTO buildTODepartamentoSuperior(Departamentos dto) {
 		DepartamentoTO to = new DepartamentoTO();
 		
-		if (Objects.isNull(to) || Objects.isNull(to.getIdDepartamento())) {
+		if (Objects.isNull(dto) || Objects.isNull(dto.getIdDepartamento())) {
 			return to;
 		}
 		
