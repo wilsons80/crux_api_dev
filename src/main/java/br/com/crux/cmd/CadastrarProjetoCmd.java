@@ -16,16 +16,20 @@ public class CadastrarProjetoCmd {
 	@Autowired private ProjetoTOBuilder projetoTOBuilder;
 	@Autowired private CamposObrigatoriosProjetoRule camposObrigatoriosRule;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
+	@Autowired private CadastrarProjetosUnidadeCmd cadastrarProjetosUnidadeCmd;
 
 	public void cadastrar(ProjetoTO to) {
 
 		camposObrigatoriosRule.verificar(to);
 
 		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
-
+		
 		Projeto entity = projetoTOBuilder.build(to);
 
-		repository.save(entity);
+		Projeto projeto = repository.save(entity);
+		
+		cadastrarProjetosUnidadeCmd.cadastrarLista(projeto, to.getUnidades());
+		
 
 	}
 }

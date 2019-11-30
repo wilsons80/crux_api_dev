@@ -1,6 +1,7 @@
 package br.com.crux.to;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -22,6 +23,9 @@ public class ProjetoTO {
 	private LocalDateTime dataPrevisaoTermino;
 	
 	private ProgramaTO programa;
+	
+	private List<UnidadeTO> unidades;
+	
 	private Long usuarioAlteracao;
 
 	public ProjetoTO() {
@@ -98,6 +102,14 @@ public class ProjetoTO {
 
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
+	}
+
+	public List<UnidadeTO> getUnidades() {
+		return unidades;
+	}
+
+	public void setUnidades(List<UnidadeTO> unidadeTO) {
+		this.unidades = unidadeTO;
 	}
 
 	

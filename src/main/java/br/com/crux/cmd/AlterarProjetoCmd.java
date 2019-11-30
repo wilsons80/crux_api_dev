@@ -16,6 +16,7 @@ public class AlterarProjetoCmd {
 	@Autowired private ProjetoRepository repository;
 	@Autowired private CamposObrigatoriosProjetoRule camposObrigatoriosRule;
 	@Autowired private ProjetoTOBuilder projetoTOBuilder;
+	@Autowired private AlterarProjetoUnidadesCmd alterarProjetoUnidadesCmd;
 
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 
@@ -28,7 +29,11 @@ public class AlterarProjetoCmd {
 
 		entity = projetoTOBuilder.build(to);
 
+		alterarProjetoUnidadesCmd.alterarAll(to.getUnidades(), to.getId());
+		
 		repository.save(entity);
+		
+		
 
 	}
 }
