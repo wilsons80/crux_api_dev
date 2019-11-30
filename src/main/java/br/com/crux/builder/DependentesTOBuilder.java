@@ -21,7 +21,7 @@ public class DependentesTOBuilder {
 		Dependentes retorno = new Dependentes();
 		
 		retorno.setId(to.getId());
-		retorno.setFuncionario(funcionarioTOBuilder.buildSemDependentes(to.getFuncionario()));
+		retorno.setFuncionario(funcionarioTOBuilder.buildSemRelacionamentosCircular(to.getFuncionario()));
 		retorno.setPessoaFisica(pessoaFisicaTOBuilder.build(to.getPessoaFisica()));
 		
 		retorno.setDescricaoGrauParentesco(to.getDescricaoGrauParentesco());
@@ -41,7 +41,7 @@ public class DependentesTOBuilder {
 		}
 
 		retorno.setId(p.getId());
-		retorno.setFuncionario(funcionarioTOBuilder.buildTOSemDependentes(p.getFuncionario()));
+		retorno.setFuncionario(funcionarioTOBuilder.buildTOSemRelacionamentosCircular(p.getFuncionario()));
 		retorno.setPessoaFisica(pessoaFisicaTOBuilder.buildTO(p.getPessoaFisica()));
 		
 		retorno.setDescricaoGrauParentesco(p.getDescricaoGrauParentesco());

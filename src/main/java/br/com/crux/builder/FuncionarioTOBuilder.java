@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.cmd.GetCargosCmd;
+import br.com.crux.cmd.GetDepartamentoCmd;
 import br.com.crux.cmd.GetEmpresaCmd;
 import br.com.crux.cmd.GetUnidadeCmd;
 import br.com.crux.entity.Cargo;
+import br.com.crux.entity.Departamentos;
 import br.com.crux.entity.Empresa;
 import br.com.crux.entity.Funcionario;
 import br.com.crux.entity.Unidade;
@@ -31,11 +33,11 @@ public class FuncionarioTOBuilder {
 	@Autowired private GetCargosCmd getCargosCmd;
 	@Autowired private GetEmpresaCmd getEmpresaCmd;
 	@Autowired private DepartamentoTOBuilder departamentoTOBuilder;
-	@Autowired private ProgramaTOBuilder programaTOBuilder;
 	@Autowired private DependentesTOBuilder dependentesTOBuilder;
+	@Autowired private AlocacoesFuncionarioTOBuilder alocacoesFuncionarioTOBuilder;
+	@Autowired private GetDepartamentoCmd getDepartamentoCmd;
 
-	
-	public Funcionario buildSemDependentes(FuncionarioTO to) {
+	public Funcionario buildSemRelacionamentosCircular(FuncionarioTO to) {
 
 		Funcionario retorno = new Funcionario();
 
@@ -87,36 +89,22 @@ public class FuncionarioTOBuilder {
 			}
 		});
 
-		retorno.setDescontaValeTransporte(to.getDescontaValeTransporte());
+		retorno.setDescontaValeTransporte(to.getDescontaValeTransporte().equalsIgnoreCase("S") ? true : false);
 		
 		Optional.ofNullable(to.getDepartamento()).ifPresent( d -> {
-			retorno.setDepartamento(departamentoTOBuilder.build(to.getDepartamento()));
+			if(Objects.nonNull(d.getIdDepartamento())) {
+				Departamentos departamento = getDepartamentoCmd.getById(d.getIdDepartamento());
+				retorno.setDepartamento(departamento);
+			}
 		});
-		
-		Optional.ofNullable(to.getPrograma()).ifPresent( d -> {
-			retorno.setPrograma(programaTOBuilder.build(to.getPrograma()));
-		});
-		
+
 		
 		retorno.setUsuarioAlteracao(to.getUsuarioAlteracao());
 
 		return retorno;
 	}
-	
-	
-	public Funcionario build(FuncionarioTO to) {
-		Funcionario retorno = new Funcionario();
 		
-		retorno = buildSemDependentes(to);
-		if (Objects.nonNull(to.getDependentes())) {
-			retorno.setDependentes(dependentesTOBuilder.buildTOAll(to.getDependentes()));
-		}
-		
-		return retorno;
-	}
-
-	
-	public FuncionarioTO buildTOSemDependentes(Funcionario p) {
+	public FuncionarioTO buildTOSemRelacionamentosCircular(Funcionario p) {
 		FuncionarioTO retorno = new FuncionarioTO();
 
 		if (Objects.isNull(p)) {
@@ -164,16 +152,8 @@ public class FuncionarioTOBuilder {
 
 		retorno.setFuncionarioEntrevistador(getFuncionarioEntrevistador(p.getFuncionarioEntrevistador()));
 
-		retorno.setDescontaValeTransporte(p.getDescontaValeTransporte());
-		
-		Optional.ofNullable(p.getDepartamento()).ifPresent( d -> {
-			retorno.setDepartamento(departamentoTOBuilder.buildTO(p.getDepartamento()));
-		});
-		
-		Optional.ofNullable(p.getPrograma()).ifPresent( d -> {
-			retorno.setPrograma(programaTOBuilder.buildTO(p.getPrograma()));
-		});
-		
+		retorno.setDescontaValeTransporte(p.getDescontaValeTransporte() ? "S" : "N");
+		retorno.setDepartamento(departamentoTOBuilder.buildTO(p.getDepartamento()));
 		
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
@@ -181,13 +161,34 @@ public class FuncionarioTOBuilder {
 	}
 	
 	
+	public Funcionario build(FuncionarioTO to) {
+		Funcionario retorno = new Funcionario();
+		
+		retorno = buildSemRelacionamentosCircular(to);
+		
+		if (Objects.nonNull(to.getDependentes())) {
+			retorno.setDependentes(dependentesTOBuilder.buildTOAll(to.getDependentes()));
+		}
+		
+		if (Objects.nonNull(to.getAlocacoesFuncionario())) {
+			retorno.setAlocacoesFuncionario(alocacoesFuncionarioTOBuilder.buildTOAll(to.getAlocacoesFuncionario()));
+		}
+		
+		return retorno;
+	}
+	
 	public FuncionarioTO buildTO(Funcionario p) {
 		FuncionarioTO retorno = new FuncionarioTO();
 		
-		retorno = buildTOSemDependentes(p);
+		retorno = buildTOSemRelacionamentosCircular(p);
+		
 		if (Objects.nonNull(p.getDependentes())) {
 			retorno.setDependentes(dependentesTOBuilder.buildAll(p.getDependentes()));
 		}
+		
+		if (Objects.nonNull(p.getAlocacoesFuncionario())) {
+			retorno.setAlocacoesFuncionario(alocacoesFuncionarioTOBuilder.buildAll(p.getAlocacoesFuncionario()));
+		}		
 		
 		return retorno;
 	}
@@ -232,7 +233,10 @@ public class FuncionarioTOBuilder {
 		});
 
 		retorno.setEmpresaFuncionario(empresaTOBuilder.buildTO(p.getEmpresaFuncionario()));
-
+		
+		retorno.setDescontaValeTransporte(p.getDescontaValeTransporte() ? "S" : "N");
+		retorno.setDepartamento(departamentoTOBuilder.buildTO(p.getDepartamento()));
+		
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
 		return retorno;
@@ -279,6 +283,16 @@ public class FuncionarioTOBuilder {
 		Optional.ofNullable(p.getConclusaoParecer()).ifPresent(cp -> {
 			retorno.setConclusaoParecer(ConclusaoParecer.getPorTipo(cp));
 		});
+		
+		retorno.setDescontaValeTransporte(p.getDescontaValeTransporte().equalsIgnoreCase("S") ? true : false);
+		
+		Optional.ofNullable(p.getDepartamento()).ifPresent( d -> {
+			if(Objects.nonNull(d.getIdDepartamento())) {
+				Departamentos departamento = getDepartamentoCmd.getById(d.getIdDepartamento());
+				retorno.setDepartamento(departamento);
+			}
+		});
+	
 
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 

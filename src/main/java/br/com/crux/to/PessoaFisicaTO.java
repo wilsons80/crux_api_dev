@@ -2,6 +2,10 @@ package br.com.crux.to;
 
 import java.time.LocalDateTime;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import br.com.crux.infra.adapter.LocalDateTimeAdapter;
+
 public class PessoaFisicaTO {
 
 	private Long id;
@@ -71,6 +75,27 @@ public class PessoaFisicaTO {
 
 	private GrausInstrucaoTO grausInstrucao;
 	private Long usuarioAlteracao;
+	
+	
+	private String ehDeficiente;
+	private String cursandoNivelSuperior;
+	
+	private String descricaoDeficiencia;	
+	private String tipoSangue;	
+	private String raca;	
+	private String numeroReservista;	
+	private String regiaoMilitarReservista;	
+	private String ufRegiaoMilitar;	
+	private String numeroCNH;	
+	private String categoriaCNH;	
+	private String numeroPisPasep;	
+	private String ufCTS;	
+	
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+	private LocalDateTime dataEmissaoCI;
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+	private LocalDateTime vencimentoCNH;
+	
 
 	public PessoaFisicaTO() {
 	}
@@ -579,4 +604,117 @@ public class PessoaFisicaTO {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
+	public String getEhDeficiente() {
+		return ehDeficiente;
+	}
+
+	public void setEhDeficiente(String ehDeficiente) {
+		this.ehDeficiente = ehDeficiente;
+	}
+
+	public String getCursandoNivelSuperior() {
+		return cursandoNivelSuperior;
+	}
+
+	public void setCursandoNivelSuperior(String cursandoNivelSuperior) {
+		this.cursandoNivelSuperior = cursandoNivelSuperior;
+	}
+
+	public String getDescricaoDeficiencia() {
+		return descricaoDeficiencia;
+	}
+
+	public void setDescricaoDeficiencia(String descricaoDeficiencia) {
+		this.descricaoDeficiencia = descricaoDeficiencia;
+	}
+
+	public String getTipoSangue() {
+		return tipoSangue;
+	}
+
+	public void setTipoSangue(String tipoSangue) {
+		this.tipoSangue = tipoSangue;
+	}
+
+	public String getRaca() {
+		return raca;
+	}
+
+	public void setRaca(String raca) {
+		this.raca = raca;
+	}
+
+	public String getNumeroReservista() {
+		return numeroReservista;
+	}
+
+	public void setNumeroReservista(String numeroReservista) {
+		this.numeroReservista = numeroReservista;
+	}
+
+	public String getRegiaoMilitarReservista() {
+		return regiaoMilitarReservista;
+	}
+
+	public void setRegiaoMilitarReservista(String regiaoMilitarReservista) {
+		this.regiaoMilitarReservista = regiaoMilitarReservista;
+	}
+
+	public String getUfRegiaoMilitar() {
+		return ufRegiaoMilitar;
+	}
+
+	public void setUfRegiaoMilitar(String ufRegiaoMilitar) {
+		this.ufRegiaoMilitar = ufRegiaoMilitar;
+	}
+
+	public String getNumeroCNH() {
+		return numeroCNH;
+	}
+
+	public void setNumeroCNH(String numeroCNH) {
+		this.numeroCNH = numeroCNH;
+	}
+
+	public String getCategoriaCNH() {
+		return categoriaCNH;
+	}
+
+	public void setCategoriaCNH(String categoriaCNH) {
+		this.categoriaCNH = categoriaCNH;
+	}
+
+	public String getNumeroPisPasep() {
+		return numeroPisPasep;
+	}
+
+	public void setNumeroPisPasep(String numeroPisPasep) {
+		this.numeroPisPasep = numeroPisPasep;
+	}
+
+	public String getUfCTS() {
+		return ufCTS;
+	}
+
+	public void setUfCTS(String ufCTS) {
+		this.ufCTS = ufCTS;
+	}
+
+	public LocalDateTime getDataEmissaoCI() {
+		return dataEmissaoCI;
+	}
+
+	public void setDataEmissaoCI(LocalDateTime dataEmissaoCI) {
+		this.dataEmissaoCI = dataEmissaoCI;
+	}
+
+	public LocalDateTime getVencimentoCNH() {
+		return vencimentoCNH;
+	}
+
+	public void setVencimentoCNH(LocalDateTime vencimentoCNH) {
+		this.vencimentoCNH = vencimentoCNH;
+	}
+
+	
 }

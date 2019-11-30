@@ -107,13 +107,13 @@ public class Funcionario implements Serializable {
 	@JoinColumn(name="id_departamento")
 	private Departamentos departamento;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_programa")
-	private Programa programa;	
-	
 	
 	@OneToMany(mappedBy="funcionario")
-	private List<Dependentes> dependentes;	
+	private List<Dependentes> dependentes;
+	
+	@OneToMany(mappedBy="funcionario")
+	private List<AlocacoesFuncionario> alocacoesFuncionario;
+	
 
 	public Funcionario() {
 	}
@@ -298,17 +298,6 @@ public class Funcionario implements Serializable {
 		this.departamento = departamento;
 	}
 
-
-	public Programa getPrograma() {
-		return programa;
-	}
-
-
-	public void setPrograma(Programa programa) {
-		this.programa = programa;
-	}
-
-
 	public List<Dependentes> getDependentes() {
 		return dependentes;
 	}
@@ -316,6 +305,16 @@ public class Funcionario implements Serializable {
 
 	public void setDependentes(List<Dependentes> dependentes) {
 		this.dependentes = dependentes;
+	}
+
+
+	public List<AlocacoesFuncionario> getAlocacoesFuncionario() {
+		return alocacoesFuncionario;
+	}
+
+
+	public void setAlocacoesFuncionario(List<AlocacoesFuncionario> alocacoesFuncionario) {
+		this.alocacoesFuncionario = alocacoesFuncionario;
 	}
 	
 	

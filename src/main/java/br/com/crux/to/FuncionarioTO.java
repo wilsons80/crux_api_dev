@@ -37,11 +37,11 @@ public class FuncionarioTO {
 
 	private Long usuarioAlteracao;
 	
-	private Boolean descontaValeTransporte;
+	private String descontaValeTransporte;
 	private DepartamentoTO departamento;
-	private ProgramaTO programa;
 	
-	private List<DependentesTO> dependentes;		
+	private List<DependentesTO> dependentes;	
+	private List<AlocacoesFuncionarioTO> alocacoesFuncionario;
 
 	public FuncionarioTO() {
 	}
@@ -174,11 +174,11 @@ public class FuncionarioTO {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
-	public Boolean getDescontaValeTransporte() {
+	public String getDescontaValeTransporte() {
 		return descontaValeTransporte;
 	}
 
-	public void setDescontaValeTransporte(Boolean descontaValeTransporte) {
+	public void setDescontaValeTransporte(String descontaValeTransporte) {
 		this.descontaValeTransporte = descontaValeTransporte;
 	}
 
@@ -190,20 +190,20 @@ public class FuncionarioTO {
 		this.departamento = departamento;
 	}
 
-	public ProgramaTO getPrograma() {
-		return programa;
-	}
-
-	public void setPrograma(ProgramaTO programa) {
-		this.programa = programa;
-	}
-
 	public List<DependentesTO> getDependentes() {
 		return dependentes;
 	}
 
 	public void setDependentes(List<DependentesTO> dependentes) {
 		this.dependentes = dependentes;
+	}
+
+	public List<AlocacoesFuncionarioTO> getAlocacoesFuncionario() {
+		return alocacoesFuncionario;
+	}
+
+	public void setAlocacoesFuncionario(List<AlocacoesFuncionarioTO> alocacoesFuncionario) {
+		this.alocacoesFuncionario = alocacoesFuncionario;
 	}
 
 	
