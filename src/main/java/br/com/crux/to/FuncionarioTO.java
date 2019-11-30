@@ -37,7 +37,7 @@ public class FuncionarioTO {
 
 	private Long usuarioAlteracao;
 	
-	private Boolean descontaValeTransporte;
+	private String descontaValeTransporte;
 	private DepartamentoTO departamento;
 	
 	private List<DependentesTO> dependentes;	
@@ -174,11 +174,11 @@ public class FuncionarioTO {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
-	public Boolean getDescontaValeTransporte() {
+	public String getDescontaValeTransporte() {
 		return descontaValeTransporte;
 	}
 
-	public void setDescontaValeTransporte(Boolean descontaValeTransporte) {
+	public void setDescontaValeTransporte(String descontaValeTransporte) {
 		this.descontaValeTransporte = descontaValeTransporte;
 	}
 

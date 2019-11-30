@@ -89,11 +89,13 @@ public class FuncionarioTOBuilder {
 			}
 		});
 
-		retorno.setDescontaValeTransporte(to.getDescontaValeTransporte());
+		retorno.setDescontaValeTransporte(to.getDescontaValeTransporte().equalsIgnoreCase("S") ? true : false);
 		
 		Optional.ofNullable(to.getDepartamento()).ifPresent( d -> {
-			Departamentos departamento = getDepartamentoCmd.getById(d.getIdDepartamento());
-			retorno.setDepartamento(departamento);
+			if(Objects.nonNull(d.getIdDepartamento())) {
+				Departamentos departamento = getDepartamentoCmd.getById(d.getIdDepartamento());
+				retorno.setDepartamento(departamento);
+			}
 		});
 
 		
@@ -150,7 +152,7 @@ public class FuncionarioTOBuilder {
 
 		retorno.setFuncionarioEntrevistador(getFuncionarioEntrevistador(p.getFuncionarioEntrevistador()));
 
-		retorno.setDescontaValeTransporte(p.getDescontaValeTransporte());
+		retorno.setDescontaValeTransporte(p.getDescontaValeTransporte() ? "S" : "N");
 		retorno.setDepartamento(departamentoTOBuilder.buildTO(p.getDepartamento()));
 		
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
@@ -232,7 +234,7 @@ public class FuncionarioTOBuilder {
 
 		retorno.setEmpresaFuncionario(empresaTOBuilder.buildTO(p.getEmpresaFuncionario()));
 		
-		retorno.setDescontaValeTransporte(p.getDescontaValeTransporte());
+		retorno.setDescontaValeTransporte(p.getDescontaValeTransporte() ? "S" : "N");
 		retorno.setDepartamento(departamentoTOBuilder.buildTO(p.getDepartamento()));
 		
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
@@ -282,11 +284,15 @@ public class FuncionarioTOBuilder {
 			retorno.setConclusaoParecer(ConclusaoParecer.getPorTipo(cp));
 		});
 		
-		retorno.setDescontaValeTransporte(p.getDescontaValeTransporte());
+		retorno.setDescontaValeTransporte(p.getDescontaValeTransporte().equalsIgnoreCase("S") ? true : false);
 		
 		Optional.ofNullable(p.getDepartamento()).ifPresent( d -> {
-			retorno.setDepartamento(departamentoTOBuilder.build(p.getDepartamento()));
-		});		
+			if(Objects.nonNull(d.getIdDepartamento())) {
+				Departamentos departamento = getDepartamentoCmd.getById(d.getIdDepartamento());
+				retorno.setDepartamento(departamento);
+			}
+		});
+	
 
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 

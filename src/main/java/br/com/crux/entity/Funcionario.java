@@ -107,6 +107,7 @@ public class Funcionario implements Serializable {
 	@JoinColumn(name="id_departamento")
 	private Departamentos departamento;
 	
+	
 	@OneToMany(mappedBy="funcionario")
 	private List<Dependentes> dependentes;
 	
@@ -296,7 +297,6 @@ public class Funcionario implements Serializable {
 	public void setDepartamento(Departamentos departamento) {
 		this.departamento = departamento;
 	}
-
 
 	public List<Dependentes> getDependentes() {
 		return dependentes;
