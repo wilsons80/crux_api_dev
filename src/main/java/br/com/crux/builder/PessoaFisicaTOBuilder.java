@@ -108,6 +108,21 @@ public class PessoaFisicaTOBuilder {
 		});
 
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
+		
+		retorno.setEhDeficiente(p.getEhDeficiente().equalsIgnoreCase("S") ? true : false);
+		retorno.setCursandoNivelSuperior(p.getCursandoNivelSuperior().equalsIgnoreCase("S") ? true : false);
+		retorno.setDescricaoDeficiencia(p.getDescricaoDeficiencia());
+		retorno.setTipoSangue(p.getTipoSangue());
+		retorno.setRaca(p.getRaca());
+		retorno.setNumeroReservista(p.getNumeroReservista());
+		retorno.setRegiaoMilitarReservista(p.getRegiaoMilitarReservista());
+		retorno.setUfRegiaoMilitar(p.getUfRegiaoMilitar());
+		retorno.setNumeroCNH(p.getNumeroCNH());
+		retorno.setCategoriaCNH(p.getCategoriaCNH());
+		retorno.setNumeroPisPasep(p.getNumeroPisPasep());
+		retorno.setUfCTS(p.getUfCTS());
+		retorno.setDataEmissaoCI(p.getDataEmissaoCI());
+		retorno.setVencimentoCNH(p.getVencimentoCNH());
 
 		return retorno;
 	}
@@ -179,12 +194,25 @@ public class PessoaFisicaTOBuilder {
 		retorno.setValorOutrosBenerficiosSoc(p.getValorOutrosBenerficiosSoc());
 		retorno.setValorRenda(p.getValorRenda());
 		retorno.setIdArquivo(p.getIdArquivo());
-
 		retorno.setCondicoesMoradia(condicoesMoradiaTOBuilder.buildTO(p.getCondicoesMoradia()));
-
 		retorno.setGrausInstrucao(grausInstrucaoTOBuilder.buildTO(p.getGrausInstrucao()));
-
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
+		
+		
+		retorno.setEhDeficiente(p.getEhDeficiente() ? "S" : "N");
+		retorno.setCursandoNivelSuperior(p.getCursandoNivelSuperior() ? "S" : "N");
+		retorno.setDescricaoDeficiencia(p.getDescricaoDeficiencia());
+		retorno.setTipoSangue(p.getTipoSangue());
+		retorno.setRaca(p.getRaca());
+		retorno.setNumeroReservista(p.getNumeroReservista());
+		retorno.setRegiaoMilitarReservista(p.getRegiaoMilitarReservista());
+		retorno.setUfRegiaoMilitar(p.getUfRegiaoMilitar());
+		retorno.setNumeroCNH(p.getNumeroCNH());
+		retorno.setCategoriaCNH(p.getCategoriaCNH());
+		retorno.setNumeroPisPasep(p.getNumeroPisPasep());
+		retorno.setUfCTS(p.getUfCTS());
+		retorno.setDataEmissaoCI(p.getDataEmissaoCI());
+		retorno.setVencimentoCNH(p.getVencimentoCNH());
 
 		return retorno;
 	}
