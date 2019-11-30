@@ -97,24 +97,7 @@ public class FuncionarioTOBuilder {
 
 		return retorno;
 	}
-	
-	
-	public Funcionario build(FuncionarioTO to) {
-		Funcionario retorno = new Funcionario();
 		
-		retorno = buildSemRelacionamentosCircular(to);
-		if (Objects.nonNull(to.getDependentes())) {
-			retorno.setDependentes(dependentesTOBuilder.buildTOAll(to.getDependentes()));
-		}
-		
-		if (Objects.nonNull(to.getAlocacoesFuncionario())) {
-			retorno.setAlocacoesFuncionario(alocacoesFuncionarioTOBuilder.buildTOAll(to.getAlocacoesFuncionario()));
-		}
-		
-		return retorno;
-	}
-
-	
 	public FuncionarioTO buildTOSemRelacionamentosCircular(Funcionario p) {
 		FuncionarioTO retorno = new FuncionarioTO();
 
@@ -164,7 +147,10 @@ public class FuncionarioTOBuilder {
 		retorno.setFuncionarioEntrevistador(getFuncionarioEntrevistador(p.getFuncionarioEntrevistador()));
 
 		retorno.setDescontaValeTransporte(p.getDescontaValeTransporte());
-		retorno.setDepartamento(departamentoTOBuilder.buildTO(p.getDepartamento()));
+		
+		Optional.ofNullable(p.getDepartamento()).ifPresent(ef -> {
+			retorno.setDepartamento(departamentoTOBuilder.buildTO(p.getDepartamento()));
+		});
 		
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
@@ -172,13 +158,34 @@ public class FuncionarioTOBuilder {
 	}
 	
 	
+	public Funcionario build(FuncionarioTO to) {
+		Funcionario retorno = new Funcionario();
+		
+		retorno = buildSemRelacionamentosCircular(to);
+		
+		if (Objects.nonNull(to.getDependentes())) {
+			retorno.setDependentes(dependentesTOBuilder.buildTOAll(to.getDependentes()));
+		}
+		
+		if (Objects.nonNull(to.getAlocacoesFuncionario())) {
+			retorno.setAlocacoesFuncionario(alocacoesFuncionarioTOBuilder.buildTOAll(to.getAlocacoesFuncionario()));
+		}
+		
+		return retorno;
+	}
+	
 	public FuncionarioTO buildTO(Funcionario p) {
 		FuncionarioTO retorno = new FuncionarioTO();
 		
 		retorno = buildTOSemRelacionamentosCircular(p);
+		
 		if (Objects.nonNull(p.getDependentes())) {
 			retorno.setDependentes(dependentesTOBuilder.buildAll(p.getDependentes()));
 		}
+		
+		if (Objects.nonNull(p.getAlocacoesFuncionario())) {
+			retorno.setAlocacoesFuncionario(alocacoesFuncionarioTOBuilder.buildAll(p.getAlocacoesFuncionario()));
+		}		
 		
 		return retorno;
 	}
@@ -225,8 +232,10 @@ public class FuncionarioTOBuilder {
 		retorno.setEmpresaFuncionario(empresaTOBuilder.buildTO(p.getEmpresaFuncionario()));
 		
 		retorno.setDescontaValeTransporte(p.getDescontaValeTransporte());
-		retorno.setDepartamento(departamentoTOBuilder.buildTO(p.getDepartamento()));
-
+		Optional.ofNullable(p.getDepartamento()).ifPresent(ef -> {
+			retorno.setDepartamento(departamentoTOBuilder.buildTO(p.getDepartamento()));
+		});
+		
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
 		return retorno;
