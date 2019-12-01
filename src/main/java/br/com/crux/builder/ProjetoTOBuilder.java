@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.cmd.GetColaboradoresProjetoCmd;
 import br.com.crux.cmd.GetProgramaCmd;
 import br.com.crux.cmd.GetProjetosUnidadeCmd;
 import br.com.crux.cmd.GetUnidadeCmd;
@@ -24,7 +25,8 @@ public class ProjetoTOBuilder {
 	@Autowired private GetUnidadeCmd getUnidadeCmd;
 	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	@Autowired private GetProjetosUnidadeCmd getProjetosUnidadeCmd; 
-
+	@Autowired private GetColaboradoresProjetoCmd getColaboradoresProjetoCmd; 
+	
 	public Projeto build(ProjetoTO p) {
 		Projeto retorno = new Projeto();
 
@@ -73,6 +75,7 @@ public class ProjetoTOBuilder {
 		retorno.setPrograma(programaTOBuilder.buildTO(p.getPrograma()));
 		
 		retorno.setUnidades(getProjetosUnidadeCmd.getUnidadesTOByIdProjeto(p.getId()));
+		retorno.setColaboradoresProjeto((getColaboradoresProjetoCmd.getColaboradoresProjetoTOByProjeto(p)));
 
 		return retorno;
 	}
@@ -80,5 +83,6 @@ public class ProjetoTOBuilder {
 	public List<ProjetoTO> buildAll(List<Projeto> dtos) {
 		return dtos.stream().map(dto -> buildTO(dto)).collect(Collectors.toList());
 	}
+	
 
 }
