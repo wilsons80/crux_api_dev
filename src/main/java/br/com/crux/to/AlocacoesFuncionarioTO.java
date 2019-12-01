@@ -18,7 +18,10 @@ public class AlocacoesFuncionarioTO {
 	private FuncionarioTO funcionario;
 	private ProgramaTO programa;
 	private ProjetoTO projeto;
+	private Double valorAlocacao;
+	
 	private Long usuarioAlteracao;	
+	
 
 	public AlocacoesFuncionarioTO() {
 	}
@@ -78,6 +81,15 @@ public class AlocacoesFuncionarioTO {
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
+
+	public Double getValorAlocacao() {
+		return valorAlocacao;
+	}
+
+	public void setValorAlocacao(Double valorAlocacao) {
+		this.valorAlocacao = valorAlocacao;
+	}
+	
 	
 	
 

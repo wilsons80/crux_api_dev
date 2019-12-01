@@ -2,20 +2,27 @@ package br.com.crux.builder;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.cmd.GetProgramaCmd;
+import br.com.crux.cmd.GetProjetoCmd;
 import br.com.crux.entity.AlocacoesFuncionario;
+import br.com.crux.entity.Programa;
+import br.com.crux.entity.Projeto;
 import br.com.crux.to.AlocacoesFuncionarioTO;
 
 @Component
 public class AlocacoesFuncionarioTOBuilder {
 
 	@Autowired private FuncionarioTOBuilder funcionarioTOBuilder;
-	@Autowired private ProgramaTOBuilder programaTOBuilder;
+	@Autowired private GetProjetoCmd getProjetoCmd;
+	@Autowired private GetProgramaCmd getProgramaCmd;
 	@Autowired private ProjetoTOBuilder projetoTOBuilder;
+	@Autowired private ProgramaTOBuilder programaTOBuilder;
 
 	public AlocacoesFuncionario build(AlocacoesFuncionarioTO to) {
 
@@ -25,8 +32,22 @@ public class AlocacoesFuncionarioTOBuilder {
 		retorno.setDataInicioVinculacao(to.getDataInicioVinculacao());
 		retorno.setDataFimVinculacao(to.getDataFimVinculacao());
 		retorno.setFuncionario(funcionarioTOBuilder.buildSemRelacionamentosCircular(to.getFuncionario()));
-		retorno.setPrograma(programaTOBuilder.build(to.getPrograma()));
-		retorno.setProjeto(projetoTOBuilder.build(to.getProjeto()));
+		
+		Optional.ofNullable(to.getPrograma()).ifPresent(pro -> {
+			if(Objects.nonNull(pro.getId())) {
+				Programa programa = getProgramaCmd.getById(pro.getId());
+				retorno.setPrograma(programa);
+			}
+		});
+		
+		Optional.ofNullable(to.getProjeto()).ifPresent(pro -> {
+			if(Objects.nonNull(pro.getId())) {
+				Projeto projeto = getProjetoCmd.getById(pro.getId());
+				retorno.setProjeto(projeto);
+			}
+		});
+
+		retorno.setValorAlocacao(to.getValorAlocacao());
 		retorno.setUsuarioAlteracao(to.getUsuarioAlteracao());
 
 		return retorno;
@@ -43,8 +64,20 @@ public class AlocacoesFuncionarioTOBuilder {
 		retorno.setDataInicioVinculacao(p.getDataInicioVinculacao());
 		retorno.setDataFimVinculacao(p.getDataFimVinculacao());
 		retorno.setFuncionario(funcionarioTOBuilder.buildTOSemRelacionamentosCircular(p.getFuncionario()));
-		retorno.setPrograma(programaTOBuilder.buildTO(p.getPrograma()));
-		retorno.setProjeto(projetoTOBuilder.buildTO(p.getProjeto()));
+		
+		Optional.ofNullable(p.getPrograma()).ifPresent(pro -> {
+			if(Objects.nonNull(pro.getId())) {
+				retorno.setPrograma(programaTOBuilder.buildTO(pro));
+			}
+		});
+		
+		Optional.ofNullable(p.getProjeto()).ifPresent(pro -> {
+			if(Objects.nonNull(pro.getId())) {
+				retorno.setProjeto(projetoTOBuilder.buildTO(pro));
+			}
+		});
+		
+		retorno.setValorAlocacao(p.getValorAlocacao());
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());		
 
 		return retorno;
