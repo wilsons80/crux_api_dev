@@ -80,5 +80,28 @@ public class ColaboradoresProjetoTOBuilder {
 	public List<ColaboradoresProjetoTO> buildAll(List<ColaboradoresProjeto> dtos) {
 		return dtos.stream().map(dto -> buildTO(dto)).collect(Collectors.toList());
 	}
+	
+	public ColaboradoresProjetoTO buildTOParaLista(ColaboradoresProjeto p) {
+		ColaboradoresProjetoTO retorno = new ColaboradoresProjetoTO();
+		
+		if (Objects.isNull(p)) {
+			return retorno;
+		}
+		
+		retorno.setId(p.getId());
+		retorno.setDataInicio(p.getDataInicio());
+		retorno.setDataFim(p.getDataFim());
+		
+		retorno.setCargo(cargoTOBuilder.buildTO(p.getCargo()));
+		retorno.setFuncionario(funcionarioTOBuilder.buildTO(p.getFuncionario()));
+		
+		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
+		
+		return retorno;
+	}
+	
+	public List<ColaboradoresProjetoTO> buildAllParaLista(List<ColaboradoresProjeto> dtos) {
+		return dtos.stream().map(dto -> buildTOParaLista(dto)).collect(Collectors.toList());
+	}
 
 }

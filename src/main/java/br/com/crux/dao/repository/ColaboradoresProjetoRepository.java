@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.crux.entity.ColaboradoresProjeto;
+import br.com.crux.entity.Projeto;
 
 @Repository
 public interface ColaboradoresProjetoRepository extends JpaRepository<ColaboradoresProjeto, Long>{
@@ -17,5 +18,8 @@ public interface ColaboradoresProjetoRepository extends JpaRepository<Colaborado
 			+ " inner join Unidade u on p.unidade = u"
 			+ " where u.idUnidade = :idUnidade")
 	public Optional<List<ColaboradoresProjeto>> findByIdUnidade(Long idUnidade);
+	
+	
+	public Optional<List<ColaboradoresProjeto>> findByProjeto(Projeto projeto);
 
 }
