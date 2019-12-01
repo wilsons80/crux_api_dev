@@ -43,6 +43,9 @@ public class AlocacoesFuncionario  {
 	@JoinColumn(name="id_projeto")	
 	private Projeto projeto;
 
+	@Column(name="vl_alocacao")
+	private Double valorAlocacao;
+	
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
 
@@ -105,5 +108,14 @@ public class AlocacoesFuncionario  {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
+	public Double getValorAlocacao() {
+		return valorAlocacao;
+	}
+
+	public void setValorAlocacao(Double valorAlocacao) {
+		this.valorAlocacao = valorAlocacao;
+	}
+
+	
 	
 }
