@@ -19,6 +19,8 @@ public class CadastrarDependentesFuncionarioCmd {
 	@Autowired private DependentesRepository repository;
 	@Autowired private CamposObrigatoriosDependentesFuncionarioRule camposObrigatoriosRule;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
+	@Autowired private CadastrarPessoaFisicaCmd cadastrarPessoaFisicaCmd;
+	
 
 	public void cadastrar(List<DependentesTO> dependentesTO, FuncionarioTO funcionarioTO) {
 		
@@ -29,6 +31,7 @@ public class CadastrarDependentesFuncionarioCmd {
 			
 			dependenteTO.setIdFuncionario(funcionarioTO.getId());
 			Dependentes entity = toBuilder.build(dependenteTO);
+			entity.setPessoaFisica(cadastrarPessoaFisicaCmd.cadastrar(dependenteTO.getPessoaFisica()));
 			
 			repository.save(entity);
 		});

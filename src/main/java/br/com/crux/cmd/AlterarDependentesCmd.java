@@ -22,6 +22,7 @@ public class AlterarDependentesCmd {
 	@Autowired private DependentesRepository repository;
 	@Autowired private DependentesTOBuilder toBuilder;
 	@Autowired private CamposObrigatoriosDependentesFuncionarioRule camposObrigatoriosRule;
+	@Autowired private AlterarPessoaFisicaCmd alterarPessoaFisicaCmd;
 	
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	
@@ -29,9 +30,11 @@ public class AlterarDependentesCmd {
 	private void alterar(DependentesTO dependenteTO, FuncionarioTO funcionarioTO) {
 		camposObrigatoriosRule.verificar(dependenteTO);
 		dependenteTO.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
-		
 		dependenteTO.setIdFuncionario(funcionarioTO.getId());
+		
 		Dependentes entity = toBuilder.build(dependenteTO);
+		entity.setPessoaFisica(alterarPessoaFisicaCmd.alterar(dependenteTO.getPessoaFisica()));
+		
 		repository.save(entity);
 	}
 	

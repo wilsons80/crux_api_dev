@@ -109,8 +109,14 @@ public class PessoaFisicaTOBuilder {
 
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 		
-		retorno.setEhDeficiente(p.getEhDeficiente().equalsIgnoreCase("S") ? true : false);
-		retorno.setCursandoNivelSuperior(p.getCursandoNivelSuperior().equalsIgnoreCase("S") ? true : false);
+		if(Objects.nonNull(p.getEhDeficiente())) {
+			retorno.setEhDeficiente(p.getEhDeficiente().equalsIgnoreCase("S") ? true : false);
+		}
+		
+		if(Objects.nonNull(p.getCursandoNivelSuperior())) {
+			retorno.setCursandoNivelSuperior(p.getCursandoNivelSuperior().equalsIgnoreCase("S") ? true : false);
+		}
+		
 		retorno.setDescricaoDeficiencia(p.getDescricaoDeficiencia());
 		retorno.setTipoSangue(p.getTipoSangue());
 		retorno.setRaca(p.getRaca());

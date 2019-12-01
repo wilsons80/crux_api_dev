@@ -17,7 +17,8 @@ public class DependentesTOBuilder {
 
 	@Autowired private PessoaFisicaTOBuilder pessoaFisicaTOBuilder;
 	@Autowired private GetFuncionarioCmd getFuncionarioCmd;
-
+	
+	
 	public Dependentes build(DependentesTO to) {
 
 		Dependentes retorno = new Dependentes();
@@ -47,7 +48,9 @@ public class DependentesTOBuilder {
 
 		retorno.setId(p.getId());
 		
-		retorno.setIdFuncionario(p.getFuncionario().getId());
+		if(Objects.nonNull(p.getFuncionario())) {
+			retorno.setIdFuncionario(p.getFuncionario().getId());
+		}
 		retorno.setPessoaFisica(pessoaFisicaTOBuilder.buildTO(p.getPessoaFisica()));
 		
 		retorno.setDescricaoGrauParentesco(p.getDescricaoGrauParentesco());

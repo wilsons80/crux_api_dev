@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import br.com.crux.builder.PessoaFisicaTOBuilder;
 import br.com.crux.dao.repository.PessoaFisicaRepository;
 import br.com.crux.entity.PessoaFisica;
-import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosPessoaFisicaRule;
 import br.com.crux.to.PessoaFisicaTO;
 
@@ -19,12 +18,9 @@ public class AlterarPessoaFisicaCmd {
 
 	public PessoaFisica alterar(PessoaFisicaTO to) {
 		
-		PessoaFisica pessoaFisica = repository.findById(to.getId())
-				.orElseThrow(() -> new NotFoundException("Pessoa Física não encontrada."));
-		
 		camposObrigatoriosPessoaFisicaRule.verificar(to);
 		
-		pessoaFisica = pessoaFisicaTOBuilder.build(to);
+		PessoaFisica pessoaFisica = pessoaFisicaTOBuilder.build(to);
 		
 		return repository.save(pessoaFisica);
 	}
