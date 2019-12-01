@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import br.com.crux.cmd.GetCargosCmd;
 import br.com.crux.cmd.GetFuncionarioCmd;
 import br.com.crux.cmd.GetProjetoCmd;
+import br.com.crux.cmd.GetUsuarioLogadoCmd;
 import br.com.crux.entity.Cargo;
 import br.com.crux.entity.ColaboradoresProjeto;
 import br.com.crux.entity.Funcionario;
@@ -27,6 +28,7 @@ public class ColaboradoresProjetoTOBuilder {
 	@Autowired private GetProjetoCmd getProjetoCmd;
 	@Autowired private GetCargosCmd getCargosCmd;
 	@Autowired private GetFuncionarioCmd getFuncionarioCmd;
+	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 
 	public ColaboradoresProjeto build(ColaboradoresProjetoTO p) {
 		ColaboradoresProjeto retorno = new ColaboradoresProjeto();
@@ -39,7 +41,7 @@ public class ColaboradoresProjetoTOBuilder {
 			Projeto projeto = getProjetoCmd.getById(pro.getId());
 			retorno.setProjeto(projeto);
 		});
-		
+
 		Optional.ofNullable(p.getCargo()).ifPresent(pro -> {
 			Cargo cargo = getCargosCmd.getById(pro.getId());
 			retorno.setCargo(cargo);
@@ -49,8 +51,8 @@ public class ColaboradoresProjetoTOBuilder {
 			Funcionario funcionario = getFuncionarioCmd.getById(pro.getId());
 			retorno.setFuncionario(funcionario);
 		});
-		
-		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
+
+		retorno.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 
 		return retorno;
 	}

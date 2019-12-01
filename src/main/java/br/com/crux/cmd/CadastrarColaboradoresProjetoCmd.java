@@ -28,4 +28,5 @@ public class CadastrarColaboradoresProjetoCmd {
 		repository.save(entity);
 
 	}
+
 }

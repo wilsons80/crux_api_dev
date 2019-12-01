@@ -25,6 +25,8 @@ public class ProjetoTO {
 	private ProgramaTO programa;
 	
 	private List<UnidadeTO> unidades;
+
+	private List<ColaboradoresProjetoTO> colaboradoresProjeto;
 	
 	private Long usuarioAlteracao;
 
@@ -110,6 +112,14 @@ public class ProjetoTO {
 
 	public void setUnidades(List<UnidadeTO> unidadeTO) {
 		this.unidades = unidadeTO;
+	}
+
+	public List<ColaboradoresProjetoTO> getColaboradoresProjeto() {
+		return colaboradoresProjeto;
+	}
+
+	public void setColaboradoresProjeto(List<ColaboradoresProjetoTO> colaboradoresProjeto) {
+		this.colaboradoresProjeto = colaboradoresProjeto;
 	}
 
 	

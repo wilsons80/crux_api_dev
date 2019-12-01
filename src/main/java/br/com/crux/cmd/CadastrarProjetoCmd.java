@@ -17,6 +17,7 @@ public class CadastrarProjetoCmd {
 	@Autowired private CamposObrigatoriosProjetoRule camposObrigatoriosRule;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	@Autowired private CadastrarProjetosUnidadeCmd cadastrarProjetosUnidadeCmd;
+	@Autowired private CadastrarListaColaboradoresProjetoCmd cadastrarListaColaboradoresProjetoCmd;
 
 	public void cadastrar(ProjetoTO to) {
 
@@ -29,6 +30,8 @@ public class CadastrarProjetoCmd {
 		Projeto projeto = repository.save(entity);
 		
 		cadastrarProjetosUnidadeCmd.cadastrarLista(projeto, to.getUnidades());
+		
+		cadastrarListaColaboradoresProjetoCmd.cadastrarLista(to.getColaboradoresProjeto());
 		
 
 	}

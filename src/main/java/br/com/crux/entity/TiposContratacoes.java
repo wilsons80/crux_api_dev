@@ -16,8 +16,8 @@ import br.com.crux.infra.constantes.Constantes;
 public class TiposContratacoes  {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tipos_contratacoes")
-	@SequenceGenerator(name = "tipos_contratacoes", sequenceName = "tipos_contratacoes", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_tipo_contratacao")
+	@SequenceGenerator(name = "sq_id_tipo_contratacao", sequenceName = "sq_id_tipo_contratacao", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_tipo_contratacao")
 	private Long id;
 
