@@ -16,6 +16,7 @@ public class CadastrarProgramaCmd {
 	@Autowired private ProgramaTOBuilder programaTOBuilder;
 	@Autowired private CamposObrigatoriosProgramaRule camposObrigatoriosRule;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
+	@Autowired private CadastrarProgramaUnidadeCmd cadastrarProgramaUnidadeCmd;
 
 	public void cadastrar(ProgramaTO to) {
 
@@ -25,7 +26,9 @@ public class CadastrarProgramaCmd {
 
 		Programa entity = programaTOBuilder.build(to);
 
-		repository.save(entity);
+		Programa programa = repository.save(entity);
+		
+		cadastrarProgramaUnidadeCmd.cadastrarLista(programa, to.getUnidades());
 
 	}
 }

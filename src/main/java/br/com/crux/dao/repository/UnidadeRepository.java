@@ -44,4 +44,10 @@ public interface UnidadeRepository extends JpaRepository<Unidade, Long>{
 			+ "where p.id = :idProjeto")
 	public Optional<List<Unidade>> getUnidadeByProjeto(Long idProjeto);
 
+	@Query("Select u from Unidade u "
+			+ "inner join ProgramasUnidade pu on pu.unidade = u "
+			+ "inner join Programa p on pu.programa = p "
+			+ "where p.id = :idPrograma")
+	public Optional<List<Unidade>> getUnidadeByPrograma(Long idPrograma);
+
 }

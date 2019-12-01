@@ -77,6 +77,34 @@ public class ProjetosUnidade  {
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((unidade == null) ? 0 : unidade.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProjetosUnidade other = (ProjetosUnidade) obj;
+		if (unidade == null) {
+			if (other.unidade != null)
+				return false;
+		} else if (!unidade.equals(other.unidade))
+			return false;
+		return true;
+	}
+	
 	
 
 }
