@@ -2,14 +2,25 @@ package br.com.crux.to;
 
 import java.time.LocalDateTime;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import br.com.crux.infra.adapter.LocalDateTimeAdapter;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class DependentesTO {
 
 	private Long id;
-	private FuncionarioTO funcionario;
+	
 	private String descricaoGrauParentesco;
 	private String descricaoOutrasInformacoes;
-	private LocalDateTime dataDesligamento;
 	private String descricaoDesligamento;
+	
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+	private LocalDateTime dataDesligamento;
+		
+	private Long idFuncionario;
 	private PessoaFisicaTO pessoaFisica;	
 	private Long usuarioAlteracao;		
 
@@ -22,14 +33,6 @@ public class DependentesTO {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public FuncionarioTO getFuncionario() {
-		return funcionario;
-	}
-
-	public void setFuncionario(FuncionarioTO funcionario) {
-		this.funcionario = funcionario;
 	}
 
 	public String getDescricaoGrauParentesco() {
@@ -79,6 +82,15 @@ public class DependentesTO {
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
+
+	public Long getIdFuncionario() {
+		return idFuncionario;
+	}
+
+	public void setIdFuncionario(Long idFuncionario) {
+		this.idFuncionario = idFuncionario;
+	}
+	
 	
 
 }

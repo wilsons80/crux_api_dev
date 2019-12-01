@@ -30,7 +30,7 @@ public class AlterarDependentesCmd {
 		camposObrigatoriosRule.verificar(dependenteTO);
 		dependenteTO.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 		
-		dependenteTO.setFuncionario(funcionarioTO);
+		dependenteTO.setIdFuncionario(funcionarioTO.getId());
 		Dependentes entity = toBuilder.build(dependenteTO);
 		repository.save(entity);
 	}

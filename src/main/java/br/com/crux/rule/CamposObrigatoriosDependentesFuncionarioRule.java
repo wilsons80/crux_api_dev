@@ -12,7 +12,7 @@ public class CamposObrigatoriosDependentesFuncionarioRule {
 
 	public void verificar(DependentesTO to) {
 
-		if (Objects.isNull(to.getFuncionario())) {
+		if (Objects.isNull(to.getIdFuncionario())) {
 			throw new CamposObrigatoriosException("Funcionário deve ser informado.");
 		}
 

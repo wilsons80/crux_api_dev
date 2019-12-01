@@ -51,7 +51,7 @@ public class FuncionarioService {
 	}
 
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	@Transactional
+	//@Transactional
 	public FuncionarioTO alterar(@RequestBody FuncionarioTO param) {
 		return alterarCmd.alterar(param);
 	}

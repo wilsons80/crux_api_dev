@@ -7,21 +7,26 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.cmd.GetFuncionarioCmd;
 import br.com.crux.entity.Dependentes;
+import br.com.crux.entity.Funcionario;
 import br.com.crux.to.DependentesTO;
 
 @Component
 public class DependentesTOBuilder {
 
 	@Autowired private PessoaFisicaTOBuilder pessoaFisicaTOBuilder;
-	@Autowired private FuncionarioTOBuilder funcionarioTOBuilder;
+	@Autowired private GetFuncionarioCmd getFuncionarioCmd;
 
 	public Dependentes build(DependentesTO to) {
 
 		Dependentes retorno = new Dependentes();
 		
 		retorno.setId(to.getId());
-		retorno.setFuncionario(funcionarioTOBuilder.buildSemRelacionamentosCircular(to.getFuncionario()));
+		
+		Funcionario funcionario = getFuncionarioCmd.getById(to.getIdFuncionario());
+		retorno.setFuncionario(funcionario);
+		
 		retorno.setPessoaFisica(pessoaFisicaTOBuilder.build(to.getPessoaFisica()));
 		
 		retorno.setDescricaoGrauParentesco(to.getDescricaoGrauParentesco());
@@ -41,7 +46,8 @@ public class DependentesTOBuilder {
 		}
 
 		retorno.setId(p.getId());
-		retorno.setFuncionario(funcionarioTOBuilder.buildTOSemRelacionamentosCircular(p.getFuncionario()));
+		
+		retorno.setIdFuncionario(p.getFuncionario().getId());
 		retorno.setPessoaFisica(pessoaFisicaTOBuilder.buildTO(p.getPessoaFisica()));
 		
 		retorno.setDescricaoGrauParentesco(p.getDescricaoGrauParentesco());

@@ -27,7 +27,7 @@ public class CadastrarDependentesFuncionarioCmd {
 			
 			dependenteTO.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 			
-			dependenteTO.getFuncionario().setId(funcionarioTO.getId());
+			dependenteTO.setIdFuncionario(funcionarioTO.getId());
 			Dependentes entity = toBuilder.build(dependenteTO);
 			
 			repository.save(entity);
