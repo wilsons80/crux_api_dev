@@ -17,6 +17,7 @@ import br.com.crux.cmd.AlterarUnidadeCmd;
 import br.com.crux.cmd.CadastrarUnidadeCmd;
 import br.com.crux.cmd.ExcluirUnidadeCmd;
 import br.com.crux.cmd.GetUnidadeCmd;
+import br.com.crux.cmd.GetUnidadeLogadaCmd;
 import br.com.crux.enums.ClassificadorSituacaoImovel;
 import br.com.crux.enums.TipoUnidade;
 import br.com.crux.to.AcessoUnidadeTO;
@@ -34,27 +35,24 @@ public class UnidadeService {
 	private ExcluirUnidadeCmd excluirUnidadeCmd;
 	@Autowired
 	private AlterarUnidadeCmd alterarUnidadeCmd;
+	@Autowired
+	private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	
-	@GetMapping(path = "/tiposunidade", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<TipoUnidade> getAllTiposUnidade() {
-		return getUnidadeCmd.getAllTiposUnidade();
+	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<UnidadeTO> getAllUnidade() {
+		return getUnidadeCmd.getAllUnidadesUsuarioLogadoTemAcesso();
 	}
 	
-	@GetMapping(path = "/classificadorimovel", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<ClassificadorSituacaoImovel> getAllClassificadorSituacaoImovel() {
-		return getUnidadeCmd.getAllClassificadorSituacaoImovel();
-	}
-
-	@GetMapping(path = "/usuario", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<AcessoUnidadeTO> getUnidadesComAcesso() {
-		return getUnidadeCmd.getUnidadesComAcesso();
+	@GetMapping(path = "/unidadelogada", produces = MediaType.APPLICATION_JSON_VALUE)
+	public UnidadeTO getUnidadeLogada() {
+		return getUnidadeLogadaCmd.getUnidadeTO();
 	}
 	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public UnidadeTO cadastrar(@RequestBody UnidadeTO unidade) {
 		return cadastrarUnidadeCmd.cadastrar(unidade);
 	}
-	
+
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public UnidadeTO alterar(@RequestBody UnidadeTO unidade) {
 		return alterarUnidadeCmd.alterar(unidade);
@@ -63,6 +61,21 @@ public class UnidadeService {
 	@DeleteMapping(path = "/{unidade}")
 	public void excluir(@PathVariable(name = "unidade") Long idUnidade) {
 		excluirUnidadeCmd.excluir(idUnidade);
+	}
+
+	@GetMapping(path = "/tiposunidade", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<TipoUnidade> getAllTiposUnidade() {
+		return getUnidadeCmd.getAllTiposUnidade();
+	}
+
+	@GetMapping(path = "/classificadorimovel", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<ClassificadorSituacaoImovel> getAllClassificadorSituacaoImovel() {
+		return getUnidadeCmd.getAllClassificadorSituacaoImovel();
+	}
+
+	@GetMapping(path = "/usuario", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<AcessoUnidadeTO> getUnidadesComAcesso() {
+		return getUnidadeCmd.getUnidadesComAcesso();
 	}
 	
 	@GetMapping(path = "/logada/{idUnidade}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -75,9 +88,6 @@ public class UnidadeService {
 		return getUnidadeCmd.getTOById(idUnidade);
 	}
 
-	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<UnidadeTO> getAllUnidade() {
-		return getUnidadeCmd.getAllUnidadesUsuarioLogadoTemAcesso();
-	}
-	
+
+
 }

@@ -1,6 +1,7 @@
 package br.com.crux.to;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -38,6 +39,7 @@ public class UnidadeTO {
 	private InstituicaoTO instituicao;
 	private String numeroCnas;
 	private String numeroCdca;
+	private Boolean unidadeLogada;
 	
 	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime dataVigenciaCdca;
@@ -314,6 +316,18 @@ public class UnidadeTO {
 		} else if (!idUnidade.equals(other.idUnidade))
 			return false;
 		return true;
+	}
+
+	public Boolean getUnidadeLogada() {
+		if(Objects.isNull(unidadeLogada)) {
+			unidadeLogada = Boolean.FALSE;
+		}
+		
+		return unidadeLogada;
+	}
+
+	public void setUnidadeLogada(Boolean unidadeLogada) {
+		this.unidadeLogada = unidadeLogada;
 	}
 
 	

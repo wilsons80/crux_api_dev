@@ -116,5 +116,12 @@ public class UnidadeTOBuilder {
 	public List<UnidadeTO> buildAllTO(List<Unidade> dtos) {
 		return dtos.stream().map(dto -> buildTO(dto)).collect(Collectors.toList());
 	}
+	
+	public UnidadeTO buildTOComUnidadeLogada(Unidade unidade) {
+		UnidadeTO unidadeTO = buildTO(unidade);
+		unidadeTO.setUnidadeLogada(Boolean.TRUE);
+		return unidadeTO;
+		
+	}
 
 }
