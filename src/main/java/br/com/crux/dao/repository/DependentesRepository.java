@@ -16,5 +16,11 @@ public interface DependentesRepository extends JpaRepository<Dependentes, Long>{
 			+ " inner join Funcionario f on f.id = d.funcionario.id "
 			+ " where f.id = ?1")
 	Optional<List<Dependentes>> findAllByFuncionario(Long idFuncionario);
+
+	
+	@Query("select d from Dependentes d "
+			+ " inner join PessoaFisica p on p.id = d.pessoaFisica.id "
+			+ " where p.cpf = ?1")
+	Optional<List<Dependentes>> findByCPF(Long cpf);
 	
 }
