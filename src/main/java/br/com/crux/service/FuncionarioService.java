@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.crux.cmd.AlterarFuncionarioCmd;
@@ -45,6 +46,11 @@ public class FuncionarioService {
 		return getCmd.getTOById(id);
 	}
 
+	@GetMapping(path = "/porinstituicao", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<FuncionarioTO> getPorIntituicao(@RequestParam List<Integer> ids) {
+		return getCmd.getFuncionarioPorInstituicao(ids);
+	}
+
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public FuncionarioTO cadastrar(@RequestBody FuncionarioTO param) {
 		return cadastrarCmd.cadastrar(param);
@@ -60,5 +66,7 @@ public class FuncionarioService {
 	public void excluir(@PathVariable(name = "id") Long id) {
 		excluirCmd.excluir(id);
 	}
+	
+	
 
 }

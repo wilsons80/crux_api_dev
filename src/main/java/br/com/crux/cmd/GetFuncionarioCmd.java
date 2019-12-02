@@ -18,18 +18,21 @@ import br.com.crux.to.FuncionarioTO;
 @Component
 public class GetFuncionarioCmd {
 
-	@Autowired private FuncionarioRepository repository;
-	@Autowired private FuncionarioTOBuilder toBuilder;
-	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
-	
+	@Autowired
+	private FuncionarioRepository repository;
+	@Autowired
+	private FuncionarioTOBuilder toBuilder;
+	@Autowired
+	private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
+
 	public List<FuncionarioTO> getAllPorUnidadeLogada() {
 		AcessoUnidadeTO acessoUnidadeTO = getUnidadeLogadaCmd.get();
-		
+
 		Optional<List<Funcionario>> funcionariosOptional = repository.findAllByIdUnidade(acessoUnidadeTO.getId());
-		if(!funcionariosOptional.isPresent()) {
+		if (!funcionariosOptional.isPresent()) {
 			return new ArrayList<FuncionarioTO>();
 		}
-		
+
 		List<FuncionarioTO> lista = toBuilder.buildAll(funcionariosOptional.get());
 		return lista;
 	}
@@ -42,7 +45,7 @@ public class GetFuncionarioCmd {
 	public Funcionario getById(Long id) {
 		Long idPresente = Optional.ofNullable(id).orElseThrow(() -> new ParametroNaoInformadoException("Parâmetro ID ausente."));
 		return repository.findById(idPresente).orElseGet(null);
-		
+
 	}
 
 	public Funcionario getPorPessoa(Long idPessoa) {
@@ -50,7 +53,14 @@ public class GetFuncionarioCmd {
 	}
 
 	public FuncionarioTO getPorPessoaFisica(Long idPessoa) {
-		return toBuilder.buildTO(getPorPessoa(idPessoa)); 
+		return toBuilder.buildTO(getPorPessoa(idPessoa));
 	}
-	
+
+	public List<FuncionarioTO> getFuncionarioPorInstituicao(List<Integer> idsUnidade) {
+		List<Funcionario> lista = repository.getPorInstituicao(idsUnidade).orElseThrow(() -> new NotFoundException("Funciários não encontrado."));
+
+		return toBuilder.buildAll(lista);
+
+	}
+
 }
