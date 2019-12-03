@@ -28,11 +28,11 @@ public class GetColaboradoresProjetoCmd {
 	
 	
 	public List<ColaboradoresProjetoTO> getAll() {
-		Optional<Unidade> unidade = unidadeRepository.findById(getUnidadeLogadaCmd.get().getId());
-		Optional<List<ColaboradoresProjeto>> listaRetorno = repository.findByIdUnidade(unidade.get().getIdUnidade());
-		if(listaRetorno.isPresent()) {
-			return toBuilder.buildAll(listaRetorno.get());
-		}
+//		Optional<Unidade> unidade = unidadeRepository.findById(getUnidadeLogadaCmd.get().getId());
+//		Optional<List<ColaboradoresProjeto>> listaRetorno = repository.findByIdUnidade(unidade.get().getIdUnidade());
+//		if(listaRetorno.isPresent()) {
+//			return toBuilder.buildAll(listaRetorno.get());
+//		}
 		return new ArrayList<ColaboradoresProjetoTO>();
 	}
 	

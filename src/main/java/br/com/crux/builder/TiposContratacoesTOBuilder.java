@@ -21,6 +21,7 @@ public class TiposContratacoesTOBuilder {
 
 		BeanUtils.copyProperties(to, retorno);
 
+		
 		retorno.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 
 		return retorno;

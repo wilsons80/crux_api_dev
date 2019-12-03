@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.cmd.GetObjetivoCmd;
 import br.com.crux.cmd.GetProgramaUnidadeCmd;
-import br.com.crux.cmd.GetUnidadeCmd;
-import br.com.crux.cmd.GetUnidadeLogadaCmd;
 import br.com.crux.entity.Objetivo;
 import br.com.crux.entity.Programa;
 import br.com.crux.to.ProgramaTO;
@@ -19,11 +17,12 @@ import br.com.crux.to.ProgramaTO;
 @Component
 public class ProgramaTOBuilder {
 
-	@Autowired private ObjetivoTOBuilder objetivoTOBuilder;
-	@Autowired private GetObjetivoCmd getObjetivoCmd;
-	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
-	@Autowired private GetUnidadeCmd getUnidadeCmd;
-	@Autowired private GetProgramaUnidadeCmd getProgramaUnidadeCmd;
+	@Autowired
+	private ObjetivoTOBuilder objetivoTOBuilder;
+	@Autowired
+	private GetObjetivoCmd getObjetivoCmd;
+	@Autowired
+	private GetProgramaUnidadeCmd getProgramaUnidadeCmd;
 
 	public Programa build(ProgramaTO param) {
 		Programa retorno = new Programa();
@@ -42,10 +41,6 @@ public class ProgramaTOBuilder {
 			Objetivo obj = getObjetivoCmd.getById(o.getIdObjetivo());
 			retorno.setObjetivo(obj);
 		});
-
-		Long idUnidade = getUnidadeLogadaCmd.get().getId();
-		
-		retorno.setUnidade(getUnidadeCmd.getById(idUnidade));
 
 		return retorno;
 	}
@@ -67,7 +62,7 @@ public class ProgramaTOBuilder {
 		retorno.setDataFim(param.getDataFim());
 		retorno.setUsuarioAlteracao(param.getUsuarioAlteracao());
 		retorno.setObjetivo(objetivoTOBuilder.buildTO(param.getObjetivo()));
-		
+
 		retorno.setUnidades(getProgramaUnidadeCmd.getUnidadesTOByIdPrograma(param.getId()));
 
 		return retorno;

@@ -13,8 +13,8 @@ import br.com.crux.entity.Projeto;
 public interface ProjetoRepository extends JpaRepository<Projeto, Long>{
 
 	@Query(value = "SELECT p FROM Projeto p"
-			+ " inner join Unidade u on p.unidade = u "
-			+ " where u.idUnidade = :idUnidade")
+			+ " inner join ProjetosUnidade pu on pu.projeto = p "
+			+ " where pu.unidade.idUnidade = :idUnidade")	
 	public Optional<List<Projeto>> findByIdUnidade(Long idUnidade);
 
 }

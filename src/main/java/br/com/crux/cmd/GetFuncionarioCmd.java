@@ -56,8 +56,8 @@ public class GetFuncionarioCmd {
 		return toBuilder.buildTO(getPorPessoa(idPessoa));
 	}
 
-	public List<FuncionarioTO> getFuncionarioPorInstituicao(List<Integer> idsUnidade) {
-		List<Funcionario> lista = repository.getPorInstituicao(idsUnidade).orElseThrow(() -> new NotFoundException("Funciários não encontrado."));
+	public List<FuncionarioTO> getFuncionarioPorInstituicao(List<Long> ids) {
+		List<Funcionario> lista = repository.getPorInstituicao(ids).orElseThrow(() -> new NotFoundException("Funciários não encontrado."));
 
 		return toBuilder.buildAll(lista);
 

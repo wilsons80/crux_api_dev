@@ -11,8 +11,6 @@ import org.springframework.stereotype.Component;
 import br.com.crux.cmd.GetColaboradoresProjetoCmd;
 import br.com.crux.cmd.GetProgramaCmd;
 import br.com.crux.cmd.GetProjetosUnidadeCmd;
-import br.com.crux.cmd.GetUnidadeCmd;
-import br.com.crux.cmd.GetUnidadeLogadaCmd;
 import br.com.crux.entity.Programa;
 import br.com.crux.entity.Projeto;
 import br.com.crux.to.ProjetoTO;
@@ -20,13 +18,15 @@ import br.com.crux.to.ProjetoTO;
 @Component
 public class ProjetoTOBuilder {
 
-	@Autowired private ProgramaTOBuilder programaTOBuilder;
-	@Autowired private GetProgramaCmd getProgramaCmd;
-	@Autowired private GetUnidadeCmd getUnidadeCmd;
-	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
-	@Autowired private GetProjetosUnidadeCmd getProjetosUnidadeCmd; 
-	@Autowired private GetColaboradoresProjetoCmd getColaboradoresProjetoCmd; 
-	
+	@Autowired
+	private ProgramaTOBuilder programaTOBuilder;
+	@Autowired
+	private GetProgramaCmd getProgramaCmd;
+	@Autowired
+	private GetProjetosUnidadeCmd getProjetosUnidadeCmd;
+	@Autowired
+	private GetColaboradoresProjetoCmd getColaboradoresProjetoCmd;
+
 	public Projeto build(ProjetoTO p) {
 		Projeto retorno = new Projeto();
 
@@ -47,10 +47,6 @@ public class ProjetoTOBuilder {
 				retorno.setPrograma(programa);
 			}
 		});
-
-		Long idUnidade = getUnidadeLogadaCmd.get().getId();
-
-		retorno.setUnidade(getUnidadeCmd.getById(idUnidade));
 
 		return retorno;
 	}
@@ -73,7 +69,7 @@ public class ProjetoTOBuilder {
 		retorno.setDataPrevisaoInicio(p.getDataPrevisaoInicio());
 		retorno.setDataPrevisaoTermino(p.getDataPrevisaoTermino());
 		retorno.setPrograma(programaTOBuilder.buildTO(p.getPrograma()));
-		
+
 		retorno.setUnidades(getProjetosUnidadeCmd.getUnidadesTOByIdProjeto(p.getId()));
 		retorno.setColaboradoresProjeto((getColaboradoresProjetoCmd.getColaboradoresProjetoTOByProjeto(p)));
 
@@ -83,6 +79,5 @@ public class ProjetoTOBuilder {
 	public List<ProjetoTO> buildAll(List<Projeto> dtos) {
 		return dtos.stream().map(dto -> buildTO(dto)).collect(Collectors.toList());
 	}
-	
 
 }

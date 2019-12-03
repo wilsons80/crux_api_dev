@@ -47,7 +47,7 @@ public class FuncionarioService {
 	}
 
 	@GetMapping(path = "/porinstituicao", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<FuncionarioTO> getPorIntituicao(@RequestParam List<Integer> ids) {
+	public List<FuncionarioTO> getPorIntituicao(@RequestParam(value="ids") List<Long> ids) {
 		return getCmd.getFuncionarioPorInstituicao(ids);
 	}
 

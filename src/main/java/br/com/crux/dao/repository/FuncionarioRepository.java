@@ -25,6 +25,6 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long>{
 			+ "inner join Unidade u on f.unidade = u "
 			+ "inner join Instituicao i on u.instituicao = i "
 			+ "where u.idUnidade in :idsUnidade")
-	public Optional<List<Funcionario>> getPorInstituicao(List<Integer> idsUnidade);
+	public Optional<List<Funcionario>> getPorInstituicao(List<Long> idsUnidade);
 
 }
