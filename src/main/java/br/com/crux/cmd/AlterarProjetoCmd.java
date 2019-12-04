@@ -34,13 +34,21 @@ public class AlterarProjetoCmd {
 		
 		Projeto projeto = repository.save(entity);
 		
-		alterarProjetoUnidadesCmd.alterarAll(to.getUnidades(), projeto);
-		
-		alterarListaColaboradoresProjetoCmd.alterarAll(to.getColaboradoresProjeto(), projeto);
-		
-		alterarParceriasProjetoCmd.alterarAll(to.getParceriasProjeto(), projeto);
+		if(!to.getUnidades().isEmpty()) {
+			alterarProjetoUnidadesCmd.alterarAll(to.getUnidades(), projeto);
+		}
 
-		alterarListaComposicaoRhProjetoCmd.alterarAll(to.getComposicaoRhProjeto(), projeto);
+		if(!to.getColaboradoresProjeto().isEmpty()) {
+			alterarListaColaboradoresProjetoCmd.alterarAll(to.getColaboradoresProjeto(), projeto);
+		}
+
+		if(!to.getParceriasProjeto().isEmpty()) {
+			alterarParceriasProjetoCmd.alterarAll(to.getParceriasProjeto(), projeto);
+		}
+
+		if(to.getComposicaoRhProjeto().isEmpty()) {
+			alterarListaComposicaoRhProjetoCmd.alterarAll(to.getComposicaoRhProjeto(), projeto);
+		}
 		
 
 	}
