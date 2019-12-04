@@ -32,7 +32,7 @@ public class CadastrarProjetoCmd {
 		
 		cadastrarProjetosUnidadeCmd.cadastrarLista(projeto, to.getUnidades());
 		
-		cadastrarListaColaboradoresProjetoCmd.cadastrarLista(to.getColaboradoresProjeto());
+		cadastrarListaColaboradoresProjetoCmd.cadastrarLista(projeto, to.getColaboradoresProjeto());
 		
 		cadastrarParceriaProjetoCmd.cadastrarLista(projeto, to.getParceriasProjeto());
 		

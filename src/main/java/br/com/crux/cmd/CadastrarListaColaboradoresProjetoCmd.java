@@ -11,6 +11,7 @@ import br.com.crux.builder.ProjetosUnidadeTOBuilder;
 import br.com.crux.builder.UnidadeTOBuilder;
 import br.com.crux.dao.repository.ColaboradoresProjetoRepository;
 import br.com.crux.entity.ColaboradoresProjeto;
+import br.com.crux.entity.Projeto;
 import br.com.crux.to.ColaboradoresProjetoTO;
 
 @Component
@@ -25,9 +26,9 @@ public class CadastrarListaColaboradoresProjetoCmd {
 		return colaboradoresProjetoRepository.save(colaboradoresProjeto);
 	}
 
-	public List<ColaboradoresProjeto> cadastrarLista(List<ColaboradoresProjetoTO> colaboradoresProjetoTO) {
+	public List<ColaboradoresProjeto> cadastrarLista(Projeto projeto, List<ColaboradoresProjetoTO> colaboradoresProjetoTO) {
 		return colaboradoresProjetoTO.stream()
-									 .map(colaboradoresProjetoTOBuilder::build)
+									 .map(cd -> colaboradoresProjetoTOBuilder.build(projeto,cd))
 									 .map(this::cadastrar)
 									 .collect(Collectors.toList());
 

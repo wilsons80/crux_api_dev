@@ -33,11 +33,6 @@ public class ColaboradoresProgramaService {
 	private CadastrarColaboradoresProgramaCmd cadastrarCmd;
 	
 	
-	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<ColaboradoresProgramaTO> getAll() {
-		return getCmd.getAll();
-	}
-	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ColaboradoresProgramaTO getById(@PathVariable(name = "id") Long id) {
 		return getCmd.getById(id);

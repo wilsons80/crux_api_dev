@@ -46,15 +46,15 @@ public class AlterarListaColaboradoresProjetoCmd {
 			Optional<ColaboradoresProjeto> findAny = listaColaboradoresProjeto.stream().filter(cp -> cp.getId() == colaborador.getId()).findAny();
 			
 			if(!findAny.isPresent()) {
-				alterar(colaborador);
+				alterar(projeto,colaborador);
 			}
 		}
 
 	}
 
-	private void alterar(ColaboradoresProjetoTO colaborador) {
+	private void alterar(Projeto projeto ,ColaboradoresProjetoTO colaborador) {
 		camposObrigatoriosColaboradoresProjetoRule.verificar(colaborador);
-		ColaboradoresProjeto entity = colaboradoresProjetoTOBuilder.build(colaborador);
+		ColaboradoresProjeto entity = colaboradoresProjetoTOBuilder.build(projeto, colaborador);
 		colaboradoresProjetoRepository.save(entity);
 	}
 
