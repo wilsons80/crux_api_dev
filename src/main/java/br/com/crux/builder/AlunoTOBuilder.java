@@ -7,8 +7,10 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.cmd.GetNiveisTurmasCmd;
 import br.com.crux.cmd.GetVulnerabilidadesAlunoCmd;
 import br.com.crux.entity.Aluno;
+import br.com.crux.entity.NiveisTurmas;
 import br.com.crux.to.AlunoTO;
 
 @Component
@@ -18,6 +20,7 @@ public class AlunoTOBuilder {
 	@Autowired private PessoaFisicaTOBuilder pessoaFisicaBuilder;
 	@Autowired private GetVulnerabilidadesAlunoCmd getVulnerabilidadesAlunoCmd;
 	@Autowired private NiveisTurmasTOBuilder niveisTurmasTOBuilder;
+	@Autowired private GetNiveisTurmasCmd getNiveisTurmasCmd;
 
 	public Aluno build(AlunoTO p) {
 		Aluno retorno = new Aluno();
@@ -42,7 +45,12 @@ public class AlunoTOBuilder {
 		retorno.setDescBuscaEscola(p.getDescBuscaEscola());
 		retorno.setPublicoPrioritario(p.getPublicoPrioritario());
 		retorno.setMatriculaAluno(String.valueOf(p.getId()));
-		retorno.setNivelTurma(niveisTurmasTOBuilder.build(p.getNivelTurma()));
+		
+		if(Objects.nonNull(p.getNivelTurma()) && Objects.nonNull(p.getNivelTurma().getId())) {
+			NiveisTurmas niveisTurmas = getNiveisTurmasCmd.getById(p.getNivelTurma().getId());
+			retorno.setNivelTurma(niveisTurmas);
+		}
+		
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
 		return retorno;
