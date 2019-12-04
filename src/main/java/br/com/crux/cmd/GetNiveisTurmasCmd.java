@@ -22,9 +22,9 @@ public class GetNiveisTurmasCmd {
 	public List<NiveisTurmasTO> getAll() {
 		List<NiveisTurmas> entitys = repository.findAll();
 		if(Objects.isNull(entitys) || entitys.isEmpty()) {
-			return toBuilder.buildAll(entitys);
+			return new ArrayList<NiveisTurmasTO>();
 		}
-		return new ArrayList<NiveisTurmasTO>();
+		return toBuilder.buildAll(entitys);
 	}
 	
 	public NiveisTurmasTO getTOById(Long id) {
