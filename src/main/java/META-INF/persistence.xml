@@ -80,7 +80,7 @@
 		<class>br.com.crux.entity.Cbo</class>
 		<class>br.com.crux.entity.Dependentes</class>
 		<class>br.com.crux.entity.Turmas</class>
-		<class>br.com.crux.entity.NiveisTurma</class>
+		<class>br.com.crux.entity.NiveisTurmas</class>
 		<class>br.com.crux.entity.AlunosTurma</class>
 		<class>br.com.crux.entity.TipoOcorrenciaAluno</class>
 		<class>br.com.crux.entity.OcorrenciaAluno</class>
