@@ -12,11 +12,9 @@ public class ParceriasProjetoTO {
 
 	private LocalDateTime dataInicio;
 
-	private Integer idEmpresa;
+	private EmpresaTO empresa;
 
-	private Integer idProjeto;
-
-	private Long usuarioAlteracao;
+	private ProjetoTO projeto;
 
 	private Double valorParceria;
 
@@ -52,30 +50,6 @@ public class ParceriasProjetoTO {
 		this.dataInicio = dataInicio;
 	}
 
-	public Integer getIdEmpresa() {
-		return idEmpresa;
-	}
-
-	public void setIdEmpresa(Integer idEmpresa) {
-		this.idEmpresa = idEmpresa;
-	}
-
-	public Integer getIdProjeto() {
-		return idProjeto;
-	}
-
-	public void setIdProjeto(Integer idProjeto) {
-		this.idProjeto = idProjeto;
-	}
-
-	public Long getUsuarioAlteracao() {
-		return usuarioAlteracao;
-	}
-
-	public void setUsuarioAlteracao(Long usuarioAlteracao) {
-		this.usuarioAlteracao = usuarioAlteracao;
-	}
-
 	public Double getValorParceria() {
 		return valorParceria;
 	}
@@ -83,7 +57,21 @@ public class ParceriasProjetoTO {
 	public void setValorParceria(Double valorParceria) {
 		this.valorParceria = valorParceria;
 	}
-	
-	
+
+	public EmpresaTO getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(EmpresaTO empresa) {
+		this.empresa = empresa;
+	}
+
+	public ProjetoTO getProjeto() {
+		return projeto;
+	}
+
+	public void setProjeto(ProjetoTO projeto) {
+		this.projeto = projeto;
+	}
 
 }

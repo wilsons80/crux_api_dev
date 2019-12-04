@@ -15,23 +15,19 @@ import br.com.crux.to.UnidadeTO;
 @Component
 public class GetProjetosUnidadeCmd {
 
-	@Autowired
-	UnidadeRepository unidadeRepository;
-	@Autowired
-	UnidadeTOBuilder unidadeTOBuilder;
-	@Autowired
-	SetUnidadeLogadaCmd setUnidadeLogadaCmd;
+	@Autowired UnidadeRepository unidadeRepository;
+	@Autowired UnidadeTOBuilder unidadeTOBuilder;
+	@Autowired SetUnidadeLogadaCmd setUnidadeLogadaCmd;
 
 	public List<UnidadeTO> getUnidadesTOByIdProjeto(Long idProjeto) {
-		List<Unidade> unidadesPorProjeto = unidadeRepository.getUnidadeByProjeto(idProjeto)
-				.orElse(new ArrayList<Unidade>());
+		List<Unidade> unidadesPorProjeto = unidadeRepository.getUnidadeByProjeto(idProjeto).orElse(new ArrayList<Unidade>());
 
 		List<UnidadeTO> listaUnidades = unidadeTOBuilder.buildAllTO(unidadesPorProjeto);
 
 		setUnidadeLogadaCmd.set(listaUnidades);
-		
+
 		listaUnidades.sort(Comparator.comparing(UnidadeTO::getUnidadeLogada).reversed());
-		
+
 		return listaUnidades;
 
 	}

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import br.com.crux.entity.Empresa;
 
 @Repository
-public interface EmpresaRepository extends JpaRepository<Empresa, Long>{
-	
-	
+public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
+
 }

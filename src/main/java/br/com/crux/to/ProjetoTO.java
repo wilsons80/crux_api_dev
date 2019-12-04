@@ -28,6 +28,8 @@ public class ProjetoTO {
 
 	private List<ColaboradoresProjetoTO> colaboradoresProjeto;
 	
+	private List<ParceriasProjetoTO> parceriasProjeto;
+	
 	private Long usuarioAlteracao;
 
 	public ProjetoTO() {
@@ -120,6 +122,14 @@ public class ProjetoTO {
 
 	public void setColaboradoresProjeto(List<ColaboradoresProjetoTO> colaboradoresProjeto) {
 		this.colaboradoresProjeto = colaboradoresProjeto;
+	}
+
+	public List<ParceriasProjetoTO> getParceriasProjeto() {
+		return parceriasProjeto;
+	}
+
+	public void setParceriasProjeto(List<ParceriasProjetoTO> parceriasProjeto) {
+		this.parceriasProjeto = parceriasProjeto;
 	}
 
 	

@@ -17,6 +17,7 @@ public class AlterarProjetoCmd {
 	@Autowired private CamposObrigatoriosProjetoRule camposObrigatoriosRule;
 	@Autowired private ProjetoTOBuilder projetoTOBuilder;
 	@Autowired private AlterarProjetoUnidadesCmd alterarProjetoUnidadesCmd;
+	@Autowired private AlterarParceriasProjetoCmd alterarParceriasProjetoCmd;
 	@Autowired private AlterarListaColaboradoresProjetoCmd  alterarListaColaboradoresProjetoCmd;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 
@@ -35,6 +36,8 @@ public class AlterarProjetoCmd {
 		alterarProjetoUnidadesCmd.alterarAll(to.getUnidades(), projeto);
 		
 		alterarListaColaboradoresProjetoCmd.alterarAll(to.getColaboradoresProjeto(), projeto);
+		
+		alterarParceriasProjetoCmd.alterarAll(to.getParceriasProjeto(), projeto);
 		
 
 	}
