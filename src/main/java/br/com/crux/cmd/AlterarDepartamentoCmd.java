@@ -27,4 +27,5 @@ public class AlterarDepartamentoCmd {
 		departamentoRepository.save(entity);
 
 	}
+
 }

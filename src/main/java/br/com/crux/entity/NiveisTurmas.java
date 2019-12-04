@@ -12,7 +12,7 @@ import br.com.crux.infra.constantes.Constantes;
 
 @Entity
 @Table(name = "niveis_turmas")
-public class NiveisTurma  {
+public class NiveisTurmas  {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_nivel_turma")
@@ -29,7 +29,7 @@ public class NiveisTurma  {
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
 	
-	public NiveisTurma() {
+	public NiveisTurmas() {
 	}
 
 	public Long getId() {

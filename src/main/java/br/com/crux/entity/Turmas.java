@@ -76,7 +76,7 @@ public class Turmas  {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_nivel_turma")
-	private NiveisTurma niveisTurma;
+	private NiveisTurmas niveisTurma;
 	
 	
 	@Column(name="id_usuario_apl")
@@ -205,11 +205,11 @@ public class Turmas  {
 		this.turno = turno;
 	}
 
-	public NiveisTurma getNiveisTurma() {
+	public NiveisTurmas getNiveisTurma() {
 		return niveisTurma;
 	}
 
-	public void setNiveisTurma(NiveisTurma niveisTurma) {
+	public void setNiveisTurma(NiveisTurmas niveisTurma) {
 		this.niveisTurma = niveisTurma;
 	}
 

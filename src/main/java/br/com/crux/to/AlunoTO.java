@@ -37,6 +37,7 @@ public class AlunoTO {
 	private String descBuscaEscola;
 	private String publicoPrioritario;
 	private String matriculaAluno;
+	private NiveisTurmasTO nivelTurma;	
 	private Long usuarioAlteracao;
 
 	private List<VulnerabilidadesAlunoTO> vulnerabilidades;
@@ -220,6 +221,12 @@ public class AlunoTO {
 		this.vulnerabilidades = vulnerabilidades;
 	}
 	
-	
+	public NiveisTurmasTO getNivelTurma() {
+		return nivelTurma;
+	}
+
+	public void setNivelTurma(NiveisTurmasTO nivelTurma) {
+		this.nivelTurma = nivelTurma;
+	}	
 
 }
