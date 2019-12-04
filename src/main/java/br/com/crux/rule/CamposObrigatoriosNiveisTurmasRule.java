@@ -1,5 +1,7 @@
 package br.com.crux.rule;
 
+import java.util.Objects;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +13,7 @@ public class CamposObrigatoriosNiveisTurmasRule {
 
 
 	public void verificar(NiveisTurmasTO to) {
-		if(StringUtils.isEmpty(to.getCodigo())) {
+		if(Objects.isNull(to.getCodigo())) {
 			throw new CamposObrigatoriosException("O código deve ser informado.");
 		}
 		
