@@ -24,7 +24,7 @@ public class ComposicaoRhProjeto  {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_composicao_projeto")
 	@SequenceGenerator(name = "sq_id_composicao_projeto", sequenceName = "sq_id_composicao_projeto", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_composicao_projeto")
-	private long id;
+	private Long id;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_cargo")
@@ -47,11 +47,11 @@ public class ComposicaoRhProjeto  {
 	public ComposicaoRhProjeto() {
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

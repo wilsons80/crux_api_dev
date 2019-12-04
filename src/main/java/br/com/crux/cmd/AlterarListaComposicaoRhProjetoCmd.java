@@ -32,7 +32,7 @@ public class AlterarListaComposicaoRhProjetoCmd {
 		List<ComposicaoRhProjeto> composicaoRhProjeto = composicaoRhProjetoRepository.findByProjeto(projeto).orElse(new ArrayList<ComposicaoRhProjeto>());
 
 		BiPredicate<ComposicaoRhProjeto, List<ComposicaoRhProjetoTO>> contemNaLista = (nova, lista) -> lista.stream().anyMatch(
-				jaTinha -> Objects.nonNull(jaTinha.getId()) && jaTinha.getId() == nova.getId());
+				jaTinha -> Objects.nonNull(jaTinha.getId()) && jaTinha.getCargo().getId() == nova.getCargo().getId());
 
 		// Remove da lista todos os registros que não contém no Banco de Dados
 		composicaoRhProjeto.removeIf(registro -> {

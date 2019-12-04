@@ -13,17 +13,25 @@ import br.com.crux.to.ProjetoTO;
 @Component
 public class AlterarProjetoCmd {
 
-	@Autowired private ProjetoRepository repository;
-	@Autowired private CamposObrigatoriosProjetoRule camposObrigatoriosRule;
-	@Autowired private ProjetoTOBuilder projetoTOBuilder;
-	@Autowired private AlterarProjetoUnidadesCmd alterarProjetoUnidadesCmd;
-	@Autowired private AlterarParceriasProjetoCmd alterarParceriasProjetoCmd;
-	@Autowired private AlterarListaColaboradoresProjetoCmd  alterarListaColaboradoresProjetoCmd;
-	@Autowired private AlterarListaComposicaoRhProjetoCmd  alterarListaComposicaoRhProjetoCmd;
-	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
+	@Autowired
+	private ProjetoRepository repository;
+	@Autowired
+	private CamposObrigatoriosProjetoRule camposObrigatoriosRule;
+	@Autowired
+	private ProjetoTOBuilder projetoTOBuilder;
+	@Autowired
+	private AlterarProjetoUnidadesCmd alterarProjetoUnidadesCmd;
+	@Autowired
+	private AlterarParceriasProjetoCmd alterarParceriasProjetoCmd;
+	@Autowired
+	private AlterarListaColaboradoresProjetoCmd alterarListaColaboradoresProjetoCmd;
+	@Autowired
+	private AlterarListaComposicaoRhProjetoCmd alterarListaComposicaoRhProjetoCmd;
+	@Autowired
+	private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 
 	public void alterar(ProjetoTO to) {
-		
+
 		camposObrigatoriosRule.verificar(to);
 
 		Projeto entity = repository.findById(to.getId()).orElseThrow(() -> new NotFoundException("Projeto informado não existe."));
@@ -31,25 +39,16 @@ public class AlterarProjetoCmd {
 		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 
 		entity = projetoTOBuilder.build(to);
-		
+
 		Projeto projeto = repository.save(entity);
-		
-		if(!to.getUnidades().isEmpty()) {
-			alterarProjetoUnidadesCmd.alterarAll(to.getUnidades(), projeto);
-		}
 
-		if(!to.getColaboradoresProjeto().isEmpty()) {
-			alterarListaColaboradoresProjetoCmd.alterarAll(to.getColaboradoresProjeto(), projeto);
-		}
+		alterarProjetoUnidadesCmd.alterarAll(to.getUnidades(), projeto);
 
-		if(!to.getParceriasProjeto().isEmpty()) {
-			alterarParceriasProjetoCmd.alterarAll(to.getParceriasProjeto(), projeto);
-		}
+		alterarListaColaboradoresProjetoCmd.alterarAll(to.getColaboradoresProjeto(), projeto);
 
-		if(to.getComposicaoRhProjeto().isEmpty()) {
-			alterarListaComposicaoRhProjetoCmd.alterarAll(to.getComposicaoRhProjeto(), projeto);
-		}
-		
+		alterarParceriasProjetoCmd.alterarAll(to.getParceriasProjeto(), projeto);
+
+		alterarListaComposicaoRhProjetoCmd.alterarAll(to.getComposicaoRhProjeto(), projeto);
 
 	}
 }

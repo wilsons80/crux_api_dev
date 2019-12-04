@@ -56,8 +56,8 @@ public class ComposicaoRhProjetoTOBuilder {
 
 		ComposicaoRhProjetoTO to = new ComposicaoRhProjetoTO();
 
-		to.setId(to.getId());
-		to.setQtd(to.getQtd());
+		to.setId(composicaoRhProjeto.getId());
+		to.setQtd(composicaoRhProjeto.getQtd());
 
 		Optional.ofNullable(composicaoRhProjeto.getCargo()).ifPresent(cargo -> {
 			to.setCargo(cargosTOBuilder.buildTO(cargo));

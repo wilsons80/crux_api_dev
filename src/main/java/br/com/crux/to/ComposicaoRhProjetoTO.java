@@ -4,16 +4,16 @@ import java.math.BigDecimal;
 
 public class ComposicaoRhProjetoTO {
 
-	private long id;
+	private Long id;
 	private CargoTO cargo;
 	private BigDecimal qtd;
 	private TiposContratacoesTO tiposContratacoes;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
