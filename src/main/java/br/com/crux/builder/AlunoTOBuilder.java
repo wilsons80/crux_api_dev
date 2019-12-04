@@ -17,6 +17,7 @@ public class AlunoTOBuilder {
 	@Autowired private UnidadeTOBuilder unidadeBuilder;
 	@Autowired private PessoaFisicaTOBuilder pessoaFisicaBuilder;
 	@Autowired private GetVulnerabilidadesAlunoCmd getVulnerabilidadesAlunoCmd;
+	@Autowired private NiveisTurmasTOBuilder niveisTurmasTOBuilder;
 
 	public Aluno build(AlunoTO p) {
 		Aluno retorno = new Aluno();
@@ -41,6 +42,7 @@ public class AlunoTOBuilder {
 		retorno.setDescBuscaEscola(p.getDescBuscaEscola());
 		retorno.setPublicoPrioritario(p.getPublicoPrioritario());
 		retorno.setMatriculaAluno(p.getMatriculaAluno());
+		retorno.setNivelTurma(niveisTurmasTOBuilder.build(p.getNivelTurma()));
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
 		return retorno;
@@ -85,8 +87,8 @@ public class AlunoTOBuilder {
 		retorno.setDescBuscaEscola(p.getDescBuscaEscola());
 		retorno.setPublicoPrioritario(p.getPublicoPrioritario());
 		retorno.setMatriculaAluno(p.getMatriculaAluno());
+		retorno.setNivelTurma(niveisTurmasTOBuilder.buildTO(p.getNivelTurma()));
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
-
 
 		return retorno;
 	}

@@ -89,6 +89,11 @@ public class Aluno {
 
 	@Column(name="nr_matricula_aluno")
 	private String matriculaAluno;
+	
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_nivel_turma")
+	private NiveisTurmas nivelTurma;	
 
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
@@ -264,5 +269,15 @@ public class Aluno {
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
+
+	public NiveisTurmas getNivelTurma() {
+		return nivelTurma;
+	}
+
+	public void setNivelTurma(NiveisTurmas nivelTurma) {
+		this.nivelTurma = nivelTurma;
+	}
+	
+	
 
 }
