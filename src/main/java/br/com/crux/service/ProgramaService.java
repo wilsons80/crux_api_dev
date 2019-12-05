@@ -33,6 +33,11 @@ public class ProgramaService {
 	public List<ProgramaTO> getAll() {
 		return getCmd.getAll();
 	}
+	
+	@GetMapping(path = "/instituicao/logada", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<ProgramaTO> getAllProgramasIntituicaoLogada() {
+		return getCmd.getAllProgramasIntituicaoLogada();
+	}	
 
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ProgramaTO getById(@PathVariable(name = "id") Long id) {
