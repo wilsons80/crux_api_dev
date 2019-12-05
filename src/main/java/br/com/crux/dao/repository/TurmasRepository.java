@@ -53,14 +53,14 @@ public interface TurmasRepository extends JpaRepository<Turmas, Long>{
 	Optional<List<Turmas>> findAllByIdProjetoAndIdProgramaAndIdUnidade(Long idPrograma, Long idProjeto, Long idUnidade);	
 	
 	
-	@Query("select d from Turmas turma "
+	@Query("select turma from Turmas turma "
 			+ " inner join Unidade uni on uni.idUnidade = turma.unidade.idUnidade "
 			+ " inner join Programa prog on prog.id = turma.programa.id "
 			+ " where prog.id = ?1"
 			+ "   and uni.idUnidade = ?3")
 	Optional<List<Turmas>> findAllByIdProgramaAndIdUnidade(Long idPrograma, Long idUnidade);	
 
-	@Query("select d from Turmas turma "
+	@Query("select turma from Turmas turma "
 			+ " inner join Unidade uni on uni.idUnidade = turma.unidade.idUnidade "
 			+ " inner join Projeto proj on proj.id = turma.projeto.id "
 			+ " where proj.id = ?1"
