@@ -1,6 +1,7 @@
 package br.com.crux.to;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -36,6 +37,9 @@ public class TurmasTO  {
 	private String turno;
 	private NiveisTurmasTO niveisTurma;
 	private Long usuarioAlteracao;
+	
+	
+	private List<ColaboradoresTurmaTO> colaboradoresTurma;
 	
 	public TurmasTO() {
 	}
@@ -176,6 +180,15 @@ public class TurmasTO  {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
+	public List<ColaboradoresTurmaTO> getColaboradoresTurma() {
+		return colaboradoresTurma;
+	}
+
+	public void setColaboradoresTurma(List<ColaboradoresTurmaTO> colaboradoresTurma) {
+		this.colaboradoresTurma = colaboradoresTurma;
+	}
+
+	
 	
 
 }

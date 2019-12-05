@@ -63,7 +63,6 @@ public class Turmas  {
 	@JoinColumn(name="id_projeto")
 	private Projeto projeto;
 	
-
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_unidade")
 	private Unidade unidade;

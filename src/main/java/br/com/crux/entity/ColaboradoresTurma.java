@@ -40,9 +40,8 @@ public class ColaboradoresTurma  {
 	@JoinColumn(name="id_funcionario")	
 	private Funcionario funcionario;
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_turma")	
-	private Turmas turma;
+	@Column(name="id_turma")	
+	private Long idTurma;
 
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
@@ -90,12 +89,12 @@ public class ColaboradoresTurma  {
 		this.funcionario = funcionario;
 	}
 
-	public Turmas getTurma() {
-		return turma;
+	public Long getIdTurma() {
+		return idTurma;
 	}
 
-	public void setTurma(Turmas turma) {
-		this.turma = turma;
+	public void setIdTurma(Long turma) {
+		this.idTurma = turma;
 	}
 
 	public Long getUsuarioAlteracao() {
