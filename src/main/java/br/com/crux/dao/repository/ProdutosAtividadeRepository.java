@@ -7,14 +7,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import br.com.crux.entity.ProdutosAtividade;
+import br.com.crux.entity.MateriaisAtividade;
 
 @Repository
-public interface ProdutosAtividadeRepository extends JpaRepository<ProdutosAtividade, Long> {
+public interface ProdutosAtividadeRepository extends JpaRepository<MateriaisAtividade, Long> {
 
 	@Query(value = "SELECT p FROM ProdutosAtividade p " 
 			+ " inner join Atividades ati on ati = p.atividade" 
 			+ " where ati.id = ?1")
-	public Optional<List<ProdutosAtividade>> getPorAtividade(Long idAtividade);
+	public Optional<List<MateriaisAtividade>> getPorAtividade(Long idAtividade);
 
 }

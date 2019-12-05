@@ -4,37 +4,34 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.cmd.GetAtividadeCmd;
-import br.com.crux.cmd.GetProdutoCmd;
+import br.com.crux.cmd.GetMaterialCmd;
 import br.com.crux.entity.Atividades;
-import br.com.crux.entity.Produto;
-import br.com.crux.entity.ProdutosAtividade;
+import br.com.crux.entity.MateriaisAtividade;
+import br.com.crux.entity.Material;
 import br.com.crux.enums.FormaPagamento;
-import br.com.crux.to.ProdutosAtividadeTO;
+import br.com.crux.to.MateriaisAtividadeTO;
 
 @Component
 public class ProdutosAtividadeTOBuilder {
 
-	@Autowired private AtividadesTOBuilder atividadeBuilder;
-	@Autowired private ProdutoTOBuilder produtoBuilder;
-	@Autowired private GetAtividadeCmd getAtividadeCmd;
-	@Autowired private GetProdutoCmd getProdutoCmd;
+	@Autowired
+	private AtividadesTOBuilder atividadeBuilder;
+	@Autowired
+	private MaterialTOBuilder materialBuilder;
+	@Autowired
+	private GetAtividadeCmd getAtividadeCmd;
+	@Autowired
+	private GetMaterialCmd getMaterialCmd;
 
-	public ProdutosAtividade build(ProdutosAtividadeTO p) {
-		ProdutosAtividade retorno = new ProdutosAtividade();
+	public MateriaisAtividade build(MateriaisAtividadeTO p) {
+		MateriaisAtividade retorno = new MateriaisAtividade();
 
-		retorno.setId(p.getId());
-		retorno.setDescricao(p.getDescricao());
-		retorno.setObservacao(p.getObservacao());
-		retorno.setDataAquisicao(p.getDataAquisicao());
-		retorno.setValorProduto(p.getValorProduto());
-		retorno.setDataVendaProduto(p.getDataVendaProduto());
-		retorno.setDescricaoOrigemProduto(p.getDescricaoOrigemProduto());
-		retorno.setQtdProduto(p.getQtdProduto());
-		retorno.setQtdProdutoVendida(p.getQtdProdutoVendida());
+		BeanUtils.copyProperties(p, retorno);
 
 		Optional.ofNullable(p.getFormaPagamento()).ifPresent(tipo -> {
 			retorno.setFormaPagamento(FormaPagamento.getPorTipo(tipo));
@@ -45,9 +42,9 @@ public class ProdutosAtividadeTOBuilder {
 			retorno.setAtividade(a);
 		});
 
-		Optional.ofNullable(p.getProduto()).ifPresent(produto -> {
-			Produto prod = getProdutoCmd.getById(produto.getId());
-			retorno.setProduto(prod);
+		Optional.ofNullable(p.getMaterial()).ifPresent(material -> {
+			Material mat = getMaterialCmd.getById(material.getId());
+			retorno.setMaterial(mat);
 		});
 
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
@@ -55,32 +52,24 @@ public class ProdutosAtividadeTOBuilder {
 		return retorno;
 	}
 
-	public ProdutosAtividadeTO buildTO(ProdutosAtividade p) {
-		ProdutosAtividadeTO retorno = new ProdutosAtividadeTO();
+	public MateriaisAtividadeTO buildTO(MateriaisAtividade p) {
+		MateriaisAtividadeTO retorno = new MateriaisAtividadeTO();
 
-		retorno.setId(p.getId());
-		retorno.setDescricao(p.getDescricao());
-		retorno.setObservacao(p.getObservacao());
-		retorno.setDataAquisicao(p.getDataAquisicao());
-		retorno.setValorProduto(p.getValorProduto());
-		retorno.setDataVendaProduto(p.getDataVendaProduto());
-		retorno.setDescricaoOrigemProduto(p.getDescricaoOrigemProduto());
-		retorno.setQtdProduto(p.getQtdProduto());
-		retorno.setQtdProdutoVendida(p.getQtdProdutoVendida());
+		BeanUtils.copyProperties(p, retorno);
 
 		Optional.ofNullable(p.getFormaPagamento()).ifPresent(formaPagamento -> {
 			retorno.setFormaPagamento(formaPagamento.getTipo());
 		});
 
 		retorno.setAtividade(atividadeBuilder.buildTO(p.getAtividade()));
-		retorno.setProduto(produtoBuilder.buildTO(p.getProduto()));
+		retorno.setMaterial(materialBuilder.buildTO(p.getMaterial()));
 
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
 		return retorno;
 	}
 
-	public List<ProdutosAtividadeTO> buildAll(List<ProdutosAtividade> dtos) {
+	public List<MateriaisAtividadeTO> buildAll(List<MateriaisAtividade> dtos) {
 		return dtos.stream().map(dto -> buildTO(dto)).collect(Collectors.toList());
 	}
 

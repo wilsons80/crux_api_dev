@@ -5,10 +5,10 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.builder.ProdutosAtividadeTOBuilder;
 import br.com.crux.dao.repository.ProdutosAtividadeRepository;
-import br.com.crux.entity.ProdutosAtividade;
+import br.com.crux.entity.MateriaisAtividade;
 import br.com.crux.exception.NotFoundException;
 import br.com.crux.rule.CamposObrigatoriosProdutosAtividadeRule;
-import br.com.crux.to.ProdutosAtividadeTO;
+import br.com.crux.to.MateriaisAtividadeTO;
 
 @Component
 public class AlterarProdutosAtividadeCmd {
@@ -19,11 +19,11 @@ public class AlterarProdutosAtividadeCmd {
 	@Autowired private ProdutosAtividadeTOBuilder produtosAtividadeTOBuilder;
 	@Autowired private CamposObrigatoriosProdutosAtividadeRule camposObrigatoriosRule;
 
-	public void alterar(ProdutosAtividadeTO to) {
+	public void alterar(MateriaisAtividadeTO to) {
 
 		camposObrigatoriosRule.verificar(to);
 
-		ProdutosAtividade entity = repository.findById(to.getId()).orElseThrow(() -> new NotFoundException("Produto da atividade informado não existe."));
+		MateriaisAtividade entity = repository.findById(to.getId()).orElseThrow(() -> new NotFoundException("Produto da atividade informado não existe."));
 
 		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 

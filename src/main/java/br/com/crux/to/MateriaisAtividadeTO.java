@@ -2,7 +2,7 @@ package br.com.crux.to;
 
 import java.time.LocalDateTime;
 
-public class ProdutosAtividadeTO {
+public class MateriaisAtividadeTO {
 
 	private Long id;
 	private String descricao;
@@ -16,11 +16,11 @@ public class ProdutosAtividadeTO {
 	private String formaPagamento;
 
 	private AtividadesTO atividade;
-	private ProdutoTO produto;
+	private MaterialTO material;
 
 	private Long usuarioAlteracao;
 
-	public ProdutosAtividadeTO() {
+	public MateriaisAtividadeTO() {
 	}
 
 	public Long getId() {
@@ -111,12 +111,12 @@ public class ProdutosAtividadeTO {
 		this.atividade = atividade;
 	}
 
-	public ProdutoTO getProduto() {
-		return produto;
+	public MaterialTO getMaterial() {
+		return material;
 	}
 
-	public void setProduto(ProdutoTO produto) {
-		this.produto = produto;
+	public void setMaterial(MaterialTO material) {
+		this.material = material;
 	}
 
 	public Long getUsuarioAlteracao() {

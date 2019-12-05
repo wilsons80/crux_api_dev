@@ -5,9 +5,9 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.builder.ProdutosAtividadeTOBuilder;
 import br.com.crux.dao.repository.ProdutosAtividadeRepository;
-import br.com.crux.entity.ProdutosAtividade;
+import br.com.crux.entity.MateriaisAtividade;
 import br.com.crux.rule.CamposObrigatoriosProdutosAtividadeRule;
-import br.com.crux.to.ProdutosAtividadeTO;
+import br.com.crux.to.MateriaisAtividadeTO;
 
 @Component
 public class CadastrarProdutosAtividadeCmd {
@@ -17,13 +17,13 @@ public class CadastrarProdutosAtividadeCmd {
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	@Autowired private CamposObrigatoriosProdutosAtividadeRule camposObrigatoriosRule;
 
-	public void cadastrar(ProdutosAtividadeTO to) {
+	public void cadastrar(MateriaisAtividadeTO to) {
 
 		camposObrigatoriosRule.verificar(to);
 
 		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 
-		ProdutosAtividade entity = produtosAtividadeTOBuilder.build(to);
+		MateriaisAtividade entity = produtosAtividadeTOBuilder.build(to);
 
 		repository.save(entity);
 

@@ -65,7 +65,7 @@ public class Pedido implements Serializable {
 	//bi-directional many-to-one association to Produto
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_produto")
-	private Produto produto;
+	private Material material;
 
 	//bi-directional many-to-one association to Servico
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -187,12 +187,12 @@ public class Pedido implements Serializable {
 		this.funcionario2 = funcionario2;
 	}
 
-	public Produto getProduto() {
-		return this.produto;
+	public Material getMaterial() {
+		return this.material;
 	}
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
+	public void setProduto(Material material) {
+		this.material = material;
 	}
 
 	public Servico getServico() {

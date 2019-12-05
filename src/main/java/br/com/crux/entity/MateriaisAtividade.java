@@ -21,19 +21,19 @@ import br.com.crux.infra.constantes.Constantes;
 
 
 @Entity
-@Table(name="produtos_atividades")
-public class ProdutosAtividade  {
+@Table(name="materiais_atividades")
+public class MateriaisAtividade  {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_produto_atividade")
-	@SequenceGenerator(name = "sq_id_produto_atividade", sequenceName = "sq_id_produto_atividade", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
-	@Column(name="id_produto_atividade")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_material_atividade")
+	@SequenceGenerator(name = "sq_id_material_atividade", sequenceName = "sq_id_material_atividade", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
+	@Column(name="id_material_atividade")
 	private Long id;
 
 	@Column(name="ds_produto_atividade")
 	private String descricao;
 
-	@Column(name="tx_produto_atividade")
+	@Column(name="tx_material_atividade")
 	private String observacao;
 
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -43,20 +43,20 @@ public class ProdutosAtividade  {
 	@Column(name="dt_aquisicao")
 	private LocalDateTime dataAquisicao;
 
-	@Column(name="vl_produto")
-	private Double valorProduto;
+	@Column(name="vl_material")
+	private Double valorMaterial;
 
-	@Column(name="dt_venda_produto")
-	private LocalDateTime dataVendaProduto;
+	@Column(name="dt_venda_material")
+	private LocalDateTime dataVendaMaterial;
 	
-	@Column(name="ds_origem_produto")
-	private String descricaoOrigemProduto;
+	@Column(name="ds_origem_material")
+	private String descricaoOrigemMaterial;
 
-	@Column(name="qtd_produto")
-	private Long qtdProduto;
+	@Column(name="qtd_material")
+	private Long qtdMaterial;
 	
-	@Column(name="qtd_produto_vendida")
-	private Long qtdProdutoVendida;
+	@Column(name="qtd_material_vendida")
+	private Long qtdMaterialVendida;
 
 	
 	@Column(name="ds_forma_pagamento")
@@ -66,14 +66,11 @@ public class ProdutosAtividade  {
 	private FormaPagamento formaPagamento;
 
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_produto")
-	private Produto produto;
+	@JoinColumn(name="id_material")
+	private Material material;
 
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
-
-	public ProdutosAtividade() {
-	}
 
 	public Long getId() {
 		return id;
@@ -115,44 +112,44 @@ public class ProdutosAtividade  {
 		this.dataAquisicao = dataAquisicao;
 	}
 
-	public Double getValorProduto() {
-		return valorProduto;
+	public Double getValorMaterial() {
+		return valorMaterial;
 	}
 
-	public void setValorProduto(Double valorProduto) {
-		this.valorProduto = valorProduto;
+	public void setValorMaterial(Double valorMaterial) {
+		this.valorMaterial = valorMaterial;
 	}
 
-	public LocalDateTime getDataVendaProduto() {
-		return dataVendaProduto;
+	public LocalDateTime getDataVendaMaterial() {
+		return dataVendaMaterial;
 	}
 
-	public void setDataVendaProduto(LocalDateTime dataVendaProduto) {
-		this.dataVendaProduto = dataVendaProduto;
+	public void setDataVendaMaterial(LocalDateTime dataVendaMaterial) {
+		this.dataVendaMaterial = dataVendaMaterial;
 	}
 
-	public String getDescricaoOrigemProduto() {
-		return descricaoOrigemProduto;
+	public String getDescricaoOrigemMaterial() {
+		return descricaoOrigemMaterial;
 	}
 
-	public void setDescricaoOrigemProduto(String descricaoOrigemProduto) {
-		this.descricaoOrigemProduto = descricaoOrigemProduto;
+	public void setDescricaoOrigemMaterial(String descricaoOrigemMaterial) {
+		this.descricaoOrigemMaterial = descricaoOrigemMaterial;
 	}
 
-	public Long getQtdProduto() {
-		return qtdProduto;
+	public Long getQtdMaterial() {
+		return qtdMaterial;
 	}
 
-	public void setQtdProduto(Long qtdProduto) {
-		this.qtdProduto = qtdProduto;
+	public void setQtdMaterial(Long qtdMaterial) {
+		this.qtdMaterial = qtdMaterial;
 	}
 
-	public Long getQtdProdutoVendida() {
-		return qtdProdutoVendida;
+	public Long getQtdMaterialVendida() {
+		return qtdMaterialVendida;
 	}
 
-	public void setQtdProdutoVendida(Long qtdProdutoVendida) {
-		this.qtdProdutoVendida = qtdProdutoVendida;
+	public void setQtdMaterialVendida(Long qtdMaterialVendida) {
+		this.qtdMaterialVendida = qtdMaterialVendida;
 	}
 
 	public FormaPagamento getFormaPagamento() {
@@ -163,12 +160,12 @@ public class ProdutosAtividade  {
 		this.formaPagamento = formaPagamento;
 	}
 
-	public Produto getProduto() {
-		return produto;
+	public Material getMaterial() {
+		return material;
 	}
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
+	public void setMaterial(Material material) {
+		this.material = material;
 	}
 
 	public Long getUsuarioAlteracao() {
@@ -179,6 +176,7 @@ public class ProdutosAtividade  {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
+	
 	
 
 }
