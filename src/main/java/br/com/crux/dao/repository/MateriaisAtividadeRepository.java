@@ -10,9 +10,9 @@ import org.springframework.stereotype.Repository;
 import br.com.crux.entity.MateriaisAtividade;
 
 @Repository
-public interface ProdutosAtividadeRepository extends JpaRepository<MateriaisAtividade, Long> {
+public interface MateriaisAtividadeRepository extends JpaRepository<MateriaisAtividade, Long> {
 
-	@Query(value = "SELECT p FROM ProdutosAtividade p " 
+	@Query(value = "SELECT p FROM MateriaisAtividade p " 
 			+ " inner join Atividades ati on ati = p.atividade" 
 			+ " where ati.id = ?1")
 	public Optional<List<MateriaisAtividade>> getPorAtividade(Long idAtividade);

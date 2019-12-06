@@ -17,7 +17,7 @@ import br.com.crux.enums.FormaPagamento;
 import br.com.crux.to.MateriaisAtividadeTO;
 
 @Component
-public class ProdutosAtividadeTOBuilder {
+public class MateriaisAtividadeTOBuilder {
 
 	@Autowired
 	private AtividadesTOBuilder atividadeBuilder;

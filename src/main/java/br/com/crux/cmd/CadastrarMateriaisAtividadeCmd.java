@@ -3,19 +3,19 @@ package br.com.crux.cmd;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.builder.ProdutosAtividadeTOBuilder;
-import br.com.crux.dao.repository.ProdutosAtividadeRepository;
+import br.com.crux.builder.MateriaisAtividadeTOBuilder;
+import br.com.crux.dao.repository.MateriaisAtividadeRepository;
 import br.com.crux.entity.MateriaisAtividade;
-import br.com.crux.rule.CamposObrigatoriosProdutosAtividadeRule;
+import br.com.crux.rule.CamposObrigatoriosMateriaisAtividadeRule;
 import br.com.crux.to.MateriaisAtividadeTO;
 
 @Component
-public class CadastrarProdutosAtividadeCmd {
+public class CadastrarMateriaisAtividadeCmd {
 
-	@Autowired private ProdutosAtividadeRepository repository;
-	@Autowired private ProdutosAtividadeTOBuilder produtosAtividadeTOBuilder;
+	@Autowired private MateriaisAtividadeRepository repository;
+	@Autowired private MateriaisAtividadeTOBuilder produtosAtividadeTOBuilder;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
-	@Autowired private CamposObrigatoriosProdutosAtividadeRule camposObrigatoriosRule;
+	@Autowired private CamposObrigatoriosMateriaisAtividadeRule camposObrigatoriosRule;
 
 	public void cadastrar(MateriaisAtividadeTO to) {
 

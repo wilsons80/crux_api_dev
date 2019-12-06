@@ -9,7 +9,7 @@ import br.com.crux.exception.CamposObrigatoriosException;
 import br.com.crux.to.MateriaisAtividadeTO;
 
 @Component
-public class CamposObrigatoriosProdutosAtividadeRule {
+public class CamposObrigatoriosMateriaisAtividadeRule {
 
 
 	public void verificar(MateriaisAtividadeTO to) {

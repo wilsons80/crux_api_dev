@@ -3,21 +3,21 @@ package br.com.crux.cmd;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.builder.ProdutosAtividadeTOBuilder;
-import br.com.crux.dao.repository.ProdutosAtividadeRepository;
+import br.com.crux.builder.MateriaisAtividadeTOBuilder;
+import br.com.crux.dao.repository.MateriaisAtividadeRepository;
 import br.com.crux.entity.MateriaisAtividade;
 import br.com.crux.exception.NotFoundException;
-import br.com.crux.rule.CamposObrigatoriosProdutosAtividadeRule;
+import br.com.crux.rule.CamposObrigatoriosMateriaisAtividadeRule;
 import br.com.crux.to.MateriaisAtividadeTO;
 
 @Component
-public class AlterarProdutosAtividadeCmd {
+public class AlterarMateriaisAtividadeCmd {
 
-	@Autowired private ProdutosAtividadeRepository repository;
+	@Autowired private MateriaisAtividadeRepository repository;
 
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
-	@Autowired private ProdutosAtividadeTOBuilder produtosAtividadeTOBuilder;
-	@Autowired private CamposObrigatoriosProdutosAtividadeRule camposObrigatoriosRule;
+	@Autowired private MateriaisAtividadeTOBuilder produtosAtividadeTOBuilder;
+	@Autowired private CamposObrigatoriosMateriaisAtividadeRule camposObrigatoriosRule;
 
 	public void alterar(MateriaisAtividadeTO to) {
 

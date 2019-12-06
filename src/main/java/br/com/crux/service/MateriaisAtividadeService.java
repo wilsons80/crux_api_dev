@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.crux.cmd.AlterarProdutosAtividadeCmd;
-import br.com.crux.cmd.CadastrarProdutosAtividadeCmd;
-import br.com.crux.cmd.ExcluirProdutosAtividadeCmd;
-import br.com.crux.cmd.GetProdutosAtividadeCmd;
+import br.com.crux.cmd.AlterarMateriaisAtividadeCmd;
+import br.com.crux.cmd.CadastrarMateriaisAtividadeCmd;
+import br.com.crux.cmd.ExcluirMateriaisAtividadeCmd;
+import br.com.crux.cmd.GetMateriaisAtividadeCmd;
 import br.com.crux.to.MateriaisAtividadeTO;
 
 @RestController
@@ -24,13 +24,13 @@ import br.com.crux.to.MateriaisAtividadeTO;
 public class MateriaisAtividadeService {
 	
 	@Autowired
-	private GetProdutosAtividadeCmd getCmd;
+	private GetMateriaisAtividadeCmd getCmd;
 	@Autowired
-	private ExcluirProdutosAtividadeCmd  excluirCmd;
+	private ExcluirMateriaisAtividadeCmd  excluirCmd;
 	@Autowired
-	private AlterarProdutosAtividadeCmd alterarCmd;
+	private AlterarMateriaisAtividadeCmd alterarCmd;
 	@Autowired
-	private CadastrarProdutosAtividadeCmd cadastrarCmd;
+	private CadastrarMateriaisAtividadeCmd cadastrarCmd;
 	
 	
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)

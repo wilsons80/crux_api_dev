@@ -6,22 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.dao.repository.ProdutosAtividadeRepository;
+import br.com.crux.dao.repository.MateriaisAtividadeRepository;
 import br.com.crux.exception.ParametroNaoInformadoException;
 import br.com.crux.exception.TabaleReferenciaEncontradaException;
 
 @Component
-public class ExcluirProdutosAtividadeCmd {
+public class ExcluirMateriaisAtividadeCmd {
 
 	@Autowired
-	private ProdutosAtividadeRepository repository;
+	private MateriaisAtividadeRepository repository;
 	
 	
 	public void excluir(Long id) {
 		try {
 			
 			if(Objects.isNull(id)) {
-				throw new ParametroNaoInformadoException("Erro ao excluir o produto da atividade. Parâmetro ausente.");
+				throw new ParametroNaoInformadoException("Erro ao excluir o material da atividade. Parâmetro ausente.");
 			}
 			repository.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
