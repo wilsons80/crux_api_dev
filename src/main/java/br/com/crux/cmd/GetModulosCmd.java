@@ -22,18 +22,16 @@ public class GetModulosCmd {
 	@Autowired private ModuloRepository moduloRepository;
 
 	public List<ModuloTO> getAll() {
-		List<Modulo> modulos = moduloRepository.findAll().stream()
-				                                         .filter(m -> Objects.nonNull(m.getModuloPai()))
-				                                         .collect(Collectors.toList());
+		List<Modulo> modulos = moduloRepository.findAllByOrderByDescricaoAsc().stream().filter(m -> Objects.nonNull(m.getModuloPai()))
+				.collect(Collectors.toList());
 		return moduloTOBuilder.buildAll(modulos);
 	}
 
-	
 	public List<ModuloTO> getModulosPorUnidadeLogada() {
 		return getModulosPorUnidade(getUnidadeLogadaCmd.get().getId());
 	}
-	
+
 	public List<ModuloTO> getModulosPorUnidade(Long idUnidade) {
 		return moduloTOBuilder.buildAllDTO(moduloDao.getModuloPorUnidade(idUnidade));
-	}	
+	}
 }
