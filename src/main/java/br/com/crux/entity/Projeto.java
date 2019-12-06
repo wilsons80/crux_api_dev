@@ -60,9 +60,19 @@ public class Projeto implements Serializable {
 	@JoinColumn(name="programas_id_programa")
 	private Programa programa;
 	
-
+	@Column(name="ds_publico_alvo")
+	private String publicoAlvo;
+	
+	@Column(name="ds_justificativa")
+	private String justificativa;
+	
+	@Column(name="ds_objetivo_geral")
+	private String objetivoGeral;
+	
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
+	
+	
 
 	public Projeto() {
 	}
@@ -145,6 +155,30 @@ public class Projeto implements Serializable {
 
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
+	}
+
+	public String getPublicoAlvo() {
+		return publicoAlvo;
+	}
+
+	public void setPublicoAlvo(String publicoAlvo) {
+		this.publicoAlvo = publicoAlvo;
+	}
+
+	public String getJustificativa() {
+		return justificativa;
+	}
+
+	public void setJustificativa(String justificativa) {
+		this.justificativa = justificativa;
+	}
+
+	public String getObjetivoGeral() {
+		return objetivoGeral;
+	}
+
+	public void setObjetivoGeral(String objetivoGeral) {
+		this.objetivoGeral = objetivoGeral;
 	}
 
 	

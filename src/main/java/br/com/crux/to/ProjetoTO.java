@@ -12,7 +12,7 @@ public class ProjetoTO {
 	private Long id;
 	private String nome;
 	private String descricao;
-	
+
 	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime dataFim;
 	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
@@ -21,17 +21,23 @@ public class ProjetoTO {
 	private LocalDateTime dataPrevisaoInicio;
 	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime dataPrevisaoTermino;
-	
+
 	private ProgramaTO programa;
-	
+
 	private List<UnidadeTO> unidades;
 
 	private List<ColaboradoresProjetoTO> colaboradoresProjeto;
-	
+
 	private List<ParceriasProjetoTO> parceriasProjeto;
 
 	private List<ComposicaoRhProjetoTO> composicaoRhProjeto;
-	
+
+	private String publicoAlvo;
+
+	private String justificativa;
+
+	private String objetivoGeral;
+
 	private Long usuarioAlteracao;
 
 	public ProjetoTO() {
@@ -93,7 +99,6 @@ public class ProjetoTO {
 		this.dataPrevisaoTermino = dataPrevisaoTermino;
 	}
 
-
 	public ProgramaTO getPrograma() {
 		return programa;
 	}
@@ -142,5 +147,28 @@ public class ProjetoTO {
 		this.composicaoRhProjeto = composicaoRhProjeto;
 	}
 
-	
+	public String getPublicoAlvo() {
+		return publicoAlvo;
+	}
+
+	public void setPublicoAlvo(String publicoAlvo) {
+		this.publicoAlvo = publicoAlvo;
+	}
+
+	public String getJustificativa() {
+		return justificativa;
+	}
+
+	public void setJustificativa(String justificativa) {
+		this.justificativa = justificativa;
+	}
+
+	public String getObjetivoGeral() {
+		return objetivoGeral;
+	}
+
+	public void setObjetivoGeral(String objetivoGeral) {
+		this.objetivoGeral = objetivoGeral;
+	}
+
 }
