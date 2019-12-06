@@ -28,6 +28,17 @@ public class ProjetoService {
 	@Autowired private ExcluirProjetoCmd excluirCmd;
 	@Autowired private AlterarProjetoCmd alterarCmd;
 	@Autowired private CadastrarProjetoCmd cadastrarCmd;
+	
+	
+	@GetMapping(path = "/instituicao/logada", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<ProjetoTO> getAllIntituicaoLogada() {
+		return getCmd.getAllIntituicaoLogada();
+	}
+	
+	@GetMapping(path = "/programa/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<ProjetoTO> getAllPorPrograma(@PathVariable(name = "id") Long id) {
+		return getCmd.getAllPrograma(id);
+	}	
 
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<ProjetoTO> getAll() {

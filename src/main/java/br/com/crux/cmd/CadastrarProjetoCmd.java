@@ -37,8 +37,7 @@ public class CadastrarProjetoCmd {
 		
 		cadastrarParceriaProjetoCmd.cadastrarLista(projeto, to.getParceriasProjeto());
 		
-//		cadastrarComposicaoRhProjetoCmd.cadastrarLista(projeto, to.getComposicaoRhProjeto())
-		
+		cadastrarComposicaoRhProjetoCmd.cadastrarLista(projeto, to.getComposicaoRhProjeto());
 
 	}
 }

@@ -6,13 +6,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.exception.CamposObrigatoriosException;
-import br.com.crux.to.ProdutosAtividadeTO;
+import br.com.crux.to.MateriaisAtividadeTO;
 
 @Component
 public class CamposObrigatoriosProdutosAtividadeRule {
 
 
-	public void verificar(ProdutosAtividadeTO to) {
+	public void verificar(MateriaisAtividadeTO to) {
 		if(StringUtils.isEmpty(to.getDescricao())) {
 			throw new CamposObrigatoriosException("Descrição deve ser informada.");
 		}
@@ -21,7 +21,7 @@ public class CamposObrigatoriosProdutosAtividadeRule {
 			throw new CamposObrigatoriosException("Atividade deve ser informada.");
 		}
 		
-		if(Objects.isNull(to.getProduto())) {
+		if(Objects.isNull(to.getMaterial())) {
 			throw new CamposObrigatoriosException("Produto deve ser informado.");
 		}
 		

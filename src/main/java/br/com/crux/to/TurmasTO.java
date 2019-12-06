@@ -1,87 +1,47 @@
-package br.com.crux.entity;
+package br.com.crux.to;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import br.com.crux.infra.constantes.Constantes;
+import br.com.crux.infra.adapter.LocalDateTimeAdapter;
 
-@Entity
-@Table(name = "turmas")
-public class Turmas  {
+public class TurmasTO  {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_turma")
-	@SequenceGenerator(name = "sq_id_turma", sequenceName = "sq_id_turma", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
-	@Column(name = "id_turma")
 	private Long id;
-	
-	@Column(name = "ds_turma")
 	private String descricao;
 	
-	@Column(name="dt_prev_inicio")
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime dataPrevisaoInicio;
-	
-	@Column(name="dt_prev_termino")
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime dataPrevisaoTermino;
-	
-	@Column(name="dt_inicio_turma")
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime dataInicioTurma;
-	
-	@Column(name="dt_fim_turma")
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime dataFimTurma;
 	
-	@Column(name = "hr_inicio")
 	private Long horaInicio;	
-	
-	@Column(name = "hr_fim")
 	private Long horaFim;	
 	
-	@Column(name = "nr_maximo_participantes")
 	private Long numeroMaximoParticipantes;	
-	
-	@Column(name = "nr_carga_horaria")
 	private Long numeroCargaHoraria;	
 	
-	@Column(name = "tx_observacoes")
 	private String observacao;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_programa")
-	private Programa programa;
+	private ProgramaTO programa;
+	private ProjetoTO projeto;
+	private UnidadeTO unidade;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_projeto")
-	private Projeto projeto;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_unidade")
-	private Unidade unidade;
-
-
 	//M = MATUTINO, V = VESPERTINO, N = NOTURNO, O = OUTRO
-	@Column(name = "cs_turno")
 	private String turno;
-	
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_nivel_turma")
-	private NiveisTurmas niveisTurma;
-	
-	
-	@Column(name="id_usuario_apl")
+	private NiveisTurmasTO niveisTurma;
 	private Long usuarioAlteracao;
 	
-	public Turmas() {
+	
+	private List<ColaboradoresTurmaTO> colaboradoresTurma;
+	
+	public TurmasTO() {
 	}
 
 	public Long getId() {
@@ -172,27 +132,27 @@ public class Turmas  {
 		this.observacao = observacao;
 	}
 
-	public Programa getPrograma() {
+	public ProgramaTO getPrograma() {
 		return programa;
 	}
 
-	public void setPrograma(Programa programa) {
+	public void setPrograma(ProgramaTO programa) {
 		this.programa = programa;
 	}
 
-	public Projeto getProjeto() {
+	public ProjetoTO getProjeto() {
 		return projeto;
 	}
 
-	public void setProjeto(Projeto projeto) {
+	public void setProjeto(ProjetoTO projeto) {
 		this.projeto = projeto;
 	}
 
-	public Unidade getUnidade() {
+	public UnidadeTO getUnidade() {
 		return unidade;
 	}
 
-	public void setUnidade(Unidade unidade) {
+	public void setUnidade(UnidadeTO unidade) {
 		this.unidade = unidade;
 	}
 
@@ -204,11 +164,11 @@ public class Turmas  {
 		this.turno = turno;
 	}
 
-	public NiveisTurmas getNiveisTurma() {
+	public NiveisTurmasTO getNiveisTurma() {
 		return niveisTurma;
 	}
 
-	public void setNiveisTurma(NiveisTurmas niveisTurma) {
+	public void setNiveisTurma(NiveisTurmasTO niveisTurma) {
 		this.niveisTurma = niveisTurma;
 	}
 
@@ -220,6 +180,15 @@ public class Turmas  {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
+	public List<ColaboradoresTurmaTO> getColaboradoresTurma() {
+		return colaboradoresTurma;
+	}
+
+	public void setColaboradoresTurma(List<ColaboradoresTurmaTO> colaboradoresTurma) {
+		this.colaboradoresTurma = colaboradoresTurma;
+	}
+
 	
 	
+
 }

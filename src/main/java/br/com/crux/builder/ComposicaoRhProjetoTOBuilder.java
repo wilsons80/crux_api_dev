@@ -1,59 +1,77 @@
 package br.com.crux.builder;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.cmd.GetEmpresaCmd;
 import br.com.crux.cmd.GetUsuarioLogadoCmd;
-import br.com.crux.entity.Empresa;
-import br.com.crux.entity.ParceriasProjeto;
+import br.com.crux.entity.ComposicaoRhProjeto;
 import br.com.crux.entity.Projeto;
 import br.com.crux.to.ComposicaoRhProjetoTO;
-import br.com.crux.to.ParceriasProjetoTO;
 
 @Component
 public class ComposicaoRhProjetoTOBuilder {
 
-	@Autowired GetUsuarioLogadoCmd getUsuarioLogadoCmd;
-	@Autowired GetEmpresaCmd empresaCmd;
-	@Autowired EmpresaTOBuilder empresaTOBuilder;
-	@Autowired ProjetoTOBuilder projetoTOBuilder;
+	@Autowired
+	GetUsuarioLogadoCmd getUsuarioLogadoCmd;
+	@Autowired
+	GetEmpresaCmd empresaCmd;
+	@Autowired
+	EmpresaTOBuilder empresaTOBuilder;
+	@Autowired
+	ProjetoTOBuilder projetoTOBuilder;
+	@Autowired
+	CargosTOBuilder cargosTOBuilder;
+	@Autowired
+	TiposContratacoesTOBuilder tiposContratacoesTOBuilder;
 
-	public ParceriasProjeto build(Projeto projeto, ComposicaoRhProjetoTO composicaoRhProjetoTO) {
+	public ComposicaoRhProjeto build(Projeto projeto, ComposicaoRhProjetoTO to) {
 
-//		ParceriasProjeto parceriasProjeto = new ParceriasProjeto();
-//
-//		BeanUtils.copyProperties(composicaoRhProjetoTO, parceriasProjeto, "projeto", "empresa");
-//
-//		parceriasProjeto.setProjeto(projeto);
-//		
-//		if(Objects.nonNull(composicaoRhProjetoTO.getEmpresa()) && Objects.nonNull(composicaoRhProjetoTO.getEmpresa().getId())) {
-//			Empresa e = empresaCmd.getById(composicaoRhProjetoTO.getEmpresa().getId());
-//			parceriasProjeto.setEmpresa(e);
-//		}
-//
-//		parceriasProjeto.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
+		ComposicaoRhProjeto composicaoRhProjeto = new ComposicaoRhProjeto();
 
-		return null;
+		composicaoRhProjeto.setId(to.getId());
+
+		Optional.ofNullable(to.getCargo()).ifPresent(cargo -> {
+			composicaoRhProjeto.setCargo(cargosTOBuilder.build(cargo));
+		});
+
+		composicaoRhProjeto.setProjeto(projeto);
+
+		composicaoRhProjeto.setQtd(to.getQtd());
+
+		Optional.ofNullable(to.getTiposContratacoes()).ifPresent(tc -> {
+			composicaoRhProjeto.setTiposContratacoes(tiposContratacoesTOBuilder.build(to.getTiposContratacoes()));
+
+		});
+		composicaoRhProjeto.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
+
+		return composicaoRhProjeto;
 	}
 
-	public ParceriasProjetoTO buildTO(ParceriasProjeto parceriaProjeto) {
+	public ComposicaoRhProjetoTO buildTO(ComposicaoRhProjeto composicaoRhProjeto) {
 
-		ParceriasProjetoTO to = new ParceriasProjetoTO();
+		ComposicaoRhProjetoTO to = new ComposicaoRhProjetoTO();
 
-		BeanUtils.copyProperties(parceriaProjeto, to, "projeto", "empresa");
-		
-		to.setEmpresa(empresaTOBuilder.buildTO(parceriaProjeto.getEmpresa()));
+		to.setId(composicaoRhProjeto.getId());
+		to.setQtd(composicaoRhProjeto.getQtd());
+
+		Optional.ofNullable(composicaoRhProjeto.getCargo()).ifPresent(cargo -> {
+			to.setCargo(cargosTOBuilder.buildTO(cargo));
+		});
+
+		Optional.ofNullable(composicaoRhProjeto.getTiposContratacoes()).ifPresent(tc -> {
+			to.setTiposContratacoes(tiposContratacoesTOBuilder.buildTO(tc));
+
+		});
 
 		return to;
 	}
 
-	public List<ParceriasProjetoTO> buildAll(List<ParceriasProjeto> lista) {
+	public List<ComposicaoRhProjetoTO> buildAll(List<ComposicaoRhProjeto> lista) {
 
 		return lista.stream().map(this::buildTO).collect(Collectors.toList());
 	}

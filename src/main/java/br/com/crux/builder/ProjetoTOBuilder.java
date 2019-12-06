@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.cmd.GetColaboradoresProjetoCmd;
+import br.com.crux.cmd.GetComposicaoRhProjetoCmd;
 import br.com.crux.cmd.GetParceriasProjetoCmd;
 import br.com.crux.cmd.GetProgramaCmd;
 import br.com.crux.cmd.GetProjetosUnidadeCmd;
@@ -24,6 +25,7 @@ public class ProjetoTOBuilder {
 	@Autowired private GetProjetosUnidadeCmd getProjetosUnidadeCmd;
 	@Autowired private GetColaboradoresProjetoCmd getColaboradoresProjetoCmd;
 	@Autowired private GetParceriasProjetoCmd getParceriasProjetoCmd;
+	@Autowired private GetComposicaoRhProjetoCmd getComposicaoRhProjetoCmd;
 
 	public Projeto build(ProjetoTO p) {
 		Projeto retorno = new Projeto();
@@ -71,6 +73,7 @@ public class ProjetoTOBuilder {
 		retorno.setUnidades(getProjetosUnidadeCmd.getUnidadesTOByIdProjeto(p.getId()));
 		retorno.setColaboradoresProjeto((getColaboradoresProjetoCmd.getColaboradoresProjetoTOByProjeto(p)));
 		retorno.setParceriasProjeto(getParceriasProjetoCmd.getColaboradoresProjetoTOByProjeto(p));
+		retorno.setComposicaoRhProjeto(getComposicaoRhProjetoCmd.getComposicaoRhProjetoByProjeto(p));
 
 		return retorno;
 	}

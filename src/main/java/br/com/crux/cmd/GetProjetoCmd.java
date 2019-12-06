@@ -21,6 +21,24 @@ public class GetProjetoCmd {
 	
 	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	
+	
+	public List<ProjetoTO> getAllPrograma(Long idPrograma) {
+		Optional<List<Projeto>> listaRetorno = repository.findByIdPrograma(idPrograma);
+		if(listaRetorno.isPresent()) {
+			return toBuilder.buildAll(listaRetorno.get());
+		}
+		return new ArrayList<ProjetoTO>();
+	}	
+	
+	public List<ProjetoTO> getAllIntituicaoLogada() {
+		Long idInstituicao = getUnidadeLogadaCmd.getUnidadeTO().getInstituicao().getId();
+		Optional<List<Projeto>> listaRetorno = repository.findByIdInstituicao(idInstituicao);
+		if(listaRetorno.isPresent()) {
+			return toBuilder.buildAll(listaRetorno.get());
+		}
+		return new ArrayList<ProjetoTO>();
+	}
+	
 	public List<ProjetoTO> getAll() {
 		Long idUnidade = getUnidadeLogadaCmd.get().getId();
 		Optional<List<Projeto>> listaRetorno = repository.findByIdUnidade(idUnidade);

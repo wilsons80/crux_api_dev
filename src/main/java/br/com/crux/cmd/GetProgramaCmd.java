@@ -21,6 +21,18 @@ public class GetProgramaCmd {
 	
 	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 	
+	
+	public List<ProgramaTO> getAllProgramasIntituicaoLogada() {
+		Long idInstituicao = getUnidadeLogadaCmd.getUnidadeTO().getInstituicao().getId();
+		
+		Optional<List<Programa>> listaRetorno = repository.findByIdInstituicao(idInstituicao);
+		if(listaRetorno.isPresent()) {
+			return toBuilder.buildAll(listaRetorno.get());
+		}
+		return new ArrayList<ProgramaTO>();
+	}
+
+	
 	public List<ProgramaTO> getAll() {
 		Long idUnidade = getUnidadeLogadaCmd.get().getId();
 		Optional<List<Programa>> listaRetorno = repository.findByIdUnidade(idUnidade);

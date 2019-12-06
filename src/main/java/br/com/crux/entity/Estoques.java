@@ -57,7 +57,7 @@ public class Estoques {
 	//bi-directional many-to-one association to Produto
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_produto")
-	private Produto produto;
+	private Material material;
 
 	//bi-directional many-to-one association to Unidade
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -136,12 +136,12 @@ public class Estoques {
 		this.funcionario = funcionario;
 	}
 
-	public Produto getProduto() {
-		return this.produto;
+	public Material getMaterial() {
+		return this.material;
 	}
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
+	public void setMaterial(Material material) {
+		this.material = material;
 	}
 
 	public Unidade getUnidade() {

@@ -2,26 +2,21 @@ package br.com.crux.to;
 
 import java.time.LocalDateTime;
 
-public class ProdutosAtividadeTO {
+public class MateriaisAtividadeTO {
 
 	private Long id;
 	private String descricao;
 	private String observacao;
 	private LocalDateTime dataAquisicao;
-	private Double valorProduto;
-	private LocalDateTime dataVendaProduto;
-	private String descricaoOrigemProduto;
-	private Long qtdProduto;
-	private Long qtdProdutoVendida;
+	private Double valorMaterial;
+	private LocalDateTime dataVendaMaterial;
+	private String descricaoOrigemMaterial;
+	private Long qtdMaterial;
+	private Long qtdMaterialVendida;
 	private String formaPagamento;
-
 	private AtividadesTO atividade;
-	private ProdutoTO produto;
-
+	private MaterialTO material;
 	private Long usuarioAlteracao;
-
-	public ProdutosAtividadeTO() {
-	}
 
 	public Long getId() {
 		return id;
@@ -55,44 +50,44 @@ public class ProdutosAtividadeTO {
 		this.dataAquisicao = dataAquisicao;
 	}
 
-	public Double getValorProduto() {
-		return valorProduto;
+	public Double getValorMaterial() {
+		return valorMaterial;
 	}
 
-	public void setValorProduto(Double valorProduto) {
-		this.valorProduto = valorProduto;
+	public void setValorMaterial(Double valorMaterial) {
+		this.valorMaterial = valorMaterial;
 	}
 
-	public LocalDateTime getDataVendaProduto() {
-		return dataVendaProduto;
+	public LocalDateTime getDataVendaMaterial() {
+		return dataVendaMaterial;
 	}
 
-	public void setDataVendaProduto(LocalDateTime dataVendaProduto) {
-		this.dataVendaProduto = dataVendaProduto;
+	public void setDataVendaMaterial(LocalDateTime dataVendaMaterial) {
+		this.dataVendaMaterial = dataVendaMaterial;
 	}
 
-	public String getDescricaoOrigemProduto() {
-		return descricaoOrigemProduto;
+	public String getDescricaoOrigemMaterial() {
+		return descricaoOrigemMaterial;
 	}
 
-	public void setDescricaoOrigemProduto(String descricaoOrigemProduto) {
-		this.descricaoOrigemProduto = descricaoOrigemProduto;
+	public void setDescricaoOrigemMaterial(String descricaoOrigemMaterial) {
+		this.descricaoOrigemMaterial = descricaoOrigemMaterial;
 	}
 
-	public Long getQtdProduto() {
-		return qtdProduto;
+	public Long getQtdMaterial() {
+		return qtdMaterial;
 	}
 
-	public void setQtdProduto(Long qtdProduto) {
-		this.qtdProduto = qtdProduto;
+	public void setQtdMaterial(Long qtdMaterial) {
+		this.qtdMaterial = qtdMaterial;
 	}
 
-	public Long getQtdProdutoVendida() {
-		return qtdProdutoVendida;
+	public Long getQtdMaterialVendida() {
+		return qtdMaterialVendida;
 	}
 
-	public void setQtdProdutoVendida(Long qtdProdutoVendida) {
-		this.qtdProdutoVendida = qtdProdutoVendida;
+	public void setQtdMaterialVendida(Long qtdMaterialVendida) {
+		this.qtdMaterialVendida = qtdMaterialVendida;
 	}
 
 	public String getFormaPagamento() {
@@ -111,12 +106,12 @@ public class ProdutosAtividadeTO {
 		this.atividade = atividade;
 	}
 
-	public ProdutoTO getProduto() {
-		return produto;
+	public MaterialTO getMaterial() {
+		return material;
 	}
 
-	public void setProduto(ProdutoTO produto) {
-		this.produto = produto;
+	public void setMaterial(MaterialTO material) {
+		this.material = material;
 	}
 
 	public Long getUsuarioAlteracao() {

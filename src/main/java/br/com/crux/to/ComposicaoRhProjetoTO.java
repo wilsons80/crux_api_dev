@@ -5,13 +5,8 @@ import java.math.BigDecimal;
 public class ComposicaoRhProjetoTO {
 
 	private Long id;
-
 	private CargoTO cargo;
-
-	private Long usuarioAlteracao;
-
 	private BigDecimal qtd;
-
 	private TiposContratacoesTO tiposContratacoes;
 
 	public Long getId() {
@@ -30,14 +25,6 @@ public class ComposicaoRhProjetoTO {
 		this.cargo = cargo;
 	}
 
-	public Long getUsuarioAlteracao() {
-		return usuarioAlteracao;
-	}
-
-	public void setUsuarioAlteracao(Long usuarioAlteracao) {
-		this.usuarioAlteracao = usuarioAlteracao;
-	}
-
 	public BigDecimal getQtd() {
 		return qtd;
 	}
@@ -53,7 +40,5 @@ public class ComposicaoRhProjetoTO {
 	public void setTiposContratacoes(TiposContratacoesTO tiposContratacoes) {
 		this.tiposContratacoes = tiposContratacoes;
 	}
-	
-	
 
 }
