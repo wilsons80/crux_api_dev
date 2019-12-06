@@ -20,8 +20,8 @@ import br.com.crux.cmd.GetProdutosAtividadeCmd;
 import br.com.crux.to.MateriaisAtividadeTO;
 
 @RestController
-@RequestMapping(value = "produtosatividade")
-public class ProdutosAtividadeService {
+@RequestMapping(value = "materiaisatividade")
+public class MateriaisAtividadeService {
 	
 	@Autowired
 	private GetProdutosAtividadeCmd getCmd;
