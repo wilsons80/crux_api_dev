@@ -22,6 +22,7 @@ public class MateriaisProjetoTOBuilder {
 	@Autowired GetParceriasProjetoCmd getParceriasProjetoCmd;
 	@Autowired GetMaterialCmd getMaterialCmd;
 	@Autowired MaterialTOBuilder materialTOBuilder;
+	@Autowired ParceriasProjetoTOBuilder parceriasProjetoTOBuilder;
 
 	public MateriaisProjeto build(Projeto projeto, MateriaisProjetoTO to) {
 
@@ -53,6 +54,8 @@ public class MateriaisProjetoTOBuilder {
 		materialTOBuilder.buildTO(entity.getMaterial());
 
 		to.setMaterial(materialTOBuilder.buildTO(entity.getMaterial()));
+		
+		to.setParceriasProjeto(parceriasProjetoTOBuilder.buildTO(entity.getParceriasProjeto()));
 
 		return to;
 	}
