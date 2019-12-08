@@ -73,6 +73,36 @@ public class ProgramaTOBuilder {
 		retorno.setUsuarioAlteracao(param.getUsuarioAlteracao());
 		retorno.setObjetivo(objetivoTOBuilder.buildTO(param.getObjetivo()));
 
+		retorno.setPublicoAlvo(param.getPublicoAlvo());
+		retorno.setJustificativa(param.getJustificativa());
+		retorno.setObjetivoGeral(param.getObjetivoGeral());
+
+
+		return retorno;
+	}
+	
+	public ProgramaTO buildTOComDependencias(Programa param) {
+		ProgramaTO retorno = new ProgramaTO();
+
+		if (Objects.isNull(param)) {
+			return retorno;
+		}
+
+		retorno.setId(param.getId());
+		retorno.setNome(param.getNome());
+		retorno.setIdCoordenador(param.getIdCoordenador());
+		retorno.setDescricao(param.getDescricao());
+		retorno.setFaixaEtariaInicio(param.getFaixaEtariaInicio());
+		retorno.setFaixaEtariaFim(param.getFaixaEtariaFim());
+		retorno.setDataInicio(param.getDataInicio());
+		retorno.setDataFim(param.getDataFim());
+		retorno.setUsuarioAlteracao(param.getUsuarioAlteracao());
+		retorno.setObjetivo(objetivoTOBuilder.buildTO(param.getObjetivo()));
+
+		retorno.setPublicoAlvo(param.getPublicoAlvo());
+		retorno.setJustificativa(param.getJustificativa());
+		retorno.setObjetivoGeral(param.getObjetivoGeral());
+
 		retorno.setUnidades(getProgramaUnidadeCmd.getUnidadesTOByIdPrograma(param.getId()));
 		retorno.setColaboradoresPrograma((getColaboradoresProjetoCmd.getColaboradoresProgramaTOByPrograma(param)));
 		retorno.setParceriasPrograma(getParceriasProgramaCmd.getColaboradoresProgramaTOByPrograma(param));
@@ -81,6 +111,7 @@ public class ProgramaTOBuilder {
 
 		return retorno;
 	}
+
 
 	public List<ProgramaTO> buildAll(List<Programa> dtos) {
 		return dtos.stream().map(this::buildTO).collect(Collectors.toList());

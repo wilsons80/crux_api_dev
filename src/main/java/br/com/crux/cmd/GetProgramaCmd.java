@@ -44,7 +44,7 @@ public class GetProgramaCmd {
 	
 	public ProgramaTO getTOById(Long id) {
 		Programa entity = repository.findById(id).orElseThrow(() -> new NotFoundException("Programa não encontrado."));
-		return toBuilder.buildTO(entity);
+		return toBuilder.buildTOComDependencias(entity);
 	}
 	
 	public Programa getById(Long id) {
