@@ -2,67 +2,37 @@ package br.com.crux.to;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import br.com.crux.infra.constantes.Constantes;
+import br.com.crux.infra.adapter.LocalDateTimeAdapter;
 
-
-public class MateriaisAtividadeTO  {
+public class MateriaisAtividadeTO {
 
 	private Long id;
-	private Long idAtividade ;	
-	private Material material;	
 	private String observacao;
+	private Double valorMaterial;
+	
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime dataAquisicao;
-	private Double valor;
-	private LocalDateTime dataVenda;
-	private String descricaoOrigem;
-	private Long quantidadeOrigem;	
-	private Long quantidadeVendida;	
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+	private LocalDateTime dataVendaMaterial;
+	
+	private String descricaoOrigemMaterial;
+	private Long qtdMaterial;
+	private Long qtdMaterialVendida;
 	private String formaPagamento;
+	private Long idAtividade;
+	
+	private MaterialTO material;
 	private Long usuarioAlteracao;
 	
-
-	public MateriaisAtividadeTO() {
-	}
-
 
 	public Long getId() {
 		return id;
 	}
 
-
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-
-	public Long getIdAtividade() {
-		return idAtividade;
-	}
-
-
-	public void setIdAtividade(Long idAtividade) {
-		this.idAtividade = idAtividade;
-	}
-
-
-	public Material getMaterial() {
-		return material;
-	}
-
-
-	public void setMaterial(Material material) {
-		this.material = material;
 	}
 
 
@@ -70,92 +40,88 @@ public class MateriaisAtividadeTO  {
 		return observacao;
 	}
 
-
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-
 
 	public LocalDateTime getDataAquisicao() {
 		return dataAquisicao;
 	}
 
-
 	public void setDataAquisicao(LocalDateTime dataAquisicao) {
 		this.dataAquisicao = dataAquisicao;
 	}
 
-
-	public Double getValor() {
-		return valor;
+	public Double getValorMaterial() {
+		return valorMaterial;
 	}
 
-
-	public void setValor(Double valor) {
-		this.valor = valor;
+	public void setValorMaterial(Double valorMaterial) {
+		this.valorMaterial = valorMaterial;
 	}
 
-
-	public LocalDateTime getDataVenda() {
-		return dataVenda;
+	public LocalDateTime getDataVendaMaterial() {
+		return dataVendaMaterial;
 	}
 
-
-	public void setDataVenda(LocalDateTime dataVenda) {
-		this.dataVenda = dataVenda;
+	public void setDataVendaMaterial(LocalDateTime dataVendaMaterial) {
+		this.dataVendaMaterial = dataVendaMaterial;
 	}
 
-
-	public String getDescricaoOrigem() {
-		return descricaoOrigem;
+	public String getDescricaoOrigemMaterial() {
+		return descricaoOrigemMaterial;
 	}
 
-
-	public void setDescricaoOrigem(String descricaoOrigem) {
-		this.descricaoOrigem = descricaoOrigem;
+	public void setDescricaoOrigemMaterial(String descricaoOrigemMaterial) {
+		this.descricaoOrigemMaterial = descricaoOrigemMaterial;
 	}
 
-
-	public Long getQuantidadeOrigem() {
-		return quantidadeOrigem;
+	public Long getQtdMaterial() {
+		return qtdMaterial;
 	}
 
-
-	public void setQuantidadeOrigem(Long quantidadeOrigem) {
-		this.quantidadeOrigem = quantidadeOrigem;
+	public void setQtdMaterial(Long qtdMaterial) {
+		this.qtdMaterial = qtdMaterial;
 	}
 
-
-	public Long getQuantidadeVendida() {
-		return quantidadeVendida;
+	public Long getQtdMaterialVendida() {
+		return qtdMaterialVendida;
 	}
 
-
-	public void setQuantidadeVendida(Long quantidadeVendida) {
-		this.quantidadeVendida = quantidadeVendida;
+	public void setQtdMaterialVendida(Long qtdMaterialVendida) {
+		this.qtdMaterialVendida = qtdMaterialVendida;
 	}
-
 
 	public String getFormaPagamento() {
 		return formaPagamento;
 	}
 
-
 	public void setFormaPagamento(String formaPagamento) {
 		this.formaPagamento = formaPagamento;
 	}
 
+	public Long getIdAtividade() {
+		return idAtividade;
+	}
+
+	public void setIdAtividade(Long atividade) {
+		this.idAtividade = atividade;
+	}
+
+	public MaterialTO getMaterial() {
+		return material;
+	}
+
+	public void setMaterial(MaterialTO material) {
+		this.material = material;
+	}
 
 	public Long getUsuarioAlteracao() {
 		return usuarioAlteracao;
 	}
 
-
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
-
-	
-
 
 }

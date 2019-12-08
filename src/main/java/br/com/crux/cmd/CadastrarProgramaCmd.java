@@ -17,6 +17,10 @@ public class CadastrarProgramaCmd {
 	@Autowired private CamposObrigatoriosProgramaRule camposObrigatoriosRule;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	@Autowired private CadastrarProgramaUnidadeCmd cadastrarProgramaUnidadeCmd;
+	@Autowired private CadastrarListaColaboradoresProgramaCmd cadastrarListaColaboradoresProgramaCmd;
+	@Autowired private CadastrarParceriaProgramaCmd cadastrarParceriaProgramaCmd;
+	@Autowired private CadastrarComposicaoRhProgramaCmd cadastrarComposicaoRhProgramaCmd;
+	@Autowired private CadastrarMateriaisProgramaCmd cadastrarMateriaisProgramaCmd;
 
 	public void cadastrar(ProgramaTO to) {
 
@@ -27,8 +31,17 @@ public class CadastrarProgramaCmd {
 		Programa entity = programaTOBuilder.build(to);
 
 		Programa programa = repository.save(entity);
-		
+
 		cadastrarProgramaUnidadeCmd.cadastrarLista(programa, to.getUnidades());
+
+		cadastrarListaColaboradoresProgramaCmd.cadastrarLista(programa, to.getColaboradoresPrograma());
+		
+		cadastrarParceriaProgramaCmd.cadastrarLista(programa, to.getParceriasPrograma());
+		
+		cadastrarComposicaoRhProgramaCmd.cadastrarLista(programa, to.getComposicaoRhPrograma());
+		
+		cadastrarMateriaisProgramaCmd.cadastrarLista(programa, to.getMateriaisPrograma());
+		
 
 	}
 }

@@ -6,12 +6,12 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.crux.entity.ColaboradoresPrograma;
+import br.com.crux.entity.ComposicaoRhPrograma;
 import br.com.crux.entity.Programa;
 
 @Repository
-public interface ColaboradoresProgramaRepository extends JpaRepository<ColaboradoresPrograma, Long> {
+public interface ComposicaoRhProgramaRepository extends JpaRepository<ComposicaoRhPrograma, Long> {
 
-	public Optional<List<ColaboradoresPrograma>> findByPrograma(Programa programa);
+	public Optional<List<ComposicaoRhPrograma>> findByPrograma(Programa programa);
 
 }

@@ -1,5 +1,6 @@
 package br.com.crux.dao.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,5 +12,7 @@ import br.com.crux.entity.Modulo;
 public interface ModuloRepository extends JpaRepository<Modulo, Long>{
 	
 	public Optional<Modulo> findByNome(String nomeModulo);
+	
+	public List<Modulo> findAllByOrderByDescricaoAsc();
 
 }

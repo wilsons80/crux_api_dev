@@ -13,48 +13,48 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.crux.cmd.AlterarProdutosAtividadeCmd;
-import br.com.crux.cmd.CadastrarProdutosAtividadeCmd;
-import br.com.crux.cmd.ExcluirProdutosAtividadeCmd;
-import br.com.crux.cmd.GetProdutosAtividadeCmd;
-import br.com.crux.to.ProdutosAtividadeTO;
+import br.com.crux.cmd.AlterarMateriaisAtividadeCmd;
+import br.com.crux.cmd.CadastrarMateriaisAtividadeCmd;
+import br.com.crux.cmd.ExcluirMateriaisAtividadeCmd;
+import br.com.crux.cmd.GetMateriaisAtividadeCmd;
+import br.com.crux.to.MateriaisAtividadeTO;
 
 @RestController
-@RequestMapping(value = "produtosatividade")
-public class ProdutosAtividadeService {
+@RequestMapping(value = "materiaisatividade")
+public class MateriaisAtividadeService {
 	
 	@Autowired
-	private GetProdutosAtividadeCmd getCmd;
+	private GetMateriaisAtividadeCmd getCmd;
 	@Autowired
-	private ExcluirProdutosAtividadeCmd  excluirCmd;
+	private ExcluirMateriaisAtividadeCmd  excluirCmd;
 	@Autowired
-	private AlterarProdutosAtividadeCmd alterarCmd;
+	private AlterarMateriaisAtividadeCmd alterarCmd;
 	@Autowired
-	private CadastrarProdutosAtividadeCmd cadastrarCmd;
+	private CadastrarMateriaisAtividadeCmd cadastrarCmd;
 	
 	
 	@GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<ProdutosAtividadeTO> getAll() {
+	public List<MateriaisAtividadeTO> getAll() {
 		return getCmd.getAll();
 	}
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ProdutosAtividadeTO getById(@PathVariable(name = "id") Long id) {
+	public MateriaisAtividadeTO getById(@PathVariable(name = "id") Long id) {
 		return getCmd.getTOById(id);
 	}
 
 	@GetMapping(path = "/atividade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<ProdutosAtividadeTO> getPorAtividade(@PathVariable(name = "id") Long id) {
+	public List<MateriaisAtividadeTO> getPorAtividade(@PathVariable(name = "id") Long id) {
 		return getCmd.getPorAtividade(id);
 	}
 	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void cadastrar(@RequestBody ProdutosAtividadeTO param) {
+	public void cadastrar(@RequestBody MateriaisAtividadeTO param) {
 		cadastrarCmd.cadastrar(param);
 	}
 	
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void alterar(@RequestBody ProdutosAtividadeTO param) {
+	public void alterar(@RequestBody MateriaisAtividadeTO param) {
 		alterarCmd.alterar(param);
 	}
 	

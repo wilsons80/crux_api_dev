@@ -23,82 +23,55 @@ public class MateriaisAtividade  {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_id_material_atividade")
 	@SequenceGenerator(name = "sq_id_material_atividade", sequenceName = "sq_id_material_atividade", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
-	@Column(name="id_material_programa")
+	@Column(name="id_material_atividade")
 	private Long id;
-
-	@Column(name="id_atividade")
-	private Long idAtividade ;	
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_material")
-	private Material material;	
 	
 	@Column(name="tx_material_atividade")
 	private String observacao;
+
+	@Column(name="id_atividade")
+	private Long idAtividade;
 	
 	@Column(name="dt_aquisicao")
 	private LocalDateTime dataAquisicao;
-	
+
 	@Column(name="vl_material")
-	private Double valor;
+	private Double valorMaterial;
 
 	@Column(name="dt_venda_material")
-	private LocalDateTime dataVenda;
-
-	@Column(name="ds_origem_material")
-	private String descricaoOrigem;
+	private LocalDateTime dataVendaMaterial;
 	
+	@Column(name="ds_origem_material")
+	private String descricaoOrigemMaterial;
+
 	@Column(name="qtd_material")
-	private Long quantidadeOrigem;	
+	private Long qtdMaterial;
 	
 	@Column(name="qtd_material_vendida")
-	private Long quantidadeVendida;	
+	private Long qtdMaterialVendida;
+
 	
 	@Column(name="ds_forma_pagamento")
 	private String formaPagamento;
-	
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_material")
+	private Material material;
+
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
-	
-
-	public MateriaisAtividade() {
-	}
-
 
 	public Long getId() {
 		return id;
 	}
 
-
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-
-	public Long getIdAtividade() {
-		return idAtividade;
-	}
-
-
-	public void setIdAtividade(Long idAtividade) {
-		this.idAtividade = idAtividade;
-	}
-
-
-	public Material getMaterial() {
-		return material;
-	}
-
-
-	public void setMaterial(Material material) {
-		this.material = material;
-	}
-
-
 	public String getObservacao() {
 		return observacao;
 	}
-
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
@@ -109,82 +82,83 @@ public class MateriaisAtividade  {
 		return dataAquisicao;
 	}
 
-
 	public void setDataAquisicao(LocalDateTime dataAquisicao) {
 		this.dataAquisicao = dataAquisicao;
 	}
 
-
-	public Double getValor() {
-		return valor;
+	public Double getValorMaterial() {
+		return valorMaterial;
 	}
 
-
-	public void setValor(Double valor) {
-		this.valor = valor;
+	public void setValorMaterial(Double valorMaterial) {
+		this.valorMaterial = valorMaterial;
 	}
 
-
-	public LocalDateTime getDataVenda() {
-		return dataVenda;
+	public LocalDateTime getDataVendaMaterial() {
+		return dataVendaMaterial;
 	}
 
-
-	public void setDataVenda(LocalDateTime dataVenda) {
-		this.dataVenda = dataVenda;
+	public void setDataVendaMaterial(LocalDateTime dataVendaMaterial) {
+		this.dataVendaMaterial = dataVendaMaterial;
 	}
 
-
-	public String getDescricaoOrigem() {
-		return descricaoOrigem;
+	public String getDescricaoOrigemMaterial() {
+		return descricaoOrigemMaterial;
 	}
 
-
-	public void setDescricaoOrigem(String descricaoOrigem) {
-		this.descricaoOrigem = descricaoOrigem;
+	public void setDescricaoOrigemMaterial(String descricaoOrigemMaterial) {
+		this.descricaoOrigemMaterial = descricaoOrigemMaterial;
 	}
 
-
-	public Long getQuantidadeOrigem() {
-		return quantidadeOrigem;
+	public Long getQtdMaterial() {
+		return qtdMaterial;
 	}
 
-
-	public void setQuantidadeOrigem(Long quantidadeOrigem) {
-		this.quantidadeOrigem = quantidadeOrigem;
+	public void setQtdMaterial(Long qtdMaterial) {
+		this.qtdMaterial = qtdMaterial;
 	}
 
-
-	public Long getQuantidadeVendida() {
-		return quantidadeVendida;
+	public Long getQtdMaterialVendida() {
+		return qtdMaterialVendida;
 	}
 
-
-	public void setQuantidadeVendida(Long quantidadeVendida) {
-		this.quantidadeVendida = quantidadeVendida;
+	public void setQtdMaterialVendida(Long qtdMaterialVendida) {
+		this.qtdMaterialVendida = qtdMaterialVendida;
 	}
 
-
-	public String getFormaPagamento() {
-		return formaPagamento;
+	public Material getMaterial() {
+		return material;
 	}
 
-
-	public void setFormaPagamento(String formaPagamento) {
-		this.formaPagamento = formaPagamento;
+	public void setMaterial(Material material) {
+		this.material = material;
 	}
-
 
 	public Long getUsuarioAlteracao() {
 		return usuarioAlteracao;
 	}
 
-
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
-	
+	public Long getIdAtividade() {
+		return idAtividade;
+	}
 
+	public void setIdAtividade(Long idAtividade) {
+		this.idAtividade = idAtividade;
+	}
+
+	public String getFormaPagamento() {
+		return formaPagamento;
+	}
+
+	public void setFormaPagamento(String formaPagamento) {
+		this.formaPagamento = formaPagamento;
+	}
+
+	
+	
 
 }

@@ -55,8 +55,6 @@
 		<class>br.com.crux.entity.Perspectiva</class>
 		<class>br.com.crux.entity.PessoaFisica</class>
 		<class>br.com.crux.entity.PlanosAcao</class>
-		<class>br.com.crux.entity.Produto</class>
-		<class>br.com.crux.entity.ProdutosAtividade</class>
 		<class>br.com.crux.entity.Programa</class>
 		<class>br.com.crux.entity.Projeto</class>
 		<class>br.com.crux.entity.Questionario</class>

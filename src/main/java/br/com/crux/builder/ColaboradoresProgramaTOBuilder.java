@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.cmd.GetCargosCmd;
 import br.com.crux.cmd.GetFuncionarioCmd;
-import br.com.crux.cmd.GetProgramaCmd;
+import br.com.crux.cmd.GetUsuarioLogadoCmd;
 import br.com.crux.entity.Cargo;
 import br.com.crux.entity.ColaboradoresPrograma;
 import br.com.crux.entity.Funcionario;
@@ -20,36 +20,32 @@ import br.com.crux.to.ColaboradoresProgramaTO;
 @Component
 public class ColaboradoresProgramaTOBuilder {
 
-	@Autowired private ProgramaTOBuilder programaTOBuilder;
 	@Autowired private CargosTOBuilder cargoTOBuilder;
 	@Autowired private FuncionarioTOBuilder funcionarioTOBuilder;
-	@Autowired private GetProgramaCmd getProgramaCmd;
 	@Autowired private GetCargosCmd getCargosCmd;
 	@Autowired private GetFuncionarioCmd getFuncionarioCmd;
+	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 
-	public ColaboradoresPrograma build(ColaboradoresProgramaTO p) {
+	public ColaboradoresPrograma build(Programa programa, ColaboradoresProgramaTO p) {
 		ColaboradoresPrograma retorno = new ColaboradoresPrograma();
 
 		retorno.setId(p.getId());
 		retorno.setDataInicio(p.getDataInicio());
 		retorno.setDataFim(p.getDataFim());
 
-		Optional.ofNullable(p.getPrograma()).ifPresent(prog -> {
-			Programa programa = getProgramaCmd.getById(prog.getId());
-			retorno.setPrograma(programa);
-		});
+		retorno.setPrograma(programa);
 
-		Optional.ofNullable(p.getCargo()).ifPresent(c -> {
-			Cargo cargo = getCargosCmd.getById(c.getId());
+		Optional.ofNullable(p.getCargo()).ifPresent(pro -> {
+			Cargo cargo = getCargosCmd.getById(pro.getId());
 			retorno.setCargo(cargo);
 		});
 
-		Optional.ofNullable(p.getFuncionario()).ifPresent(c -> {
-			Funcionario funcionario = getFuncionarioCmd.getById(c.getId());
+		Optional.ofNullable(p.getFuncionario()).ifPresent(pro -> {
+			Funcionario funcionario = getFuncionarioCmd.getById(pro.getId());
 			retorno.setFuncionario(funcionario);
 		});
 
-		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
+		retorno.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 
 		return retorno;
 	}
@@ -64,7 +60,6 @@ public class ColaboradoresProgramaTOBuilder {
 		retorno.setId(p.getId());
 		retorno.setDataInicio(p.getDataInicio());
 		retorno.setDataFim(p.getDataFim());
-		retorno.setPrograma(programaTOBuilder.buildTO(p.getPrograma()));
 
 		retorno.setCargo(cargoTOBuilder.buildTO(p.getCargo()));
 		retorno.setFuncionario(funcionarioTOBuilder.buildTO(p.getFuncionario()));
@@ -76,6 +71,29 @@ public class ColaboradoresProgramaTOBuilder {
 
 	public List<ColaboradoresProgramaTO> buildAll(List<ColaboradoresPrograma> dtos) {
 		return dtos.stream().map(dto -> buildTO(dto)).collect(Collectors.toList());
+	}
+
+	public ColaboradoresProgramaTO buildTOParaLista(ColaboradoresPrograma p) {
+		ColaboradoresProgramaTO retorno = new ColaboradoresProgramaTO();
+
+		if (Objects.isNull(p)) {
+			return retorno;
+		}
+
+		retorno.setId(p.getId());
+		retorno.setDataInicio(p.getDataInicio());
+		retorno.setDataFim(p.getDataFim());
+
+		retorno.setCargo(cargoTOBuilder.buildTO(p.getCargo()));
+		retorno.setFuncionario(funcionarioTOBuilder.buildTO(p.getFuncionario()));
+
+		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
+
+		return retorno;
+	}
+
+	public List<ColaboradoresProgramaTO> buildAllParaLista(List<ColaboradoresPrograma> dtos) {
+		return dtos.stream().map(dto -> buildTOParaLista(dto)).collect(Collectors.toList());
 	}
 
 }

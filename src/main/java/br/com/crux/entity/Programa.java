@@ -57,6 +57,15 @@ public class Programa implements Serializable {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="iniciativas_id_iniciativa")
 	private Iniciativa iniciativa;
+	
+	@Column(name="ds_publico_alvo")
+	private String publicoAlvo;
+	
+	@Column(name="ds_justificativa")
+	private String justificativa;
+	
+	@Column(name="ds_objetivo_geral")
+	private String objetivoGeral;
 
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
@@ -154,7 +163,32 @@ public class Programa implements Serializable {
 		this.usuarioAlteracao = usuariosSistema;
 	}
 
+	public String getPublicoAlvo() {
+		return publicoAlvo;
+	}
 
+	public void setPublicoAlvo(String publicoAlvo) {
+		this.publicoAlvo = publicoAlvo;
+	}
+
+	public String getJustificativa() {
+		return justificativa;
+	}
+
+	public void setJustificativa(String justificativa) {
+		this.justificativa = justificativa;
+	}
+
+	public String getObjetivoGeral() {
+		return objetivoGeral;
+	}
+
+	public void setObjetivoGeral(String objetivoGeral) {
+		this.objetivoGeral = objetivoGeral;
+	}
+
+
+	
 
 
 }
