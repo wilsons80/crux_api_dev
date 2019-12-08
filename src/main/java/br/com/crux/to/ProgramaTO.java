@@ -13,19 +13,32 @@ public class ProgramaTO {
 	private String nome;
 	private String descricao;
 
-	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
-	private LocalDateTime dataInicio;
-	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
-	private LocalDateTime dataFim;
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class) private LocalDateTime dataInicio;
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class) private LocalDateTime dataFim;
 
 	private Long idCoordenador;
 	private Long faixaEtariaFim;
 	private Long faixaEtariaInicio;
 
 	private ObjetivoTO objetivo;
-	
+
 	private List<UnidadeTO> unidades;
+
+	private List<ColaboradoresProgramaTO> colaboradoresPrograma;
+
+	private List<ParceriasProgramaTO> parceriasPrograma;
+
+	private List<ComposicaoRhProgramaTO> composicaoRhPrograma;
+
+	private List<MateriaisProgramaTO> materiaisPrograma;
 	
+	private String publicoAlvo;
+
+	private String justificativa;
+
+	private String objetivoGeral;
+	
+
 	private Long usuarioAlteracao;
 
 	public ProgramaTO() {
@@ -103,7 +116,6 @@ public class ProgramaTO {
 		this.objetivo = objetivo;
 	}
 
-
 	public Long getUsuarioAlteracao() {
 		return usuarioAlteracao;
 	}
@@ -119,5 +131,63 @@ public class ProgramaTO {
 	public void setUnidades(List<UnidadeTO> unidades) {
 		this.unidades = unidades;
 	}
+
+	public List<ColaboradoresProgramaTO> getColaboradoresPrograma() {
+		return colaboradoresPrograma;
+	}
+
+	public void setColaboradoresPrograma(List<ColaboradoresProgramaTO> colaboradoresPrograma) {
+		this.colaboradoresPrograma = colaboradoresPrograma;
+	}
+
+	public List<ParceriasProgramaTO> getParceriasPrograma() {
+		return parceriasPrograma;
+	}
+
+	public void setParceriasPrograma(List<ParceriasProgramaTO> parceriasPrograma) {
+		this.parceriasPrograma = parceriasPrograma;
+	}
+
+	public List<ComposicaoRhProgramaTO> getComposicaoRhPrograma() {
+		return composicaoRhPrograma;
+	}
+
+	public void setComposicaoRhPrograma(List<ComposicaoRhProgramaTO> composicaoRhPrograma) {
+		this.composicaoRhPrograma = composicaoRhPrograma;
+	}
+
+	public List<MateriaisProgramaTO> getMateriaisPrograma() {
+		return materiaisPrograma;
+	}
+
+	public void setMateriaisPrograma(List<MateriaisProgramaTO> materiaisPrograma) {
+		this.materiaisPrograma = materiaisPrograma;
+	}
+
+	public String getPublicoAlvo() {
+		return publicoAlvo;
+	}
+
+	public void setPublicoAlvo(String publicoAlvo) {
+		this.publicoAlvo = publicoAlvo;
+	}
+
+	public String getJustificativa() {
+		return justificativa;
+	}
+
+	public void setJustificativa(String justificativa) {
+		this.justificativa = justificativa;
+	}
+
+	public String getObjetivoGeral() {
+		return objetivoGeral;
+	}
+
+	public void setObjetivoGeral(String objetivoGeral) {
+		this.objetivoGeral = objetivoGeral;
+	}
+	
+	
 
 }

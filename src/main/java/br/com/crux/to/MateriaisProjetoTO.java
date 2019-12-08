@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import br.com.crux.entity.Material;
-import br.com.crux.entity.ParceriasProjeto;
 import br.com.crux.infra.adapter.LocalDateTimeAdapter;
 
 public class MateriaisProjetoTO {
