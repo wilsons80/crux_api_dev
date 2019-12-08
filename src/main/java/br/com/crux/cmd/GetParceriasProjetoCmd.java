@@ -29,5 +29,10 @@ public class GetParceriasProjetoCmd {
 		return Collections.emptyList();
 
 	}
+	
+	public ParceriasProjeto get(Long id) {
+
+		return repository.findById(id).orElse(null);
+	}
 
 }

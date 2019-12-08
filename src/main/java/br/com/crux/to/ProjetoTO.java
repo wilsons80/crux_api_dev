@@ -32,6 +32,8 @@ public class ProjetoTO {
 
 	private List<ComposicaoRhProjetoTO> composicaoRhProjeto;
 
+	private List<MateriaisProjetoTO> materiaisProjeto;
+
 	private String publicoAlvo;
 
 	private String justificativa;
@@ -169,6 +171,14 @@ public class ProjetoTO {
 
 	public void setObjetivoGeral(String objetivoGeral) {
 		this.objetivoGeral = objetivoGeral;
+	}
+
+	public List<MateriaisProjetoTO> getMateriaisProjeto() {
+		return materiaisProjeto;
+	}
+
+	public void setMateriaisProjeto(List<MateriaisProjetoTO> materiaisProjetoTO) {
+		this.materiaisProjeto = materiaisProjetoTO;
 	}
 
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.cmd.GetColaboradoresProjetoCmd;
 import br.com.crux.cmd.GetComposicaoRhProjetoCmd;
+import br.com.crux.cmd.GetMateriaisProjetoCmd;
 import br.com.crux.cmd.GetParceriasProjetoCmd;
 import br.com.crux.cmd.GetProgramaCmd;
 import br.com.crux.cmd.GetProjetosUnidadeCmd;
@@ -26,6 +27,7 @@ public class ProjetoTOBuilder {
 	@Autowired private GetColaboradoresProjetoCmd getColaboradoresProjetoCmd;
 	@Autowired private GetParceriasProjetoCmd getParceriasProjetoCmd;
 	@Autowired private GetComposicaoRhProjetoCmd getComposicaoRhProjetoCmd;
+	@Autowired private GetMateriaisProjetoCmd getMateriaisProjetoCmd;
 
 	public Projeto build(ProjetoTO p) {
 		Projeto retorno = new Projeto();
@@ -80,6 +82,7 @@ public class ProjetoTOBuilder {
 		retorno.setColaboradoresProjeto((getColaboradoresProjetoCmd.getColaboradoresProjetoTOByProjeto(p)));
 		retorno.setParceriasProjeto(getParceriasProjetoCmd.getColaboradoresProjetoTOByProjeto(p));
 		retorno.setComposicaoRhProjeto(getComposicaoRhProjetoCmd.getComposicaoRhProjetoByProjeto(p));
+		retorno.setMateriaisProjeto(getMateriaisProjetoCmd.getComposicaoRhProjetoByProjeto(p));
 
 		return retorno;
 	}
