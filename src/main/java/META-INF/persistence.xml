@@ -106,5 +106,6 @@
 		<class>br.com.crux.entity.ProjetosUnidade</class>
 		<class>br.com.crux.entity.TiposContratacoes</class>
 		<class>br.com.crux.entity.Material</class>
+		<class>br.com.crux.entity.MateriaisAtividade</class>
 	</persistence-unit>
 </persistence>
