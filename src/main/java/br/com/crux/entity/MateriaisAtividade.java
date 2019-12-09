@@ -13,10 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Type;
-
-import br.com.crux.enums.FormaPagamento;
 import br.com.crux.infra.constantes.Constantes;
 
 
@@ -29,16 +25,12 @@ public class MateriaisAtividade  {
 	@SequenceGenerator(name = "sq_id_material_atividade", sequenceName = "sq_id_material_atividade", schema = Constantes.SCHEMA_PUBLIC, initialValue = 1, allocationSize = 1)
 	@Column(name="id_material_atividade")
 	private Long id;
-
-	@Column(name="ds_produto_atividade")
-	private String descricao;
-
+	
 	@Column(name="tx_material_atividade")
 	private String observacao;
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_atividade")
-	private Atividades atividade;
+	@Column(name="id_atividade")
+	private Long idAtividade;
 	
 	@Column(name="dt_aquisicao")
 	private LocalDateTime dataAquisicao;
@@ -60,10 +52,7 @@ public class MateriaisAtividade  {
 
 	
 	@Column(name="ds_forma_pagamento")
-	@Type(type = "br.com.crux.infra.dao.GenericEnumUserType", 
-    parameters = { @Parameter(name = "enumClass", value = "br.com.crux.enums.FormaPagamento"),
-    		       @Parameter(name = "keyName", value = "tipo")}) 
-	private FormaPagamento formaPagamento;
+	private String formaPagamento;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_material")
@@ -80,14 +69,6 @@ public class MateriaisAtividade  {
 		this.id = id;
 	}
 
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
 	public String getObservacao() {
 		return observacao;
 	}
@@ -96,13 +77,6 @@ public class MateriaisAtividade  {
 		this.observacao = observacao;
 	}
 
-	public Atividades getAtividade() {
-		return atividade;
-	}
-
-	public void setAtividade(Atividades atividade) {
-		this.atividade = atividade;
-	}
 
 	public LocalDateTime getDataAquisicao() {
 		return dataAquisicao;
@@ -152,14 +126,6 @@ public class MateriaisAtividade  {
 		this.qtdMaterialVendida = qtdMaterialVendida;
 	}
 
-	public FormaPagamento getFormaPagamento() {
-		return formaPagamento;
-	}
-
-	public void setFormaPagamento(FormaPagamento formaPagamento) {
-		this.formaPagamento = formaPagamento;
-	}
-
 	public Material getMaterial() {
 		return material;
 	}
@@ -174,6 +140,22 @@ public class MateriaisAtividade  {
 
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
+	}
+
+	public Long getIdAtividade() {
+		return idAtividade;
+	}
+
+	public void setIdAtividade(Long idAtividade) {
+		this.idAtividade = idAtividade;
+	}
+
+	public String getFormaPagamento() {
+		return formaPagamento;
+	}
+
+	public void setFormaPagamento(String formaPagamento) {
+		this.formaPagamento = formaPagamento;
 	}
 
 	

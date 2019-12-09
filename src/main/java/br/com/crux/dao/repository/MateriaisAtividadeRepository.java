@@ -13,8 +13,7 @@ import br.com.crux.entity.MateriaisAtividade;
 public interface MateriaisAtividadeRepository extends JpaRepository<MateriaisAtividade, Long> {
 
 	@Query(value = "SELECT p FROM MateriaisAtividade p " 
-			+ " inner join Atividades ati on ati = p.atividade" 
-			+ " where ati.id = ?1")
+			+ " where p.idAtividade = ?1")
 	public Optional<List<MateriaisAtividade>> getPorAtividade(Long idAtividade);
 
 }

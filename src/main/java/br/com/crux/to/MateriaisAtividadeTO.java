@@ -2,21 +2,30 @@ package br.com.crux.to;
 
 import java.time.LocalDateTime;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import br.com.crux.infra.adapter.LocalDateTimeAdapter;
+
 public class MateriaisAtividadeTO {
 
 	private Long id;
-	private String descricao;
 	private String observacao;
-	private LocalDateTime dataAquisicao;
 	private Double valorMaterial;
+	
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+	private LocalDateTime dataAquisicao;
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime dataVendaMaterial;
+	
 	private String descricaoOrigemMaterial;
 	private Long qtdMaterial;
 	private Long qtdMaterialVendida;
 	private String formaPagamento;
-	private AtividadesTO atividade;
+	private Long idAtividade;
+	
 	private MaterialTO material;
 	private Long usuarioAlteracao;
+	
 
 	public Long getId() {
 		return id;
@@ -26,13 +35,6 @@ public class MateriaisAtividadeTO {
 		this.id = id;
 	}
 
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
 
 	public String getObservacao() {
 		return observacao;
@@ -98,12 +100,12 @@ public class MateriaisAtividadeTO {
 		this.formaPagamento = formaPagamento;
 	}
 
-	public AtividadesTO getAtividade() {
-		return atividade;
+	public Long getIdAtividade() {
+		return idAtividade;
 	}
 
-	public void setAtividade(AtividadesTO atividade) {
-		this.atividade = atividade;
+	public void setIdAtividade(Long atividade) {
+		this.idAtividade = atividade;
 	}
 
 	public MaterialTO getMaterial() {

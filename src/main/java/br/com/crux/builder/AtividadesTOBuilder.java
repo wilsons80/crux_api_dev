@@ -10,10 +10,12 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.cmd.GetColaboradoresAtividadeCmd;
 import br.com.crux.cmd.GetPlanosAcaoCmd;
+import br.com.crux.cmd.GetProgramaCmd;
 import br.com.crux.cmd.GetProjetoCmd;
 import br.com.crux.cmd.GetUnidadeCmd;
 import br.com.crux.entity.Atividades;
 import br.com.crux.entity.PlanosAcao;
+import br.com.crux.entity.Programa;
 import br.com.crux.entity.Projeto;
 import br.com.crux.entity.Unidade;
 import br.com.crux.infra.util.Java8DateUtil;
@@ -25,9 +27,11 @@ public class AtividadesTOBuilder {
 
 	@Autowired private UnidadeTOBuilder unidadeBuilder;
 	@Autowired private ProjetoTOBuilder projetoBuilder;
+	@Autowired private ProgramaTOBuilder programaTOBuilder;
 	@Autowired private PlanosAcaoTOBuilder planosAcaoBuilder;
 	@Autowired private GetUnidadeCmd getUnidadeCmd;
 	@Autowired private GetProjetoCmd getProjetoCmd;
+	@Autowired private GetProgramaCmd getProgramaCmd;
 	@Autowired private GetPlanosAcaoCmd getPlanosAcaoCmd;
 	@Autowired private GetColaboradoresAtividadeCmd getColaboradoresAtividadeCmd;
 
@@ -76,6 +80,11 @@ public class AtividadesTOBuilder {
 		Optional.ofNullable(p.getProjeto()).ifPresent(pj -> {
 			Projeto projeto = getProjetoCmd.getById(pj.getId());
 			retorno.setProjeto(projeto);
+		});
+		
+		Optional.ofNullable(p.getPrograma()).ifPresent(pj -> {
+			Programa programa = getProgramaCmd.getById(pj.getId());
+			retorno.setPrograma(programa);
 		});
 
 		Optional.ofNullable(p.getPlanosAcao()).ifPresent(pa -> {
@@ -131,6 +140,8 @@ public class AtividadesTOBuilder {
 		retorno.setValorCustoAtividade(p.getValorCustoAtividade());
 		retorno.setUnidade(unidadeBuilder.buildTO(p.getUnidade()));
 		retorno.setProjeto(projetoBuilder.buildTO(p.getProjeto()));
+		retorno.setPrograma(programaTOBuilder.buildTO(p.getPrograma()));
+		
 		retorno.setPlanosAcao(planosAcaoBuilder.buildTO(p.getPlanosAcao()));
 
 		List<ColaboradoresAtividadeTO> colaboradores = getColaboradoresAtividadeCmd.getPorAtividade(p.getId());

@@ -49,6 +49,7 @@ public class AtividadesTO {
 
 	private PlanosAcaoTO planosAcao;
 	private ProjetoTO projeto;
+	private ProgramaTO programa;
 	private UnidadeTO unidade;
 
 	private List<ColaboradoresAtividadeTO> colaboradoresAtividade;
@@ -292,5 +293,15 @@ public class AtividadesTO {
 	public void setColaboradoresAtividade(List<ColaboradoresAtividadeTO> colaboradoresAtividade) {
 		this.colaboradoresAtividade = colaboradoresAtividade;
 	}
+
+	public ProgramaTO getPrograma() {
+		return programa;
+	}
+
+	public void setPrograma(ProgramaTO programa) {
+		this.programa = programa;
+	}
+	
+	
 
 }
