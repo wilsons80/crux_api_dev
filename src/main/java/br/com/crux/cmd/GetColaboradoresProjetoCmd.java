@@ -1,5 +1,6 @@
 package br.com.crux.cmd;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,7 @@ public class GetColaboradoresProjetoCmd {
 
 	@Autowired private ColaboradoresProjetoRepository repository;
 	@Autowired private ColaboradoresProjetoTOBuilder toBuilder;
+	@Autowired private ColaboradoresProjetoRepository colaboradoresProjetoRepository;
 
 	public ColaboradoresProjetoTO getById(Long id) {
 		Optional<ColaboradoresProjeto> entityOptional = repository.findById(id);
@@ -37,6 +39,10 @@ public class GetColaboradoresProjetoCmd {
 
 		return Collections.emptyList();
 
+	}
+	
+	public List<ColaboradoresProjeto> getPorProjeto(Projeto projeto){
+		return colaboradoresProjetoRepository.findByProjeto(projeto).orElse(new ArrayList<ColaboradoresProjeto>());
 	}
 
 }

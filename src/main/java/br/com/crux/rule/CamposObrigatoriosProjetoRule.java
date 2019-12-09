@@ -18,10 +18,6 @@ public class CamposObrigatoriosProjetoRule {
 		if (Objects.isNull(to.getDataPrevisaoInicio())) {
 			throw new CamposObrigatoriosException("Data de Início da Previsão deve ser informada.");
 		}
-	
-		if (Objects.isNull(to.getPrograma()) && Objects.isNull(to.getPrograma().getId()) ) {
-			throw new CamposObrigatoriosException("Programa deve ser informado.");
-		}
 
 	}
 }
