@@ -10,10 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.builder.MateriaisProjetoTOBuilder;
+import br.com.crux.builder.ParceriasProjetoTOBuilder;
 import br.com.crux.dao.repository.MateriaisProjetoRepository;
 import br.com.crux.entity.MateriaisProjeto;
+import br.com.crux.entity.ParceriasProjeto;
 import br.com.crux.entity.Projeto;
 import br.com.crux.to.MateriaisProjetoTO;
+import br.com.crux.to.ParceriasProjetoTO;
 
 @Component
 public class AlterarListaMateriaisProjetoCmd {
@@ -23,8 +26,13 @@ public class AlterarListaMateriaisProjetoCmd {
 
 	@Autowired private MateriaisProjetoTOBuilder materiaisProjetoTOBuilder;
 	@Autowired private MateriaisProjetoRepository materiaisProjetoRepository;
+	@Autowired private ParceriasProjetoTOBuilder parceriasProjetoTOBuilder;
 
-	public void alterarAll(List<MateriaisProjetoTO> list, Projeto projeto) {
+	
+	
+	
+	
+	public void alterarAll(ParceriasProjeto parceriasProjeto, List<MateriaisProjetoTO> list, Projeto projeto) {
 
 		// Lista da unidades que o usuário tem acesso.
 		List<MateriaisProjeto> listaMateriaisProjeto = materiaisProjetoRepository.findByProjeto(projeto).orElse(new ArrayList<MateriaisProjeto>());
@@ -44,15 +52,25 @@ public class AlterarListaMateriaisProjetoCmd {
 		List<MateriaisProjetoTO> novos = list.stream().filter(registro -> Objects.isNull(registro.getId())).collect(Collectors.toList());
 
 		if (Objects.nonNull(novos)) {
-			novos.forEach(novo -> alterar(projeto, novo));
+			novos.forEach(novo -> alterar(parceriasProjeto,projeto,novo));
 		}
 
 	}
 
-	private void alterar(Projeto projeto, MateriaisProjetoTO novo) {
+	private void alterar(ParceriasProjeto parceriasProjeto, Projeto projeto, MateriaisProjetoTO novo) {
 		//camposObrigatoriosParceriasProjetoRule.verificar(novo);
-		MateriaisProjeto entity = materiaisProjetoTOBuilder.build(projeto, novo);
+		MateriaisProjeto entity = materiaisProjetoTOBuilder.build(projeto,parceriasProjeto, novo);
 		materiaisProjetoRepository.save(entity);
+	}
+
+	
+
+	public void alterarListaMateriasParceiros(List<ParceriasProjetoTO> parceriasProjeto, Projeto projeto) {
+		parceriasProjeto.forEach(pp -> {
+			ParceriasProjeto build = parceriasProjetoTOBuilder.build(projeto, pp);
+			alterarAll(build,pp.getMateriaisProjeto(), projeto);
+		});
+		
 	}
 
 }

@@ -39,11 +39,12 @@ public class AlterarProjetoCmd {
 
 		alterarListaColaboradoresProjetoCmd.alterarAll(to.getColaboradoresProjeto(), projeto);
 
+		alterarListaMateriaisProjetoCmd.alterarListaMateriasParceiros(to.getParceriasProjeto(), projeto);
+
 		alterarParceriasProjetoCmd.alterarAll(to.getParceriasProjeto(), projeto);
 
 		alterarListaComposicaoRhProjetoCmd.alterarAll(to.getComposicaoRhProjeto(), projeto);
 
-		alterarListaMateriaisProjetoCmd.alterarAll(to.getMateriaisProjeto(), projeto);
 		
 		
 

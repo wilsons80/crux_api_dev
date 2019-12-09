@@ -15,9 +15,5 @@ public class CamposObrigatoriosMateriaisProjetoRule {
 			throw new CamposObrigatoriosException("O material deve ser informado.");
 		}
 
-		if (Objects.isNull(to.getParceriasProjeto())) {
-			throw new CamposObrigatoriosException("O parceiro do projeto deve ser informado.");
-		}
-
 	}
 }

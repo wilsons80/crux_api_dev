@@ -17,10 +17,16 @@ public class CadastrarParceriaProjetoCmd {
 
 	@Autowired ParceriasProjetoRepository projetosUnidadeRepository;
 	@Autowired ParceriasProjetoTOBuilder parceriasProjetoTOBuilder;
+	@Autowired CadastrarMateriaisProjetoCmd cadastrarMateriaisProjetoCmd;
+	
+	
 
 	public ParceriasProjeto cadastrar(Projeto projeto, ParceriasProjetoTO parceriaProjeto) {
-		ParceriasProjeto parceriasProjeto = parceriasProjetoTOBuilder.build(projeto, parceriaProjeto);
-		return projetosUnidadeRepository.save(parceriasProjeto);
+		ParceriasProjeto entity = parceriasProjetoTOBuilder.build(projeto, parceriaProjeto);
+		ParceriasProjeto parceriasProjeto = projetosUnidadeRepository.save(entity);
+		cadastrarMateriaisProjetoCmd.cadastrarLista(projeto, parceriasProjeto, parceriaProjeto.getMateriaisProjeto());
+		
+		return entity;
 	}
 
 	public List<ParceriasProjeto> cadastrarLista(Projeto projeto, List<ParceriasProjetoTO> parceriasProjeto) {

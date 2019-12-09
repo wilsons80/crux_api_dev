@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.cmd.GetEmpresaCmd;
+import br.com.crux.cmd.GetMateriaisProjetoCmd;
 import br.com.crux.cmd.GetUsuarioLogadoCmd;
 import br.com.crux.entity.Empresa;
 import br.com.crux.entity.ParceriasProjeto;
 import br.com.crux.entity.Projeto;
+import br.com.crux.to.MateriaisProjetoTO;
 import br.com.crux.to.ParceriasProjetoTO;
 
 @Component
@@ -22,6 +24,8 @@ public class ParceriasProjetoTOBuilder {
 	@Autowired GetEmpresaCmd empresaCmd;
 	@Autowired EmpresaTOBuilder empresaTOBuilder;
 	@Autowired ProjetoTOBuilder projetoTOBuilder;
+	@Autowired GetMateriaisProjetoCmd getMateriaisProjetoCmd;
+	@Autowired MateriaisProjetoTOBuilder materiaisProjetoTOBuilder;
 
 	public ParceriasProjeto build(Projeto projeto, ParceriasProjetoTO parceriaProjetoTO) {
 
@@ -30,8 +34,8 @@ public class ParceriasProjetoTOBuilder {
 		BeanUtils.copyProperties(parceriaProjetoTO, parceriasProjeto, "projeto", "empresa");
 
 		parceriasProjeto.setProjeto(projeto);
-		
-		if(Objects.nonNull(parceriaProjetoTO.getEmpresa()) && Objects.nonNull(parceriaProjetoTO.getEmpresa().getId())) {
+
+		if (Objects.nonNull(parceriaProjetoTO.getEmpresa()) && Objects.nonNull(parceriaProjetoTO.getEmpresa().getId())) {
 			Empresa e = empresaCmd.getById(parceriaProjetoTO.getEmpresa().getId());
 			parceriasProjeto.setEmpresa(e);
 		}
@@ -46,8 +50,12 @@ public class ParceriasProjetoTOBuilder {
 		ParceriasProjetoTO to = new ParceriasProjetoTO();
 
 		BeanUtils.copyProperties(parceriaProjeto, to, "projeto", "empresa");
-		
+
 		to.setEmpresa(empresaTOBuilder.buildTO(parceriaProjeto.getEmpresa()));
+
+		List<MateriaisProjetoTO> materiaisProjetoByProjeto = getMateriaisProjetoCmd.getMateriaisProjetoByParceriasProjeto(parceriaProjeto);
+
+		to.setMateriaisProjeto(materiaisProjetoByProjeto);
 
 		return to;
 	}

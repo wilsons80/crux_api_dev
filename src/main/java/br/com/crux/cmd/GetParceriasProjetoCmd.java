@@ -19,7 +19,7 @@ public class GetParceriasProjetoCmd {
 	@Autowired private ParceriasProjetoRepository repository;
 	@Autowired private ParceriasProjetoTOBuilder toBuilder;
 
-	public List<ParceriasProjetoTO> getColaboradoresProjetoTOByProjeto(Projeto projeto) {
+	public List<ParceriasProjetoTO> getParceriasProjetoTOByProjeto(Projeto projeto) {
 		Optional<List<ParceriasProjeto>> lista = repository.findByProjeto(projeto);
 
 		if (lista.isPresent()) {

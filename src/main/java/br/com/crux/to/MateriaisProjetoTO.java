@@ -18,7 +18,6 @@ public class MateriaisProjetoTO {
 
 	private Double valorMaterial;
 
-	private ParceriasProjetoTO parceriasProjeto;
 
 	public Long getId() {
 		return id;
@@ -58,14 +57,6 @@ public class MateriaisProjetoTO {
 
 	public void setValorMaterial(Double valorMaterial) {
 		this.valorMaterial = valorMaterial;
-	}
-
-	public ParceriasProjetoTO getParceriasProjeto() {
-		return parceriasProjeto;
-	}
-
-	public void setParceriasProjeto(ParceriasProjetoTO parceriasProjeto) {
-		this.parceriasProjeto = parceriasProjeto;
 	}
 
 }

@@ -12,6 +12,7 @@ import br.com.crux.cmd.GetMaterialCmd;
 import br.com.crux.cmd.GetParceriasProjetoCmd;
 import br.com.crux.cmd.GetUsuarioLogadoCmd;
 import br.com.crux.entity.MateriaisProjeto;
+import br.com.crux.entity.ParceriasProjeto;
 import br.com.crux.entity.Projeto;
 import br.com.crux.to.MateriaisProjetoTO;
 
@@ -24,17 +25,15 @@ public class MateriaisProjetoTOBuilder {
 	@Autowired MaterialTOBuilder materialTOBuilder;
 	@Autowired ParceriasProjetoTOBuilder parceriasProjetoTOBuilder;
 
-	public MateriaisProjeto build(Projeto projeto, MateriaisProjetoTO to) {
+	public MateriaisProjeto build(Projeto projeto, ParceriasProjeto parceriasProjeto, MateriaisProjetoTO to) {
 
 		MateriaisProjeto retorno = new MateriaisProjeto();
 
 		BeanUtils.copyProperties(to, retorno);
 
 		retorno.setProjeto(projeto);
-
-		Optional.ofNullable(to.getParceriasProjeto()).ifPresent(pp -> {
-			retorno.setParceriasProjeto(getParceriasProjetoCmd.get(pp.getId()));
-		});
+		
+		retorno.setParceriasProjeto(parceriasProjeto);
 
 		Optional.ofNullable(to.getMaterial()).ifPresent(m -> {
 			retorno.setMaterial(getMaterialCmd.getById(m.getId()));
@@ -55,7 +54,6 @@ public class MateriaisProjetoTOBuilder {
 
 		to.setMaterial(materialTOBuilder.buildTO(entity.getMaterial()));
 		
-		to.setParceriasProjeto(parceriasProjetoTOBuilder.buildTO(entity.getParceriasProjeto()));
 
 		return to;
 	}

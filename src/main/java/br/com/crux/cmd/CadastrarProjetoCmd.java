@@ -20,7 +20,7 @@ public class CadastrarProjetoCmd {
 	@Autowired private CadastrarListaColaboradoresProjetoCmd cadastrarListaColaboradoresProjetoCmd;
 	@Autowired private CadastrarParceriaProjetoCmd cadastrarParceriaProjetoCmd;
 	@Autowired private CadastrarComposicaoRhProjetoCmd cadastrarComposicaoRhProjetoCmd;
-	@Autowired private CadastrarMateriaisProjetoCmd cadastrarMateriaisProjetoCmd;
+//	@Autowired private CadastrarMateriaisProjetoCmd cadastrarMateriaisProjetoCmd;
 
 	public void cadastrar(ProjetoTO to) {
 
@@ -33,14 +33,15 @@ public class CadastrarProjetoCmd {
 		Projeto projeto = repository.save(entity);
 		
 		cadastrarProjetosUnidadeCmd.cadastrarLista(projeto, to.getUnidades());
+
+		cadastrarComposicaoRhProjetoCmd.cadastrarLista(projeto, to.getComposicaoRhProjeto());
 		
 		cadastrarListaColaboradoresProjetoCmd.cadastrarLista(projeto, to.getColaboradoresProjeto());
 		
 		cadastrarParceriaProjetoCmd.cadastrarLista(projeto, to.getParceriasProjeto());
 		
-		cadastrarComposicaoRhProjetoCmd.cadastrarLista(projeto, to.getComposicaoRhProjeto());
 		
-		cadastrarMateriaisProjetoCmd.cadastrarLista(projeto, to.getMateriaisProjeto());
+//		cadastrarMateriaisProjetoCmd.cadastrarLista(projeto, to.getMateriaisProjeto());
 
 	}
 }
