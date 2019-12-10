@@ -20,19 +20,14 @@ public class CadastrarColaboradoresAtividadeCmd {
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 
 	public void cadastrar(ColaboradoresAtividadeTO to) {
-
 		camposObrigatoriosRule.verificar(to);
-
 		to.setUsuariosSistema(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
-
 		ColaboradoresAtividade colaboradoresAtividade = colaboradoresAtividadeTOBuilder.build(to);
-
 		repository.save(colaboradoresAtividade);
-
 	}
 
-	public void cadastrar(List<ColaboradoresAtividadeTO> colaboradoresAtividade) {
-		colaboradoresAtividade.forEach(ca -> cadastrar(ca));
+	public void cadastrarAll(List<ColaboradoresAtividadeTO> colaboradoresAtividade, Long idAtividade) {
+		colaboradoresAtividade.forEach(ca -> {ca.setIdAtividade(idAtividade); cadastrar(ca); });
 	}
 
 	

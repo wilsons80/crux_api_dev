@@ -20,7 +20,7 @@ public class CadastrarColaboradoresTurmaCmd {
 	@Autowired private CamposObrigatoriosColaboradoresTurmaRule camposObrigatoriosRule;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 
-	public void cadastrar(List<ColaboradoresTurmaTO> colaboradoresTO, TurmasTO turmaTO) {
+	public void cadastrarAll(List<ColaboradoresTurmaTO> colaboradoresTO, TurmasTO turmaTO) {
 		
 		colaboradoresTO.stream().forEach(colaboradoreTO -> {
 			camposObrigatoriosRule.verificar(colaboradoreTO);

@@ -10,11 +10,12 @@ public class ColaboradoresAtividadeTO {
 
 	private Long id;
 
-	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class) private LocalDateTime dtEntradaAtividade;
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class) 
+	private LocalDateTime dtEntradaAtividade;
+	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class) 
+	private LocalDateTime dtSaidaAtividade;
 
-	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class) private LocalDateTime dtSaidaAtividade;
-
-	private AtividadesTO atividade;
+	private Long idAtividade;
 
 	private CargoTO cargo;
 
@@ -49,12 +50,12 @@ public class ColaboradoresAtividadeTO {
 		this.dtSaidaAtividade = dtSaidaAtividade;
 	}
 
-	public AtividadesTO getAtividade() {
-		return atividade;
+	public Long getIdAtividade() {
+		return idAtividade;
 	}
 
-	public void setAtividade(AtividadesTO atividade) {
-		this.atividade = atividade;
+	public void setIdAtividade(Long idAtividade) {
+		this.idAtividade = idAtividade;
 	}
 
 	public CargoTO getCargo() {

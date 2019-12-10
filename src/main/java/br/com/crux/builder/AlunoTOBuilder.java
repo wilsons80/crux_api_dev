@@ -65,18 +65,6 @@ public class AlunoTOBuilder {
 	public AlunoTO buildTO(Aluno p) {
 		AlunoTO retorno = new AlunoTO();
 		
-		retorno = buildSemRelacionamentoTO(p);
-
-		if(Objects.nonNull(p.getId())) {
-			retorno.setVulnerabilidades(getVulnerabilidadesAlunoCmd.getAllAlunoTO(p.getId()));
-		}
-
-		return retorno;
-	}
-	
-	public AlunoTO buildSemRelacionamentoTO(Aluno p) {
-		AlunoTO retorno = new AlunoTO();
-		
 		if(Objects.isNull(p)) {
 			return retorno;
 		}
@@ -100,12 +88,17 @@ public class AlunoTOBuilder {
 		retorno.setMatriculadoEscPub(p.getMatriculadoEscPub());
 		retorno.setDescBuscaEscola(p.getDescBuscaEscola());
 		retorno.setPublicoPrioritario(p.getPublicoPrioritario());
-		retorno.setMatriculaAluno(String.valueOf(p.getId()));
+		retorno.setMatriculaAluno(p.getMatriculaAluno());
 		retorno.setNivelTurma(niveisTurmasTOBuilder.buildTO(p.getNivelTurma()));
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
+		if(Objects.nonNull(p.getId())) {
+			retorno.setVulnerabilidades(getVulnerabilidadesAlunoCmd.getAllAlunoTO(p.getId()));
+		}
+
 		return retorno;
 	}
+
 
 	public List<AlunoTO> buildAll(List<Aluno> dtos) {
 		return dtos.stream().map(dto -> buildTO(dto)).collect(Collectors.toList());

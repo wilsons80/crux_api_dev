@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import br.com.crux.cmd.GetAtividadeCmd;
 import br.com.crux.cmd.GetCargosCmd;
 import br.com.crux.cmd.GetFuncionarioCmd;
-import br.com.crux.entity.Atividades;
 import br.com.crux.entity.Cargo;
 import br.com.crux.entity.ColaboradoresAtividade;
 import br.com.crux.entity.Funcionario;
@@ -33,12 +32,8 @@ public class ColaboradoresAtividadeTOBuilder {
 		entity.setIdColaboradorAtividade(p.getId());
 		entity.setDtEntradaAtividade(p.getDtEntradaAtividade());
 		entity.setDtSaidaAtividade(p.getDtSaidaAtividade());
-
-		Optional.ofNullable(p.getAtividade()).ifPresent(a -> {
-			Atividades atividades = getAtividadeCmd.getById(p.getAtividade().getId());
-			entity.setAtividade(atividades);
-		});
-
+		entity.setIdAtividade(p.getIdAtividade());
+		
 		Optional.ofNullable(p.getCargo()).ifPresent(c -> {
 			Cargo cargo = getCargosCmd.getById(c.getId());
 			entity.setCargo(cargo);
@@ -56,20 +51,13 @@ public class ColaboradoresAtividadeTOBuilder {
 	}
 
 	public ColaboradoresAtividade build(ColaboradoresAtividadeTO p) {
-
 		ColaboradoresAtividade entity = baseBuild(p);
-
-		Optional.ofNullable(p.getAtividade()).ifPresent(a -> {
-			Atividades atividades = getAtividadeCmd.getById(p.getAtividade().getId());
-			entity.setAtividade(atividades);
-		});
 		return entity;
 	}
 
 	public ColaboradoresAtividade buildComIdAtividade(ColaboradoresAtividadeTO to, Long idAtividade) {
 		ColaboradoresAtividade entity = baseBuild(to);
-		Atividades atividades = getAtividadeCmd.getById(idAtividade);
-		entity.setAtividade(atividades);
+		entity.setIdAtividade(idAtividade);
 		return entity;
 	}
 

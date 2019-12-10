@@ -21,9 +21,10 @@ public class MateriaisAtividadeTO {
 	private Long qtdMaterial;
 	private Long qtdMaterialVendida;
 	private String formaPagamento;
-	private Long idAtividade;
 	
+	private Long idAtividade;
 	private MaterialTO material;
+	
 	private Long usuarioAlteracao;
 	
 

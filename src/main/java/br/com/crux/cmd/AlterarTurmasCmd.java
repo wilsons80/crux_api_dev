@@ -17,13 +17,16 @@ public class AlterarTurmasCmd {
 	@Autowired private TurmasTOBuilder programaTOBuilder;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	@Autowired private AlterarColaboradoresTurmaCmd alterarColaboradoresTurmaCmd;
+	@Autowired private AlterarAtividadeCmd alterarAtividadeCmd;
 
 	public void alterar(TurmasTO to) {
 		camposObrigatoriosRule.verificar(to);
 		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 		Turmas turma = repository.save(programaTOBuilder.build(to));
 
-		alterarColaboradoresTurmaCmd.alterarAll(to.getColaboradoresTurma(), programaTOBuilder.buildTO(turma));
+		TurmasTO turmaTO = programaTOBuilder.buildTO(turma);
+		alterarColaboradoresTurmaCmd.alterarAll(to.getColaboradoresTurma(), turmaTO);
+		alterarAtividadeCmd.alterarAll(to.getOficinas(), turmaTO);
 
 	}
 }

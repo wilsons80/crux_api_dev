@@ -13,7 +13,6 @@ import br.com.crux.to.VulnerabilidadesAlunoTO;
 @Component
 public class VulnerabilidadesAlunoTOBuilder {
 
-	@Autowired private AlunoTOBuilder alunoBuilder;
 	@Autowired private SituacoesVulnerabilidadeTOBuilder situacaoVulnerabilidadeBuilder;
 	@Autowired private SolucoesTOBuilder solucaoBuilder;
 
@@ -24,7 +23,7 @@ public class VulnerabilidadesAlunoTOBuilder {
 		retorno.setDataIdentificacao(p.getDataIdentificacao());
 		retorno.setDataSolucao(p.getDataSolucao());
 		
-		retorno.setAluno(alunoBuilder.build(alunoTO));
+		retorno.setIdAluno(alunoTO.getId());
 		retorno.setSolucoes(solucaoBuilder.build(p.getSolucoes()));
 		retorno.setSituacoesVulnerabilidade(situacaoVulnerabilidadeBuilder.build(p.getSituacoesVulnerabilidade()));
 		
@@ -40,7 +39,7 @@ public class VulnerabilidadesAlunoTOBuilder {
 		retorno.setDataIdentificacao(p.getDataIdentificacao());
 		retorno.setDataSolucao(p.getDataSolucao());
 		
-		retorno.setAluno(alunoBuilder.buildSemRelacionamentoTO(p.getAluno()));
+		retorno.setIdAluno(p.getIdAluno());
 		retorno.setSolucoes(solucaoBuilder.buildTO(p.getSolucoes()));
 		retorno.setSituacoesVulnerabilidade(situacaoVulnerabilidadeBuilder.buildTO(p.getSituacoesVulnerabilidade()));
 		

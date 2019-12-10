@@ -40,6 +40,8 @@ public class TurmasTO  {
 	
 	
 	private List<ColaboradoresTurmaTO> colaboradoresTurma;
+	private List<AtividadesTO> oficinas;
+	
 	
 	public TurmasTO() {
 	}
@@ -188,7 +190,13 @@ public class TurmasTO  {
 		this.colaboradoresTurma = colaboradoresTurma;
 	}
 
-	
+	public List<AtividadesTO> getOficinas() {
+		return oficinas;
+	}
+
+	public void setOficinas(List<AtividadesTO> oficinas) {
+		this.oficinas = oficinas;
+	}
 	
 
 }

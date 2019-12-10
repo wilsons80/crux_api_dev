@@ -52,7 +52,10 @@ public class AtividadesTO {
 	private ProgramaTO programa;
 	private UnidadeTO unidade;
 
+	private Long idTurma;
+	
 	private List<ColaboradoresAtividadeTO> colaboradoresAtividade;
+	private List<MateriaisAtividadeTO> materiaisAtividade;
 
 	private Long usuarioAlteracao;
 
@@ -301,7 +304,22 @@ public class AtividadesTO {
 	public void setPrograma(ProgramaTO programa) {
 		this.programa = programa;
 	}
-	
+
+	public Long getIdTurma() {
+		return idTurma;
+	}
+
+	public void setIdTurma(Long idTurma) {
+		this.idTurma = idTurma;
+	}
+
+	public List<MateriaisAtividadeTO> getMateriaisAtividade() {
+		return materiaisAtividade;
+	}
+
+	public void setMateriaisAtividade(List<MateriaisAtividadeTO> materiaisAtividade) {
+		this.materiaisAtividade = materiaisAtividade;
+	}
 	
 
 }
