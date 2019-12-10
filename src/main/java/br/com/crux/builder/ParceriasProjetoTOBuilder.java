@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.cmd.GetEmpresaCmd;
-import br.com.crux.cmd.GetMateriaisProjetoCmd;
+import br.com.crux.cmd.GetMateriaisParceirosProjetoCmd;
 import br.com.crux.cmd.GetUsuarioLogadoCmd;
 import br.com.crux.entity.Empresa;
 import br.com.crux.entity.ParceriasProjeto;
@@ -24,7 +24,7 @@ public class ParceriasProjetoTOBuilder {
 	@Autowired GetEmpresaCmd empresaCmd;
 	@Autowired EmpresaTOBuilder empresaTOBuilder;
 	@Autowired ProjetoTOBuilder projetoTOBuilder;
-	@Autowired GetMateriaisProjetoCmd getMateriaisProjetoCmd;
+	@Autowired GetMateriaisParceirosProjetoCmd getMateriaisProjetoCmd;
 	@Autowired MateriaisProjetoTOBuilder materiaisProjetoTOBuilder;
 
 	public ParceriasProjeto build(Projeto projeto, ParceriasProjetoTO parceriaProjetoTO) {
@@ -53,7 +53,7 @@ public class ParceriasProjetoTOBuilder {
 
 		to.setEmpresa(empresaTOBuilder.buildTO(parceriaProjeto.getEmpresa()));
 
-		List<MateriaisProjetoTO> materiaisProjetoByProjeto = getMateriaisProjetoCmd.getMateriaisProjetoByParceriasProjeto(parceriaProjeto);
+		List<MateriaisProjetoTO> materiaisProjetoByProjeto = getMateriaisProjetoCmd.getMateriaisProjetoTOByParceriasProjeto(parceriaProjeto);
 
 		to.setMateriaisProjeto(materiaisProjetoByProjeto);
 
