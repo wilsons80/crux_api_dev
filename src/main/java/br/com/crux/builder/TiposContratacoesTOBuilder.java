@@ -1,6 +1,7 @@
 package br.com.crux.builder;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
@@ -30,6 +31,10 @@ public class TiposContratacoesTOBuilder {
 
 	public TiposContratacoesTO buildTO(TiposContratacoes tiposContratacoes) {
 		TiposContratacoesTO retorno = new TiposContratacoesTO();
+		
+		if(Objects.isNull(tiposContratacoes)) {
+			return retorno;
+		}
 
 		BeanUtils.copyProperties(tiposContratacoes, retorno);
 
