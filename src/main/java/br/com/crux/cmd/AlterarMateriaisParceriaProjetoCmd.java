@@ -8,71 +8,57 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.builder.VulnerabilidadesAlunoTOBuilder;
-import br.com.crux.dao.repository.VulnerabilidadesAlunoRepository;
-import br.com.crux.entity.VulnerabilidadesAluno;
-import br.com.crux.rule.CamposObrigatoriosVulnerabilidadesAlunoRule;
-import br.com.crux.to.AlunoTO;
-import br.com.crux.to.VulnerabilidadesAlunoTO;
+import br.com.crux.builder.MateriaisProjetoTOBuilder;
+import br.com.crux.dao.repository.MateriaisProjetoRepository;
+import br.com.crux.entity.MateriaisProjeto;
+import br.com.crux.entity.ParceriasProjeto;
+import br.com.crux.entity.Projeto;
+import br.com.crux.rule.CamposObrigatoriosMateriaisProjetoRule;
+import br.com.crux.to.MateriaisProjetoTO;
 
 @Component
 public class AlterarMateriaisParceriaProjetoCmd {
 
-	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
-	
-	@Autowired private VulnerabilidadesAlunoRepository repository;
-	@Autowired private CamposObrigatoriosVulnerabilidadesAlunoRule camposObrigatoriosRule;
-	@Autowired private VulnerabilidadesAlunoTOBuilder vulnerabilidadesAlunoTOBuilder;
-	@Autowired private GetVulnerabilidadesAlunoCmd getVulnerabilidadesAlunoCmd;
-	
 
-	private void alterar(VulnerabilidadesAlunoTO vulnerabilidadeTO, AlunoTO alunoTO) {
-		camposObrigatoriosRule.verificar(vulnerabilidadeTO);
-		vulnerabilidadeTO.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
-		VulnerabilidadesAluno entity = vulnerabilidadesAlunoTOBuilder.build(vulnerabilidadeTO, alunoTO);
+	@Autowired private MateriaisProjetoRepository repository;
+	@Autowired private CamposObrigatoriosMateriaisProjetoRule camposObrigatoriosRule;
+	@Autowired private MateriaisProjetoTOBuilder materiaisProjetoTOBuilder;
+	@Autowired private GetMateriaisParceirosProjetoCmd getMateriaisParceirosProjetoCmd;
+
+	private void alterar(Projeto projeto, ParceriasProjeto parceriasProjeto, MateriaisProjetoTO materiaisProjetoTO) {
+		camposObrigatoriosRule.verificar(materiaisProjetoTO);
+		MateriaisProjeto entity = materiaisProjetoTOBuilder.build(projeto, parceriasProjeto, materiaisProjetoTO);
 		repository.save(entity);
 	}
-	
-	
-	public void alterarAll(List<VulnerabilidadesAlunoTO> vulnerabilidadesTO, AlunoTO alunoTO) {
+
+	public void alterarAll(Projeto projeto, ParceriasProjeto parceriasProjeto, List<MateriaisProjetoTO> listaTOTela) {
 		//Lista de vulnerabilidades do aluno.
-		List<VulnerabilidadesAluno> vulnerabilidadesPorAluno = getVulnerabilidadesAlunoCmd.getAllAluno(alunoTO.getId());
-		
-		BiPredicate<VulnerabilidadesAlunoTO, List<VulnerabilidadesAlunoTO>> contemNaLista  = (parte, lista) -> lista.stream()
-																													.anyMatch(registroTO -> Objects.nonNull(registroTO.getId()) 
-																											                 && 
-																											                 registroTO.getId().equals(parte.getId()));
-		
-		
-		
+		List<MateriaisProjeto> listaDoBanco = getMateriaisParceirosProjetoCmd.getMateriaisProjetoByParceriasProjeto(parceriasProjeto);
+
+		BiPredicate<MateriaisProjetoTO, List<MateriaisProjetoTO>> contemNaLista = (parte, lista) -> lista.stream().anyMatch(registroTO -> Objects.nonNull(registroTO.getId()) && registroTO.getId().equals(parte.getId()));
+
 		//Remove da lista todos os registros que não contém no Banco de Dados
-		vulnerabilidadesPorAluno.removeIf(registro -> {
-														if(!contemNaLista.test(vulnerabilidadesAlunoTOBuilder.buildTO(registro), vulnerabilidadesTO)){
-															repository.delete(registro); 
-															return true;
-														}
-														return false;
-									                }
-		                                );
-		
+		listaDoBanco.removeIf(registro -> {
+			if (!contemNaLista.test(materiaisProjetoTOBuilder.buildTO(registro), listaTOTela)) {
+				repository.delete(registro);
+				return true;
+			}
+			return false;
+		});
+
 		//Adiciona os novos registros
-		List<VulnerabilidadesAlunoTO> novos = vulnerabilidadesTO.stream()
-				                                                .filter(registro -> Objects.isNull(registro.getId()))
-				                                                .collect(Collectors.toList());
-		
-		if(Objects.nonNull(novos)){
-			novos.forEach(novoResponsavel -> alterar(novoResponsavel, alunoTO));
+		List<MateriaisProjetoTO> novos = listaTOTela.stream().filter(registro -> Objects.isNull(registro.getId())).collect(Collectors.toList());
+
+		if (Objects.nonNull(novos)) {
+			novos.forEach(novoResponsavel -> alterar(projeto, parceriasProjeto, novoResponsavel));
 		}
 
 		//Atualiza os registros 
-		vulnerabilidadesTO.stream()
-		                  .filter(registro -> Objects.nonNull(registro.getId()))
-		                  .forEach( registro -> {
-													if(contemNaLista.test(registro, vulnerabilidadesAlunoTOBuilder.buildAll(vulnerabilidadesPorAluno))){
-														alterar(registro, alunoTO);
-													}
+		listaTOTela.stream().filter(registro -> Objects.nonNull(registro.getId())).forEach(registro -> {
+			if (contemNaLista.test(registro, materiaisProjetoTOBuilder.buildAll(listaDoBanco))) {
+				alterar(projeto, parceriasProjeto, registro);
+			}
 		});
 	}
 
-	
 }

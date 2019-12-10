@@ -50,6 +50,10 @@ public class ColaboradoresProjeto implements Serializable {
 	@JoinColumn(name="id_projeto")
 	private Projeto projeto;
 
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_tipo_contratacao")
+	private TiposContratacoes tiposContratacoes;
+
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
 
@@ -110,6 +114,14 @@ public class ColaboradoresProjeto implements Serializable {
 
 	public void setUsuarioAlteracao(Long usuariosSistema) {
 		this.usuarioAlteracao = usuariosSistema;
+	}
+
+	public TiposContratacoes getTiposContratacoes() {
+		return tiposContratacoes;
+	}
+
+	public void setTiposContratacoes(TiposContratacoes tiposContratacoes) {
+		this.tiposContratacoes = tiposContratacoes;
 	}
 
 }

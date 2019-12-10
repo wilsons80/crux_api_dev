@@ -18,6 +18,8 @@ public class ColaboradoresProjetoTO {
 	private FuncionarioTO funcionario;
 	private CargoTO cargo;
 	private ProjetoTO projeto;
+
+	private TiposContratacoesTO tiposContratacoes;
 	
 	private Long usuarioAlteracao;
 
@@ -80,6 +82,16 @@ public class ColaboradoresProjetoTO {
 
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
+	}
+
+
+	public TiposContratacoesTO getTiposContratacoes() {
+		return tiposContratacoes;
+	}
+
+
+	public void setTiposContratacoes(TiposContratacoesTO tiposContratacoes) {
+		this.tiposContratacoes = tiposContratacoes;
 	}
 
 
