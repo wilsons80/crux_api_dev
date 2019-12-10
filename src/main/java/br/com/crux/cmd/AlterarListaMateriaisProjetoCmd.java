@@ -27,10 +27,9 @@ public class AlterarListaMateriaisProjetoCmd {
 	@Autowired private MateriaisProjetoTOBuilder materiaisProjetoTOBuilder;
 	@Autowired private MateriaisProjetoRepository materiaisProjetoRepository;
 	@Autowired private ParceriasProjetoTOBuilder parceriasProjetoTOBuilder;
+	@Autowired private GetParceriasProjetoCmd getParceriasProjetoCmd;
+	@Autowired private CadastrarParceriaProjetoCmd cadastrarParceriaProjetoCmd;
 
-	
-	
-	
 	
 	public void alterarAll(ParceriasProjeto parceriasProjeto, List<MateriaisProjetoTO> list, Projeto projeto) {
 
@@ -39,14 +38,14 @@ public class AlterarListaMateriaisProjetoCmd {
 
 		BiPredicate<MateriaisProjeto, List<MateriaisProjetoTO>> contemNaLista = (nova, lista) -> lista.stream().anyMatch(jaTinha -> Objects.nonNull(jaTinha.getId()) && jaTinha.getId() == nova.getId());
 
-		// Remove da lista todos os registros que não contém no Banco de Dados
-		listaMateriaisProjeto.removeIf(registro -> {
-			if (!contemNaLista.test(registro, list)) {
-				materiaisProjetoRepository.delete(registro);
-				return true;
-			}
-			return false;
-		});
+//		// Remove da lista todos os registros que não contém no Banco de Dados
+//		listaMateriaisProjeto.removeIf(registro -> {
+//			if (!contemNaLista.test(registro, list)) {
+//				materiaisProjetoRepository.delete(registro);
+//				return true;
+//			}
+//			return false;
+//		});
 
 		// Adiciona os novos registros
 		List<MateriaisProjetoTO> novos = list.stream().filter(registro -> Objects.isNull(registro.getId())).collect(Collectors.toList());
@@ -66,8 +65,15 @@ public class AlterarListaMateriaisProjetoCmd {
 	
 
 	public void alterarListaMateriasParceiros(List<ParceriasProjetoTO> parceriasProjeto, Projeto projeto) {
+		
 		parceriasProjeto.forEach(pp -> {
-			ParceriasProjeto build = parceriasProjetoTOBuilder.build(projeto, pp);
+			ParceriasProjeto build;
+			if(Objects.isNull(pp.getId())) {
+				build = cadastrarParceriaProjetoCmd.cadastrar(projeto, pp);
+				pp.setId(build.getId());
+			}else {
+				build = getParceriasProjetoCmd.get(pp.getId());
+			}
 			alterarAll(build,pp.getMateriaisProjeto(), projeto);
 		});
 		
