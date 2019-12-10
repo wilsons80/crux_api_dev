@@ -2,6 +2,8 @@ package br.com.crux.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -49,11 +51,13 @@ public class AlunoService {
 	}
 	
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional
 	public AlunoTO cadastrar(@RequestBody AlunoTO param) {
 		return cadastrarCmd.cadastrar(param);
 	}
 	
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional
 	public AlunoTO alterar(@RequestBody AlunoTO param) {
 		return alterarCmd.alterar(param);
 	}
