@@ -23,7 +23,7 @@ public class CamposObrigatoriosVulnerabilidadesAlunoRule {
 			throw new CamposObrigatoriosException("Solucao deve ser informada.");
 		}
 		
-		if(Objects.isNull(to.getAluno())) {
+		if(Objects.isNull(to.getIdAluno())) {
 			throw new CamposObrigatoriosException("Aluno deve ser informado.");
 		}
 		
