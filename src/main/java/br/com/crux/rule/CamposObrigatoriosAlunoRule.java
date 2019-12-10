@@ -12,7 +12,7 @@ import br.com.crux.to.AlunoTO;
 public class CamposObrigatoriosAlunoRule {
 
 	public void verificar(AlunoTO to) {
-		if(Objects.isNull(to.getId())  && StringUtils.isEmpty(to.getMatriculaAluno())) {
+		if(Objects.nonNull(to.getId())  && StringUtils.isEmpty(to.getMatriculaAluno())) {
 			throw new CamposObrigatoriosException("Matricula deve ser informada.");
 		}
 
