@@ -15,7 +15,7 @@ public class VulnerabilidadesAlunoTO {
 	@XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
 	private LocalDateTime dataSolucao;
 	
-	private AlunoTO aluno;
+	private Long idAluno;
 	private SituacoesVulnerabilidadeTO situacoesVulnerabilidade;
 	private SolucoesTO solucoes;
 	private Long usuarioAlteracao;
@@ -47,12 +47,13 @@ public class VulnerabilidadesAlunoTO {
 		this.dataSolucao = dataSolucao;
 	}
 
-	public AlunoTO getAluno() {
-		return aluno;
+
+	public Long getIdAluno() {
+		return idAluno;
 	}
 
-	public void setAluno(AlunoTO aluno) {
-		this.aluno = aluno;
+	public void setIdAluno(Long idAluno) {
+		this.idAluno = idAluno;
 	}
 
 	public SituacoesVulnerabilidadeTO getSituacoesVulnerabilidade() {

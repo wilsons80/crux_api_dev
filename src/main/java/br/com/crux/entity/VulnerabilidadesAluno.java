@@ -31,9 +31,8 @@ public class VulnerabilidadesAluno {
 	@Column(name="dt_solucao_vulnerabilidade")
 	private LocalDateTime dataSolucao;
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_aluno")
-	private Aluno aluno;
+	@Column(name="id_aluno")
+	private Long idAluno;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_vulnerabilidade")
@@ -73,12 +72,12 @@ public class VulnerabilidadesAluno {
 		this.dataSolucao = dataSolucao;
 	}
 
-	public Aluno getAluno() {
-		return aluno;
+	public Long getIdAluno() {
+		return idAluno;
 	}
 
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
+	public void setIdAluno(Long idAluno) {
+		this.idAluno = idAluno;
 	}
 
 	public SituacoesVulnerabilidade getSituacoesVulnerabilidade() {
