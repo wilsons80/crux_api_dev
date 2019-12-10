@@ -18,6 +18,7 @@ public class CadastrarTurmasCmd {
 	
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	@Autowired private CadastrarColaboradoresTurmaCmd cadastrarColaboradoresTurmaCmd;
+	@Autowired private CadastrarAtividadesCmd cadastrarAtividadesCmd;
 
 	public void cadastrar(TurmasTO to) {
 
@@ -25,7 +26,10 @@ public class CadastrarTurmasCmd {
 		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 
 		Turmas turma = repository.save(toBuilder.build(to));
-		cadastrarColaboradoresTurmaCmd.cadastrar(to.getColaboradoresTurma(), toBuilder.buildTO(turma));
+		TurmasTO turmaTO = toBuilder.buildTO(turma);
+		
+		cadastrarColaboradoresTurmaCmd.cadastrarAll(to.getColaboradoresTurma(), turmaTO);
+		cadastrarAtividadesCmd.cadastrarAll(to.getOficinas(), turmaTO);
 
 	}
 }

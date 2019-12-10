@@ -24,7 +24,7 @@ public class CamposObrigatoriosColaboradoresAtividadeRule {
 			throw new CamposObrigatoriosException("Cargo deve ser informado.");
 		}
 
-		if (Objects.isNull(to.getAtividade()) || Objects.isNull(to.getAtividade().getId())) {
+		if (Objects.isNull(to.getIdAtividade())) {
 			throw new CamposObrigatoriosException("Atividade deve ser informada.");
 		}
 

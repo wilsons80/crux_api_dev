@@ -33,14 +33,14 @@ public class ColaboradoresAtividade implements Serializable {
 	@Column(name = "id_colaborador_atividade") 
 	private Long idColaboradorAtividade;
 
-	@Column(name = "dt_entrada_atividade") private LocalDateTime dtEntradaAtividade;
+	@Column(name = "dt_entrada_atividade") 
+	private LocalDateTime dtEntradaAtividade;
 
-	@Column(name = "dt_saida_atividade") private LocalDateTime dtSaidaAtividade;
+	@Column(name = "dt_saida_atividade") 
+	private LocalDateTime dtSaidaAtividade;
 
-	//bi-directional many-to-one association to Atividade
-	@ManyToOne(fetch = FetchType.LAZY) 
-	@JoinColumn(name = "id_atividade") 
-	private Atividades atividade;
+	@Column(name = "id_atividade") 
+	private Long idAtividade;
 
 	//bi-directional many-to-one association to Cargo
 	@ManyToOne(fetch = FetchType.LAZY) 
@@ -82,12 +82,13 @@ public class ColaboradoresAtividade implements Serializable {
 		this.dtSaidaAtividade = dtSaidaAtividade;
 	}
 
-	public Atividades getAtividade() {
-		return this.atividade;
+
+	public Long getIdAtividade() {
+		return idAtividade;
 	}
 
-	public void setAtividade(Atividades atividade) {
-		this.atividade = atividade;
+	public void setIdAtividade(Long idAtividade) {
+		this.idAtividade = idAtividade;
 	}
 
 	public Cargo getCargo() {

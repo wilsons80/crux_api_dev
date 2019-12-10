@@ -112,9 +112,8 @@ public class Atividades implements Serializable {
 	@JoinColumn(name = "unidades_id_unidade")
 	private Unidade unidade;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_turma")
-	private Turmas turma;
+	@Column(name = "id_turma")
+	private Long idTurma;
 
 	@Column(name = "id_usuario_apl")
 	private Long usuarioAlteracao;
@@ -346,14 +345,6 @@ public class Atividades implements Serializable {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
-	public Turmas getTurma() {
-		return turma;
-	}
-
-	public void setTurma(Turmas turma) {
-		this.turma = turma;
-	}
-
 	public Programa getPrograma() {
 		return programa;
 	}
@@ -362,5 +353,14 @@ public class Atividades implements Serializable {
 		this.programa = programa;
 	}
 
+	public Long getIdTurma() {
+		return idTurma;
+	}
+
+	public void setIdTurma(Long idTurma) {
+		this.idTurma = idTurma;
+	}
+
+	
 	
 }

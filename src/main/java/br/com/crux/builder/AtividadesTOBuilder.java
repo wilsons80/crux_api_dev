@@ -86,6 +86,8 @@ public class AtividadesTOBuilder {
 			Programa programa = getProgramaCmd.getById(pj.getId());
 			retorno.setPrograma(programa);
 		});
+		
+		retorno.setIdTurma(p.getIdTurma());
 
 		Optional.ofNullable(p.getPlanosAcao()).ifPresent(pa -> {
 			PlanosAcao planos = getPlanosAcaoCmd.getById(pa.getId());
@@ -141,6 +143,7 @@ public class AtividadesTOBuilder {
 		retorno.setUnidade(unidadeBuilder.buildTO(p.getUnidade()));
 		retorno.setProjeto(projetoBuilder.buildTO(p.getProjeto()));
 		retorno.setPrograma(programaTOBuilder.buildTO(p.getPrograma()));
+		retorno.setIdTurma(p.getIdTurma());
 		
 		retorno.setPlanosAcao(planosAcaoBuilder.buildTO(p.getPlanosAcao()));
 

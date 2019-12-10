@@ -68,11 +68,9 @@ public class AlterarColaboradesAtividadeCmd {
 				                                         .collect(Collectors.toList());
 		
 		if(Objects.nonNull(novos)){
-			
 			AtividadesTO atividadeTO = getAtividadeCmd.getTOById(idAtividade);
-			
 			novos.forEach(novoColaborador -> {
-				novoColaborador.setAtividade(atividadeTO);
+				novoColaborador.setIdAtividade(atividadeTO.getId());
 				cadastrarColaboradoresAtividadeCmd.cadastrar(novoColaborador);
 			});
 		}

@@ -1,5 +1,7 @@
 package br.com.crux.cmd;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,19 +15,22 @@ import br.com.crux.to.MateriaisAtividadeTO;
 public class CadastrarMateriaisAtividadeCmd {
 
 	@Autowired private MateriaisAtividadeRepository repository;
-	@Autowired private MateriaisAtividadeTOBuilder produtosAtividadeTOBuilder;
+	@Autowired private MateriaisAtividadeTOBuilder toBuilder;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
 	@Autowired private CamposObrigatoriosMateriaisAtividadeRule camposObrigatoriosRule;
 
-	public void cadastrar(MateriaisAtividadeTO to) {
-
+	private void cadastrar(MateriaisAtividadeTO to) {
 		camposObrigatoriosRule.verificar(to);
 
 		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
-
-		MateriaisAtividade entity = produtosAtividadeTOBuilder.build(to);
-
+		MateriaisAtividade entity = toBuilder.build(to);
 		repository.save(entity);
 
+	}
+	
+	
+
+	public void cadastrarAll(List<MateriaisAtividadeTO> materiaisAtividade, Long idAtividade) {
+		materiaisAtividade.forEach(ca -> {ca.setIdAtividade(idAtividade); cadastrar(ca); });
 	}
 }
