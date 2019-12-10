@@ -5,27 +5,51 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.builder.ColaboradoresProjetoTOBuilder;
+import br.com.crux.dao.repository.ColaboradoresProjetoRepository;
 import br.com.crux.entity.ColaboradoresProjeto;
 import br.com.crux.entity.Projeto;
 import br.com.crux.to.ColaboradoresProjetoTO;
 
 @Component
-public class AlterarListaColaboradoresProjetoCmd {
+public class AlterarListaColaboradoresProjetoCmd extends AbstractAlterarListaCmd<ColaboradoresProjeto, ColaboradoresProjetoTO, Projeto> {
 
+	@Autowired private ColaboradoresProjetoTOBuilder colaboradoresProjetoTOBuilder;
 	@Autowired private GetColaboradoresProjetoCmd getColaboradoresProjetoCmd;
-	@Autowired private RemoverColaboradoresProjetoCasoNecessarioCmd removerColaboradoresProjetoCasoNecessarioCmd;
-	@Autowired private AdicionarNovosColaboradoresProjetoCmd adicionarNovosColaboradoresProjetoCmd;
-	@Autowired private AtualizarColaboradoresProjetoCmd atualizarColaboradoresProjetoCmd;
+	@Autowired private CadastrarColaboradoresProjetoCmd cadastrarColaboradoresProjetoCmd;
+	@Autowired private ColaboradoresProjetoRepository colaboradoresProjetoRepository;
 
-	public void alterarAll(List<ColaboradoresProjetoTO> listaAtualizadaDeColaboradores, Projeto projeto) {
+	@Override
+	protected ColaboradoresProjetoTO getTO(ColaboradoresProjeto entity) {
+		return colaboradoresProjetoTOBuilder.buildTO(entity);
+	}
 
-		List<ColaboradoresProjeto> listaColaboradoresProjeto = getColaboradoresProjetoCmd.getPorProjeto(projeto);
+	@Override
+	protected List<ColaboradoresProjetoTO> getTOListaBanco(List<ColaboradoresProjeto> lista) {
+		return colaboradoresProjetoTOBuilder.buildAll(lista);
 
-		removerColaboradoresProjetoCasoNecessarioCmd.remover(listaColaboradoresProjeto, listaAtualizadaDeColaboradores);
+	}
 
-		adicionarNovosColaboradoresProjetoCmd.adicionar(listaAtualizadaDeColaboradores, projeto);
+	@Override
+	protected List<ColaboradoresProjeto> getListaBanco(Projeto pai) {
+		return getColaboradoresProjetoCmd.getPorProjeto(p);
+	}
 
-		atualizarColaboradoresProjetoCmd.atualizar(listaColaboradoresProjeto, listaAtualizadaDeColaboradores, projeto);
+	@Override
+	protected Long getIdentificadorTO(ColaboradoresProjetoTO to) {
+		return to.getId();
+	}
+
+	@Override
+	protected void cadastrar(ColaboradoresProjetoTO to, Projeto p) {
+		cadastrarColaboradoresProjetoCmd.cadastrar(to, p);
+
+	}
+
+	@Override
+	protected void deletar(ColaboradoresProjeto registro) {
+		colaboradoresProjetoRepository.delete(registro);
+
 	}
 
 }
