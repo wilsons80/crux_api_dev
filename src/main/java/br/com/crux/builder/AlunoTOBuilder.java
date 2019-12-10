@@ -88,7 +88,7 @@ public class AlunoTOBuilder {
 		retorno.setMatriculadoEscPub(p.getMatriculadoEscPub());
 		retorno.setDescBuscaEscola(p.getDescBuscaEscola());
 		retorno.setPublicoPrioritario(p.getPublicoPrioritario());
-		retorno.setMatriculaAluno(String.valueOf(p.getId()));
+		retorno.setMatriculaAluno(p.getMatriculaAluno());
 		retorno.setNivelTurma(niveisTurmasTOBuilder.buildTO(p.getNivelTurma()));
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
