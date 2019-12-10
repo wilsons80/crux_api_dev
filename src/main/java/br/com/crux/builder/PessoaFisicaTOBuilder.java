@@ -205,8 +205,8 @@ public class PessoaFisicaTOBuilder {
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 		
 		
-		retorno.setEhDeficiente(p.getEhDeficiente() ? "S" : "N");
-		retorno.setCursandoNivelSuperior(p.getCursandoNivelSuperior() ? "S" : "N");
+		retorno.setEhDeficiente(Objects.nonNull(p.getEhDeficiente()) ? (p.getEhDeficiente() ? "S" : "N") : "N");
+		retorno.setCursandoNivelSuperior(Objects.nonNull(p.getCursandoNivelSuperior()) ? (p.getCursandoNivelSuperior() ? "S" : "N") : "N");
 		retorno.setDescricaoDeficiencia(p.getDescricaoDeficiencia());
 		retorno.setTipoSangue(p.getTipoSangue());
 		retorno.setRaca(p.getRaca());

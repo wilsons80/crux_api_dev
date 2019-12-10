@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -44,7 +45,12 @@ public class AlunoTOBuilder {
 		retorno.setMatriculadoEscPub(p.getMatriculadoEscPub());
 		retorno.setDescBuscaEscola(p.getDescBuscaEscola());
 		retorno.setPublicoPrioritario(p.getPublicoPrioritario());
-		retorno.setMatriculaAluno(String.valueOf(p.getId()));
+		
+		if(StringUtils.isEmpty(p.getMatriculaAluno())) {
+			retorno.setMatriculaAluno(String.valueOf(p.getId()));
+		}else {
+			retorno.setMatriculaAluno(p.getMatriculaAluno());
+		}
 		
 		if(Objects.nonNull(p.getNivelTurma()) && Objects.nonNull(p.getNivelTurma().getId())) {
 			NiveisTurmas niveisTurmas = getNiveisTurmasCmd.getById(p.getNivelTurma().getId());
