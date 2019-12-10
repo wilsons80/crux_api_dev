@@ -46,9 +46,10 @@ public class AlunoTOBuilder {
 		retorno.setDescBuscaEscola(p.getDescBuscaEscola());
 		retorno.setPublicoPrioritario(p.getPublicoPrioritario());
 		
-		retorno.setMatriculaAluno(p.getMatriculaAluno());
 		if(StringUtils.isEmpty(p.getMatriculaAluno())) {
 			retorno.setMatriculaAluno(String.valueOf(p.getId()));
+		}else {
+			retorno.setMatriculaAluno(p.getMatriculaAluno());
 		}
 		
 		if(Objects.nonNull(p.getNivelTurma()) && Objects.nonNull(p.getNivelTurma().getId())) {
