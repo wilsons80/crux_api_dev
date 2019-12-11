@@ -24,7 +24,9 @@ public interface AtividadeRepository extends JpaRepository<Atividades, Long>{
 			+ " where uni.idUnidade = ?1")
 	public Optional<List<Atividades>> findAllUnidadeDoPrograma(Long idUnidade);
 	
-	
+
+	@Query(value = "SELECT ati FROM Atividades ati"
+			     + " where ati.idTurma = ?1")	
 	public Optional<List<Atividades>> findByIdTurma(Long idTurma);
 	
 }
