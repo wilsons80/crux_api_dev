@@ -59,9 +59,9 @@ public class GetAtividadeCmd {
 	public List<AtividadesTO> getTOByIdTurma(Long idTurma) {
 		Long idPresente = Optional.ofNullable(idTurma).orElseThrow(() -> new ParametroNaoInformadoException("Parâmetro ID ausente."));
 		
-		List<Atividades> entitys = repository.findByIdTurma(idPresente).orElseThrow(()-> new NotFoundException("Oficinas não encontradas."));
-		if(Objects.nonNull(entitys) && !entitys.isEmpty()) {
-			return toBuilder.buildAll(entitys);
+		Optional<List<Atividades>> entitys = repository.findByIdTurma(idPresente);
+		if(entitys.isPresent()) {
+			return toBuilder.buildAll(entitys.get());
 		}
 		
 		return new ArrayList<AtividadesTO>();

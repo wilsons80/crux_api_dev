@@ -45,7 +45,7 @@ public class ProjetoTOBuilder {
 	public ProjetoTO buildTO(Projeto p) {
 		ProjetoTO retorno = new ProjetoTO();
 
-		if (Objects.isNull(retorno)) {
+		if (Objects.isNull(p)) {
 			return retorno;
 		}
 
