@@ -28,7 +28,7 @@ public class CadastrarTurmasCmd {
 		Turmas turma = repository.save(toBuilder.build(to));
 		TurmasTO turmaTO = toBuilder.buildTO(turma);
 		
-		cadastrarColaboradoresTurmaCmd.cadastrarAll(to.getColaboradoresTurma(), turmaTO);
+		cadastrarColaboradoresTurmaCmd.cadastrarAll(to.getColaboradores(), turmaTO);
 		cadastrarAtividadesCmd.cadastrarAll(to.getOficinas(), turmaTO);
 
 	}

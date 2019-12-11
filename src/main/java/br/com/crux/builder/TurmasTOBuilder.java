@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.crux.cmd.GetAtividadeCmd;
+import br.com.crux.cmd.GetColaboradoresTurmaCmd;
 import br.com.crux.cmd.GetNiveisTurmasCmd;
 import br.com.crux.cmd.GetProgramaCmd;
 import br.com.crux.cmd.GetProjetoCmd;
@@ -32,6 +34,9 @@ public class TurmasTOBuilder {
 	@Autowired private GetNiveisTurmasCmd getNiveisTurmasCmd;
 	@Autowired private GetUnidadeCmd getUnidadeCmd;
 	
+	@Autowired private GetColaboradoresTurmaCmd colaboradoresTurmaCmd;
+	@Autowired private GetAtividadeCmd getAtividadeCmd;
+	
 
 	public Turmas build(TurmasTO param) {
 		Turmas retorno = new Turmas();
@@ -49,23 +54,31 @@ public class TurmasTOBuilder {
 		retorno.setObservacao(param.getObservacao());
 
 		Optional.ofNullable(param.getPrograma()).ifPresent(p -> {
-			Programa programa = getProgramaCmd.getById(p.getId());
-			retorno.setPrograma(programa);
+			if (Objects.nonNull(p.getId())) {
+				Programa programa = getProgramaCmd.getById(p.getId());
+				retorno.setPrograma(programa);
+			}
 		});
 
 		Optional.ofNullable(param.getProjeto()).ifPresent(p -> {
-			Projeto projeto = getProjetoCmd.getById(p.getId());
-			retorno.setProjeto(projeto );
+			if (Objects.nonNull(p.getId())) {
+				Projeto projeto = getProjetoCmd.getById(p.getId());
+				retorno.setProjeto(projeto );
+			}
 		});
 		
 		Optional.ofNullable(param.getNiveisTurma()).ifPresent(p -> {
-			NiveisTurmas nivelTurma = getNiveisTurmasCmd.getById(p.getId());
-			retorno.setNiveisTurma(nivelTurma);
+			if (Objects.nonNull(p.getId())) {
+				NiveisTurmas nivelTurma = getNiveisTurmasCmd.getById(p.getId());
+				retorno.setNiveisTurma(nivelTurma);
+			}
 		});
 		
 		Optional.ofNullable(param.getUnidade()).ifPresent(p -> {
-			Unidade unidade = getUnidadeCmd.getById(p.getIdUnidade());
-			retorno.setUnidade(unidade);
+			if (Objects.nonNull(p.getIdUnidade())) {
+				Unidade unidade = getUnidadeCmd.getById(p.getIdUnidade());
+				retorno.setUnidade(unidade);
+			}
 		});
 
 		//M = MATUTINO, V = VESPERTINO, N = NOTURNO, O = OUTRO
@@ -114,6 +127,9 @@ public class TurmasTOBuilder {
 		//M = MATUTINO, V = VESPERTINO, N = NOTURNO, O = OUTRO
 		retorno.setTurno(param.getTurno());
 		retorno.setUsuarioAlteracao(param.getUsuarioAlteracao());
+		
+		retorno.setColaboradores(colaboradoresTurmaCmd.getColaboradoresProjetoTOByTurma(param.getId()));
+		retorno.setOficinas(getAtividadeCmd.getTOByIdTurma(param.getId()));
 
 		return retorno;
 	}

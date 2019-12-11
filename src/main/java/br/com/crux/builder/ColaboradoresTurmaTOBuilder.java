@@ -36,7 +36,7 @@ public class ColaboradoresTurmaTOBuilder {
 			retorno.setCargo(cargo);
 		});
 		
-		Optional.ofNullable(param.getCargo()).ifPresent(p -> {
+		Optional.ofNullable(param.getFuncionario()).ifPresent(p -> {
 			Funcionario funcionario = getFuncionarioCmd.getById(p.getId());
 			retorno.setFuncionario(funcionario);
 		});

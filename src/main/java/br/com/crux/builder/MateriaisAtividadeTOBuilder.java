@@ -1,6 +1,7 @@
 package br.com.crux.builder;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -27,8 +28,10 @@ public class MateriaisAtividadeTOBuilder {
 		BeanUtils.copyProperties(p, retorno);
 
 		Optional.ofNullable(p.getMaterial()).ifPresent(material -> {
-			Material mat = getMaterialCmd.getById(material.getId());
-			retorno.setMaterial(mat);
+			if (Objects.nonNull(material.getId())) {
+				Material mat = getMaterialCmd.getById(material.getId());
+				retorno.setMaterial(mat);
+			}
 		});
 
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());

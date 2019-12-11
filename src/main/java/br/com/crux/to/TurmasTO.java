@@ -39,7 +39,7 @@ public class TurmasTO  {
 	private Long usuarioAlteracao;
 	
 	
-	private List<ColaboradoresTurmaTO> colaboradoresTurma;
+	private List<ColaboradoresTurmaTO> colaboradores;
 	private List<AtividadesTO> oficinas;
 	
 	
@@ -182,12 +182,12 @@ public class TurmasTO  {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
-	public List<ColaboradoresTurmaTO> getColaboradoresTurma() {
-		return colaboradoresTurma;
+	public List<ColaboradoresTurmaTO> getColaboradores() {
+		return colaboradores;
 	}
 
-	public void setColaboradoresTurma(List<ColaboradoresTurmaTO> colaboradoresTurma) {
-		this.colaboradoresTurma = colaboradoresTurma;
+	public void setColaboradores(List<ColaboradoresTurmaTO> colaboradoresTurma) {
+		this.colaboradores = colaboradoresTurma;
 	}
 
 	public List<AtividadesTO> getOficinas() {
