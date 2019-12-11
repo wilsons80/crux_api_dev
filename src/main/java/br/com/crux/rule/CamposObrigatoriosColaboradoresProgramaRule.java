@@ -19,10 +19,6 @@ public class CamposObrigatoriosColaboradoresProgramaRule {
 			throw new CamposObrigatoriosException("Funcionário deve ser informado.");
 		}
 
-		if (Objects.isNull(to.getPrograma())) {
-			throw new CamposObrigatoriosException("Programa deve ser informado.");
-		}
-
 		if (Objects.isNull(to.getCargo())) {
 			throw new CamposObrigatoriosException("Cargo deve ser informado.");
 		}
