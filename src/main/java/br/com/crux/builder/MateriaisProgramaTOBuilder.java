@@ -12,6 +12,7 @@ import br.com.crux.cmd.GetMaterialCmd;
 import br.com.crux.cmd.GetParceriasProgramaCmd;
 import br.com.crux.cmd.GetUsuarioLogadoCmd;
 import br.com.crux.entity.MateriaisPrograma;
+import br.com.crux.entity.ParceriasPrograma;
 import br.com.crux.entity.Programa;
 import br.com.crux.to.MateriaisProgramaTO;
 
@@ -24,19 +25,17 @@ public class MateriaisProgramaTOBuilder {
 	@Autowired MaterialTOBuilder materialTOBuilder;
 	@Autowired ParceriasProgramaTOBuilder parceriasProgramaTOBuilder;
 
-	public MateriaisPrograma build(Programa programa, MateriaisProgramaTO composicaoRhProgramaTO) {
+	public MateriaisPrograma build(Programa programa, ParceriasPrograma parceriasPrograma, MateriaisProgramaTO to) {
 
 		MateriaisPrograma retorno = new MateriaisPrograma();
 
-		BeanUtils.copyProperties(composicaoRhProgramaTO, retorno);
+		BeanUtils.copyProperties(to, retorno);
 
 		retorno.setPrograma(programa);
 
-		Optional.ofNullable(composicaoRhProgramaTO.getParceriasPrograma()).ifPresent(pp -> {
-			retorno.setParceriasPrograma(getParceriasProgramaCmd.get(pp.getId()));
-		});
+		retorno.setParceriasPrograma(parceriasPrograma);
 
-		Optional.ofNullable(composicaoRhProgramaTO.getMaterial()).ifPresent(m -> {
+		Optional.ofNullable(to.getMaterial()).ifPresent(m -> {
 			retorno.setMaterial(getMaterialCmd.getById(m.getId()));
 		});
 
@@ -54,8 +53,6 @@ public class MateriaisProgramaTOBuilder {
 		materialTOBuilder.buildTO(entity.getMaterial());
 
 		to.setMaterial(materialTOBuilder.buildTO(entity.getMaterial()));
-
-		to.setParceriasPrograma(parceriasProgramaTOBuilder.buildTO(entity.getParceriasPrograma()));
 
 		return to;
 	}
