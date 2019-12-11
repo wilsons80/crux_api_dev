@@ -25,7 +25,7 @@ public class AlterarTurmasCmd {
 		Turmas turma = repository.save(programaTOBuilder.build(to));
 
 		TurmasTO turmaTO = programaTOBuilder.buildTO(turma);
-		alterarColaboradoresTurmaCmd.alterarAll(to.getColaboradoresTurma(), turmaTO);
+		alterarColaboradoresTurmaCmd.alterarAll(to.getColaboradores(), turmaTO);
 		alterarAtividadeCmd.alterarAll(to.getOficinas(), turmaTO);
 
 	}

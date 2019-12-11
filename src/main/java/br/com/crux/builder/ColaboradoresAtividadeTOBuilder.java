@@ -35,13 +35,18 @@ public class ColaboradoresAtividadeTOBuilder {
 		entity.setIdAtividade(p.getIdAtividade());
 		
 		Optional.ofNullable(p.getCargo()).ifPresent(c -> {
-			Cargo cargo = getCargosCmd.getById(c.getId());
-			entity.setCargo(cargo);
+			if (Objects.nonNull(c.getId())) {
+				Cargo cargo = getCargosCmd.getById(c.getId());
+				entity.setCargo(cargo);
+			}
 		});
 
 		Optional.ofNullable(p.getFuncionario()).ifPresent(f -> {
-			Funcionario funcionario = getFuncionarioCmd.getById(f.getId());
-			entity.setFuncionario(funcionario);
+			if (Objects.nonNull(f.getId())) {
+				Funcionario funcionario = getFuncionarioCmd.getById(f.getId());
+				entity.setFuncionario(funcionario);
+			}
+				
 		});
 
 		entity.setUsuariosSistema(p.getUsuariosSistema());

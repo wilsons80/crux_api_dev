@@ -73,25 +73,35 @@ public class AtividadesTOBuilder {
 		retorno.setValorCustoAtividade(p.getValorCustoAtividade());
 
 		Optional.ofNullable(p.getUnidade()).ifPresent(u -> {
-			Unidade unidade = getUnidadeCmd.getById(u.getIdUnidade());
-			retorno.setUnidade(unidade);
+			if (Objects.nonNull(u.getIdUnidade())) {
+				Unidade unidade = getUnidadeCmd.getById(u.getIdUnidade());
+				retorno.setUnidade(unidade);
+			}
 		});
 
 		Optional.ofNullable(p.getProjeto()).ifPresent(pj -> {
-			Projeto projeto = getProjetoCmd.getById(pj.getId());
-			retorno.setProjeto(projeto);
+			if (Objects.nonNull(pj.getId())) {
+				Projeto projeto = getProjetoCmd.getById(pj.getId());
+				retorno.setProjeto(projeto);
+			}
 		});
 		
 		Optional.ofNullable(p.getPrograma()).ifPresent(pj -> {
-			Programa programa = getProgramaCmd.getById(pj.getId());
-			retorno.setPrograma(programa);
+			if (Objects.nonNull(pj.getId())) {
+				Programa programa = getProgramaCmd.getById(pj.getId());
+				retorno.setPrograma(programa);
+			}
+
 		});
 		
 		retorno.setIdTurma(p.getIdTurma());
 
 		Optional.ofNullable(p.getPlanosAcao()).ifPresent(pa -> {
-			PlanosAcao planos = getPlanosAcaoCmd.getById(pa.getId());
-			retorno.setPlanosAcao(planos);
+			if (Objects.nonNull(pa.getId())) {
+				PlanosAcao planos = getPlanosAcaoCmd.getById(pa.getId());
+				retorno.setPlanosAcao(planos);
+			}
+
 		});
 
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
