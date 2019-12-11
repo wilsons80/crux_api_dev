@@ -10,11 +10,13 @@ import org.springframework.stereotype.Component;
 
 import br.com.crux.cmd.GetCargosCmd;
 import br.com.crux.cmd.GetFuncionarioCmd;
+import br.com.crux.cmd.GetTiposContratacoesCmd;
 import br.com.crux.cmd.GetUsuarioLogadoCmd;
 import br.com.crux.entity.Cargo;
 import br.com.crux.entity.ColaboradoresProjeto;
 import br.com.crux.entity.Funcionario;
 import br.com.crux.entity.Projeto;
+import br.com.crux.entity.TiposContratacoes;
 import br.com.crux.to.ColaboradoresProjetoTO;
 
 @Component
@@ -22,9 +24,11 @@ public class ColaboradoresProjetoTOBuilder {
 
 	@Autowired private CargosTOBuilder cargoTOBuilder;
 	@Autowired private FuncionarioTOBuilder funcionarioTOBuilder;
+	@Autowired private TiposContratacoesTOBuilder tiposContratacoesTOBuilder;
 	@Autowired private GetCargosCmd getCargosCmd;
 	@Autowired private GetFuncionarioCmd getFuncionarioCmd;
 	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd;
+	@Autowired private GetTiposContratacoesCmd getTiposContratacoesCmd;
 
 	public ColaboradoresProjeto build(Projeto projeto, ColaboradoresProjetoTO p) {
 		ColaboradoresProjeto retorno = new ColaboradoresProjeto();
@@ -45,6 +49,12 @@ public class ColaboradoresProjetoTOBuilder {
 			retorno.setFuncionario(funcionario);
 		});
 
+		Optional.ofNullable(p.getTiposContratacoes()).ifPresent(tp -> {
+			TiposContratacoes tiposContratacoes = getTiposContratacoesCmd.getById(tp.getId());
+			retorno.setTiposContratacoes(tiposContratacoes);
+		});
+		
+		
 		retorno.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 
 		return retorno;
@@ -63,6 +73,8 @@ public class ColaboradoresProjetoTOBuilder {
 
 		retorno.setCargo(cargoTOBuilder.buildTO(p.getCargo()));
 		retorno.setFuncionario(funcionarioTOBuilder.buildTO(p.getFuncionario()));
+		
+		retorno.setTiposContratacoes(tiposContratacoesTOBuilder.buildTO(p.getTiposContratacoes()));
 
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
@@ -86,6 +98,8 @@ public class ColaboradoresProjetoTOBuilder {
 
 		retorno.setCargo(cargoTOBuilder.buildTO(p.getCargo()));
 		retorno.setFuncionario(funcionarioTOBuilder.buildTO(p.getFuncionario()));
+		
+		retorno.setTiposContratacoes(tiposContratacoesTOBuilder.buildTO(p.getTiposContratacoes()));
 
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 

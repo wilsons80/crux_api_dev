@@ -1,5 +1,6 @@
 package br.com.crux.cmd;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -39,4 +40,8 @@ public class GetColaboradoresProgramaCmd {
 
 	}
 
+	
+	public List<ColaboradoresPrograma> getPorPrograma(Programa programa) {
+		return repository.findByPrograma(programa).orElse(new ArrayList<ColaboradoresPrograma>());
+	}
 }
