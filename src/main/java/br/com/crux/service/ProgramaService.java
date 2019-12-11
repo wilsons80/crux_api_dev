@@ -57,6 +57,7 @@ public class ProgramaService {
 	}
 
 	@DeleteMapping(path = "/{id}")
+	@Transactional
 	public void excluir(@PathVariable(name = "id") Long id) {
 		excluirCmd.excluir(id);
 	}

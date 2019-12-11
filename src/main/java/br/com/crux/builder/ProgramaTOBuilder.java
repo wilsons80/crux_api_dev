@@ -107,7 +107,7 @@ public class ProgramaTOBuilder {
 		retorno.setColaboradoresPrograma((getColaboradoresProjetoCmd.getColaboradoresProgramaTOByPrograma(param)));
 		retorno.setParceriasPrograma(getParceriasProgramaCmd.getColaboradoresProgramaTOByPrograma(param));
 		retorno.setComposicaoRhPrograma(getComposicaoRhProgramaCmd.getComposicaoRhProgramaByPrograma(param));
-		retorno.setMateriaisPrograma(getMateriaisProgramaCmd.getComposicaoRhProgramaByPrograma(param));
+		retorno.setMateriaisPrograma(getMateriaisProgramaCmd.getMateriaisProgramaByPrograma(param));
 
 		return retorno;
 	}

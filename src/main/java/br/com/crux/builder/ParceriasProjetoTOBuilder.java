@@ -24,7 +24,7 @@ public class ParceriasProjetoTOBuilder {
 	@Autowired GetEmpresaCmd empresaCmd;
 	@Autowired EmpresaTOBuilder empresaTOBuilder;
 	@Autowired ProjetoTOBuilder projetoTOBuilder;
-	@Autowired GetMateriaisParceirosProjetoCmd getMateriaisProjetoCmd;
+	@Autowired GetMateriaisParceirosProjetoCmd getMateriaisParceirosProjetoCmd;
 	@Autowired MateriaisProjetoTOBuilder materiaisProjetoTOBuilder;
 
 	public ParceriasProjeto build(Projeto projeto, ParceriasProjetoTO parceriaProjetoTO) {
@@ -53,7 +53,7 @@ public class ParceriasProjetoTOBuilder {
 
 		to.setEmpresa(empresaTOBuilder.buildTO(parceriaProjeto.getEmpresa()));
 
-		List<MateriaisProjetoTO> materiaisProjetoByProjeto = getMateriaisProjetoCmd.getMateriaisProjetoTOByParceriasProjeto(parceriaProjeto);
+		List<MateriaisProjetoTO> materiaisProjetoByProjeto = getMateriaisParceirosProjetoCmd.getMateriaisProjetoTOByParceriasProjeto(parceriaProjeto);
 
 		to.setMateriaisProjeto(materiaisProjetoByProjeto);
 

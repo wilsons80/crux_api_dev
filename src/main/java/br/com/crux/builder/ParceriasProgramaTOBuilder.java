@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.cmd.GetEmpresaCmd;
+import br.com.crux.cmd.GetMateriaisParceirosProgramaCmd;
 import br.com.crux.cmd.GetUsuarioLogadoCmd;
 import br.com.crux.entity.Empresa;
 import br.com.crux.entity.ParceriasPrograma;
 import br.com.crux.entity.Programa;
+import br.com.crux.to.MateriaisProgramaTO;
 import br.com.crux.to.ParceriasProgramaTO;
 
 @Component
@@ -22,6 +24,7 @@ public class ParceriasProgramaTOBuilder {
 	@Autowired GetEmpresaCmd empresaCmd;
 	@Autowired EmpresaTOBuilder empresaTOBuilder;
 	@Autowired ProjetoTOBuilder projetoTOBuilder;
+	@Autowired GetMateriaisParceirosProgramaCmd getMateriaisParceirosProgramaCmd;
 
 	public ParceriasPrograma build(Programa programa, ParceriasProgramaTO parceriaProgramaTO) {
 
@@ -48,6 +51,10 @@ public class ParceriasProgramaTOBuilder {
 		BeanUtils.copyProperties(parceriasPrograma, to, "projeto", "empresa");
 
 		to.setEmpresa(empresaTOBuilder.buildTO(parceriasPrograma.getEmpresa()));
+
+		List<MateriaisProgramaTO> materiaisProjetoByPrograma = getMateriaisParceirosProgramaCmd.getMateriaisProgramaTOByParceriasPrograma(parceriasPrograma);
+
+		to.setMateriaisPrograma(materiaisProjetoByPrograma);
 
 		return to;
 	}
