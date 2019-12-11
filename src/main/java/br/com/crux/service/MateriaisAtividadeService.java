@@ -32,7 +32,7 @@ public class MateriaisAtividadeService {
 
 	@GetMapping(path = "/atividade/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<MateriaisAtividadeTO> getPorAtividade(@PathVariable(name = "id") Long id) {
-		return getCmd.getPorAtividade(id);
+		return getCmd.getAllTOPorAtividade(id);
 	}
 	
 
