@@ -2,9 +2,6 @@ package br.com.crux.cmd;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.function.BiPredicate;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,43 +13,41 @@ import br.com.crux.entity.Programa;
 import br.com.crux.to.ComposicaoRhProgramaTO;
 
 @Component
-public class AlterarListaComposicaoRhProgramaCmd {
-
-	//TODO Fazer as RULES
-	//@Autowired private CamposObrigatoriosParceriasProgramaRule camposObrigatoriosParceriasProgramaRule;
+public class AlterarListaComposicaoRhProgramaCmd extends AbstractAlterarListaCmd<ComposicaoRhPrograma, ComposicaoRhProgramaTO, Programa> {
 
 	@Autowired private ComposicaoRhProgramaTOBuilder composicaoRhProgramaTOBuilder;
 	@Autowired private ComposicaoRhProgramaRepository composicaoRhProgramaRepository;
+	@Autowired private CadastrarComposicaoRhProgramaCmd cadastrarComposicaoRhProgramaCmd;
 
-	public void alterarAll(List<ComposicaoRhProgramaTO> list, Programa programa) {
-
-		// Lista da unidades que o usuário tem acesso.
-		List<ComposicaoRhPrograma> composicaoRhPrograma = composicaoRhProgramaRepository.findByPrograma(programa).orElse(new ArrayList<ComposicaoRhPrograma>());
-
-		BiPredicate<ComposicaoRhPrograma, List<ComposicaoRhProgramaTO>> contemNaLista = (nova, lista) -> lista.stream().anyMatch(jaTinha -> Objects.nonNull(jaTinha.getId()) && jaTinha.getCargo().getId() == nova.getCargo().getId());
-
-		// Remove da lista todos os registros que não contém no Banco de Dados
-		composicaoRhPrograma.removeIf(registro -> {
-			if (!contemNaLista.test(registro, list)) {
-				composicaoRhProgramaRepository.delete(registro);
-				return true;
-			}
-			return false;
-		});
-
-		// Adiciona os novos registros
-		List<ComposicaoRhProgramaTO> novos = list.stream().filter(registro -> Objects.isNull(registro.getId())).collect(Collectors.toList());
-
-		if (Objects.nonNull(novos)) {
-			novos.forEach(novo -> alterar(programa, novo));
-		}
-
+	@Override
+	protected ComposicaoRhProgramaTO getTO(ComposicaoRhPrograma entity) {
+		return composicaoRhProgramaTOBuilder.buildTO(entity);
 	}
 
-	private void alterar(Programa programa, ComposicaoRhProgramaTO novo) {
-		//camposObrigatoriosParceriasProgramaRule.verificar(novo);
-		ComposicaoRhPrograma entity = composicaoRhProgramaTOBuilder.build(programa, novo);
-		composicaoRhProgramaRepository.save(entity);
+	@Override
+	protected List<ComposicaoRhProgramaTO> getTOListaBanco(List<ComposicaoRhPrograma> lista) {
+		return composicaoRhProgramaTOBuilder.buildAll(lista);
+	}
+
+	@Override
+	protected List<ComposicaoRhPrograma> getListaBanco(Programa pai) {
+		return composicaoRhProgramaRepository.findByPrograma(p).orElse(new ArrayList<ComposicaoRhPrograma>());
+	}
+
+	@Override
+	protected Long getIdentificadorTO(ComposicaoRhProgramaTO to) {
+		return to.getId();
+	}
+
+	@Override
+	protected void cadastrar(ComposicaoRhProgramaTO to, Programa p) {
+		cadastrarComposicaoRhProgramaCmd.cadastrar(p, to);
+	}
+
+	@Override
+	protected void deletar(ComposicaoRhPrograma registro) {
+		composicaoRhProgramaRepository.delete(registro);
+
 	}
 
 }

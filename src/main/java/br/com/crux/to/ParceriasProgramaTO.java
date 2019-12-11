@@ -1,6 +1,7 @@
 package br.com.crux.to;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class ParceriasProgramaTO {
 
@@ -11,6 +12,7 @@ public class ParceriasProgramaTO {
 	private EmpresaTO empresa;
 	private ProgramaTO programa;
 	private Double valorParceria;
+	private List<MateriaisProgramaTO> materiaisPrograma;
 	
 	
 	public Long getId() {
@@ -54,6 +56,12 @@ public class ParceriasProgramaTO {
 	}
 	public void setValorParceria(Double valorParceria) {
 		this.valorParceria = valorParceria;
+	}
+	public List<MateriaisProgramaTO> getMateriaisPrograma() {
+		return materiaisPrograma;
+	}
+	public void setMateriaisPrograma(List<MateriaisProgramaTO> materiaisPrograma) {
+		this.materiaisPrograma = materiaisPrograma;
 	}
 	
 	
