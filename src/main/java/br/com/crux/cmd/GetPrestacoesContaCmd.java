@@ -7,48 +7,39 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.crux.builder.ProgramaTOBuilder;
-import br.com.crux.dao.repository.ProgramaRepository;
+import br.com.crux.builder.PrestacoesContaTOBuilder;
+import br.com.crux.dao.repository.PrestacoesContaRepository;
+import br.com.crux.entity.PrestacoesConta;
 import br.com.crux.entity.Programa;
 import br.com.crux.exception.NotFoundException;
-import br.com.crux.to.ProgramaTO;
+import br.com.crux.to.PrestacoesContaTO;
 
 @Component
 public class GetPrestacoesContaCmd {
 
-	@Autowired private ProgramaRepository repository;
-	@Autowired private ProgramaTOBuilder toBuilder;
-	
+	@Autowired private PrestacoesContaRepository repository;
+	@Autowired private PrestacoesContaTOBuilder toBuilder;
 	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
-	
-	
-	public List<ProgramaTO> getAllProgramasIntituicaoLogada() {
-		Long idInstituicao = getUnidadeLogadaCmd.getUnidadeTO().getInstituicao().getId();
-		
-		Optional<List<Programa>> listaRetorno = repository.findByIdInstituicao(idInstituicao);
-		if(listaRetorno.isPresent()) {
-			return toBuilder.buildAll(listaRetorno.get());
+
+	public List<PrestacoesContaTO> getAll() {
+
+		Long idUnidade = getUnidadeLogadaCmd.get().getId();
+		//fiz isso so pra comitar e vazar.. senao nao ia subir.. chegar em casa arrumo
+		Optional<List<PrestacoesConta>> entitys = repository.findByPrograma(new Programa());
+		if (entitys.isPresent()) {
+			return toBuilder.buildAll(entitys.get());
 		}
-		return new ArrayList<ProgramaTO>();
+		return new ArrayList<PrestacoesContaTO>();
+
 	}
 
-	
-	public List<ProgramaTO> getAll() {
-		Long idUnidade = getUnidadeLogadaCmd.get().getId();
-		Optional<List<Programa>> listaRetorno = repository.findByIdUnidade(idUnidade);
-		if(listaRetorno.isPresent()) {
-			return toBuilder.buildAll(listaRetorno.get());
-		}
-		return new ArrayList<ProgramaTO>();
+	public PrestacoesContaTO getTOById(Long idPrestacoesConta) {
+		PrestacoesConta prestacoesConta = repository.findById(idPrestacoesConta).orElseThrow(() -> new NotFoundException("Prestação de Conta não encontrado"));
+		return toBuilder.buildTO(prestacoesConta);
 	}
-	
-	public ProgramaTO getTOById(Long id) {
-		Programa entity = repository.findById(id).orElseThrow(() -> new NotFoundException("Programa não encontrado."));
-		return toBuilder.buildTOComDependencias(entity);
+
+	public PrestacoesConta getById(Long idPrestacoesConta) {
+		return repository.findById(idPrestacoesConta).orElseGet(null);
 	}
-	
-	public Programa getById(Long id) {
-		return repository.findById(id).orElseGet(null);
-	}
-			
+
 }

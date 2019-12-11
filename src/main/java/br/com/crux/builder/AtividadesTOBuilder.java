@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.crux.cmd.GetColaboradoresAtividadeCmd;
+import br.com.crux.cmd.GetMateriaisAtividadeCmd;
 import br.com.crux.cmd.GetPlanosAcaoCmd;
 import br.com.crux.cmd.GetProgramaCmd;
 import br.com.crux.cmd.GetProjetoCmd;
 import br.com.crux.cmd.GetUnidadeCmd;
 import br.com.crux.entity.Atividades;
+import br.com.crux.entity.MateriaisAtividade;
 import br.com.crux.entity.PlanosAcao;
 import br.com.crux.entity.Programa;
 import br.com.crux.entity.Projeto;
@@ -21,6 +23,7 @@ import br.com.crux.entity.Unidade;
 import br.com.crux.infra.util.Java8DateUtil;
 import br.com.crux.to.AtividadesTO;
 import br.com.crux.to.ColaboradoresAtividadeTO;
+import br.com.crux.to.MateriaisAtividadeTO;
 
 @Component
 public class AtividadesTOBuilder {
@@ -34,6 +37,7 @@ public class AtividadesTOBuilder {
 	@Autowired private GetProgramaCmd getProgramaCmd;
 	@Autowired private GetPlanosAcaoCmd getPlanosAcaoCmd;
 	@Autowired private GetColaboradoresAtividadeCmd getColaboradoresAtividadeCmd;
+	@Autowired private GetMateriaisAtividadeCmd getMateriaisAtividadeCmd;
 
 	public Atividades build(AtividadesTO p) {
 		Atividades retorno = new Atividades();
@@ -159,6 +163,10 @@ public class AtividadesTOBuilder {
 
 		List<ColaboradoresAtividadeTO> colaboradores = getColaboradoresAtividadeCmd.getPorAtividade(p.getId());
 		retorno.setColaboradoresAtividade(colaboradores);
+		
+		
+		List<MateriaisAtividadeTO> materiaisAtividade = getMateriaisAtividadeCmd.getAllTOPorAtividade(p.getId());
+		retorno.setMateriaisAtividade(materiaisAtividade);
 
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 

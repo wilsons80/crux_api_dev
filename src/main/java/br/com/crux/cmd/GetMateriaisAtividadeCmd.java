@@ -31,7 +31,7 @@ public class GetMateriaisAtividadeCmd {
 		return toBuilder.buildTO(entity);
 	}
 
-	public List<MateriaisAtividadeTO> getPorAtividade(Long id) {
+	public List<MateriaisAtividadeTO> getAllTOPorAtividade(Long id) {
 		List<MateriaisAtividade> lista = repository.getPorAtividade(id).orElseThrow(() -> new NotFoundException("Material da Atividade não encontrado."));
 		return toBuilder.buildAll(lista);
 	}
