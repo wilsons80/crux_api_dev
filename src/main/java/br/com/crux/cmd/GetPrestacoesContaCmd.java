@@ -22,13 +22,12 @@ public class GetPrestacoesContaCmd {
 	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 
 	public List<PrestacoesContaTO> getAll() {
-
-		Long idUnidade = getUnidadeLogadaCmd.get().getId();
-		//fiz isso so pra comitar e vazar.. senao nao ia subir.. chegar em casa arrumo
-		Optional<List<PrestacoesConta>> entitys = repository.findByPrograma(new Programa());
-		if (entitys.isPresent()) {
-			return toBuilder.buildAll(entitys.get());
-		}
+//
+//		Long idUnidade = getUnidadeLogadaCmd.get().getId();
+//		Optional<List<PrestacoesConta>> entitys = repository.findByPrograma(new Programa());
+//		if (entitys.isPresent()) {
+//			return toBuilder.buildAll(entitys.get());
+//		}
 		return new ArrayList<PrestacoesContaTO>();
 
 	}
