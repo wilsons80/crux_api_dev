@@ -15,7 +15,6 @@ import br.com.crux.cmd.GetProgramaCmd;
 import br.com.crux.cmd.GetProjetoCmd;
 import br.com.crux.cmd.GetUnidadeCmd;
 import br.com.crux.entity.Atividades;
-import br.com.crux.entity.MateriaisAtividade;
 import br.com.crux.entity.PlanosAcao;
 import br.com.crux.entity.Programa;
 import br.com.crux.entity.Projeto;
@@ -161,12 +160,15 @@ public class AtividadesTOBuilder {
 		
 		retorno.setPlanosAcao(planosAcaoBuilder.buildTO(p.getPlanosAcao()));
 
-		List<ColaboradoresAtividadeTO> colaboradores = getColaboradoresAtividadeCmd.getPorAtividade(p.getId());
-		retorno.setColaboradoresAtividade(colaboradores);
+		if(Objects.nonNull(p.getId())) {
+			List<ColaboradoresAtividadeTO> colaboradores = getColaboradoresAtividadeCmd.getPorAtividade(p.getId());
+			retorno.setColaboradoresAtividade(colaboradores);
+		}
 		
-		
-		List<MateriaisAtividadeTO> materiaisAtividade = getMateriaisAtividadeCmd.getAllTOPorAtividade(p.getId());
-		retorno.setMateriaisAtividade(materiaisAtividade);
+		if(Objects.nonNull(p.getId())) {
+			List<MateriaisAtividadeTO> materiaisAtividade = getMateriaisAtividadeCmd.getAllTOPorAtividade(p.getId());
+			retorno.setMateriaisAtividade(materiaisAtividade);
+		}
 
 		retorno.setUsuarioAlteracao(p.getUsuarioAlteracao());
 
