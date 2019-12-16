@@ -2,6 +2,7 @@ package br.com.crux.cmd;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,11 +33,19 @@ public class GetMateriaisAtividadeCmd {
 	}
 
 	public List<MateriaisAtividadeTO> getAllTOPorAtividade(Long id) {
-		List<MateriaisAtividade> lista = repository.getPorAtividade(id).orElseThrow(() -> new NotFoundException("Material da Atividade não encontrado."));
-		return toBuilder.buildAll(lista);
+		Optional<List<MateriaisAtividade>> lista = repository.getPorAtividade(id);
+		if(lista.isPresent()) {
+			return toBuilder.buildAll(lista.get());
+		}
+		return new ArrayList<MateriaisAtividadeTO>();
 	}
 
 	public List<MateriaisAtividade> getAllPorAtividade(Long id) {
-		return repository.getPorAtividade(id).orElseThrow(() -> new NotFoundException("Material da Atividade não encontrado."));
+		Optional<List<MateriaisAtividade>> lista = repository.getPorAtividade(id);
+		if(lista.isPresent()) {
+			return lista.get();
+		}
+		return new ArrayList<MateriaisAtividade>();
+		
 	}
 }
