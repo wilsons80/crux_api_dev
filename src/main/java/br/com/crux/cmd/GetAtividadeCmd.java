@@ -27,7 +27,9 @@ public class GetAtividadeCmd {
 	
 	public List<AtividadesTO> getAllVigentesAndPassadas() {
 		List<AtividadesTO> atividadesTO = getAllUnidadeLogada();
-		List<AtividadesTO> resultado = atividadesTO.stream().filter( r -> {
+		List<AtividadesTO> resultado = atividadesTO.stream()
+				                                   .filter(r -> Objects.nonNull(r.getDataInicio()))
+				                                   .filter( r -> {
 											return Java8DateUtil.isVigente( r.getDataInicio().toLocalDate(), (Objects.nonNull(r.getDataFim()) ? r.getDataFim().toLocalDate() : null) )
 												   ||
 												   Objects.nonNull(r.getDataFim()) && r.getDataFim().toLocalDate().isBefore(LocalDate.now());
@@ -37,7 +39,9 @@ public class GetAtividadeCmd {
 	
 	public List<AtividadesTO> getAllVigentesAndFuturas() {
 		List<AtividadesTO> atividadesTO = getAllUnidadeLogada();
-		List<AtividadesTO> resultado = atividadesTO.stream().filter( r -> {
+		List<AtividadesTO> resultado = atividadesTO.stream()
+				                                   .filter(r -> Objects.nonNull(r.getDataInicio()))
+				                                   .filter( r -> {
 											return Java8DateUtil.isVigente( r.getDataInicio().toLocalDate(), (Objects.nonNull(r.getDataFim()) ? r.getDataFim().toLocalDate() : null) )
 												   ||
 												   Objects.nonNull(r.getDataFim()) && r.getDataFim().toLocalDate().isAfter(LocalDate.now());
