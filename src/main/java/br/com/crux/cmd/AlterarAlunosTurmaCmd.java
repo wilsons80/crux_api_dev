@@ -33,7 +33,7 @@ public class AlterarAlunosTurmaCmd {
 
 		repository.save(entity);
 		
-		alterarAtividadesAlunoCmd.alterarAll(to.getOficinas());
+		alterarAtividadesAlunoCmd.alterarAll(to.getOficinas(), to.getTurma());
 
 	}
 }

@@ -33,7 +33,7 @@ public class MatriculaAlunoService {
 	@GetMapping(path = "/alunos", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<AlunosTurmaTO> getAllFilter(@RequestParam(name = "turma", required = false) Long idTurma,
 			                                @RequestParam(name = "aluno", required = false) Long idAluno,
-                                            @RequestParam(name = "atividade", required = false) Long idAtividade) {
+                                            @RequestParam(name = "oficina", required = false) Long idAtividade) {
 		return getCmd.getAllFilter(idTurma, idAluno, idAtividade);
 	}
 	
