@@ -27,7 +27,7 @@ public class AlterarAtividadesAlunoCmd {
 	@Autowired private CamposObrigatoriosAtividadesAlunoRule camposObrigatoriosRule;
 	@Autowired private AtividadesAlunoTOBuilder atividadesAlunoTOBuilder;
 
-	private void alterar(AtividadesAlunoTO to) {
+	public void alterar(AtividadesAlunoTO to) {
 		AtividadesAluno entity = repository.findById(to.getId()).orElseThrow(() -> new NotFoundException("Oficina do Aluno informada não existe."));
 
 		camposObrigatoriosRule.verificar(to);
