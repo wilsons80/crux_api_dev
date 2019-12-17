@@ -22,19 +22,23 @@ public class CadastrarAtividadesCmd {
 	@Autowired private CadastrarColaboradoresAtividadeCmd cadastrarColaboradoresAtividadeCmd;
 	@Autowired private CadastrarMateriaisAtividadeCmd cadastrarMateriaisAtividadeCmd;
 
+	public void cadastrar(AtividadesTO atividadeTO) {
+		camposObrigatoriosRule.verificar(atividadeTO);
+		atividadeTO.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
+		
+		Atividades entity = toBuilder.build(atividadeTO);
+		Atividades atividade = repository.save(entity);
+		
+		cadastrarColaboradoresAtividadeCmd.cadastrarAll(atividadeTO.getColaboradoresAtividade(), atividade.getId());
+		cadastrarMateriaisAtividadeCmd.cadastrarAll(atividadeTO.getMateriaisAtividade(), atividade.getId());
+		
+	}
+	
 	public void cadastrarAll(List<AtividadesTO> atividadesTO, TurmasTO turmaTO) {
 		
 		atividadesTO.stream().forEach(atividadeTO -> {
-			camposObrigatoriosRule.verificar(atividadeTO);
-			atividadeTO.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 			atividadeTO.setIdTurma(turmaTO.getId());
-			
-			Atividades entity = toBuilder.build(atividadeTO);
-			Atividades atividade = repository.save(entity);
-			
-			cadastrarColaboradoresAtividadeCmd.cadastrarAll(atividadeTO.getColaboradoresAtividade(), atividade.getId());
-			cadastrarMateriaisAtividadeCmd.cadastrarAll(atividadeTO.getMateriaisAtividade(), atividade.getId());
-			
+			cadastrar(atividadeTO);
 		});
 	
 	}

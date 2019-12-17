@@ -1,6 +1,7 @@
 package br.com.crux.cmd;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,18 +24,24 @@ public class AlterarAtividadeCmd {
 	@Autowired private AlterarMateriaisAtividadeCmd alterarMateriaisAtividadeCmd;
 
 	@Autowired private CamposObrigatoriosAtividadeRule camposObrigatoriosRule;
-
+	@Autowired private CadastrarAtividadesCmd cadastrarAtividadesCmd;
+	
+	
 	public void alterar(AtividadesTO to) {
 		camposObrigatoriosRule.verificar(to);
 
-		Atividades entity = repository.findById(to.getId()).orElseThrow(() -> new NotFoundException("Atividade informado não existe."));
-		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
-
-		entity = atividadesTOBuilder.build(to);
-		repository.save(entity);
-		
-		alterarColaboradesAtividadeCmd.alterarAll(to.getColaboradoresAtividade(),entity.getId());
-		alterarMateriaisAtividadeCmd.alterarAll(to.getMateriaisAtividade(), entity.getId());
+		if(Objects.isNull(to.getId())) {
+			cadastrarAtividadesCmd.cadastrar(to);
+		} else {
+			Atividades entity = repository.findById(to.getId()).orElseThrow(() -> new NotFoundException("Atividade informado não existe."));
+			to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
+			
+			entity = atividadesTOBuilder.build(to);
+			repository.save(entity);
+			
+			alterarColaboradesAtividadeCmd.alterarAll(to.getColaboradoresAtividade(),entity.getId());
+			alterarMateriaisAtividadeCmd.alterarAll(to.getMateriaisAtividade(), entity.getId());
+		}
 
 	}
 	
