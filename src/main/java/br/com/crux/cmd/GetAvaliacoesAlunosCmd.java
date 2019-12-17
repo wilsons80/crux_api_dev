@@ -46,7 +46,7 @@ public class GetAvaliacoesAlunosCmd {
 		
 		List<AvaliacoesAlunos> avaliacoes = new ArrayList<AvaliacoesAlunos>();
 		
-		List<AtividadesAlunoTO> atividadesAlunos = getAtividadesAlunoCmd.getAllAlunosMatriculadosNaAtividade(idAtividade);
+		List<AtividadesAlunoTO> atividadesAlunos = getAtividadesAlunoCmd.getAllFilter(null, null, idAtividade);
 		
 		
 		// Lista de alunos que já tiveram a avaliacao registrada nessa atividade

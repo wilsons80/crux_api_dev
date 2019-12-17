@@ -1,6 +1,7 @@
 package br.com.crux.cmd;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,14 +23,16 @@ public class CadastrarAtividadesAlunoCmd {
 
 	public void cadastrar(AtividadesAlunoTO to) {
 		camposObrigatoriosRule.verificar(to);
-
 		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
-
 		AtividadesAluno entity = atividadesAlunoTOBuilder.build(to);
-		
 		entity.setDataCadastroAtividade(LocalDateTime.now());
-
 		repository.save(entity);
-
 	}
+	
+	public void cadastrarAll(List<AtividadesAlunoTO> atividadesAlunosTO) {
+		atividadesAlunosTO.stream().forEach(atividadeTO -> {
+			cadastrar(atividadeTO);
+		});
+	}	
+	
 }

@@ -29,10 +29,11 @@ public class GetAtividadesAlunoCmd {
 
 	
 	public List<AtividadesAlunoTO> getAllAlunosMatriculadosNaAtividade(Long idAtividade) {
-		return getAllFilter(null, idAtividade).stream().collect(Collectors.toList());
+		return getAllFilter(null, null, idAtividade).stream().collect(Collectors.toList());
 	}
 	
-	public List<AtividadesAlunoTO> getAllFilter(Long idAluno, Long idAtividade) {
+	
+	public List<AtividadesAlunoTO> getAllFilter(Long idTurma, Long idAluno, Long idAtividade) {
 		Long idUnidade = null;
 		if(Objects.isNull(idAluno)) {
 			idUnidade = getUnidadeLogadaCmd.get().getId();
@@ -42,14 +43,29 @@ public class GetAtividadesAlunoCmd {
 		
 		Optional<List<AtividadesAluno>> entitys = Optional.empty();
 		
-		if(Objects.isNull(idAluno) && Objects.isNull(idAtividade)) {
+		if(Objects.isNull(idTurma) && Objects.isNull(idAluno) && Objects.isNull(idAtividade)) {
 			entitys = repository.findByUnidade(idUnidade);	
-		}else if(Objects.isNull(idAluno) && Objects.nonNull(idAtividade)) {
-			entitys = repository.findByAtividade(idAtividade, idUnidade);
-		}else if(Objects.isNull(idAtividade)  && Objects.nonNull(idAluno)) {
-			entitys = repository.findByAluno(idAluno, idUnidade);
-		}else if(Objects.nonNull(idAluno) && Objects.nonNull(idAtividade)) {
-			entitys = repository.findByAlunoAndAtividade(idAluno, idAtividade, idUnidade);
+		
+		} else if(Objects.isNull(idTurma) && Objects.isNull(idAluno) && Objects.nonNull(idAtividade)) {
+			entitys = repository.findByAtividade(idAtividade);
+		
+		} else if(Objects.isNull(idTurma) && Objects.nonNull(idAluno)  && Objects.isNull(idAtividade)) {
+			entitys = repository.findByAluno(idAluno);
+
+		} else if(Objects.nonNull(idTurma) && Objects.isNull(idAluno)  && Objects.isNull(idAtividade)) {
+			entitys = repository.findByTurma(idTurma);
+			
+		} else if(Objects.isNull(idTurma) && Objects.nonNull(idAluno)  && Objects.nonNull(idAtividade)) {
+			entitys = repository.findByAlunoAndAtividade(idAluno, idAtividade);
+
+		} else if(Objects.nonNull(idTurma) && Objects.isNull(idAluno) && Objects.nonNull(idAtividade)) {
+			entitys = repository.findByTurmaAndAtividade(idTurma, idAtividade);
+			
+		} else if(Objects.nonNull(idTurma) && Objects.nonNull(idAluno) && Objects.isNull(idAtividade)) {
+			entitys = repository.findByTurmaAndAluno(idTurma, idAluno);
+		
+		} else if(Objects.nonNull(idTurma) && Objects.nonNull(idAluno) && Objects.nonNull(idAtividade)) {
+			entitys = repository.findByTurmaAndAlunoAndAtividade(idAluno, idAtividade, idUnidade);
 		}
 		
 		if(entitys.isPresent()) {
@@ -69,7 +85,7 @@ public class GetAtividadesAlunoCmd {
 	}
 
 	public List<AtividadesAlunoTO> getByAluno(Long id) {
-		Optional<List<AtividadesAluno>> entitys = repository.findByAluno(id, getUnidadeLogadaCmd.get().getId());
+		Optional<List<AtividadesAluno>> entitys = repository.findByAluno(id);
 		if (!entitys.isPresent()) {
 			return Collections.emptyList();
 		}
@@ -77,7 +93,7 @@ public class GetAtividadesAlunoCmd {
 	}
 
 	public List<AtividadesAlunoTO> getByAtividade(Long id) {
-		Optional<List<AtividadesAluno>> entitys = repository.findByAtividade(id, getUnidadeLogadaCmd.get().getId());
+		Optional<List<AtividadesAluno>> entitys = repository.findByAtividade(id);
 		if (!entitys.isPresent()) {
 			return Collections.emptyList();
 		}
@@ -97,14 +113,7 @@ public class GetAtividadesAlunoCmd {
 	}
 	
 	public List<AtividadesAlunoTO> getByAlunoEAtividade(Long idAluno, Long idAtividade) {
-		Long idUnidade = null;
-		if(Objects.isNull(idAluno)) {
-			idUnidade = getUnidadeLogadaCmd.get().getId();
-		} else {
-			idUnidade = getAlunoCmd.getTOById(idAluno).getUnidade().getIdUnidade();
-		}
-		
-		Optional<List<AtividadesAluno>> entitys = repository.findByAlunoAndAtividade(idAluno,idAtividade, idUnidade);
+		Optional<List<AtividadesAluno>> entitys = repository.findByAlunoAndAtividade(idAluno,idAtividade);
 		if (!entitys.isPresent()) {
 			return Collections.emptyList();
 		}

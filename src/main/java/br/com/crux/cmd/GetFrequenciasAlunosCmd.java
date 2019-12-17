@@ -74,7 +74,7 @@ public class GetFrequenciasAlunosCmd {
 		LocalDate dataFrequencia = Java8DateUtil.getLocalDate(new Date(dataFrequenciaLong));
 		
 		
-		List<AtividadesAlunoTO> atividades = getAtividadesAlunoCmd.getAllAlunosMatriculadosNaAtividade(idAtividade);
+		List<AtividadesAlunoTO> atividades = getAtividadesAlunoCmd.getAllFilter(null, null, idAtividade);
 		List<AtividadesAlunoTO> atividadesAlunos = atividades.stream().filter( atividadeAluno -> {
 			return Java8DateUtil.isVigente(dataFrequencia, atividadeAluno.getDataInicioAtividade().toLocalDate(), 
 					                                       (Objects.nonNull(atividadeAluno.getDataDesvinculacao()) ? 

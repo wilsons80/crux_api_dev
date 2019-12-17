@@ -22,7 +22,7 @@ public class AtividadeService {
 	public List<AtividadesTO> getAll() {
 		return getCmd.getAllUnidadeLogada();
 	}
-	
+
 	@GetMapping(path = "/vigente-e-passadas", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<AtividadesTO> getAllVigentesAndPassadas() {
 		return getCmd.getAllVigentesAndPassadas();	

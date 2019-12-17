@@ -50,6 +50,9 @@ public class GetAtividadeCmd {
 	}
 	
 	
+
+	
+	
 	public List<AtividadesTO> getAllUnidadeLogada() {
 		Long idUnidade = getUnidadeLogadaCmd.get().getId();
 		Optional<List<Atividades>> entitys = repository.findByIdUnidade(idUnidade);
@@ -58,7 +61,7 @@ public class GetAtividadeCmd {
 		}
 		return new ArrayList<AtividadesTO>();
 	}
-
+	
 	
 	public List<AtividadesTO> getTOByIdTurma(Long idTurma) {
 		Long idPresente = Optional.ofNullable(idTurma).orElseThrow(() -> new ParametroNaoInformadoException("Parâmetro ID ausente."));
