@@ -33,7 +33,7 @@ public interface AlunosTurmaRepository extends JpaRepository<AlunosTurma, Long>{
 	
 	
 	@Query(value = "SELECT at FROM AlunosTurma at "
-			+ " inner join Turmas t on t = at"
+			+ " inner join Turmas t on t = at.turma"
 			+ " where t.id = ?1 ")
 	public Optional<List<AlunosTurma>> findByTurma(Long idTurma);
 	
@@ -41,8 +41,8 @@ public interface AlunosTurmaRepository extends JpaRepository<AlunosTurma, Long>{
 	@Query(value = "SELECT at FROM AlunosTurma at "
 			+ " inner join Aluno aluno on at.aluno = aluno"
 			+ " inner join Turmas t on t = at.turma"
-			+ " where aluno.id = ?1 "
-			+ " and t.id = ?2")
+			+ " where aluno.id = ?2 "
+			+ " and t.id = ?1")
 	public Optional<List<AlunosTurma>> findByTurmaAndAluno(Long idTurma, Long idAluno);
 	
 
@@ -51,8 +51,8 @@ public interface AlunosTurmaRepository extends JpaRepository<AlunosTurma, Long>{
 			+ " inner join Atividades atividade on ati.atividade = atividade"
 			+ " inner join Turmas t on t.id = atividade.idTurma "
 			+ "       and at.turma = t"
-			+ " where atividade.id = ?1 "
-			+ "   and t.id = ?2")
+			+ " where atividade.id = ?2 "
+			+ "   and t.id = ?1")
 	public Optional<List<AlunosTurma>> findByTurmaAndAtividade(Long idTurma, Long idAtividade);
 
 
@@ -71,9 +71,9 @@ public interface AlunosTurmaRepository extends JpaRepository<AlunosTurma, Long>{
 			+ " inner join Atividades atividade on ta.atividade = atividade"
 			+ " inner join Aluno aluno on at.aluno = aluno"
 			+ " inner join Turmas t on t = at.turma"
-			+ " where aluno.id = ?1 "
-			+ " and atividade.id = ?2 "
-			+ " and t.id = ?3")
+			+ " where aluno.id = ?2 "
+			+ " and atividade.id = ?3 "
+			+ " and t.id = ?1")
 	public Optional<List<AlunosTurma>> findByTurmaAndAlunoAndAtividade(Long idTurma, Long idAluno, Long idAtividade);
 
 

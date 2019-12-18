@@ -19,13 +19,10 @@ public class CamposObrigatoriosPessoaFisicaRule {
 		if(Objects.isNull(to.getCpf())) {
 			throw new CamposObrigatoriosException("CPF deve ser informado.");
 		}
+		
 		if(StringUtils.isEmpty(to.getEndereco())) {
 			throw new CamposObrigatoriosException("Endereço deve ser informado.");
 		}
-		if(StringUtils.isEmpty(to.getCelular())) {
-			throw new CamposObrigatoriosException("Celular deve ser informado.");
-		}
-
 		
 	}
 }

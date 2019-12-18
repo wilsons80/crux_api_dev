@@ -21,7 +21,6 @@ public class GetAlunosTurmaCmd {
 	@Autowired private AlunosTurmaRepository repository;
 	@Autowired private AlunosTurmaTOBuilder toBuilder;
 	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
-	@Autowired private GetAlunoCmd getAlunoCmd;
 
 	
 	public List<AlunosTurmaTO> getAll() {
@@ -29,19 +28,19 @@ public class GetAlunosTurmaCmd {
 	}
 	
 	public List<AlunosTurmaTO> getAllFilter(Long idTurma, Long idAluno, Long idAtividade) {
-		Long idUnidade = null;
-		if(Objects.isNull(idAluno)) {
-			idUnidade = getUnidadeLogadaCmd.get().getId();
-		} else {
-			idUnidade = getAlunoCmd.getTOById(idAluno).getUnidade().getIdUnidade();
-		}
+		Long idUnidade = getUnidadeLogadaCmd.get().getId();
 		
 		Optional<List<AlunosTurma>> entitys = Optional.empty();
 		
 		if(Objects.isNull(idTurma) && Objects.isNull(idAluno) && Objects.isNull(idAtividade)) {
 			entitys = repository.findByUnidade(idUnidade);	
+
+		} else if(Objects.nonNull(idTurma) && Objects.isNull(idAluno) && Objects.isNull(idAtividade)) {
+			entitys = repository.findByTurma(idTurma);
+			
 		} else if(Objects.isNull(idTurma) && Objects.isNull(idAluno) && Objects.nonNull(idAtividade)) {
 			entitys = repository.findByAtividade(idAtividade);
+		
 		} else if(Objects.isNull(idTurma) && Objects.isNull(idAtividade)  && Objects.nonNull(idAluno)) {
 			entitys = repository.findByAluno(idAluno);
 
@@ -53,6 +52,7 @@ public class GetAlunosTurmaCmd {
 			
 		} else if(Objects.nonNull(idTurma) && Objects.nonNull(idAluno) && Objects.isNull(idAtividade)) {
 			entitys = repository.findByTurmaAndAluno(idTurma, idAluno);
+		
 		} else if(Objects.nonNull(idTurma) && Objects.nonNull(idAluno) && Objects.nonNull(idAtividade)) {
 			entitys = repository.findByTurmaAndAlunoAndAtividade(idAluno, idAtividade, idUnidade);
 		}

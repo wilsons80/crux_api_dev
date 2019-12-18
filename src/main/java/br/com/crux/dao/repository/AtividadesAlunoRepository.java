@@ -44,16 +44,16 @@ public interface AtividadesAlunoRepository extends JpaRepository<AtividadesAluno
 			+ " inner join Atividades atividade on ati.atividade = atividade"
 			+ " inner join Aluno aluno on ati.aluno = aluno"
 			+ " inner join Turmas t on t.id = atividade.idTurma"
-			+ " where aluno.id = ?1 "
-			+ " and t.id = ?2")
+			+ " where aluno.id = ?2 "
+			+ " and t.id = ?1")
 	public Optional<List<AtividadesAluno>> findByTurmaAndAluno(Long idTurma, Long idAluno);
 	
 
 	@Query(value = "SELECT ati FROM AtividadesAluno ati "
 			+ " inner join Atividades atividade on ati.atividade = atividade"
 			+ " inner join Turmas t on t.id = atividade.idTurma"
-			+ " where atividade.id = ?1 "
-			+ " and t.id = ?2")
+			+ " where atividade.id = ?2 "
+			+ " and t.id = ?1")
 	public Optional<List<AtividadesAluno>> findByTurmaAndAtividade(Long idTurma, Long idAtividade);
 
 
@@ -69,9 +69,9 @@ public interface AtividadesAlunoRepository extends JpaRepository<AtividadesAluno
 			+ " inner join Atividades atividade on ati.atividade = atividade"
 			+ " inner join Aluno aluno on ati.aluno = aluno"
 			+ " inner join Turmas t on t.id = atividade.idTurma"
-			+ " where aluno.id = ?1 "
-			+ " and atividade.id = ?2 "
-			+ " and t.id = ?3")
+			+ " where aluno.id = ?2 "
+			+ " and atividade.id = ?3 "
+			+ " and t.id = ?1")
 	public Optional<List<AtividadesAluno>> findByTurmaAndAlunoAndAtividade(Long idTurma, Long idAluno, Long idAtividade);
 
 
