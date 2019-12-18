@@ -1,6 +1,7 @@
 package br.com.crux.cmd;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,6 +33,15 @@ public class AlterarAlunosTurmaCmd {
 		entity.setDataAlteracao(LocalDateTime.now());
 
 		repository.save(entity);
+		
+		if(Objects.nonNull(to.getDataDesvinculacao()) && Objects.nonNull(to.getOficinas())) {
+			to.getOficinas().forEach(o -> {
+				if(Objects.isNull(o.getDataDesvinculacao())) {
+					o.setDataDesvinculacao(to.getDataDesvinculacao());
+					o.setDescDesligamento(to.getDescricaoDesligamento());
+				}
+			});
+		}
 		
 		alterarAtividadesAlunoCmd.alterarAll(to.getOficinas(), to.getTurma());
 
