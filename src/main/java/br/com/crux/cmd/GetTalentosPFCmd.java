@@ -19,15 +19,18 @@ public class GetTalentosPFCmd {
 
 	@Autowired private TalentosPFRepository repository;
 	@Autowired private TalentosPFTOBuilder toBuilder;
+	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
 
 	public List<TalentosPfTO> getAllPorUnidadeLogada() {
-		List<TalentosPfTO> lista = toBuilder.buildAll(repository.findAll());
+		Long idUnidadeLogada = getUnidadeLogadaCmd.get().getId();
+		
+		Optional<List<TalentosPf>> talentos = repository.findAllByUnidade(idUnidadeLogada);
+		
+		if(talentos.isPresent()) {
+			return toBuilder.buildAll(talentos.get());
+		} 
 
-		if (lista == null || lista.isEmpty()) {
-			return new ArrayList<TalentosPfTO>();
-		}
-
-		return lista;
+		return new ArrayList<TalentosPfTO>();
 	}
 
 	public TalentosPfTO getTOById(Long id) {
