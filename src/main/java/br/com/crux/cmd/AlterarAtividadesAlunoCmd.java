@@ -26,18 +26,27 @@ public class AlterarAtividadesAlunoCmd {
 	@Autowired private AtividadesAlunoRepository repository;
 	@Autowired private CamposObrigatoriosAtividadesAlunoRule camposObrigatoriosRule;
 	@Autowired private AtividadesAlunoTOBuilder atividadesAlunoTOBuilder;
+	@Autowired private CadastrarAtividadesAlunoCmd cadastrarAtividadesAlunoCmd;
+	
+	
 
 	public void alterar(AtividadesAlunoTO to) {
 		AtividadesAluno entity = repository.findById(to.getId()).orElseThrow(() -> new NotFoundException("Oficina do Aluno informada não existe."));
-
+		
 		camposObrigatoriosRule.verificar(to);
 		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 		entity = atividadesAlunoTOBuilder.build(to);
 		entity.setDataAlteracaoAtividade(LocalDateTime.now());
 		repository.save(entity);
-
 	}
 	
+	private void manter(AtividadesAlunoTO to) {
+		if(Objects.nonNull(to.getId())) {
+			alterar(to);
+		} else {
+			cadastrarAtividadesAlunoCmd.cadastrar(to);
+		}
+	}
 
 	
 	public void alterarAll(List<AtividadesAlunoTO> atividadesAlunoTO, TurmasTO turmaTO) {
@@ -66,7 +75,7 @@ public class AlterarAtividadesAlunoCmd {
 				                                        .collect(Collectors.toList());
 		
 		if(Objects.nonNull(novos)){
-			novos.forEach(novo -> alterar(novo));
+			novos.forEach(novo -> manter(novo));
 		}
 
 		//Atualiza os registros 
@@ -74,7 +83,7 @@ public class AlterarAtividadesAlunoCmd {
 		              .filter(registro -> Objects.nonNull(registro.getId())) 
 		              .forEach( registro -> {
 												if(contemNaLista.test(registro, atividadesAlunoTOBuilder.buildAll(atividadesAlunosBD))){
-													alterar(registro);
+													manter(registro);
 												}
 		});
 	}	
