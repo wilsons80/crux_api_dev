@@ -31,7 +31,7 @@ public class CadastrarAlunoCmd {
 
 		entity.setPessoasFisica(cadastrarPessoaFisicaCmd.cadastrar(to.getPessoaFisica()));
 		AlunoTO alunoTOSalvo = alunoTOBuilder.buildTO(repository.save(entity));
-		alunoTOSalvo.setMatriculaAluno(String.valueOf(alunoTOSalvo.getId()));
+		entity.setMatriculaAluno(String.valueOf(alunoTOSalvo.getId()));
 		
 		cadastrarVulnerabilidadesAlunoCmd.cadastrar(to.getVulnerabilidades(), alunoTOSalvo);
 		
