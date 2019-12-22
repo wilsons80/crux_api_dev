@@ -1,6 +1,7 @@
 package br.com.crux.cmd;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -41,6 +42,7 @@ public class GetGruposModulosCmd {
 		return getAllByUnidade(idUnidade);
 	}
 
+	
 	public List<GrupoModuloTO> getAllByUnidade(Long idUnidade) {
 		Optional<List<GruposModulo>> entitys = grupoModuloRepository.findByIdUnidade(idUnidade);
 		if(entitys.isPresent()) {
