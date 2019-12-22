@@ -35,10 +35,18 @@ public class AcessoService {
 	@Autowired
 	private GetAcessoCmd getPerfilAcessoCmd;
 
+	/*
 	@PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void cadastrar(@RequestBody CadastroAcessoTO acesso) {
 		cadastrarAcessoUsuarioCmd.cadastrar(acesso);
 	}
+	*/
+
+	@PostMapping(path = "/all", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void cadastrarAll(@RequestBody List<CadastroAcessoTO> listaAcesso) {
+		cadastrarAcessoUsuarioCmd.cadastrarAll(listaAcesso);
+	}
+
 	
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void alterar(@RequestBody CadastroAcessoTO acesso) {
