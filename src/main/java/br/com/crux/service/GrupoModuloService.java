@@ -61,6 +61,12 @@ public class GrupoModuloService {
 		cadastrarCmd.cadastrar(to);
 	}
 	
+	@PostMapping(path = "/all", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void cadastrarAll(@RequestBody List<GrupoModuloTO> listaTO) {
+		cadastrarCmd.cadastrarAll(listaTO);
+	}
+	
+	
 	@PutMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void alterar(@RequestBody GrupoModuloTO to) {
 		alterarCmd.alterar(to);
