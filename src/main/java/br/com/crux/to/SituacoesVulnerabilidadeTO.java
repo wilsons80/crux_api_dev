@@ -5,7 +5,9 @@ public class SituacoesVulnerabilidadeTO {
 	private Long id;
 	private String descricao;
 	private Long usuarioAlteracao;
-
+	private Boolean sigiloso;
+	
+	
 	public SituacoesVulnerabilidadeTO() {
 	}
 
@@ -32,6 +34,16 @@ public class SituacoesVulnerabilidadeTO {
 	public void setUsuarioAlteracao(Long usuarioAlteracao) {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
+
+	public Boolean getSigiloso() {
+		return sigiloso;
+	}
+
+	public void setSigiloso(Boolean sigiloso) {
+		this.sigiloso = sigiloso;
+	}
+	
+	
 
 
 }

@@ -1,6 +1,7 @@
 package br.com.crux.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +10,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import br.com.crux.infra.constantes.Constantes;
+import br.com.crux.infra.dao.SimNaoConverter;
 
 
 /**
@@ -31,6 +33,11 @@ public class SituacoesVulnerabilidade {
 	@Column(name="id_usuario_apl")
 	private Long usuarioAlteracao;
 
+	@Convert(converter = SimNaoConverter.class)
+	@Column(name = "st_sigilo")
+	private Boolean sigiloso;
+	
+	
 	public SituacoesVulnerabilidade() {
 	}
 
@@ -58,5 +65,14 @@ public class SituacoesVulnerabilidade {
 		this.usuarioAlteracao = usuarioAlteracao;
 	}
 
+	public Boolean getSigiloso() {
+		return sigiloso;
+	}
+
+	public void setSigiloso(Boolean sigiloso) {
+		this.sigiloso = sigiloso;
+	}
+
+	
 
 }
