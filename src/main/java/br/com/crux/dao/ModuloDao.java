@@ -31,6 +31,7 @@ public class ModuloDao extends BaseDao{
 		sql.append("                 where gm.id_modulo  = m.id_modulo   ");
 		sql.append("                   and gm.id_unidade = :idUnidade    ");
 		sql.append("              )	                                     ");	
+		sql.append("  order by m.ds_modulo                               ");
 		
 		Query query = em.createNativeQuery(sql.toString());
 		query.setParameter("idUnidade", idUnidade);

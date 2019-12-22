@@ -38,6 +38,7 @@ public class GetUsuarioSistemaDao extends BaseDao {
 	    sql.append("   and us.st_ativo         = 'S'                     ");
 	    sql.append("   and uu.id_usuario       = us.id_usuario           ");
 	    sql.append("   and uu.id_unidade       = :idUnidade              ");
+	    sql.append("   order by pf.nm_pessoa_fisica                      ");
 	    
 		Query query = em.createNativeQuery(sql.toString());
 		query.setParameter("idUnidade", idUnidade);
