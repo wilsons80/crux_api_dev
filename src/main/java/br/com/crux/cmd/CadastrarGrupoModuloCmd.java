@@ -1,5 +1,6 @@
 package br.com.crux.cmd;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -32,6 +33,13 @@ public class CadastrarGrupoModuloCmd {
 	@Autowired private PerfilAcessoRepository perfilAcessoRepository;
 	@Autowired private ModuloRepository moduloRepository;
 	@Autowired private UnidadeRepository unidadeRepository;
+	
+	
+	public void cadastrarAll(List<GrupoModuloTO> listaTO) {
+		Optional.ofNullable(listaTO).ifPresent(lista -> {
+			lista.forEach(to -> cadastrar(to));
+		});
+	}
 	
 	
 	public void cadastrar(GrupoModuloTO to) {
