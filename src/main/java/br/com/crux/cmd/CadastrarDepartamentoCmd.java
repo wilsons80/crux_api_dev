@@ -22,7 +22,6 @@ public class CadastrarDepartamentoCmd {
 		camposObrigatoriosDepartamentoRule.verificar(to);
 		
 		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
-
 		Departamentos entity = departamentoTOBuilder.build(to);
 
 		departamentoRepository.save(entity);

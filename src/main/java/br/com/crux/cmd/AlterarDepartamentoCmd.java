@@ -16,12 +16,14 @@ public class AlterarDepartamentoCmd {
 	@Autowired private DepartamentoRepository departamentoRepository;
 	@Autowired private CamposObrigatoriosDepartamentoRule camposObrigatoriosDepartamentoRule;
 	@Autowired private DepartamentoTOBuilder departamentoTOBuilder;
+	@Autowired private GetUsuarioLogadoCmd getUsuarioLogadoCmd ;
 
 	public void alterar(DepartamentoTO to) {
 		Departamentos entity = departamentoRepository.findById(to.getIdDepartamento()).orElseThrow(() -> new NotFoundException("Departamento informado não existe."));
 
 		camposObrigatoriosDepartamentoRule.verificar(to);
 
+		to.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
 		entity = departamentoTOBuilder.build(to);
 
 		departamentoRepository.save(entity);
