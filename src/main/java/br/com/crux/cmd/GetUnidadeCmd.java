@@ -31,6 +31,8 @@ public class GetUnidadeCmd {
 	@Autowired private UnidadeTOBuilder unidadeBuilder;
 	@Autowired private CarregarUnidadeLogadaCmd carregarUnidadeLogadaCmd;
 	@Autowired private AcessoUnidadeTOBuilder unidadeTOBuilder;
+	@Autowired private GetUnidadeLogadaCmd getUnidadeLogadaCmd;
+	
 	
 	public List<AcessoUnidadeTO> getUnidadesComAcesso() throws UsernameNotFoundException {
 		Authentication authentication = getUsuarioLogadoCmd.getAuthentication();
@@ -105,6 +107,11 @@ public class GetUnidadeCmd {
 			return unidadeBuilder.buildAllTO(instituicoes.get());
 		}
 		return null;
+	}
+	
+	public List<UnidadeTO> getAllUnidadesByInstituicaoLogada() {
+		UnidadeTO unidadeLogada = getUnidadeLogadaCmd.getUnidadeTO();
+		return getAllUnidadesByInstituicao(unidadeLogada.getInstituicao().getId());
 	}
 	
 }

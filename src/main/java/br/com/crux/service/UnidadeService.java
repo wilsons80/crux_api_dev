@@ -43,6 +43,13 @@ public class UnidadeService {
 		return getUnidadeCmd.getAllUnidadesUsuarioLogadoTemAcesso();
 	}
 	
+	
+	@GetMapping(path = "/instituicao", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<UnidadeTO> getAllPorInstiuicao() {
+		return getUnidadeCmd.getAllUnidadesByInstituicaoLogada();
+	}
+	
+	
 	@GetMapping(path = "/unidadelogada", produces = MediaType.APPLICATION_JSON_VALUE)
 	public UnidadeTO getUnidadeLogada() {
 		return getUnidadeLogadaCmd.getUnidadeTO();
