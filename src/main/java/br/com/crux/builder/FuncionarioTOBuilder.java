@@ -62,8 +62,10 @@ public class FuncionarioTOBuilder {
 		});
 
 		Optional.ofNullable(to.getUnidade()).ifPresent(u -> {
-			Unidade unidade = getUnidadeCmd.getById(u.getIdUnidade());
-			retorno.setUnidade(unidade);
+			if (Objects.nonNull(u.getIdUnidade())) {
+				Unidade unidade = getUnidadeCmd.getById(u.getIdUnidade());
+				retorno.setUnidade(unidade);
+			}
 		});
 
 		retorno.setDtHrEntrevista(to.getDtHrEntrevista());
@@ -79,8 +81,10 @@ public class FuncionarioTOBuilder {
 		});
 
 		Optional.ofNullable(to.getEmpresaFuncionario()).ifPresent(ef -> {
-			Empresa empresa = getEmpresaCmd.getById(ef.getId());
-			retorno.setEmpresaFuncionario(empresa);
+			if(Objects.nonNull(ef.getId())) {
+				Empresa empresa = getEmpresaCmd.getById(ef.getId());
+				retorno.setEmpresaFuncionario(empresa);
+			}
 		});
 
 		Optional.ofNullable(to.getFuncionarioEntrevistador()).ifPresent(fe -> {
@@ -89,7 +93,11 @@ public class FuncionarioTOBuilder {
 			}
 		});
 
-		retorno.setDescontaValeTransporte(to.getDescontaValeTransporte().equalsIgnoreCase("S") ? true : false);
+		if(Objects.nonNull(to.getDescontaValeTransporte())) {
+			retorno.setDescontaValeTransporte(to.getDescontaValeTransporte().equalsIgnoreCase("S") ? true : false);
+		}else {
+			retorno.setDescontaValeTransporte(false);
+		}
 		
 		Optional.ofNullable(to.getDepartamento()).ifPresent( d -> {
 			if(Objects.nonNull(d.getIdDepartamento())) {
