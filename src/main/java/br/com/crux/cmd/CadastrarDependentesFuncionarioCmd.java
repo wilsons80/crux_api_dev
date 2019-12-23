@@ -1,6 +1,7 @@
 package br.com.crux.cmd;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,17 +24,20 @@ public class CadastrarDependentesFuncionarioCmd {
 	
 
 	public void cadastrar(List<DependentesTO> dependentesTO, FuncionarioTO funcionarioTO) {
-		
-		dependentesTO.stream().forEach(dependenteTO -> {
-			camposObrigatoriosRule.verificar(dependenteTO);
-			
-			dependenteTO.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
-			
-			dependenteTO.setIdFuncionario(funcionarioTO.getId());
-			Dependentes entity = toBuilder.build(dependenteTO);
-			entity.setPessoaFisica(cadastrarPessoaFisicaCmd.cadastrar(dependenteTO.getPessoaFisica()));
-			
-			repository.save(entity);
+		Optional.ofNullable(dependentesTO).ifPresent(listaTO -> {
+			if(!listaTO.isEmpty()) {
+				listaTO.stream().forEach(dependenteTO -> {
+					camposObrigatoriosRule.verificar(dependenteTO);
+					
+					dependenteTO.setUsuarioAlteracao(getUsuarioLogadoCmd.getUsuarioLogado().getIdUsuario());
+					
+					dependenteTO.setIdFuncionario(funcionarioTO.getId());
+					Dependentes entity = toBuilder.build(dependenteTO);
+					entity.setPessoaFisica(cadastrarPessoaFisicaCmd.cadastrar(dependenteTO.getPessoaFisica()));
+					
+					repository.save(entity);
+				});
+			}
 		});
 	
 	}
