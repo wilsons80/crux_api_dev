@@ -153,11 +153,7 @@ public class FuncionarioTOBuilder {
 		});
 
 		retorno.setDescricaoParecerEntrevistador(p.getDescricaoParecerEntrevistador());
-
-		Optional.ofNullable(p.getEmpresaFuncionario()).ifPresent(ef -> {
-			retorno.setEmpresaFuncionario(empresaTOBuilder.buildTO(ef));
-		});
-
+		retorno.setEmpresaFuncionario(empresaTOBuilder.buildTO(p.getEmpresaFuncionario()));
 		retorno.setFuncionarioEntrevistador(getFuncionarioEntrevistador(p.getFuncionarioEntrevistador()));
 
 		retorno.setDescontaValeTransporte(p.getDescontaValeTransporte() ? "S" : "N");
