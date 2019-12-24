@@ -10,9 +10,7 @@ import br.com.crux.to.CargoTO;
 public class CamposObrigatoriosCargosRule {
 
 	public void verificar(CargoTO to) {
-		if (StringUtils.isEmpty(to.getNome())) {
-			throw new CamposObrigatoriosException("Nome deve ser informado.");
-		}
+		
 		if (StringUtils.isEmpty(to.getCodigo())) {
 			throw new CamposObrigatoriosException("Código deve ser informado.");
 		}
