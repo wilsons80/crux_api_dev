@@ -31,12 +31,10 @@ public class GetUsuarioSistemaCmd {
 		usuarioSistemaNaoEncontradoRule.verificar(usuarioSistema);
 		return usuarioSistema.get();
 	}
-
 	
 	
 	public List<UsuariosSistemaTO> getAll() {
-		Long idUnidade = getUnidadeLogadaCmd.get().getId();
-		Optional<List<UsuariosSistema>> entitys = repository.findByUnidade(idUnidade);
+		Optional<List<UsuariosSistema>> entitys = repository.findByUnidade(getUnidadeLogadaCmd.get().getId());
 		if(entitys.isPresent()) {
 			return toBuilder.buildAll(entitys.get());
 		}

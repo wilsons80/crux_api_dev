@@ -14,16 +14,13 @@ import br.com.crux.dao.repository.UsuariosUnidadeRepository;
 import br.com.crux.entity.Perspectiva;
 import br.com.crux.entity.Unidade;
 import br.com.crux.entity.UsuariosUnidade;
-import br.com.crux.exception.NotFoundException;
 import br.com.crux.exception.TabaleReferenciaEncontradaException;
 import br.com.crux.exception.base.NegocioException;
-import br.com.crux.to.UnidadeTO;
 
 @Component
 public class ExcluirUnidadeCmd {
 
 	@Autowired private UnidadeRepository unidadeRepository;
-	@Autowired private GetUnidadeCmd getUnidadeCmd;
 	@Autowired private UsuariosUnidadeRepository usuariosUnidadeRepository;
 	
 	@Autowired private ArquivoRepository arquivoRepository;
@@ -32,12 +29,6 @@ public class ExcluirUnidadeCmd {
 	
 	public void excluir(Long idUnidade) {
 		try {
-			
-			Optional<UnidadeTO> unidadeApagar = getUnidadeCmd.getUnidadeUsuarioLogadoComAcesso(idUnidade);
-			if(!unidadeApagar.isPresent()) {
-				throw new NotFoundException("Usuário não tem permissão para excluir essa unidade.");
-			}
-			
 			Optional<Unidade> unidade = unidadeRepository.findById(idUnidade);
 			
 			Optional<List<Perspectiva>> perspectiva = perspectivaRepository.findByIdUnidade(unidade.get().getIdUnidade());
