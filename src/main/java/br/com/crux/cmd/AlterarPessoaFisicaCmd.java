@@ -23,10 +23,12 @@ public class AlterarPessoaFisicaCmd {
 		
 		camposObrigatoriosPessoaFisicaRule.verificar(to);
 		
+		/*
 		Optional<PessoaFisica> pessoa = repository.findByCpf(to.getCpf());
 		if(pessoa.isPresent() && !pessoa.get().getId().equals(to.getId())) {
 			throw new PessoaFisicaJaExisteException("Já existe um registro cadastrado com esse CPF: " + to.getCpf());
 		}
+		*/
 		
 		PessoaFisica pessoaFisica = pessoaFisicaTOBuilder.build(to);
 		
